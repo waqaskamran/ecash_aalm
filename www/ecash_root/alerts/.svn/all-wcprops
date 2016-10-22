@@ -1,0 +1,101 @@
+K 25
+svn:wc:ra_dav:version-url
+V 73
+/svn/aalm_current/!svn/ver/1979/ecash/branches/sql_merge/ecash_cfe/alerts
+END
+check_react_ratio.php
+K 25
+svn:wc:ra_dav:version-url
+V 95
+/svn/aalm_current/!svn/ver/1979/ecash/branches/sql_merge/ecash_cfe/alerts/check_react_ratio.php
+END
+check_quickchecks.php
+K 25
+svn:wc:ra_dav:version-url
+V 95
+/svn/aalm_current/!svn/ver/1979/ecash/branches/sql_merge/ecash_cfe/alerts/check_quickchecks.php
+END
+check_action_dates.php
+K 25
+svn:wc:ra_dav:version-url
+V 96
+/svn/aalm_current/!svn/ver/1979/ecash/branches/sql_merge/ecash_cfe/alerts/check_action_dates.php
+END
+check_weekly_schedules.php
+K 25
+svn:wc:ra_dav:version-url
+V 100
+/svn/aalm_current/!svn/ver/1979/ecash/branches/sql_merge/ecash_cfe/alerts/check_weekly_schedules.php
+END
+check_impact_processes.php
+K 25
+svn:wc:ra_dav:version-url
+V 100
+/svn/aalm_current/!svn/ver/1979/ecash/branches/sql_merge/ecash_cfe/alerts/check_impact_processes.php
+END
+check_events.php
+K 25
+svn:wc:ra_dav:version-url
+V 90
+/svn/aalm_current/!svn/ver/1979/ecash/branches/sql_merge/ecash_cfe/alerts/check_events.php
+END
+check_processes.php
+K 25
+svn:wc:ra_dav:version-url
+V 93
+/svn/aalm_current/!svn/ver/1979/ecash/branches/sql_merge/ecash_cfe/alerts/check_processes.php
+END
+check_invalid_returns.php
+K 25
+svn:wc:ra_dav:version-url
+V 99
+/svn/aalm_current/!svn/ver/1979/ecash/branches/sql_merge/ecash_cfe/alerts/check_invalid_returns.php
+END
+check_holidays.php
+K 25
+svn:wc:ra_dav:version-url
+V 92
+/svn/aalm_current/!svn/ver/1979/ecash/branches/sql_merge/ecash_cfe/alerts/check_holidays.php
+END
+check_errors.php
+K 25
+svn:wc:ra_dav:version-url
+V 90
+/svn/aalm_current/!svn/ver/1979/ecash/branches/sql_merge/ecash_cfe/alerts/check_errors.php
+END
+check_inactive_schedule.php
+K 25
+svn:wc:ra_dav:version-url
+V 101
+/svn/aalm_current/!svn/ver/1979/ecash/branches/sql_merge/ecash_cfe/alerts/check_inactive_schedule.php
+END
+check_test.php
+K 25
+svn:wc:ra_dav:version-url
+V 88
+/svn/aalm_current/!svn/ver/1979/ecash/branches/sql_merge/ecash_cfe/alerts/check_test.php
+END
+check_scheduled_actions.php
+K 25
+svn:wc:ra_dav:version-url
+V 101
+/svn/aalm_current/!svn/ver/1979/ecash/branches/sql_merge/ecash_cfe/alerts/check_scheduled_actions.php
+END
+check_transaction_errors_log.php
+K 25
+svn:wc:ra_dav:version-url
+V 106
+/svn/aalm_current/!svn/ver/1979/ecash/branches/sql_merge/ecash_cfe/alerts/check_transaction_errors_log.php
+END
+check_pbx_dial.php
+K 25
+svn:wc:ra_dav:version-url
+V 92
+/svn/aalm_current/!svn/ver/1979/ecash/branches/sql_merge/ecash_cfe/alerts/check_pbx_dial.php
+END
+check_negative_balances.php
+K 25
+svn:wc:ra_dav:version-url
+V 101
+/svn/aalm_current/!svn/ver/1979/ecash/branches/sql_merge/ecash_cfe/alerts/check_negative_balances.php
+END

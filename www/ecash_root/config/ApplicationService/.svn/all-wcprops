@@ -1,0 +1,23 @@
+K 25
+svn:wc:ra_dav:version-url
+V 92
+/svn/aalm_current/!svn/ver/1979/ecash/branches/sql_merge/ecash_cfe/config/ApplicationService
+END
+implementations.xml
+K 25
+svn:wc:ra_dav:version-url
+V 112
+/svn/aalm_current/!svn/ver/1979/ecash/branches/sql_merge/ecash_cfe/config/ApplicationService/implementations.xml
+END
+validators.xml
+K 25
+svn:wc:ra_dav:version-url
+V 107
+/svn/aalm_current/!svn/ver/1979/ecash/branches/sql_merge/ecash_cfe/config/ApplicationService/validators.xml
+END
+observers.xml
+K 25
+svn:wc:ra_dav:version-url
+V 106
+/svn/aalm_current/!svn/ver/1979/ecash/branches/sql_merge/ecash_cfe/config/ApplicationService/observers.xml
+END

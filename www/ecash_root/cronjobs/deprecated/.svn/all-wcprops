@@ -1,0 +1,161 @@
+K 25
+svn:wc:ra_dav:version-url
+V 86
+/svn/aalm_current/!svn/ver/2967/ecash/branches/sql_merge/ecash_cfe/cronjobs/deprecated
+END
+dialer_import_file.php
+K 25
+svn:wc:ra_dav:version-url
+V 109
+/svn/aalm_current/!svn/ver/2967/ecash/branches/sql_merge/ecash_cfe/cronjobs/deprecated/dialer_import_file.php
+END
+session_cleanup.php
+K 25
+svn:wc:ra_dav:version-url
+V 106
+/svn/aalm_current/!svn/ver/1979/ecash/branches/sql_merge/ecash_cfe/cronjobs/deprecated/session_cleanup.php
+END
+datafixhmsbatch.php
+K 25
+svn:wc:ra_dav:version-url
+V 106
+/svn/aalm_current/!svn/ver/1979/ecash/branches/sql_merge/ecash_cfe/cronjobs/deprecated/datafixhmsbatch.php
+END
+buildreverse.php
+K 25
+svn:wc:ra_dav:version-url
+V 103
+/svn/aalm_current/!svn/ver/1979/ecash/branches/sql_merge/ecash_cfe/cronjobs/deprecated/buildreverse.php
+END
+quickcheck_returns.php
+K 25
+svn:wc:ra_dav:version-url
+V 109
+/svn/aalm_current/!svn/ver/1979/ecash/branches/sql_merge/ecash_cfe/cronjobs/deprecated/quickcheck_returns.php
+END
+cfc_batch.php
+K 25
+svn:wc:ra_dav:version-url
+V 100
+/svn/aalm_current/!svn/ver/1979/ecash/branches/sql_merge/ecash_cfe/cronjobs/deprecated/cfc_batch.php
+END
+returns_and_corrections.php
+K 25
+svn:wc:ra_dav:version-url
+V 114
+/svn/aalm_current/!svn/ver/1979/ecash/branches/sql_merge/ecash_cfe/cronjobs/deprecated/returns_and_corrections.php
+END
+qc_fetch_rdm_returns.php
+K 25
+svn:wc:ra_dav:version-url
+V 111
+/svn/aalm_current/!svn/ver/1979/ecash/branches/sql_merge/ecash_cfe/cronjobs/deprecated/qc_fetch_rdm_returns.php
+END
+populate_analysis_db.php
+K 25
+svn:wc:ra_dav:version-url
+V 111
+/svn/aalm_current/!svn/ver/1979/ecash/branches/sql_merge/ecash_cfe/cronjobs/deprecated/populate_analysis_db.php
+END
+test_fbod_api.php
+K 25
+svn:wc:ra_dav:version-url
+V 104
+/svn/aalm_current/!svn/ver/1979/ecash/branches/sql_merge/ecash_cfe/cronjobs/deprecated/test_fbod_api.php
+END
+testtokens.php
+K 25
+svn:wc:ra_dav:version-url
+V 101
+/svn/aalm_current/!svn/ver/1979/ecash/branches/sql_merge/ecash_cfe/cronjobs/deprecated/testtokens.php
+END
+asterisk_db_age_check.php
+K 25
+svn:wc:ra_dav:version-url
+V 112
+/svn/aalm_current/!svn/ver/1979/ecash/branches/sql_merge/ecash_cfe/cronjobs/deprecated/asterisk_db_age_check.php
+END
+qc_batch.php
+K 25
+svn:wc:ra_dav:version-url
+V 99
+/svn/aalm_current/!svn/ver/1979/ecash/branches/sql_merge/ecash_cfe/cronjobs/deprecated/qc_batch.php
+END
+fix_stats.php
+K 25
+svn:wc:ra_dav:version-url
+V 100
+/svn/aalm_current/!svn/ver/1979/ecash/branches/sql_merge/ecash_cfe/cronjobs/deprecated/fix_stats.php
+END
+ach_exception_report.php
+K 25
+svn:wc:ra_dav:version-url
+V 111
+/svn/aalm_current/!svn/ver/2967/ecash/branches/sql_merge/ecash_cfe/cronjobs/deprecated/ach_exception_report.php
+END
+hmsupdateachids.php
+K 25
+svn:wc:ra_dav:version-url
+V 106
+/svn/aalm_current/!svn/ver/1979/ecash/branches/sql_merge/ecash_cfe/cronjobs/deprecated/hmsupdateachids.php
+END
+fbod_ach_returns.php
+K 25
+svn:wc:ra_dav:version-url
+V 107
+/svn/aalm_current/!svn/ver/1979/ecash/branches/sql_merge/ecash_cfe/cronjobs/deprecated/fbod_ach_returns.php
+END
+asterisk_cdr_import.php
+K 25
+svn:wc:ra_dav:version-url
+V 110
+/svn/aalm_current/!svn/ver/1979/ecash/branches/sql_merge/ecash_cfe/cronjobs/deprecated/asterisk_cdr_import.php
+END
+cl_conversion_ach_return_report.php
+K 25
+svn:wc:ra_dav:version-url
+V 122
+/svn/aalm_current/!svn/ver/1979/ecash/branches/sql_merge/ecash_cfe/cronjobs/deprecated/cl_conversion_ach_return_report.php
+END
+mailer.php
+K 25
+svn:wc:ra_dav:version-url
+V 97
+/svn/aalm_current/!svn/ver/1979/ecash/branches/sql_merge/ecash_cfe/cronjobs/deprecated/mailer.php
+END
+create_fake_qc_return_file.php
+K 25
+svn:wc:ra_dav:version-url
+V 117
+/svn/aalm_current/!svn/ver/1979/ecash/branches/sql_merge/ecash_cfe/cronjobs/deprecated/create_fake_qc_return_file.php
+END
+fbod_batch.php
+K 25
+svn:wc:ra_dav:version-url
+V 101
+/svn/aalm_current/!svn/ver/1979/ecash/branches/sql_merge/ecash_cfe/cronjobs/deprecated/fbod_batch.php
+END
+backfill_cashline_ids.php
+K 25
+svn:wc:ra_dav:version-url
+V 112
+/svn/aalm_current/!svn/ver/1979/ecash/branches/sql_merge/ecash_cfe/cronjobs/deprecated/backfill_cashline_ids.php
+END
+condor_legal_doc.php
+K 25
+svn:wc:ra_dav:version-url
+V 107
+/svn/aalm_current/!svn/ver/1979/ecash/branches/sql_merge/ecash_cfe/cronjobs/deprecated/condor_legal_doc.php
+END
+check_batch.php
+K 25
+svn:wc:ra_dav:version-url
+V 102
+/svn/aalm_current/!svn/ver/1979/ecash/branches/sql_merge/ecash_cfe/cronjobs/deprecated/check_batch.php
+END
+fbod_landmark_batch.php
+K 25
+svn:wc:ra_dav:version-url
+V 110
+/svn/aalm_current/!svn/ver/1979/ecash/branches/sql_merge/ecash_cfe/cronjobs/deprecated/fbod_landmark_batch.php
+END

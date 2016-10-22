@@ -1,0 +1,21 @@
+<?xml version="1.0"?>
+<phpunit
+	bootstrap="bootstrap.php">
+	<testsuite name="ECash Vendor API Commercial Implementation">
+		<directory>.</directory>
+	</testsuite>
+	<filter>
+		<blacklist>
+			<directory>/virtualhosts/libolution</directory>
+			<directory>../tests</directory>
+		</blacklist>
+		<whitelist>
+			<directory suffix=".php">../code</directory>
+		</whitelist>
+	</filter>
+	<php>
+		<var name="db_host" value="ds60.tss" />
+<!--		<var name="db_user" value="ecash" />
+		<var name="db_pass" value="lacosanostra" />
+-->	</php>
+</phpunit>

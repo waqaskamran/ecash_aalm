@@ -1,0 +1,1175 @@
+<script type="text/javascript" src="js/prototype-1.5.1.1.js"></script>
+<script type="text/javascript" src="/js/json.js"></script>
+<script type="text/javascript" src="/js/transactions.js"></script>
+<script type="text/javascript">
+	// These contain information retrieved from Live
+	var gCurQualifying    = new Array();
+	var gCurDisqualifying = new Array();
+	
+	// Signifies whether the information on the screen has changed
+	var bHasModified      = false;
+
+	// Used for keeping track of what we have loaded
+	var gCurLoanType      = false;
+	var gCurPaymentType   = false;
+
+	// This holds deletions
+	var gDeletedEntries   = new Array();
+
+	// This holds the table's parsed ruleset
+	var lQualifyingRuleSet    = false;
+	var lDisqualifyingRuleSet = false;
+
+
+	function saveRules()
+	{
+		var selectLoanType = document.getElementById('loanTypeSelect');
+
+		if (selectLoanType.value == "invalid")
+			return;
+
+		var selectPaymentType = document.getElementById('paymentTypeSelect');
+		
+		if (selectPaymentType.value == "invalid")
+			return;
+
+		var loan_type_id    = selectLoanType.value;
+		var payment_type_id = selectPaymentType.value; 
+
+		// Get the local rules
+		getCurRulesAsJSON();
+
+	    var req = ajax_get_payment_types({
+        id: 1,
+            params:[{
+                action:'save_payment_types',
+                function:'Payment_Types',
+                    loan_type_id:loan_type_id,
+                    payment_type_id:payment_type_id,
+					qualifying:lQualifyingRuleSet,
+					disqualifying:lDisqualifyingRuleSet,
+					deleted:gDeletedEntries
+            }],
+            onSuccess: function (transport) {
+                var result = transport.responseText.parseJSON();
+
+                if (result) {
+                    if (result.result)
+                    {
+						alert('Your changes have been saved');
+						document.payment_types.submit();
+						return true;
+                    }
+                    if (result.error)
+                    {
+                        error_overlay(result.error + '. YOUR CHANGES HAVE NOT BEEN SAVED');
+                    }
+                } else {
+                    error_overlay(transport.responseText);
+                }
+            }
+
+    	});
+
+		return false;
+	}
+
+	function getUniqueId()
+	{
+		return Math.random() * Math.pow(10, 17) + Math.random() * Math.pow(10, 17) + Math.random() * Math.pow(10, 17) + Math.random() * Math.pow(10, 17);
+	}
+
+	function deleteAddedQualifyItem(id)
+	{
+		var lQualifyBody    = document.getElementById('QualifyingPaymentTypeConditionListBody');
+		var lQualifyBodyRows = lQualifyBody.getElementsByTagName('tr');
+
+		for (var i = 0; i < lQualifyBodyRows.length; i++)
+		{
+			if (lQualifyBodyRows[i].id == id)
+			{
+				lQualifyBody.removeChild(lQualifyBodyRows[i]);
+				return;
+			}
+		}
+	}
+
+	function deleteAddedDisqualifyItem(id)
+	{
+		var lDisqualifyBody    = document.getElementById('DisqualifyingPaymentTypeConditionListBody');
+		var lDisqualifyBodyRows = lDisqualifyBody.getElementsByTagName('tr');
+
+		for (var i = 0; i < lDisqualifyBodyRows.length; i++)
+		{
+			if (lDisqualifyBodyRows[i].id == id)
+			{
+				lDisqualifyBody.removeChild(lDisqualifyBodyRows[i]);
+				return;
+			}
+		}
+	}
+
+	function deleteItem(index)
+	{
+		for (var i = 0; i < gCurQualifying.length; i++)
+		{
+			if (gCurQualifying[i].id == index)
+			{
+				gDeletedEntries.push(index);
+				bHasModified = true;
+
+				// Delete actual row of table for disqualifying
+				var lQualifyBody     = document.getElementById('QualifyingPaymentTypeConditionListBody');
+				var lQualifyBodyRows = lQualifyBody.getElementsByTagName('tr');
+				
+				for (var j = 0; j < lQualifyBodyRows.length; j++)
+				{
+					var lQualifyBodyCols = lQualifyBodyRows[j].getElementsByTagName('td');
+					var lPaymentTypeId   = lQualifyBodyCols[0].getElementsByTagName('input')[0];
+
+					if (lPaymentTypeId.value == index)
+					{			
+						// Remove the row
+						lQualifyBody.removeChild(lQualifyBodyRows[j]);
+						return;
+					}
+				}
+			}
+		}
+
+		for (var i = 0; i < gCurDisqualifying.length; i++)
+		{
+			if (gCurDisqualifying[i].id == index)
+			{
+				gDeletedEntries.push(index);
+				bHasModified = true;
+
+				// Delete actual row of table for disqualifying
+				var lDisqualifyBody     = document.getElementById('DisqualifyingPaymentTypeConditionListBody');
+				var lDisqualifyBodyRows = lDisqualifyBody.getElementsByTagName('tr');
+				
+				for (var j = 0; j < lDisqualifyBodyRows.length; j++)
+				{
+					var lDisqualifyBodyCols = lDisqualifyBodyRows[j].getElementsByTagName('td');
+					var lPaymentTypeId      = lDisqualifyBodyCols[0].getElementsByTagName('input')[0];
+
+					if (lPaymentTypeId.value == index)
+					{			
+						// Remove the row
+						lDisqualifyBody.removeChild(lDisqualifyBodyRows[j]);
+						return;
+					}
+				}
+			}
+		}
+	}
+
+	function getCurRulesAsJSON()
+	{
+		// Walk through each of the tables
+		lQualifyingRuleSet    = new Array();
+		lDisqualifyingRuleSet = new Array();
+
+		var lQualifyBody    = document.getElementById('QualifyingPaymentTypeConditionListBody');
+		var lQualifyBodyRows = lQualifyBody.getElementsByTagName('tr');
+
+		for (var j = 0; j < lQualifyBodyRows.length; j++)
+		{
+		
+			var lQualifyBodyCols    = lQualifyBodyRows[j].getElementsByTagName('td');
+			var lPaymentTypeId      = lQualifyBodyCols[0].getElementsByTagName('input')[0];
+			var lVariable           = lQualifyBodyCols[0].getElementsByTagName('select')[0];
+			var lOperator           = lQualifyBodyCols[1].getElementsByTagName('select')[0];
+			var lRvalue             = lQualifyBodyCols[2].getElementsByTagName('input')[0];
+
+
+			lQualifyingRuleSet.push({});
+			lQualifyingRuleSet[lQualifyingRuleSet.length-1].payment_type_condition_id   = lPaymentTypeId.value;
+			lQualifyingRuleSet[lQualifyingRuleSet.length-1].lvalue                      = lVariable.value;
+			lQualifyingRuleSet[lQualifyingRuleSet.length-1].operator                    = lOperator.value;
+			lQualifyingRuleSet[lQualifyingRuleSet.length-1].rvalue                      = lRvalue.value;
+			lQualifyingRuleSet[lQualifyingRuleSet.length-1].loan_type_id                = gCurLoanType;
+			lQualifyingRuleSet[lQualifyingRuleSet.length-1].payment_type_id             = gCurPaymentType;
+			lQualifyingRuleSet[lQualifyingRuleSet.length-1].payment_type_condition_type = 'qualifying';
+			lQualifyingRuleSet[lQualifyingRuleSet.length-1].row                         = j;
+		}
+
+		// Disqualifying
+		var lDisqualifyBody     = document.getElementById('DisqualifyingPaymentTypeConditionListBody');
+		var lDisqualifyBodyRows = lDisqualifyBody.getElementsByTagName('tr');
+
+		for (var j = 0; j < lDisqualifyBodyRows.length; j++)
+		{
+			var lDisqualifyBodyCols = lDisqualifyBodyRows[j].getElementsByTagName('td');
+			var lPaymentTypeId      = lDisqualifyBodyCols[0].getElementsByTagName('input')[0];
+			var lVariable           = lDisqualifyBodyCols[0].getElementsByTagName('select')[0];
+			var lOperator           = lDisqualifyBodyCols[1].getElementsByTagName('select')[0];
+			var lRvalue             = lDisqualifyBodyCols[2].getElementsByTagName('input')[0];
+
+
+			lDisqualifyingRuleSet.push({});
+			lDisqualifyingRuleSet[lDisqualifyingRuleSet.length-1].payment_type_condition_id   = lPaymentTypeId.value;
+			lDisqualifyingRuleSet[lDisqualifyingRuleSet.length-1].lvalue                      = lVariable.value;
+			lDisqualifyingRuleSet[lDisqualifyingRuleSet.length-1].operator                    = lOperator.value;
+			lDisqualifyingRuleSet[lDisqualifyingRuleSet.length-1].rvalue                      = lRvalue.value;
+			lDisqualifyingRuleSet[lDisqualifyingRuleSet.length-1].loan_type_id                = gCurLoanType;
+			lDisqualifyingRuleSet[lDisqualifyingRuleSet.length-1].payment_type_id             = gCurPaymentType;
+			lDisqualifyingRuleSet[lDisqualifyingRuleSet.length-1].row                         = j;
+			lDisqualifyingRuleSet[lDisqualifyingRuleSet.length-1].payment_type_condition_type = 'disqualifying';
+		}
+
+		return false;
+	}
+
+	function highlightQualifying(qualifying)
+	{
+		var lQualifyBody     = document.getElementById('QualifyingPaymentTypeConditionListBody');
+		var lQualifyBodyRows = lQualifyBody.getElementsByTagName('tr');
+
+		
+		for (var j = 0; j < lQualifyBodyRows.length; j++)
+		{
+			lQualifyBodyRows[j].style.backgroundColor = '#EFEFEF';
+		}	
+			
+		for (var i = 0; i < qualifying.length; i++)
+		{
+			lQualifyBodyRows[qualifying[i]].style.backgroundColor = 'green';
+		}
+	}
+
+	function highlightDisqualifying(disqualifying)
+	{
+		var lDisqualifyBody     = document.getElementById('DisqualifyingPaymentTypeConditionListBody');
+		var lDisqualifyBodyRows = lDisqualifyBody.getElementsByTagName('tr');
+
+		for (var j = 0; j < lDisqualifyBodyRows.length; j++)
+		{
+			lDisqualifyBodyRows[j].style.backgroundColor = '#EFEFEF';
+		}	
+			
+		for (var i = 0; i < disqualifying.length; i++)
+		{
+			lDisqualifyBodyRows[disqualifying[i]].style.backgroundColor = 'red';
+		}
+	}
+
+	function testApp()
+	{
+		var application_id = document.getElementById('application_id').value;
+
+		var selectLoanType = document.getElementById('loanTypeSelect');
+
+		if (selectLoanType.value == "invalid")
+			return;
+
+		var selectPaymentType = document.getElementById('paymentTypeSelect');
+		
+		if (selectPaymentType.value == "invalid")
+			return;
+
+		var loan_type_id    = selectLoanType.value;
+		var payment_type_id = selectPaymentType.value; 
+
+
+		// Get the local rules
+		getCurRulesAsJSON();
+
+	    var req = ajax_get_payment_types({
+        id: 1,
+            params:[{
+                action:'test_payment_types',
+                function:'Payment_Types',
+					application_id:application_id,
+                    loan_type_id:loan_type_id,
+                    payment_type_id:payment_type_id,
+					qualifying:lQualifyingRuleSet,
+					disqualifying:lDisqualifyingRuleSet
+            }],
+            onSuccess: function (transport) {
+                var result = transport.responseText.parseJSON();
+
+                if (result) {
+                    if (result.result)
+                    {
+						highlightQualifying(result.result.parseJSON()['qualifying']);
+						highlightDisqualifying(result.result.parseJSON()['disqualifying']);
+                    }
+                    if (result.error)
+                    {
+                        error_overlay(result.error);
+                    }
+                } else {
+                    error_overlay(transport.responseText);
+                }
+            }
+
+    	});
+
+	}
+
+	function add_qualifying()
+	{
+        var selectLoanType = document.getElementById('loanTypeSelect');
+
+        if (selectLoanType.value == "invalid")
+            return;
+
+        var selectPaymentType = document.getElementById('paymentTypeSelect');
+
+        if (selectPaymentType.value == "invalid")
+            return;
+
+		var lQualifyBody    = document.getElementById('QualifyingPaymentTypeConditionListBody');
+	
+		var lTr = document.createElement('tr');
+
+		var lTd = document.createElement('td');
+
+		var lSelect = document.createElement('select');
+		var lOption = document.createElement('option');
+		lOption.value = 'module';
+		lOption.innerHTML = 'module';
+		lSelect.appendChild(lOption);
+
+		lOption = document.createElement('option');
+		lOption.value = 'level0_name';
+		lOption.innerHTML = 'level0_name';
+		lSelect.appendChild(lOption);
+
+		lOption = document.createElement('option');
+		lOption.value = 'level0';
+		lOption.innerHTML = 'level0';
+		lSelect.appendChild(lOption);
+
+		lOption = document.createElement('option');
+		lOption.value = 'level1';
+		lOption.innerHTML = 'level1';
+		lSelect.appendChild(lOption);
+
+		lOption = document.createElement('option');
+		lOption.value = 'level2';
+		lOption.innerHTML = 'level2';
+		lSelect.appendChild(lOption);
+
+		lOption = document.createElement('option');
+		lOption.value = 'level3';
+		lOption.innerHTML = 'level3';
+		lSelect.appendChild(lOption);
+
+		lOption = document.createElement('option');
+		lOption.value = 'mode';
+		lOption.innerHTML = 'mode';
+		lSelect.appendChild(lOption);
+
+		lOption = document.createElement('option');
+		lOption.value = 'loan_type_model';
+		lOption.innerHTML = 'loan_type_model';
+		lSelect.appendChild(lOption);
+
+		lOption = document.createElement('option');
+		lOption.value = 'loan_type';
+		lOption.innerHTML = 'loan_type';
+		lSelect.appendChild(lOption);
+
+		lOption = document.createElement('option');
+		lOption.value = 'has_lien_fee';
+		lOption.innerHTML = 'has_lien_fee';
+		lSelect.appendChild(lOption);
+
+		lOption = document.createElement('option');
+		lOption.value = 'has_transfer_fee';
+		lOption.innerHTML = 'has_transfer_fee';
+		lSelect.appendChild(lOption);
+
+		lOption = document.createElement('option');
+		lOption.value = 'posted_and_pending_principal';
+		lOption.innerHTML = 'posted_and_pending_principal';
+		lSelect.appendChild(lOption);
+
+		lOption = document.createElement('option');
+		lOption.value = 'posted_and_pending_total';
+		lOption.innerHTML = 'posted_and_pending_total';
+		lSelect.appendChild(lOption);
+
+		lOption = document.createElement('option');
+		lOption.value = 'balance';
+		lOption.innerHTML = 'balance';
+		lSelect.appendChild(lOption);
+
+		lOption = document.createElement('option');
+		lOption.value = 'show_transactions';
+		lOption.innerHTML = 'show_transactions';
+		lSelect.appendChild(lOption);
+
+		lOption = document.createElement('option');
+		lOption.value = 'num_scheduled_events';
+		lOption.innerHTML = 'num_scheduled_events';
+		lSelect.appendChild(lOption);
+
+		lOption = document.createElement('option');
+		lOption.value = 'ach_allowed';
+		lOption.innerHTML = 'ach_allowed';
+		lSelect.appendChild(lOption);
+
+		lOption = document.createElement('option');
+		lOption.value = 'card_allowed';
+		lOption.innerHTML = 'card_allowed';
+		lSelect.appendChild(lOption);
+
+		lOption = document.createElement('option');
+		lOption.value = 'can_chargeback';
+		lOption.innerHTML = 'can_chargeback';
+		lSelect.appendChild(lOption);
+
+		lOption = document.createElement('option');
+		lOption.value = 'can_chargeback_reversal';
+		lOption.innerHTML = 'can_chargeback_reversal';
+		lSelect.appendChild(lOption);
+		lTd.appendChild(lSelect);
+
+		lInput = document.createElement('input');
+		lInput.type = 'hidden';
+		lInput.name = 'id'; 
+		lInput.value = 'null';
+
+		lTd.appendChild(lInput);
+
+		lTr.appendChild(lTd);
+
+		var lSelect  = document.createElement('select');
+		lSelect.name = 'operator[' + gCurQualifying.length + ']';
+		lSelect.onchange = setHasChanged;
+
+		lTd = document.createElement('td');
+
+		// ==
+		var lOption   = document.createElement('option');
+		lOption.value = '==';
+		lOption.innerHTML = '==';
+
+		lSelect.appendChild(lOption);
+		// >=
+		lOption   = document.createElement('option');
+		lOption.value = '>=';
+		lOption.innerHTML = '>=';
+
+		lSelect.appendChild(lOption);
+
+		// <=
+		lOption   = document.createElement('option');
+		lOption.value = '<=';
+		lOption.innerHTML = '<=';
+
+		lSelect.appendChild(lOption);
+
+		// !=
+		lOption   = document.createElement('option');
+		lOption.value = '!=';
+		lOption.innerHTML = '!=';
+
+		lSelect.appendChild(lOption);
+
+		// >
+		lOption   = document.createElement('option');
+		lOption.value = '>';
+		lOption.innerHTML = '>';
+
+		lSelect.appendChild(lOption);
+
+		// <
+		lOption   = document.createElement('option');
+		lOption.value = '<';
+		lOption.innerHTML = '<';
+
+		lSelect.appendChild(lOption);
+		lTd.appendChild(lSelect);
+		lTr.appendChild(lTd);
+
+		lTd = document.createElement('td');
+		lInput = document.createElement('input');
+		lInput.type = 'text';
+		lInput.name = 'rvalue[' + gCurQualifying.length + ']';
+		lInput.value = '';
+		lTd.appendChild(lInput);
+		lTr.appendChild(lTd);
+
+		lTd = document.createElement('td');
+
+		lTr.id = getUniqueId();
+
+		// Get around wacky javascript no argument onClick issues
+		lTd.innerHTML = '<input type="button" value="Delete" onClick="deleteAddedQualifyItem(' + lTr.id + ')">';
+		lTr.appendChild(lTd);
+
+		lQualifyBody.appendChild(lTr);
+
+		bHasModified = true;
+	}
+
+	function add_disqualifying()
+	{	
+        var selectLoanType = document.getElementById('loanTypeSelect');
+        var selectPaymentType = document.getElementById('paymentTypeSelect');
+
+        if (selectLoanType.value == "invalid")
+            return;
+
+        if (selectPaymentType.value == "invalid")
+            return;
+
+		var lQualifyBody    = document.getElementById('DisqualifyingPaymentTypeConditionListBody');
+	
+		var lTr = document.createElement('tr');
+
+		var lTd = document.createElement('td');
+		var lSelect = document.createElement('select');
+		var lOption = document.createElement('option');
+		lOption.value = 'module';
+		lOption.innerHTML = 'module';
+		lSelect.appendChild(lOption);
+
+		lOption = document.createElement('option');
+		lOption.value = 'level0_name';
+		lOption.innerHTML = 'level0_name';
+		lSelect.appendChild(lOption);
+
+		lOption = document.createElement('option');
+		lOption.value = 'level0';
+		lOption.innerHTML = 'level0';
+		lSelect.appendChild(lOption);
+
+		lOption = document.createElement('option');
+		lOption.value = 'level1';
+		lOption.innerHTML = 'level1';
+		lSelect.appendChild(lOption);
+
+		lOption = document.createElement('option');
+		lOption.value = 'level2';
+		lOption.innerHTML = 'level2';
+		lSelect.appendChild(lOption);
+
+		lOption = document.createElement('option');
+		lOption.value = 'level3';
+		lOption.innerHTML = 'level3';
+		lSelect.appendChild(lOption);
+
+		lOption = document.createElement('option');
+		lOption.value = 'mode';
+		lOption.innerHTML = 'mode';
+		lSelect.appendChild(lOption);
+
+		lOption = document.createElement('option');
+		lOption.value = 'loan_type_model';
+		lOption.innerHTML = 'loan_type_model';
+		lSelect.appendChild(lOption);
+
+		lOption = document.createElement('option');
+		lOption.value = 'loan_type';
+		lOption.innerHTML = 'loan_type';
+		lSelect.appendChild(lOption);
+
+		lOption = document.createElement('option');
+		lOption.value = 'has_lien_fee';
+		lOption.innerHTML = 'has_lien_fee';
+		lSelect.appendChild(lOption);
+
+		lOption = document.createElement('option');
+		lOption.value = 'has_transfer_fee';
+		lOption.innerHTML = 'has_transfer_fee';
+		lSelect.appendChild(lOption);
+
+		lOption = document.createElement('option');
+		lOption.value = 'posted_and_pending_principal';
+		lOption.innerHTML = 'posted_and_pending_principal';
+		lSelect.appendChild(lOption);
+
+		lOption = document.createElement('option');
+		lOption.value = 'posted_and_pending_total';
+		lOption.innerHTML = 'posted_and_pending_total';
+		lSelect.appendChild(lOption);
+
+		lOption = document.createElement('option');
+		lOption.value = 'balance';
+		lOption.innerHTML = 'balance';
+		lSelect.appendChild(lOption);
+
+		lOption = document.createElement('option');
+		lOption.value = 'show_transactions';
+		lOption.innerHTML = 'show_transactions';
+		lSelect.appendChild(lOption);
+
+		lOption = document.createElement('option');
+		lOption.value = 'num_scheduled_events';
+		lOption.innerHTML = 'num_scheduled_events';
+		lSelect.appendChild(lOption);
+
+		lOption = document.createElement('option');
+		lOption.value = 'ach_allowed';
+		lOption.innerHTML = 'ach_allowed';
+		lSelect.appendChild(lOption);
+
+		lOption = document.createElement('option');
+		lOption.value = 'card_allowed';
+		lOption.innerHTML = 'card_allowed';
+		lSelect.appendChild(lOption);
+
+		lOption = document.createElement('option');
+		lOption.value = 'can_chargeback';
+		lOption.innerHTML = 'can_chargeback';
+		lSelect.appendChild(lOption);
+
+		lOption = document.createElement('option');
+		lOption.value = 'can_chargeback_reversal';
+		lOption.innerHTML = 'can_chargeback_reversal';
+		lSelect.appendChild(lOption);
+		lTd.appendChild(lSelect);
+
+		lInput = document.createElement('input');
+		lInput.type = 'hidden';
+		lInput.name = 'id'; 
+		lInput.value = 'null';
+
+		lTd.appendChild(lInput);
+
+		lTr.appendChild(lTd);
+
+		var lSelect  = document.createElement('select');
+		lSelect.name = 'operator[' + gCurDisqualifying.length + ']';
+		lSelect.onchange = setHasChanged;
+
+		lTd = document.createElement('td');
+
+		// ==
+		var lOption   = document.createElement('option');
+		lOption.value = '==';
+		lOption.innerHTML = '==';
+
+		lSelect.appendChild(lOption);
+		// >=
+		lOption   = document.createElement('option');
+		lOption.value = '>=';
+		lOption.innerHTML = '>=';
+
+		lSelect.appendChild(lOption);
+
+
+		// <=
+		lOption   = document.createElement('option');
+		lOption.value = '<=';
+		lOption.innerHTML = '<=';
+
+		lSelect.appendChild(lOption);
+
+		// !=
+		lOption   = document.createElement('option');
+		lOption.value = '!=';
+		lOption.innerHTML = '!=';
+
+		lSelect.appendChild(lOption);
+
+		// >
+		lOption   = document.createElement('option');
+		lOption.value = '>';
+		lOption.innerHTML = '>';
+
+		lSelect.appendChild(lOption);
+
+		// <
+		lOption   = document.createElement('option');
+		lOption.value = '<';
+		lOption.innerHTML = '<';
+
+		lSelect.appendChild(lOption);
+		lTd.appendChild(lSelect);
+		lTr.appendChild(lTd);
+
+		lTd = document.createElement('td');
+		lInput = document.createElement('input');
+		lInput.type = 'text';
+		lInput.name = 'rvalue[' + gCurDisqualifying.length + ']';
+		lInput.value = '';
+		lTd.appendChild(lInput);
+		lTr.appendChild(lTd);
+
+		lTd = document.createElement('td');
+
+		lTr.id = getUniqueId();
+
+		// Get around wacky javascript no argument onClick issues
+		lTd.innerHTML = '<input type="button" value="Delete" onClick="deleteAddedDisqualifyItem(' + lTr.id + ')">';
+		lTr.appendChild(lTd);
+
+		lQualifyBody.appendChild(lTr);
+
+		bHasModified = true;
+	}
+
+	function setHasChanged()
+	{
+		bHasModified = true;
+	}
+
+	function updatePaymentTypeConditions()
+	{
+		var selectLoanType = document.getElementById('loanTypeSelect');
+		var selectPaymentType = document.getElementById('paymentTypeSelect');
+
+		// Changed loan type 
+		if (gCurLoanType != false && gCurPaymentType != false)
+		{
+			if (gCurLoanType != selectLoanType.value || gCurPaymentType != selectPaymentType.value)
+			{
+				if (selectLoanType.value == 'invalid' || selectPaymentType.value == 'invalid')
+				{
+					selectLoanType.value    = gCurLoanType;
+					selectPaymentType.value = gCurPaymentType;
+					return;
+				}
+				
+				if (bHasModified == true)
+				{
+					if (!confirm("You're switching loan or payment type, are you sure you want to do this? (all unsaved changes will be lost)"))
+					{
+						selectLoanType.value    = gCurLoanType;
+						selectPaymentType.value = gCurPaymentType;
+						return;
+					}
+				}
+			}
+
+		}
+
+		if (selectLoanType.value == "invalid")
+			return;
+
+		if (selectPaymentType.value == "invalid")
+			return;
+
+		gCurLoanType    = selectLoanType.value;
+		gCurPaymentType = selectPaymentType.value;
+		gDeletedEntries = new Array();
+		bHasModified    = false;
+
+		var loan_type_id    = selectLoanType.value;
+		var payment_type_id = selectPaymentType.value; 
+
+
+	    var req = ajax_get_payment_types({
+        id: 1,
+            params:[{
+                action:'get_payment_types',
+                function:'Payment_Types',
+                    loan_type_id:loan_type_id,
+                    payment_type_id:payment_type_id
+            }],
+            onSuccess: function (transport) {
+                var result = transport.responseText.parseJSON();
+
+                if (result) {
+                    if (result.result)
+                    {
+						populatePaymentTypes(result.result.parseJSON());
+                    }
+                    if (result.error)
+                    {
+                        error_overlay(result.error);
+                    }
+                } else {
+                    error_overlay(transport.responseText);
+                }
+            }
+
+    	});
+
+	}
+
+	function populatePaymentTypes(result)
+	{
+		var lQualifyBody    = document.getElementById('QualifyingPaymentTypeConditionListBody');
+		var lDisqualifyBody = document.getElementById('DisqualifyingPaymentTypeConditionListBody');
+	
+		lQualifyBody.innerHTML = '';
+		lDisqualifyBody.innerHTML = '';
+
+		if (result.length == 0)
+			return;
+
+		gCurQualifying    = new Array();
+		gCurDisqualifying = new Array();
+		gDeletedEntries   = new Array();
+		
+		for (var i = 0; i < result.length; i++)
+		{
+			if (result[i].payment_type_condition_type == 'qualifying')
+			{
+				gCurQualifying.push({});
+				gCurQualifying[gCurQualifying.length-1].id              = result[i].payment_type_condition_id;
+				gCurQualifying[gCurQualifying.length-1].lvalue          = result[i].lvalue;
+				gCurQualifying[gCurQualifying.length-1].operator        = result[i].operator;
+				gCurQualifying[gCurQualifying.length-1].rvalue          = result[i].rvalue;
+				gCurQualifying[gCurQualifying.length-1].payment_type_id = result[i].payment_type_id;
+				gCurQualifying[gCurQualifying.length-1].loan_type_id    = result[i].loan_type_id;
+			}
+			else
+			{
+				gCurDisqualifying.push({});
+				gCurDisqualifying[gCurDisqualifying.length-1].id              = result[i].payment_type_condition_id;
+				gCurDisqualifying[gCurDisqualifying.length-1].lvalue          = result[i].lvalue;
+				gCurDisqualifying[gCurDisqualifying.length-1].operator        = result[i].operator;
+				gCurDisqualifying[gCurDisqualifying.length-1].rvalue          = result[i].rvalue;
+				gCurDisqualifying[gCurDisqualifying.length-1].payment_type_id = result[i].payment_type_id;
+				gCurDisqualifying[gCurDisqualifying.length-1].loan_type_id    = result[i].loan_type_id;
+			}
+
+			
+			var lTr = document.createElement('tr');
+
+			var lTd = document.createElement('td');
+
+			var lSelect = document.createElement('select');
+			var lOption = document.createElement('option');
+			lOption.value = 'module';
+			lOption.innerHTML = 'module';
+			lSelect.appendChild(lOption);
+			if (result[i].lvalue == lOption.value)
+				lOption.selected = true;
+
+
+			lOption = document.createElement('option');
+			lOption.value = 'level0_name';
+			lOption.innerHTML = 'level0_name';
+			lSelect.appendChild(lOption);
+			if (result[i].lvalue == lOption.value)
+				lOption.selected = true;
+
+
+			lOption = document.createElement('option');
+			lOption.value = 'level0';
+			lOption.innerHTML = 'level0';
+			lSelect.appendChild(lOption);
+			if (result[i].lvalue == lOption.value)
+				lOption.selected = true;
+
+
+			lOption = document.createElement('option');
+			lOption.value = 'level1';
+			lOption.innerHTML = 'level1';
+			lSelect.appendChild(lOption);
+			if (result[i].lvalue == lOption.value)
+				lOption.selected = true;
+
+
+			lOption = document.createElement('option');
+			lOption.value = 'level2';
+			lOption.innerHTML = 'level2';
+			lSelect.appendChild(lOption);
+			if (result[i].lvalue == lOption.value)
+				lOption.selected = true;
+
+
+			lOption = document.createElement('option');
+			lOption.value = 'level3';
+			lOption.innerHTML = 'level3';
+			lSelect.appendChild(lOption);
+			if (result[i].lvalue == lOption.value)
+				lOption.selected = true;
+
+
+			lOption = document.createElement('option');
+			lOption.value = 'mode';
+			lOption.innerHTML = 'mode';
+			lSelect.appendChild(lOption);
+			if (result[i].lvalue == lOption.value)
+				lOption.selected = true;
+
+
+			lOption = document.createElement('option');
+			lOption.value = 'loan_type_model';
+			lOption.innerHTML = 'loan_type_model';
+			lSelect.appendChild(lOption);
+			if (result[i].lvalue == lOption.value)
+				lOption.selected = true;
+
+
+			lOption = document.createElement('option');
+			lOption.value = 'loan_type';
+			lOption.innerHTML = 'loan_type';
+			lSelect.appendChild(lOption);
+			if (result[i].lvalue == lOption.value)
+				lOption.selected = true;
+
+
+			lOption = document.createElement('option');
+			lOption.value = 'has_lien_fee';
+			lOption.innerHTML = 'has_lien_fee';
+			lSelect.appendChild(lOption);
+			if (result[i].lvalue == lOption.value)
+				lOption.selected = true;
+
+
+			lOption = document.createElement('option');
+			lOption.value = 'has_transfer_fee';
+			lOption.innerHTML = 'has_transfer_fee';
+			lSelect.appendChild(lOption);
+			if (result[i].lvalue == lOption.value)
+				lOption.selected = true;
+
+
+			lOption = document.createElement('option');
+			lOption.value = 'posted_and_pending_principal';
+			lOption.innerHTML = 'posted_and_pending_principal';
+			lSelect.appendChild(lOption);
+			if (result[i].lvalue == lOption.value)
+				lOption.selected = true;
+
+
+			lOption = document.createElement('option');
+			lOption.value = 'posted_and_pending_total';
+			lOption.innerHTML = 'posted_and_pending_total';
+			lSelect.appendChild(lOption);
+			if (result[i].lvalue == lOption.value)
+				lOption.selected = true;
+
+
+			lOption = document.createElement('option');
+			lOption.value = 'balance';
+			lOption.innerHTML = 'balance';
+			lSelect.appendChild(lOption);
+			if (result[i].lvalue == lOption.value)
+				lOption.selected = true;
+
+
+			lOption = document.createElement('option');
+			lOption.value = 'show_transactions';
+			lOption.innerHTML = 'show_transactions';
+			lSelect.appendChild(lOption);
+			if (result[i].lvalue == lOption.value)
+				lOption.selected = true;
+
+
+			lOption = document.createElement('option');
+			lOption.value = 'num_scheduled_events';
+			lOption.innerHTML = 'num_scheduled_events';
+			lSelect.appendChild(lOption);
+			if (result[i].lvalue == lOption.value)
+				lOption.selected = true;
+
+
+			lOption = document.createElement('option');
+			lOption.value = 'ach_allowed';
+			lOption.innerHTML = 'ach_allowed';
+			lSelect.appendChild(lOption);
+			if (result[i].lvalue == lOption.value)
+				lOption.selected = true;
+
+
+			lOption = document.createElement('option');
+			lOption.value = 'card_allowed';
+			lOption.innerHTML = 'card_allowed';
+			lSelect.appendChild(lOption);
+			if (result[i].lvalue == lOption.value)
+				lOption.selected = true;
+
+
+			lOption = document.createElement('option');
+			lOption.value = 'can_chargeback';
+			lOption.innerHTML = 'can_chargeback';
+			lSelect.appendChild(lOption);
+			if (result[i].lvalue == lOption.value)
+				lOption.selected = true;
+
+
+			lOption = document.createElement('option');
+			lOption.value = 'can_chargeback_reversal';
+			lOption.innerHTML = 'can_chargeback_reversal';
+			lSelect.appendChild(lOption);
+			if (result[i].lvalue == lOption.value)
+				lOption.selected = true;
+
+			lTd.appendChild(lSelect);
+
+			lInput = document.createElement('input');
+			lInput.type = 'hidden';
+			lInput.name = 'id'; 
+			lInput.value = result[i].payment_type_condition_id;
+
+			lTd.appendChild(lInput);
+
+			lTr.appendChild(lTd);
+
+			var lSelect  = document.createElement('select');
+			lSelect.name = 'operator[' + i + ']';
+			lSelect.onchange = setHasChanged;
+		
+			lTd = document.createElement('td');
+
+			// ==
+			var lOption   = document.createElement('option');
+			lOption.value = '==';
+			lOption.innerHTML = '==';
+			if (result[i].operator == '==')
+				lOption.selected = true;
+
+			lSelect.appendChild(lOption);
+			// >=
+			lOption   = document.createElement('option');
+			lOption.value = '>=';
+			lOption.innerHTML = '>=';
+			if (result[i].operator == '>=')
+				lOption.selected = true;
+
+			lSelect.appendChild(lOption);
+
+
+			// <=
+			lOption   = document.createElement('option');
+			lOption.value = '<=';
+			lOption.innerHTML = '<=';
+			if (result[i].operator == '<=')
+				lOption.selected = true;
+
+			lSelect.appendChild(lOption);
+
+			// !=
+			lOption   = document.createElement('option');
+			lOption.value = '!=';
+			lOption.innerHTML = '!=';
+			if (result[i].operator == '!=')
+				lOption.selected = true;
+
+			lSelect.appendChild(lOption);
+
+			// >
+			lOption   = document.createElement('option');
+			lOption.value = '>';
+			lOption.innerHTML = '>';
+			if (result[i].operator == '>')
+				lOption.selected = true;
+
+			lSelect.appendChild(lOption);
+
+			// <
+			lOption   = document.createElement('option');
+			lOption.value = '<';
+			lOption.innerHTML = '<';
+			if (result[i].operator == '<')
+				lOption.selected = true;
+
+			lSelect.appendChild(lOption);
+
+
+			lTd.appendChild(lSelect);
+			lTr.appendChild(lTd);
+
+			lTd = document.createElement('td');
+
+			var lInput = document.createElement('input');
+			lInput.type = 'text';
+			lInput.name = 'rvalue[' + i + ']'; 
+			lInput.value = result[i].rvalue;
+
+			lTd.appendChild(lInput);
+			lTr.appendChild(lTd);
+			lTr.id = result[i].payment_type_condition_id;
+		
+			lTd = document.createElement('td');
+			
+			// Get around wacky javascript no argument onClick issues
+			lTd.innerHTML = '<input type="button" value="Delete" onClick="deleteItem(' + result[i].payment_type_condition_id + ')">';
+			lTr.appendChild(lTd);
+
+			if (result[i].payment_type_condition_type == 'qualifying')
+				lQualifyBody.appendChild(lTr);
+			else
+				lDisqualifyBody.appendChild(lTr);
+			
+		}
+	}
+
+
+	function ajax_get_payment_types(request) {
+    	request.method = 'payment_types';
+	    return ecash_JSON_RPC(request)
+	}
+
+</script>
+<form action="#" method="POST" name="payment_types">
+<table border=1 width="100%" class="rules">
+	<tr>
+		<th colspan="4" style="background: #B4DCAF">Payment Types</th>
+	</tr>
+	<tr>
+		<td colspan="4">&nbsp;</td>
+	</tr>
+	<tr>
+		<th colspan="1">Loan Type</th>
+		<th colspan="3">Payment Type</th>
+	</tr>
+	<tr>
+		<td colspan="1">%%%loan_type_select_list%%%</td>
+		<td colspan="3">%%%payment_type_select_list%%%</td>
+	</tr>	
+	<tr>
+		<td colspan="2">Application ID Tester: </td>
+		<td><input type="text" id="application_id" name="application_id"></td>
+		<td><input type="button"  value="Test" onClick="testApp();"></td>
+	</tr>
+	<tr>
+		<td colspan="4"><input type="button" value="Save Changes" onClick="return saveRules();"></td>
+	</tr>
+	<tr>
+		<th colspan="4">Qualifying Conditions (Must Match 1) <input type="button" value="Add New" onClick="add_qualifying();"></th>
+	</tr>
+	<tr>
+		<td colspan="4">
+			<table width="100%" border="1" style="background: white;" id="QualifyingPaymentTypeConditionListTable">
+				<thead>
+					<tr>
+						<th>Variable</th>
+						<th>Operator</th>
+						<th>Value</th>
+						<th>Delete</th>
+					</tr>
+				</thead>
+				<tbody id="QualifyingPaymentTypeConditionListBody">
+					<tr><td colspan="4">Please select a loan type above</td></tr>
+				</tbody>
+			</table>
+		</td>
+	</tr>
+	<tr>
+		<td colspan="4">&nbsp;</td>
+	</tr>
+	<tr>
+		<th colspan="4">Disqualifying Conditions (Matching 1 causes payment type not to show) <input type="button" value="Add New" onClick="add_disqualifying();"></th>
+	</tr>
+	<tr>
+		<td colspan="4">
+			<table width="100%" border="1" style="background: white;" id="DisqualifyingPaymentTypeConditionListTable">
+				<thead>
+					<tr>
+						<th>Variable</th>
+						<th>Operator</th>
+						<th>Value</th>
+						<th>Delete</th>
+					</tr>
+				</thead>
+				<tbody id="DisqualifyingPaymentTypeConditionListBody">
+					<tr><td colspan="4">Please select a loan type above</td></tr>
+				</tbody>
+			</table>
+		</td>
+	</tr>
+</table>
+</form>
+<script type="text/javascript">
+        var selectLoanType = document.getElementById('loanTypeSelect');
+		selectLoanType.value = 'invalid';
+
+        var selectPaymentType = document.getElementById('paymentTypeSelect');
+		selectPaymentType.value = 'invalid';
+
+		var appIdTester = document.getElementById('application_id');
+		appIdTester.value = '';
+</script>

@@ -1,0 +1,35 @@
+K 25
+svn:wc:ra_dav:version-url
+V 93
+/svn/aalm_current/!svn/ver/1979/ecash/branches/sql_merge/ecash_cfe/sql/updates/RELEASE_3.5.24
+END
+200708140855-MANTIS_9850.sql
+K 25
+svn:wc:ra_dav:version-url
+V 122
+/svn/aalm_current/!svn/ver/1979/ecash/branches/sql_merge/ecash_cfe/sql/updates/RELEASE_3.5.24/200708140855-MANTIS_9850.sql
+END
+200708101820-Remove _Application_Flags.sql
+K 25
+svn:wc:ra_dav:version-url
+V 138
+/svn/aalm_current/!svn/ver/1979/ecash/branches/sql_merge/ecash_cfe/sql/updates/RELEASE_3.5.24/200708101820-Remove%20_Application_Flags.sql
+END
+200708131420-remove_personal_contacts.sql
+K 25
+svn:wc:ra_dav:version-url
+V 135
+/svn/aalm_current/!svn/ver/1979/ecash/branches/sql_merge/ecash_cfe/sql/updates/RELEASE_3.5.24/200708131420-remove_personal_contacts.sql
+END
+200708131453-MANTIS_10059.sql
+K 25
+svn:wc:ra_dav:version-url
+V 123
+/svn/aalm_current/!svn/ver/1979/ecash/branches/sql_merge/ecash_cfe/sql/updates/RELEASE_3.5.24/200708131453-MANTIS_10059.sql
+END
+200708092114-new_funding_rules.sql
+K 25
+svn:wc:ra_dav:version-url
+V 128
+/svn/aalm_current/!svn/ver/1979/ecash/branches/sql_merge/ecash_cfe/sql/updates/RELEASE_3.5.24/200708092114-new_funding_rules.sql
+END

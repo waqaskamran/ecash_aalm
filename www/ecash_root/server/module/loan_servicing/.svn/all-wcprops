@@ -1,0 +1,17 @@
+K 25
+svn:wc:ra_dav:version-url
+V 95
+/svn/aalm_current/!svn/ver/5039/ecash/branches/sql_merge/ecash_cfe/server/module/loan_servicing
+END
+module.class.php
+K 25
+svn:wc:ra_dav:version-url
+V 112
+/svn/aalm_current/!svn/ver/2968/ecash/branches/sql_merge/ecash_cfe/server/module/loan_servicing/module.class.php
+END
+loan_servicing.class.php
+K 25
+svn:wc:ra_dav:version-url
+V 120
+/svn/aalm_current/!svn/ver/5414/ecash/branches/sql_merge/ecash_cfe/server/module/loan_servicing/loan_servicing.class.php
+END

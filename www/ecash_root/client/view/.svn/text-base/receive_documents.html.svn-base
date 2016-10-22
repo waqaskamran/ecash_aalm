@@ -1,0 +1,64 @@
+<div id="layout0group1layer2edit" %%%receive_documents_edit_layer%%%>
+<form method="post" action="/" name="Receive Documents" class="no_padding" id="doc_send_recv">
+	<script>
+		var doc_send_recv_ot = new receiveDocumentList(document.getElementById('doc_send_recv'));
+		doc_send_recv_ot.setDocumentList('%%%js_all_docs%%%');
+		doc_send_recv_ot.setCopiaList('%%%js_copia_docs%%%');
+		doc_send_recv_ot.setCondorList('%%%js_condor_docs%%%');
+	</script>
+		<table cellpadding=0 cellspacing=0 width="100%">
+			<tr>
+				<td class="border" align="left" valign="top">
+					<table cellpadding=0 cellspacing=0 width="100%" class="%%%mode_class%%%" border="0">
+						<tr class="height">
+							<th colspan="3" class="%%%status_class%%%" style="background: %%%status_background_color%%%;">
+	                            <span style="float:left;">
+    	                            <nobr>Receive Documents</nobr>
+        	                    </span>
+							</th>
+							<th colspan="3" class="%%%status_class%%%" style="background: %%%status_background_color%%%; text-align: right;"><nobr><a href="#" onClick="javascript:window.open('/?module=%%%module_name%%%&action=get_application_history&application_id=%%%application_id%%%', 'application_history', 'toolbar=no,location=no,directories=no,status=no,menubar=no,scrollbars=yes,resizable=no,copyhistory=no,width=515,height=420,left=150,top=150,screenX=150,screenY=150');">App. ID %%%application_id%%% %%%status_long%%%</a>&nbsp;%%%react_ind%%%&nbsp;%%%watch_ind%%%&nbsp;%%%fraud_ind%%%&nbsp;</nobr></th>
+						</tr>
+						<tr class="height">
+							<th colspan="4" class="search">&nbsp;Name</th>
+							<th class="search" style="text-align: right;"><nobr>Receive</nobr></th>
+							<th class="search" style="width: 12px">&nbsp;</th>
+						</tr>
+						<tr>
+							<td colspan="6">
+								<div id="layout0group1layer2editscroll" style="height: 390px;">
+									%%%receive_document_list%%%
+								</div>
+							</td>
+						</tr>
+						<tr class="height">
+							<td colspan="6" class="align_left_alt">&nbsp;</td>
+						</tr>
+						<tr class="height">
+							<td colspan="5">
+								<div id="layout0group1layer2edit_condor" style="display: none;white-space:nowrap;">
+									<input type="checkbox" name="signature_status" value="signed">Signed &nbsp;&nbsp;&nbsp;Archive ID:
+									<input type="text" name="archive_id" value="" size="4" class="input_text" />
+								</div>
+								<div id="layout0group1layer2edit_copia" style="display: none;white-space:nowrap;">
+									DNIS: <input type="text" name="dnis" value="" size="4" class="input_text" />&nbsp;
+									TIFF: <input type="text" name="tiff" value="" size="10" class="input_text" />
+								</div>
+							</td>
+							<td colspan="1" class="align_right">
+								<input type="hidden" name="action" value="receive_documents">
+								<input type="hidden" name="application_id" value="%%%application_id%%%">
+								<input type="submit" name="submit" value="Mark Received" class="button"  onClick="javascript:return doc_send_recv_ot.validateSelected(this);" id="doc_send_recv_submit" disabled="true"/>
+							</td>
+
+						</tr>
+						<tr class="height">
+							<td colspan="6" class="align_left_alt">%%%tiff_message%%%</td>
+							<td class="align_right_alt">
+							</td>
+						</tr>
+					</table>
+				</td>
+			</tr>
+		</table>
+</form>
+</div>

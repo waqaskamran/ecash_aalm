@@ -1,0 +1,1 @@
+alter table application add column county varchar(30) after state;

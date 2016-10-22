@@ -1,0 +1,14 @@
+     <table width="100%" style="background-color: #DDDDDD; max-height: 500px;">
+              <tr>
+                  <th align="center" colspan="7">
+                      My Applications
+                  </th>
+              </tr>
+              <tr>
+                  <td colspan="7" align="center">
+        %%%display_my_apps_menu%%%
+                  </td>
+              </tr>
+        %%%display_my_apps_rows%%%
+        
+	</table>

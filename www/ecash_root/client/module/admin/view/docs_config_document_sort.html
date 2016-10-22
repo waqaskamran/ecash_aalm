@@ -1,0 +1,150 @@
+<script language="javascript">
+
+	function sortDoc(ele, which) 
+	{
+		var option = ele.options[ele.selectedIndex];
+		
+		switch (which) {
+			case 'up':			
+				if (ele.selectedIndex == 0) {
+					return;
+				}
+		
+				var target = ele.options[ele.selectedIndex - 1];	
+				break;
+				
+			case 'down':			
+				if (ele.selectedIndex == ele.options.length - 1 ) {
+					return;
+				}
+		
+				var target = ele.options[ele.selectedIndex + 2];
+				break;
+						
+			case 'top':
+				if (ele.selectedIndex == 0) {
+					return;
+				}
+				
+				var target = ele.options[0];
+				break
+				
+			case 'btm':		
+				if (ele.selectedIndex == ele.options.length - 1 ) {
+					return;
+				}
+				
+				var target = null;								
+				break;
+			
+			case 'charm':
+			case 'strange':
+				alert ( which + ' quark, what a pretty color you are!' );
+		}
+		
+		ele.remove(ele.selectedIndex);
+		ele.add(option, target);	
+		sortChange(ele);
+		
+	}
+
+	function submitSort(ele, form)
+	{
+		ele.multiple = true;
+		for ( i = 0 ; i < ele.options.length ; i++ ) { 
+			ele.options[i].selected  = true; 
+		}
+		
+		form.submit();
+		
+	}
+
+</script>
+<table width="100%" class="queue_config" height="500">
+	<tr>
+		<th style="background: #ebaeae; height:19px;">Document Sorting Manager</th>
+	</tr>
+	<tr>
+		<td>
+
+
+
+<table width="100%" border="0" cols="2">
+		<tr>
+			<td><input type="hidden" name="mode" id="mode" value="Sorting" />
+						<table border=1>
+										<th>Company
+										<tr>
+											<td><select name=company id=company onFocus="this.oldIndex=this.selectedIndex" onchange="if(!getLoanTypes(this.options[this.selectedIndex].value)) this.selectedIndex=this.oldIndex;" style="width:150px;"><option value=0>(Global)</option></select>
+									</table>
+			</td>
+			<td>
+									<div id=loantypediv name=loantypediv style="display:none">
+										<table border=1>
+												<th>Loan Type
+												<tr>
+													<td><select name=loan_type id=loan_type onFocus="this.oldIndex=this.selectedIndex" onchange="if(!getSorted()) this.selectedIndex=this.oldIndex;" style="width:150px;"><option value=0>Company Specific</option></select>
+										</table>
+									</div>
+			</td>
+		</tr>		
+		<tr>
+			<td width="50%" align="center" valign="top"><br>
+				<form id="dm_document_sort_manager" name="dm_document_sort_manager" action='/' method="post">
+					<input type="hidden" name="mode" value="docs_config" />
+					<input type="hidden" name="action" value="update_document_sort" />
+					<input type="hidden" name="option" value="send_documents" />
+					<fieldset align="center">
+						<legend align="left">Send Documents</legend>
+						<div class="fieldset_div"><br />
+						<input type="button" value=" charm "  onClick="sortDoc(document.getElementById('dm_send_sort_list'), 'strange');" style="width: 1px; height: 1px; padding: 0px; margin: 0px; border: none;" />
+						<input type="button" value=" top " onClick="sortDoc(document.getElementById('dm_send_sort_list'), 'top');"/ >	
+						<input type="button" value=" up "  onClick="sortDoc(document.getElementById('dm_send_sort_list'), 'up');" />
+						<input type="button" value=" dn "  onClick="sortDoc(document.getElementById('dm_send_sort_list'), 'down');" />
+						<input type="button" value=" btm " onClick="sortDoc(document.getElementById('dm_send_sort_list'), 'btm');" />
+						<input type="button" value=" strange " onClick="sortDoc(document.getElementById('dm_send_sort_list'), 'charm');"  style="width: 1px; height: 1px; padding: 0px; margin: 0px; border: none;" />	
+						<br />
+						<select size="24" name="document_sort_order[]" id="dm_send_sort_list">
+			
+						</select>
+						<br>
+						<input type="button" id="dm_send_sort_listsave"value=" Save " onClick="updateSendSort()" disabled=true/>
+						<br /><br /></div>
+					</fieldset>
+				</form>	
+			</td>
+			<td width="50%" align="center" valign="top"><br>
+				<form id="dm_document_sort_manager" name="dm_document_sort_manager" action='/' method="post">
+					<input type="hidden" name="mode" value="docs_config" />
+					<input type="hidden" name="action" value="update_document_sort" />
+					<input type="hidden" name="option" value="receive_documents" />
+					<fieldset align="center">
+						<legend align="left">Receive Documents</legend>
+						<div class="fieldset_div"><br />
+						<input type="button" value=" charm "  onClick="sortDoc(document.getElementById('dm_recv_sort_list'), 'strange');" style="width: 1px; height: 1px; padding: 0px; margin: 0px; border: none;" />
+						<input type="button" value=" top " onClick="sortDoc(document.getElementById('dm_recv_sort_list'), 'top');"/ >	
+						<input type="button" value=" up "  onClick="sortDoc(document.getElementById('dm_recv_sort_list'), 'up');" />
+						<input type="button" value=" dn "  onClick="sortDoc(document.getElementById('dm_recv_sort_list'), 'down');" />
+						<input type="button" value=" btm " onClick="sortDoc(document.getElementById('dm_recv_sort_list'), 'btm');" />
+						<input type="button" value=" strange " onClick="sortDoc(document.getElementById('dm_recv_sort_list'), 'charm');"  style="width: 1px; height: 1px; padding: 0px; margin: 0px; border: none;" />	
+						<br />
+						<select size="24" name="document_sort_order[]" id="dm_recv_sort_list">
+						
+						</select>
+						<br>
+						<input type="button" id="dm_recv_sort_listsave" value=" Save " onClick="updateReceiveSort()"/>
+						<br /><br /></div>
+					</fieldset>
+				</form>	
+			</td>
+		</tr>
+	</table>
+
+
+		</td>
+	</tr>
+</table>
+<script>
+sort_ini();
+
+</script>

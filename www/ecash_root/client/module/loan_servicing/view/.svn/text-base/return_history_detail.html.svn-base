@@ -1,0 +1,52 @@
+<style type="text/css">
+/*margin and padding on body element
+  can introduce errors in determining
+  element position and are not recommended;
+  we turn them off as a foundation for YUI
+  CSS treatments. */
+body {
+	margin:0;
+	padding:0;
+}
+</style>
+
+
+<!--begin custom header content for this example-->
+<style type="text/css">
+/* custom styles for this example */
+.yui-skin-sam .yui-dt-liner { white-space:nowrap; } 
+</style>
+
+
+
+<script type="text/javascript">
+var return_data = %%%return_data%%%;
+
+YAHOO.util.Event.addListener(window, "load", function() {
+    YAHOO.example.Basic = function() {
+        var myColumnDefs = %%%columndefs%%%;
+
+        var myDataSource = new YAHOO.util.DataSource(return_data);
+        myDataSource.responseType = YAHOO.util.DataSource.TYPE_JSARRAY;
+        myDataSource.responseSchema = {
+            fields: %%%columns%%%
+        };
+
+        var myDataTable = new YAHOO.widget.DataTable("return_data_table",
+                myColumnDefs, myDataSource, {caption:""});
+                
+        return {
+            oDS: myDataSource,
+            oDT: myDataTable
+        };
+    }();
+});
+</script>
+<table cellpadding="0" cellspacing="0" width="100%">
+	<tr>
+	    <td class="align_center" style="vertical-align: top; padding: 10px;">
+		<a href='?module=loan_servicing&mode=batch_mgmt&action=return_history'>Back</a>	
+	    </td>
+	</tr>
+</table><div id="return_data_table" style="width: 780px; height: 480px; overflow: auto" class="yui-skin-sam"></div>
+

@@ -1,0 +1,47 @@
+K 25
+svn:wc:ra_dav:version-url
+V 95
+/svn/aalm_current/!svn/ver/2741/ecash/branches/sql_merge/ecash_cfe/lib/NightlyEvents/deprecated
+END
+QueueLostApps.php
+K 25
+svn:wc:ra_dav:version-url
+V 113
+/svn/aalm_current/!svn/ver/2741/ecash/branches/sql_merge/ecash_cfe/lib/NightlyEvents/deprecated/QueueLostApps.php
+END
+MoveCollectionsToExternal.php
+K 25
+svn:wc:ra_dav:version-url
+V 125
+/svn/aalm_current/!svn/ver/1979/ecash/branches/sql_merge/ecash_cfe/lib/NightlyEvents/deprecated/MoveCollectionsToExternal.php
+END
+ReactProcess.php
+K 25
+svn:wc:ra_dav:version-url
+V 112
+/svn/aalm_current/!svn/ver/1979/ecash/branches/sql_merge/ecash_cfe/lib/NightlyEvents/deprecated/ReactProcess.php
+END
+PurgeInactiveCards.php
+K 25
+svn:wc:ra_dav:version-url
+V 118
+/svn/aalm_current/!svn/ver/1979/ecash/branches/sql_merge/ecash_cfe/lib/NightlyEvents/deprecated/PurgeInactiveCards.php
+END
+SetQCReturnsToSecondTier.php
+K 25
+svn:wc:ra_dav:version-url
+V 124
+/svn/aalm_current/!svn/ver/1979/ecash/branches/sql_merge/ecash_cfe/lib/NightlyEvents/deprecated/SetQCReturnsToSecondTier.php
+END
+StatusDequeuedCollectionsMoveToQCReady.php
+K 25
+svn:wc:ra_dav:version-url
+V 138
+/svn/aalm_current/!svn/ver/2212/ecash/branches/sql_merge/ecash_cfe/lib/NightlyEvents/deprecated/StatusDequeuedCollectionsMoveToQCReady.php
+END
+DelinquentFullPull.php
+K 25
+svn:wc:ra_dav:version-url
+V 118
+/svn/aalm_current/!svn/ver/1979/ecash/branches/sql_merge/ecash_cfe/lib/NightlyEvents/deprecated/DelinquentFullPull.php
+END

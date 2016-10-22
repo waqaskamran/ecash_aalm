@@ -1,0 +1,466 @@
+<?php
+/**
+ * ACH Batch Report
+ * 
+ * This report provides the customer with a summary of their ACH batch information
+ * AS well AS an overview of how many returns were recieved the same day and how 
+ * many returns were eventually received for the same ach batch.  Some of these
+ * values are separated out AS collection vs. non-collection values, using the 
+ * context of 'arrangement' on the event_schedule item to determine if the
+ * transaction was a collection item.
+ * 
+ * Dev Note: When testing with OPM, I had some bizarre issues where the report would
+ * say one time and the query results in my query browser would say something else.
+ * This was because OPM runs in US/Central and my query browser was in US/Pactic.
+ * So word to the wise... When testing time sentive reports, use the customer's
+ * time zone! [BR]
+ * 
+ * @package Reporting
+ *
+ * @copyright Copyright &copy; 2006 The Selling Source, Inc.
+ *
+ * @version $Revision$
+ */
+
+require_once(SERVER_MODULE_DIR."/reporting/report_generic.class.php");
+require_once( SERVER_CODE_DIR . "base_report_query.class.php" );
+
+class Report extends Report_Generic
+{
+	private $search_query;
+
+	public function Generate_Report()
+	{
+		// Generate_Report() expects the following from the request form:
+		//
+		// criteria start_date YYYYMMDD
+		// criteria end_date   YYYYMMDD
+		// company_id
+		//
+		try
+		{
+			$this->search_query = new Customer_ACH_Batch_Report_Query($this->server);
+	
+			$data = new stdClass();
+	
+			// Save the report criteria
+			$data->search_criteria = array(
+			  'start_date_MM'   => $this->request->start_date_month,
+			  'start_date_DD'   => $this->request->start_date_day,
+			  'start_date_YYYY' => $this->request->start_date_year,
+			  'end_date_MM'     => $this->request->end_date_month,
+			  'end_date_DD'     => $this->request->end_date_day,
+			  'end_date_YYYY'   => $this->request->end_date_year,
+			  'company_id'      => $this->request->company_id,
+			  'loan_type'       => $this->request->loan_type
+			);
+	
+			$_SESSION['reports']['achbatch']['report_data'] = new stdClass();
+			$_SESSION['reports']['achbatch']['report_data']->search_criteria = $data->search_criteria;
+			$_SESSION['reports']['achbatch']['url_data'] = array('name' => 'Batch', 'link' => '/?module=reporting&mode=achbatch');
+	
+			// Start date
+			$start_date_YYYY = $this->request->start_date_year;
+			$start_date_MM	 = $this->request->start_date_month;
+			$start_date_DD	 = $this->request->start_date_day;
+			if(!checkdate($start_date_MM, $start_date_DD, $start_date_YYYY))
+			{
+				//return with no data
+				$data->search_message = "Start Date invalid or not specified.";
+				ECash::getTransport()->Set_Data($data);
+				ECash::getTransport()->Add_Levels("message");
+				return;
+			}
+	
+			// End date
+			$end_date_YYYY	 = $this->request->end_date_year;
+			$end_date_MM	 = $this->request->end_date_month;
+			$end_date_DD	 = $this->request->end_date_day;
+			if(!checkdate($end_date_MM, $end_date_DD, $end_date_YYYY))
+			{
+				//return with no data
+				$data->search_message = "End Date invalid or not specified.";
+				ECash::getTransport()->Set_Data($data);
+				ECash::getTransport()->Add_Levels("message");
+				return;
+			}
+	
+			$start_date_YYYYMMDD = 10000 * $start_date_YYYY	+ 100 * $start_date_MM + $start_date_DD;
+			$end_date_YYYYMMDD	 = 10000 * $end_date_YYYY	+ 100 * $end_date_MM   + $end_date_DD;
+	
+			if($end_date_YYYYMMDD < $start_date_YYYYMMDD)
+			{
+				//return with no data
+				$data->search_message = "End Date must not precede Start Date.";
+				ECash::getTransport()->Set_Data($data);
+				ECash::getTransport()->Add_Levels("message");
+				return;
+			}
+	
+			$data->search_results = $this->search_query->Fetch_ACH_Data($start_date_YYYYMMDD,
+											    $end_date_YYYYMMDD,
+											    $this->request->loan_type,
+											    $this->request->company_id);
+		}
+		catch (Exception $e)
+		{
+			$data->search_message = $e->getMessage();
+//			$data->search_message = "Unable to execute report. Reporting server may be unavailable.";
+			ECash::getTransport()->Set_Data($data);
+			ECash::getTransport()->Add_Levels("message");
+			return;
+		}
+
+		// we need to prevent client from displaying too large of a result set, otherwise
+		// the PHP memory limit could be exceeded;
+		if( $data->search_results === false )
+		{
+			$data->search_message = $this->max_display_rows_error;
+			ECash::getTransport()->Set_Data($data);
+			ECash::getTransport()->Add_Levels("message");
+			return;
+		}
+
+		// Sort if necessary
+		$data = $this->Sort_Data($data);
+
+		ECash::getTransport()->Add_Levels("report_results");
+		ECash::getTransport()->Set_Data($data);
+		$_SESSION['reports']['achbatch']['report_data'] = $data;
+	}
+}
+
+class Customer_ACH_Batch_Report_Query extends Base_Report_Query
+{
+	private static $TIMER_NAME = "ACH Batch Report Query";
+	private $system_id;
+
+	public function __construct(Server $server)
+	{
+		parent::__construct($server);
+
+		$this->system_id = $server->system_id;
+
+	}
+
+	public function Fetch_ACH_Data($date_start, $date_end, $loan_type, $company_id)
+	{
+		$this->timer->startTimer( self::$TIMER_NAME );
+
+		$company_list = $this->Format_Company_IDs($company_id);
+		$loan_type_list = $this->Get_Loan_Type_List($loan_type);
+
+		if ($loan_type == 'all')
+			$loan_type_sql = "";
+		else
+			$loan_type_sql = "AND lt.name_short = '{$loan_type}'\n";
+
+		// Start and end dates must be passed AS strings with format YYYYMMDD
+		$timestamp_start = $date_start . '000000';
+		$timestamp_end   = $date_end   . '235959';
+
+		$query = "
+			SELECT	a.transaction_date AS report_date,
+				'' AS batch_company_name,
+				STR_TO_DATE(a.transaction_date,'%m/%d/%Y') AS grouping_date,
+				a.num_debit_attempted AS debit_num_attempted,
+				a.debit_amount AS debit_total_attempted,
+				a.num_credit_attempted AS credit_num_attempted,
+				a.credit_amount AS credit_total_attempted,
+				b.debit_num_returned AS num_returned_debit_actual_day,
+				b.debit_amount_returned AS total_returned_debit_actual_day,
+				b.credit_num_returned AS num_returned_credit_actual_day,
+				b.credit_amount_returned AS total_returned_credit_actual_day,
+				b.num_returned AS num_returned_actual_day,
+				b.amount_returned AS total_returned_actual_day,
+				IFNULL(c.num_returned_adj_day, 0) AS num_returned_adj_day,
+				IFNULL(c.amount_returned_adj_day, 0) AS total_returned_adj_day,
+				IFNULL(c.num_returned_credit_adj_day, 0) AS num_returned_credit_adj_day,
+				IFNULL(c.amount_returned_credit_adj_day, 0) AS total_returned_credit_adj_day,
+				IFNULL(c.num_returned_debit_adj_day, 0) AS num_returned_debit_adj_day,
+				IFNULL(c.amount_returned_debit_adj_day, 0) AS total_returned_debit_adj_day,
+				IFNULL(c.coll_num_returned_adj_day, 0) AS coll_num_returned_adj_day,
+				IFNULL(c.coll_amount_returned_adj_day, 0) AS coll_total_returned_adj_day,
+				(a.debit_amount + a.credit_amount) AS net_total,
+				(a.num_debit_attempted + a.num_credit_attempted) AS net_attempted,
+				(a.num_debit_attempted + a.num_credit_attempted) AS file_attempted,
+				(a.debit_amount - a.credit_amount) AS file_total,
+				(a.debit_amount + a.credit_amount - IFNULL(b.amount_returned, 0)) AS net_after_returned,
+				(a.debit_amount + a.credit_amount - IFNULL(c.amount_returned_adj_day, 0)) AS net_after_returned_adj_day,
+				a.clearing_type AS clearing_type
+			FROM ( -- Debits made during date range
+			    SELECT
+				DATE_FORMAT(ach.date_created, '%m/%d/%Y') AS transaction_date,
+				SUM(IF(ach_type = 'credit', 1, 0)) AS num_credit_attempted,
+				SUM(IF(ach_type = 'debit', 1, 0)) AS num_debit_attempted,
+				SUM(IF(ach_type = 'credit', -ach.amount, 0)) AS credit_amount,
+				SUM(IF(ach_type = 'debit', ach.amount, 0)) AS debit_amount,
+				SUM(IF(tr1.context = 'arrangement', 1, 0)) AS coll_num_attempted,
+				SUM(IF(tr1.context = 'arrangement', ach.amount, 0)) AS coll_amount,
+				tr1.clearing_type
+			    FROM ach
+				JOIN application app ON (app.application_id = ach.application_id)
+				JOIN loan_type lt ON (lt.loan_type_id = app.loan_type_id)				
+			    JOIN
+			    (
+				SELECT tr.ach_id,
+				       es.context,
+				       tt.clearing_type
+				FROM transaction_register AS tr
+				JOIN event_schedule AS es ON es.event_schedule_id = tr.event_schedule_id
+				JOIN transaction_type AS tt ON tr.transaction_type_id = tt.transaction_type_id
+				GROUP BY tr.ach_id
+			    ) AS tr1 ON tr1.ach_id = ach.ach_id
+			    WHERE ach.date_created BETWEEN '$timestamp_start' AND '$timestamp_end'
+				{$loan_type_sql}
+				AND ach.company_id IN $company_list				
+			    GROUP BY transaction_date
+			) AS a
+			LEFT JOIN
+			( -- Returns received during date range
+			    SELECT
+				DATE_FORMAT(returns.date_created, '%m/%d/%Y')  AS return_date,
+				SUM(IF(returns.context != 'arrangement', 1, 0)) AS num_returned,
+				SUM(IF(returns.context != 'arrangement', ABS(returns.amount), 0)) AS amount_returned,
+				SUM(IF(returns.context != 'arrangement' AND returns.amount < 0, 1, 0)) AS debit_num_returned,
+				SUM(IF(returns.context != 'arrangement' AND returns.amount < 0, ABS(returns.amount), 0)) AS debit_amount_returned,
+				SUM(IF(returns.context != 'arrangement' AND returns.amount > 0, 1, 0)) AS credit_num_returned,
+				SUM(IF(returns.context != 'arrangement' AND returns.amount > 0, ABS(returns.amount), 0)) AS credit_amount_returned,
+				SUM(IF(returns.context = 'arrangement', 1, 0)) AS coll_num_returned,
+				SUM(IF(returns.context = 'arrangement', ABS(returns.amount), 0)) AS coll_amount_returned
+			     FROM
+			     (
+				SELECT  th.date_created,
+					es.context,
+					SUM(ea.amount) AS amount
+				FROM transaction_history AS th
+				JOIN transaction_register AS tr ON tr.transaction_register_id = th.transaction_register_id
+					JOIN application app ON (app.application_id = tr.application_id)
+					JOIN loan_type lt ON (lt.loan_type_id = app.loan_type_id)				
+					JOIN transaction_type AS tt ON tt.transaction_type_id = tr.transaction_type_id
+				JOIN event_schedule AS es on es.event_schedule_id = tr.event_schedule_id
+				JOIN event_amount AS ea ON ea.event_schedule_id = es.event_schedule_id
+				WHERE th.date_created BETWEEN '$timestamp_start' AND '$timestamp_end'
+					{$loan_type_sql}
+				AND ea.amount < 0
+				AND th.status_after = 'failed'
+				AND tr.transaction_status = 'failed'
+				AND tt.clearing_type = 'ach'
+					AND tr.company_id IN $company_list
+				GROUP BY es.event_schedule_id
+			     ) AS returns
+			    GROUP BY return_date
+			) AS b ON a.transaction_date = b.return_date
+			LEFT JOIN
+			(   -- Debits made during date range that were eventually returned
+			    SELECT
+				DATE_FORMAT(debits.date_event, '%m/%d/%Y')        AS transaction_date,
+				SUM(IF(debits.context != 'arrangement', 1, 0)) AS num_returned_adj_day,
+				SUM(IF(debits.context != 'arrangement', ABS(debits.amount), 0)) AS amount_returned_adj_day,
+				SUM(IF(debits.context != 'arrangement' AND debits.amount < 0, 1, 0)) AS num_returned_debit_adj_day,
+				SUM(IF(debits.context != 'arrangement' AND debits.amount < 0, ABS(debits.amount), 0)) AS amount_returned_debit_adj_day,
+				SUM(IF(debits.context != 'arrangement' AND debits.amount > 0, 1, 0)) AS num_returned_credit_adj_day,
+				SUM(IF(debits.context != 'arrangement' AND debits.amount > 0, ABS(debits.amount), 0)) AS amount_returned_credit_adj_day,
+				SUM(IF(debits.context = 'arrangement', 1, 0)) AS coll_num_returned_adj_day,
+				SUM(IF(debits.context = 'arrangement', ABS(debits.amount), 0)) AS coll_amount_returned_adj_day
+			    FROM
+			    (
+				SELECT es.date_event,
+				       SUM(ea.amount) AS amount,
+				       es.context,
+				       es.event_schedule_id,
+				       tr.date_modified,
+				       tr.transaction_status
+				FROM event_schedule AS es
+				JOIN transaction_register AS tr ON es.event_schedule_id = tr.event_schedule_id
+					JOIN application app ON (app.application_id = tr.application_id)
+					JOIN loan_type lt ON (lt.loan_type_id = app.loan_type_id)				
+				JOIN event_amount AS ea ON ea.event_schedule_id = es.event_schedule_id AND ea.transaction_register_id = tr.transaction_register_id
+				JOIN transaction_type AS tt ON tt.transaction_type_id = tr.transaction_type_id
+				WHERE es.date_event BETWEEN '$timestamp_start' AND '$timestamp_end'
+					{$loan_type_sql}
+				AND tr.transaction_status = 'failed'
+				AND tt.clearing_type = 'ach'
+				AND ea.amount < 0
+					AND tr.company_id IN $company_list
+				GROUP BY es.event_schedule_id
+			    ) AS debits
+			    GROUP BY transaction_date
+			) AS c ON a.transaction_date = c.transaction_date ";
+
+		$st = $this->db->query($query);
+
+		$data = array();
+		while($row = $st->fetch(PDO::FETCH_ASSOC))
+		{
+			$data_ach[] = $row;
+		}
+
+
+		$query = "
+		SELECT	a.transaction_date AS report_date,
+				'' AS batch_company_name,
+				STR_TO_DATE(a.transaction_date,'%m/%d/%Y') AS grouping_date,
+				a.num_debit_attempted AS debit_num_attempted,
+				a.debit_amount AS debit_total_attempted,
+				a.num_credit_attempted AS credit_num_attempted,
+				a.credit_amount AS credit_total_attempted,
+				b.debit_num_returned AS num_returned_debit_actual_day,
+				b.debit_amount_returned AS total_returned_debit_actual_day,
+				b.credit_num_returned AS num_returned_credit_actual_day,
+				b.credit_amount_returned AS total_returned_credit_actual_day,
+				b.num_returned AS num_returned_actual_day,
+				b.amount_returned AS total_returned_actual_day,
+				IFNULL(c.num_returned_adj_day, 0) AS num_returned_adj_day,
+				IFNULL(c.amount_returned_adj_day, 0) AS total_returned_adj_day,
+				IFNULL(c.num_returned_credit_adj_day, 0) AS num_returned_credit_adj_day,
+				IFNULL(c.amount_returned_credit_adj_day, 0) AS total_returned_credit_adj_day,
+				IFNULL(c.num_returned_debit_adj_day, 0) AS num_returned_debit_adj_day,
+				IFNULL(c.amount_returned_debit_adj_day, 0) AS total_returned_debit_adj_day,
+				IFNULL(c.coll_num_returned_adj_day, 0) AS coll_num_returned_adj_day,
+				IFNULL(c.coll_amount_returned_adj_day, 0) AS coll_total_returned_adj_day,
+				(a.debit_amount + a.credit_amount) AS net_total,
+				(a.num_debit_attempted + a.num_credit_attempted) AS file_attempted,
+				(a.debit_amount - a.credit_amount) AS file_total,
+				(a.debit_amount + a.credit_amount - IFNULL(b.amount_returned, 0)) AS net_after_returned,
+				(a.debit_amount + a.credit_amount - IFNULL(c.amount_returned_adj_day, 0)) AS net_after_returned_adj_day,
+				a.clearing_type AS clearing_type
+		FROM
+		( -- Debits made during date range
+		    SELECT
+		        DATE_FORMAT(cp.date_created, '%m/%d/%Y') AS transaction_date,
+		        0 AS num_credit_attempted,
+		        SUM(1) AS num_debit_attempted,
+		        0 AS credit_amount,
+		        SUM(cp.amount) AS debit_amount,
+		        SUM(IF(tr1.context = 'arrangement', 1, 0)) AS coll_num_attempted,
+		        SUM(IF(tr1.context = 'arrangement', cp.amount, 0)) AS coll_amount,
+			tr1.clearing_type
+		    FROM card_process cp
+			JOIN application app ON (app.application_id = cp.application_id)
+			JOIN loan_type lt ON (lt.loan_type_id = app.loan_type_id)				
+		    JOIN
+		    (
+		        SELECT tr.card_process_id,
+		               es.context,
+			       tt.clearing_type
+		        FROM transaction_register AS tr
+		        JOIN event_schedule AS es ON es.event_schedule_id = tr.event_schedule_id
+			JOIN transaction_type AS tt ON tr.transaction_type_id = tt.transaction_type_id
+		        GROUP BY tr.card_process_id
+		    ) AS tr1 ON tr1.card_process_id = cp.card_process_id
+		    WHERE cp.date_created BETWEEN '$timestamp_start' AND '$timestamp_end'
+			{$loan_type_sql}
+		    GROUP BY transaction_date
+		) AS a
+		LEFT JOIN
+		( -- Returns received during date range
+		    SELECT
+		        DATE_FORMAT(returns.date_created, '%m/%d/%Y')  AS return_date,
+			SUM(IF(returns.context != 'arrangement', 1, 0)) AS num_returned,
+			SUM(IF(returns.context != 'arrangement', ABS(returns.amount), 0)) AS amount_returned,
+			SUM(IF(returns.context != 'arrangement' AND returns.amount < 0, 1, 0)) AS debit_num_returned,
+			SUM(IF(returns.context != 'arrangement' AND returns.amount < 0, ABS(returns.amount), 0)) AS debit_amount_returned,
+			SUM(IF(returns.context != 'arrangement' AND returns.amount > 0, 1, 0)) AS credit_num_returned,
+			SUM(IF(returns.context != 'arrangement' AND returns.amount > 0, ABS(returns.amount), 0)) AS credit_amount_returned,
+		        SUM(IF(returns.context = 'arrangement', 1, 0)) AS coll_num_returned,
+		        SUM(IF(returns.context = 'arrangement', ABS(returns.amount), 0)) AS coll_amount_returned
+		     FROM
+		     (
+		        SELECT  th.date_created,
+		                es.context,
+		                SUM(ea.amount) AS amount
+		        FROM transaction_history AS th
+		        JOIN transaction_register AS tr ON tr.transaction_register_id = th.transaction_register_id
+				JOIN application app ON (app.application_id = tr.application_id)
+				JOIN loan_type lt ON (lt.loan_type_id = app.loan_type_id)				
+				JOIN transaction_type AS tt ON tt.transaction_type_id = tr.transaction_type_id
+		        JOIN event_schedule AS es on es.event_schedule_id = tr.event_schedule_id
+		        JOIN event_amount AS ea ON ea.event_schedule_id = es.event_schedule_id
+		        WHERE th.date_created BETWEEN '$timestamp_start' AND '$timestamp_end'
+				{$loan_type_sql}
+		        AND ea.amount < 0
+		        AND th.status_after = 'failed'
+		        AND tr.transaction_status = 'failed'
+		        AND tt.clearing_type = 'card'
+				AND tr.company_id IN $company_list
+		        GROUP BY es.event_schedule_id
+		     ) AS returns
+		    GROUP BY return_date
+		) AS b ON a.transaction_date = b.return_date
+		LEFT JOIN
+		(   -- Debits made during date range that were eventually returned
+		    SELECT
+		        DATE_FORMAT(debits.date_event, '%m/%d/%Y')        AS transaction_date,
+		        SUM(IF(debits.context != 'arrangement', 1, 0)) AS num_returned_adj_day,
+		        SUM(IF(debits.context != 'arrangement', ABS(debits.amount), 0)) AS amount_returned_adj_day,
+			SUM(IF(debits.context != 'arrangement' AND debits.amount < 0, 1, 0)) AS num_returned_debit_adj_day,
+			SUM(IF(debits.context != 'arrangement' AND debits.amount < 0, ABS(debits.amount), 0)) AS amount_returned_debit_adj_day,
+			SUM(IF(debits.context != 'arrangement' AND debits.amount > 0, 1, 0)) AS num_returned_credit_adj_day,
+			SUM(IF(debits.context != 'arrangement' AND debits.amount > 0, ABS(debits.amount), 0)) AS amount_returned_credit_adj_day,
+		        SUM(IF(debits.context = 'arrangement', 1, 0)) AS coll_num_returned_adj_day,
+		        SUM(IF(debits.context = 'arrangement', ABS(debits.amount), 0)) AS coll_amount_returned_adj_day
+		    FROM
+		    (
+		        SELECT es.date_event,
+		               SUM(ea.amount) AS amount,
+		               es.context,
+		               es.event_schedule_id,
+		               tr.date_modified,
+		               tr.transaction_status
+		        FROM event_schedule AS es
+		        JOIN transaction_register AS tr ON es.event_schedule_id = tr.event_schedule_id
+				JOIN application app ON (app.application_id = tr.application_id)
+				JOIN loan_type lt ON (lt.loan_type_id = app.loan_type_id)				
+		        JOIN event_amount AS ea ON ea.event_schedule_id = es.event_schedule_id AND ea.transaction_register_id = tr.transaction_register_id
+		        JOIN transaction_type AS tt ON tt.transaction_type_id = tr.transaction_type_id
+		        WHERE es.date_event BETWEEN '$timestamp_start' AND '$timestamp_end'
+				{$loan_type_sql}
+		        AND tr.transaction_status = 'failed'
+		        AND tt.clearing_type = 'card'
+		        AND ea.amount < 0
+				AND tr.company_id IN $company_list
+		        GROUP BY es.event_schedule_id
+		    ) AS debits
+		    GROUP BY transaction_date
+		) AS c ON a.transaction_date = c.transaction_date ";
+
+		$st = $this->db->query($query);
+
+		while($row = $st->fetch(PDO::FETCH_ASSOC))
+		{
+			$data_card[] = $row;
+		}
+		$card_idx = 0;
+		
+error_log(print_r($data_card[$card_idx],true));
+		// sort the rows by tranaction date
+		foreach ($data_ach as $ach_row)
+		{
+			$ach_next = false;
+<<<<<<< .mine
+
+			while($data_card[$card_idx] && !$ach_next){
+=======
+			while(($card_idx < count($data_card)) && !$ach_next){
+>>>>>>> .r2981
+				if ($data_card[$card_idx]['report_date'] < $data_ach['report_date']){
+					$data['company'][] = $data_card[$card_idx++];
+				} else {
+					$ach_next = true;
+				}
+			}
+			$data['company'][] = $ach_row;
+		}
+		while($data_card[$card_idx]){
+			$data['company'][] = $data_card[$card_idx++];
+		}
+
+		$this->timer->stopTimer( self::$TIMER_NAME );
+
+		return $data;
+	}
+
+}
+
+?>

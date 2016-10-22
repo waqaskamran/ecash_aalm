@@ -1,0 +1,60 @@
+<script language=javascript>
+function SelectAllList(CONTROL)
+{
+	for(var i = 0;i < CONTROL.length;i++)
+	{
+		CONTROL.options[i].selected = true;
+	}
+}
+
+function DeselectAllList(CONTROL)
+{
+	for(var i = 0;i < CONTROL.length;i++)
+	{
+		CONTROL.options[i].selected = false;
+	}
+}				
+</script>
+<form name="performance_report" class="no_padding" action="/?module=reporting&action=generate_report" method="post">
+<input type="hidden" name="mode" value="monitor">
+<table width="100%" border="0">
+	<tr class="valign_top">
+		<th style="background: #EEEEEE">
+			Ecash Monitor
+		</th>
+	</tr>
+	<tr class="valign_top">
+		<td>
+		<table width="100%" border="0">
+			<tr>
+				<td style="text-align:left; padding-left:10px;">Performance Options :<br />
+					<select name="monitor_report_type">
+						%%%report_options%%%
+					</select>
+				</td>
+				<td align="left">
+					<table border="0">
+						<tr>
+							<td style="white-space: nowrap;">Agent <br />
+							 (select multiple)</td>
+							<td>
+								<select id="agent_selector" name="agent_id[]" multiple size="5">
+									%%%agent_list%%%
+								</select></td>
+							<td style="text-align: center;"><input type="button" name="All" value="All" onClick="SelectAllList(this.form.agent_selector)"><br><input type="button" name="None" value="None" OnClick="DeselectAllList(this.form.agent_selector)"></td>
+						</tr>
+					</table>
+				</td>
+				<td align="left">
+					<input type="submit" class="button" value="Submit" name="monitor_submit">
+					&nbsp;
+					<input type="button" class="button" value="Refresh" onclick="reset();submit();">
+				</td>				
+			</tr>			
+		</table>
+		<br>
+		%%%legend%%%
+		</td>
+	</tr>
+</table>
+</form>

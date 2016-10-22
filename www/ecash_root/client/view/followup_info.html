@@ -1,0 +1,64 @@
+<html>
+<head>
+<link rel="stylesheet" href="css/style.css">
+<link rel="stylesheet" href="js/calendar/calendar-dp.css">
+<script type="text/javascript" src="js/transactions.js"></script>
+<script type="text/javascript" src="js/calendar/calendar.js"></script>
+<script type="text/javascript" src="js/calendar/lang/calendar-en.js"></script>
+<title>Follow Up Info</title>
+<script type="text/javascript">
+function CheckSelection()
+{
+document.followup_info.submit();
+}
+</script>
+</head>
+<body class="bg" onload="self.focus();">
+<form method="post" action="/" class="no_padding" name="followup_info">
+<table>
+
+<tr>
+<td class="align_left_bold">Originator: </td>
+<td class="align_left">%%%followup_originator%%%</td>
+</tr>
+
+<tr>
+<td class="align_left_bold">Category: </td>
+<td class="align_left">%%%followup_category%%%</td>
+</tr>
+
+<tr>
+<td class="align_left_bold">Status: </td>
+<td class="align_left">%%%followup_status%%%</td>
+</tr>
+
+<tr>
+<td class="align_left_bold">Type: </td>
+<td class="align_left">%%%followup_type%%%</td>
+</tr>
+
+<tr>
+<td class="align_left_bold">Follow-Up Time: </td>
+<td class="align_left">%%%followup_time%%%</td>
+</tr>
+
+<tr>
+<td class="align_left_bold">Comment: </td>
+<td class="align_left">%%%followup_comment%%%</td>
+</tr>
+
+<tr class="height"></tr>
+
+<tr>
+<td colspan="2" class="align_right">
+<input type="button" value="Clear Follow Up" class="button" %%%clear_fu_disabled%%% onClick="javascript: CheckSelection();">
+<input type="button" value="Cancel" class="button" onClick="javascript:self.close()"> 
+</td>
+</tr>
+</table>
+<input type="hidden" name="action" value="clear_followup">
+<input type="hidden" name="application_id" value="%%%application_id%%%">
+<input type="hidden" name="comment_id" value="%%%followup_comment_id%%%">
+</form>
+</body>
+</html>

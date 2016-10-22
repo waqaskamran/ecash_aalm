@@ -1,0 +1,40 @@
+<!--<div id="collections_buttons" style="display: none;" -->
+<div id="internal_buttons" style="display: none;">
+	<div id="app_attributes">
+		%%%app_attribute_buttons%%%
+	</div>
+	
+	<div id="app_actions">
+		<div class="app_attribute_title">
+			App Actions
+		</div>
+		<div style="float: left;">
+			<div class="app_button">
+				<input id="AppActionFollowUp" type="button" name="submit_button" class="button2%%%follow_up_disabled%%%" value="Follow Up" onClick="OpenDialogSized('/?action=get_followup&type=Internal&application_id=%%%application_id%%%', '400', '300');"%%%follow_up_disabled%%%>
+			</div>
+			<div class="app_button">
+   				<input id="AppActionBankruptcyNotification" type="button" %%%bankruptcy_notification_disabled%%% name="submit_button" value="Bankruptcy Notification" class="button2%%%bankruptcy_notification_disabled%%%" onClick="Update_Status_Direct('Bankruptcy_Notification', 'Bankruptcy Notified');">
+  			</div>
+			<div class="app_button">
+				<input id="AppActionSkipTrace" type="button" %%%skip_trace_disabled%%% name="submit_button" value="%%%skip_trace_display%%%" class="button2%%%skip_trace_disabled%%%" onClick="Update_Status_Direct('%%%skip_trace_short%%%', '%%%skip_trace_display%%%');">
+			</div>
+			<div class="app_button">
+				<form id="renew" method="post" action="/" class="no_padding">
+					<input id="AppActionAppId" type="hidden" name="application_id" value="%%%application_id%%%">
+					<input id="AppActionRegenAction" type="hidden" name="action" value="activate_and_regenerate_schedule">
+		            <input type="hidden" name="submit_button" id="AppActionRenewSubmit" value="">
+                    <input type="button" %%%regenerate_schedule_disabled%%% name="submit_button" id="AppActionRenewButton" value="Regenerate" class="button2%%%regenerate_schedule_disabled%%%" onClick="Regenerate()">
+				</form>
+			</div>
+			<div class="app_button">
+				<input id="AppActionOutgoingCallDispositions" type="button" %%%outgoing_call_dispositions_disabled%%% name="submit_button" value="%%%outgoing_call_dispositions_display%%%" class="button2%%%outgoing_call_dispositions_disabled%%%" onClick="Update_Status_Direct('%%%skip_trace_short%%%', '%%%skip_trace_display%%%');">
+			</div>
+
+		</div>
+	</div>
+</div>
+
+<div style="clear: both;">
+	<span style="text-align: left; float: left;">%%%back_button_link%%%</span>
+	<span style="text-align: center; float: right; width: 755px;">Controlling Agent: &nbsp; <b>%%%controlling_agent_name%%% </b></span>
+</div>

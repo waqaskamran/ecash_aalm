@@ -1,0 +1,6 @@
+<a id="AppSubMenuLinkFraud" class="menu" href="/?mode=fraud_queue&action=show_search">
+	<div id="AppSubMenuDivFraud" class="level2nav">
+		Fraud
+	</div>
+</a>
+

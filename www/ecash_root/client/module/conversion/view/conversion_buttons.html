@@ -1,0 +1,53 @@
+<div id="conversion_buttons" style="display: none;">
+<input type="hidden" name="action_type" id="action_type" value="fetch">
+<table width="100%" align="center" border="0">
+	<tr>
+		<!-- mantis:4646 -->
+		<td class="border" width="16%">
+			<table cellpadding=0 cellspacing=0>
+			<tr>
+			<td class="align_left"><img src='/image/standard/i_bad_info.gif'>%%%bad_info_link%%%</td>
+			</tr>
+			<tr>
+			<td class="align_left"><img src='/image/standard/i_do_not_contact.gif'>%%%do_not_contact_link%%%</td>
+			</tr>
+			<tr>
+			<td class="align_left"><img src='/image/standard/i_best_contact.gif'>%%%best_contact_link%%%</td>
+			</tr>	
+			<tr>
+			<td class="align_left"><img src='/image/standard/i_do_not_market.gif'>%%%do_not_market_link%%%</td>
+			</tr>
+			<tr>
+			<td class="align_left"><img src="/image/standard/high_risk.gif" border="0">&nbsp;High Risk</td>
+			</tr>
+			<tr>
+			<td class="align_left"><img src="/image/standard/fraud.gif" border="0">&nbsp;Fraud</td>
+			</tr>
+			<tr>
+			<td class="align_left"><img src='/image/standard/i_do_not_loan.gif' border='0'>%%%do_not_loan_link%%%</td>
+			</tr>
+			</table>
+		</td>
+		<td>
+		        <input type="button" class="button" value="Reset Account" onClick="CheckResetImport();">
+		</td>
+		<td>
+		        <input type="button" class="button" value="Send To Managers" onClick="SendToManagers();">
+		</td>
+		<td>
+			<input type="button" class="button" value="Generate Transactions" onClick="OpenTransactionPopup('generate_schedule', 'Set Account Conditions', '%%%mode_class%%%');">
+		</td>
+		<td>
+			<input type="button" class="button2" value="Submit Account" onClick="CheckVerifyImport();">
+		</td>
+	</tr>
+</table>
+</div>
+
+<table width='90%'>
+   <tr>
+	         <td>Controlling Agent:<b> %%%controlling_agent_name%%%  </b></td>
+   </tr>
+</table>
+
+

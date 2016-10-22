@@ -1,0 +1,163 @@
+<script language="javascript">
+
+function removeSelectedFromDocList(tolist, fromlist)
+{
+	var eleValue = tolist.options[tolist.selectedIndex].value;
+
+	for (var i = 0 ; i < fromlist.options.length ; i++ ) 
+	{
+		if (fromlist.options[i].value == eleValue) 
+		{
+			fromlist.options[i].disabled = false;
+		}
+	}		
+
+	tolist.remove(tolist.selectedIndex);
+}
+
+function addSelectedToDocList(fromlist, tolist)
+{
+	var option = fromlist.options[fromlist.selectedIndex];
+
+	for (var i = 0 ; i < tolist.options.length ; i++ ) 
+	{
+		if (tolist.options[i].value == option.value) 
+		{
+			option.disabled = true;
+			return;
+		}
+	}
+	addToDocList(tolist,option.text,option.value);
+
+	option.disabled = true;
+}
+
+function addToDocList(ele, name, value)
+{
+	var op = document.createElement('option');
+	op.text = name;
+	op.value = value;
+	ele.add(op,null);
+
+}
+
+</script>
+<table width="100%" class="queue_config" height="500">
+	<tr>
+		<th style="background: #ebaeae; height:19px;">Document Package Manager</th>
+	</tr>
+	<tr>
+		<td>
+			<form id="dm_package_manager" name="dm_package_manager" action='/' method="post">
+			<input type="hidden" id="dm_pkg_id" name="document_package_id"/>
+				<input type="hidden" name="mode" id="mode" value="Package" />
+				<input type="hidden" id="dm_action" name="action" value="update_package" />
+
+		<table width="100%">
+		<tr>
+			<td>
+						<table border=1>
+										<th>Company
+										<tr>
+											<td><select name=company id=company onFocus="this.oldIndex=this.selectedIndex" onchange="if(!getLoanTypes(this.options[this.selectedIndex].value)) this.selectedIndex=this.oldIndex;" style="width:150px;"><option value=0>(Global)</option></select>
+									</table>
+			</td>
+			<td>
+									<div id=loantypediv name=loantypediv style="display:none">
+										<table border=1>
+												<th>Loan Type
+												<tr>
+													<td><select name=loan_type id=loan_type onFocus="this.oldIndex=this.selectedIndex" onchange="if(!getPackages()) this.selectedIndex=this.oldIndex;" style="width:150px;"><option value=0>Company Specific</option></select>
+										</table>
+									</div>
+			</td>
+		</tr>
+		</table><tr><td>
+
+	
+		<table width="100%" border="0" cols="2">
+			<tr>
+				<td width="50%" align="left" valign="top">
+					<fieldset>
+						<legend>Existing Package Documents</legend>
+						<div class="fieldset_div" style="padding-left: 10px; padding-right: 10px;"><br />
+						<select size="18" id="dm_package_list" style="width: 100%;" onChange="loadPackage(this.options[this.selectedIndex].value);">
+						</select>
+						<br /><br /></div>
+					</fieldset>
+				</td>
+				<td width="50%" align="left" valign="top">
+					<fieldset id=package_panel style="display:none">
+						<legend>Package Document Name</legend>
+						<div class="fieldset_div"><br />
+						<div style="padding-left: 15px; text-align: left">
+							<label for="dm_doc_name" style="text-align: left;"><span id = "dm_pkg_name_span" class="title">Document Name</span></label>
+							<input type="text" name="name" id="dm_pkg_name" style="width: 95%;" onChange="changePackage();">
+						</div>
+						<div style="padding-left: 15px; text-align: left;display:none;" >
+							<label for="dm_doc_name_short" style="text-align: left;"><span class=title>Name Short</span></label>
+							<input type="text" name="name_short" id="dm_pkg_name_short" onChange="changePackage();" style="width: 95%">
+						</div>
+						<div style="padding-left: 15px; text-align: left">
+							<label for="dm_pkg_body"><span id='dm_pkg_body_span' class="title">Body Document</span></label>
+							<select name="document_list_id" id="dm_sp_altbody" onChange="changePackage();" style="width: 95%">
+							<option value="">Select a Body Document</option>
+							
+							</select>
+						</div>
+						<br /><br /></div>
+					</fieldset>
+					<fieldset id=flag_panel style="display:none">
+						<legend>Flags</legend>
+						<div class="fieldset_div"><br />
+						<div style="padding-left: 15px; padding-bottom: 15px; text-align: left">
+							<input type="checkbox" id="dm_chk_active" onChange="changePackage();" />
+							<label for="dm_flag_active" style="width: 50px;">Is Active</label>
+						</div>
+						</div>
+					</fieldset>
+				</td>
+			</tr>	
+			</table>			
+		<fieldset id=config_panel style="display:none">
+		<legend><span id='dm_docpkg_list_span' class="std_text">Package Document Configuration</span></legend>
+		<div class="fieldset_div" style="padding-left: 10px; padding-right: 10px;"><br />
+			<table width="100%" border="0" cols="2">
+				<tr>
+					<td width="47%" align="left" valign="top">
+						<select size="10" id="dm_document_list" style="width: 100%;" onChange="">
+					
+						</select>
+					</td>
+					<td align="center" valign="middle">
+						<input type="button" id="dm_gt" value=" &gt; " onClick="addSelectedToDocList(document.getElementById('dm_document_list'), document.getElementById('dm_docpkg_list'));changePackage();">
+							<br>
+						<input type="button" id="dm_lt" value=" &lt; " onClick="removeSelectedFromDocList(document.getElementById('dm_docpkg_list'), document.getElementById('dm_document_list'));changePackage();">
+					</td>
+					<td width="47%" align="left" valign="top">
+						<select size="10" id="dm_docpkg_list" name="attachments[]" style="width: 100%;" >
+						</select>
+					</td>
+				</tr>
+			</table>
+		<br /><br /></div>
+		</fieldset>
+<fieldset >
+<legend><span id='dm_docpkg_list_span' class="std_text">Action Buttons</span></legend>
+	<table>
+	<tr>
+		<td>	<input type=button id=addpackage name=addpackage value=Add onclick="addPackage()">
+		<td>	<input type=button value='Save' id=updatepackage name=updatepackage onClick='updatePackage();' style="display:none">
+		<td>	<input type=button value=Cancel id=revertpackage name=revertpackage onclick="revertPackage()" style="display:none">
+		<td>	<input type=button value=Delete id=deletepackage name=deletepackage onclick="deletePackage()" style="display:none">	
+	</table>
+</fieldset>
+</form>
+<script>
+package_ini();
+
+</script>
+
+		</td>
+	</tr>
+</table>

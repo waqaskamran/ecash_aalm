@@ -1,0 +1,87 @@
+<html>
+<head>
+<link rel="stylesheet" href="css/style.css">
+<script language=javascript>
+var state = %%%flag_state%%%;
+var permission = %%%permission_state%%%;
+function init() {
+	document.getElementById('set_button').disabled = state;
+	document.getElementById('clear_button').disabled = !state;
+	document.getElementById('on').style.display = state ? 'inline' : 'none';
+	document.getElementById('off').style.display = state ? 'none' : 'inline';
+	
+	if (!permission) 
+	{
+		document.getElementById('permissionrow').style.display = 'table-row';
+		document.getElementById('set_button').disabled = !permission;
+		document.getElementById('clear_button').disabled = !permission;
+	}
+	warning_div = document.getElementById('warning.%%%flag%%%');
+	action_element = document.getElementById('action');
+}
+</script>
+<style>
+form.no_padding { padding: 0px; }
+td { text-align: center; }
+.left { text-align: left; }
+.right { text-align: right; }
+.modal_warning {
+    color:black;
+    width:99%;
+    height:93%;
+    position:fixed;
+    display:none;
+	margin:0px;
+    top:0px;
+    left:0px;
+	text-align:center;
+	background-color:white;
+}
+* {
+	font-size: 13px;
+}
+
+</style>
+</head>
+<body onload="init()">
+<form id="application_flag_form" name="application_flag_form" method="post" action="/" class="no_padding">
+<input type="hidden" name="application_id" id="application_id" value="%%%application_id%%%">
+<input type="hidden" id="action" name="action" value="">
+<input type="hidden" name="module" id="module" value="%%%module%%%">
+<input type="hidden" name="mode" id="mode" value="%%%mode%%%">
+<input type="hidden" name="flag" id="mode" value="%%%flag%%%">
+
+<table width="100%" cellpadding="0" cellspacing="0" border="0" style="height: 180px;" align="center">
+<tbody>
+	<tr style="height: 30px;">
+		<td colspan="3">
+			<b>Modify Application Flag</b>
+			<p><b style="font-size:13px;background-color:yellow; padding:5px; border-style:solid; border-color:black; border-width:1px;">%%%flag_description%%%</b></p>
+		</td>
+	</tr>
+	<tr>
+		<td colspan="3">
+			<b>Flag is <span id="on">Set</span> <span id="off">Cleared</span>
+		</td>
+	</tr>
+	<tr id="permissionrow" style="display:none">
+		<td colspan="3">
+			<b>Change permission not granted</b>
+		</td>
+	</tr>
+	<tr>
+  		<td><button id="set_button" onClick="if (warning_div) { warning_div.style.display='block'; return false; } else { action_element.value='set_application_flag'; }">Set</button></td>
+  		<td><button id="clear_button" onClick="action_element.value = 'clear_application_flag';">Clear</button></td>
+		<td><button id="cancel_button" onClick="window.close();">Cancel</button></td>
+	</tr>
+</tbody>
+</table>
+<div class="modal_warning" id="warning.cust_no_ach">
+		<p><b>Action Required</b></p>
+		<p>After setting this flag the non-ach payments must be arranged.</p>
+  		<button id="set_button" onClick="action_element.value = 'set_application_flag';">Set</button>
+		<button id="cancel_button" onClick="window.close();">Cancel</button>
+</div>
+</form>
+</body>
+</html>

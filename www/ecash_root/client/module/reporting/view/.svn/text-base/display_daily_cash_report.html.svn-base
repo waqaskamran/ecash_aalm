@@ -1,0 +1,112 @@
+<style type="text/css">
+.daily_cash .column_header {
+	text-align: center;
+	font-weight: bold;
+	background-color: #cccccc;
+	width: 85px;
+	border-top: 1px solid black;
+	border-bottom: 1px solid black;
+}
+
+.daily_cash td {
+	text-align: left;
+}
+
+.b_left {
+	border-left: 1px solid black;
+}
+
+.b_right {
+	border-right: 1px solid black;
+}
+
+.b_bottom {
+	border-bottom: 1px solid black;
+}
+
+.b_top {
+	border-top: 1px solid black;
+}
+
+.highlight {
+	background-color: #ffffcc;
+}
+
+.shade {
+	background-color: #cccccc;
+}
+
+.label {
+	font-weight: bold;
+	background-color: #cccccc;
+}
+
+.underline {
+	text-decoration: underline;
+}
+
+.daily_cash .a_right {
+	text-align: right;
+}
+
+.daily_cash .a_center {
+	text-align: center;
+}
+</style>
+<form name="report_form" id="daily_cash_form" class="no_padding" action="/?module=reporting&action=generate_report" method="post">
+<table width="100%" border="0" style='background: #EEEEEE'>
+	<tr class="valign_top">
+		<th>
+			%%%report_title%%%
+		</th>
+	</tr>
+	<tr class="valign_top">
+		<td>
+			<table width="100%">
+				<tr>
+					<td width="25%" valign="top" align="left">
+						%%%start_date_title%%% %%%start_date%%%
+						%%%end_date_title%%%	%%%end_date%%%
+					</td>
+					<td>
+						<input type="hidden" name="update_deposit_data" id="update_deposit_data" value="0" />
+<!--						<input type="hidden" name="deposit[credit card payments]" id="deposit[credit card payments]" value="0" />
+						<input type="hidden" name="deposit[western union deposit]" id="deposit[western union deposit]" value="0" />-->
+						<input type="hidden" name="deposit[money order deposit]" id="deposit[money order deposit]" value="0" />
+					<!--	<input type="hidden" name="deposit[quick check deposit]" id="deposit[quick check deposit]" value="0" />
+						<input type="hidden" name="deposit[moneygram deposit]" id="deposit[moneygram deposit]" value="0" />
+						<input type="hidden" name="deposit[crsi recovery]" id="deposit[crsi recovery]" value="0" />
+						<input type="hidden" name="deposit[pinion recovery]" id="deposit[pinion recovery]" value="0" />-->
+						
+						<input type="hidden" name="deposit[lead acquisition cost]" id="deposit[lead acquisition cost]" value="0" />
+						
+						<input type="hidden" name="deposit[datax cost]" id="deposit[datax cost]" value="0" />
+						<input type="hidden" name="deposit[hms other cost]" id="deposit[hms other cost]" value="0" />
+						
+						
+						
+						<input type="hidden" name=mode value="%%%report_mode%%%">
+					</td>
+					<td width="25%" valign="top" align="right">
+						%%%company_select_list%%%
+					</td>
+				</tr>
+				<tr>
+					<td>&nbsp;</td>
+					<td width="50%" valign="top" align="center">
+						<input type="button" class="button" value="Submit" onclick="Update_Deposit_Data()">
+						&nbsp;
+						<input type="button" class="button" value="Refresh" onclick="reset();submit();">
+					</td>
+					<td width="25%" valign="top" align="right">
+						%%%download_link%%%
+						%%%email_link%%%
+					</td>
+				</tr>
+			</table>
+		</td>
+	</tr>
+	%%%search_message%%%
+</table>
+%%%search_result_set%%%
+</form>

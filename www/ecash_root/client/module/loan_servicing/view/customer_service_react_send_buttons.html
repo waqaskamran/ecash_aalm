@@ -1,0 +1,28 @@
+<div id="customer_service_buttons" style="display: none;">
+	<div id="app_attributes">
+		%%%app_attribute_buttons%%%
+	</div>
+	
+	<div id="app_actions">
+		<div class="app_attribute_title">
+			App Actions
+		</div>
+		<div style="float: left;">
+		<div class="app_button">
+			<input id="AppActionWithdrawApp" type="button" name="submit_button" value="Withdraw App" class="button2%%%cs_withdraw_disabled%%%" onClick="javascript:OpenDialogTall('/?action=loan_action&type=Withdraw&loan_section=CS&application_id=%%%application_id%%%&customer_email=%%%customer_email%%%');"%%%cs_withdraw_disabled%%%>
+		</div>
+		<!--<div class="app_button">
+			<input type="button" name="submit_button" value="Send to Verify" class="button2%%%cs_reverify_disabled%%%" onClick="javascript:OpenDialogTall('/loan_action.php?type=Reverify&loan_section=CS&application_id=%%%application_id%%%');"%%%cs_reverify_disabled%%%>
+		</div>-->
+                <div class="app_button">
+                        <input id="AppActionSendToInProcess" type="button" name="submit_button" value="Send to In Process" class="button2%%%inprocess_button_disabled%%%" onClick="javascript:Update_Status_Direct('In_Process', 'In Process');"%%%inprocess_button_disabled%%%>
+                </div>
+		<div class="app_button">&nbsp;</div>
+		</div>
+	</div>
+</div>
+<div style="clear: both;">
+	<span style="text-align: left; float: left;">%%%back_button_link%%%</span>
+	<span style="text-align: center; float: right; width: 755px;">Controlling Agent: &nbsp; <b>%%%controlling_agent_name%%% </b></span>
+</div>
+

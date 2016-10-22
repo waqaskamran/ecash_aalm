@@ -1,0 +1,271 @@
+<script type="text/javascript">
+
+var vehicle_validation_array = {
+'license_plate' : /^[a-zA-Z0-9 -]{1,10}$/,
+'vehicle_vin' : /^[a-zA-Z0-9]{17,17}$/,
+'mileage' : /^[0-9]{1,6}$/,
+'title_state': /^\S[^():]+$/,
+'vehicle_year':  /^\S[^():]+$/,
+'vehicle_make':  /^\S[^():]+$/,
+'vehicle_series':  /^\S[^():]+$/,
+'vehicle_body':  /^\S[^():]+$/,
+
+};
+
+function validate_vehicle_data()
+{
+	
+	var isvalid = validate_fields(vehicle_validation_array,'title','error');
+	
+	if(document.getElementById('mileage').value > 200000)
+	{
+		isvalid = false;
+		document.getElementById('mileage_span').className = 'error';
+	}
+
+	return isvalid;
+}
+
+
+</script>
+
+
+<div id="layout0group0layer9view" %%%vehicle_data_view_layer%%%>
+	<table cellpadding=0 cellspacing=0 width="100%">
+		<tr>
+			<td class="border" align="left" valign="top">
+				<table cellpadding=0 cellspacing=0 width="100%" class="%%%mode_class%%%">
+					<tr class="height">
+				<th class="%%%mode_class%%%">
+					<div style="float: left;">Vehicle Data</div>
+					<div class="vehicle_value">Value: <span>$%%%vehicle_value%%%</span></div>
+				</th>
+			</tr>
+
+			<tr class="height">
+				<td class="align_left_alt">
+					<div class="vehicle">
+						<span class="title">
+							License Plate:
+						</span>
+						<br>
+						<span class="data">
+							%%%vehicle_license_plate%%%
+						</span>
+					</div>
+					<div class="vehicle">
+						<span class="title">
+							Title State:
+						</span>
+						<br>
+						<span class="data">
+							%%%vehicle_title_state%%%
+						</span>
+					</div>
+					
+					<div class="vehicle">
+						<span class="title">
+							VIN:
+						</span>
+						<br>
+						<span class="data">
+							%%%vehicle_vin%%%
+						</span>
+					</div>				
+				</td>
+			</tr>
+			
+			<tr class="height">
+				<td class="align_left">
+					<div class="vehicle">
+						<span class="title">
+							Year:
+						</span>
+						<br>
+						<span class="data">
+							%%%vehicle_year%%%
+						</span>
+					</div>
+					
+					<div class="vehicle">
+						<span class="title">
+							Make:
+						</span>
+						<br>
+						<span class="data">
+							%%%vehicle_make%%%
+						</span>
+					</div>
+				</td>
+			</tr>		
+			<tr class="height">
+				<td class="align_left_alt">	
+					<div class="vehicle">
+						<span class="title">
+							Series:
+						</span>
+						<br>
+						<span class="data">
+							%%%vehicle_series%%%
+						</span>
+					</div>
+					
+					<div class="vehicle">
+						<span class="title">
+							Style:
+						</span>
+						<br>
+						<span class="data">
+							%%%vehicle_style%%%
+						</span>
+					</div>
+				</td>
+			</tr>
+
+			<tr class="height">
+				<td class="align_left">
+					<div class="vehicle">
+						<span class="title">
+							Mileage:
+						</span>
+						<br>
+						<span class="data">
+							%%%vehicle_mileage%%%
+						</span>
+					</div>
+				</td>
+			</tr>
+					<tr class="height">
+						<td colspan="2" class="align_right_alt">
+							%%%edit_vehicle_data_link%%%
+						</td>
+					</tr>
+				</table>
+			</td>
+		</tr>
+	</table>
+</div>
+<div id="layout0group0layer9edit" %%%vehicle_data_edit_layer%%%>
+<form method="post" action="/" id="Vehicle_form" name="Vehicle" class="no_padding">
+<input type="hidden" name="application_id" value="%%%application_id%%%">
+<input type="hidden" name="vehicle_id" value="%%%vehicle_id%%%">
+<table cellpadding=0 cellspacing=0 width="100%">
+	<tr>
+		<td class="border" align="left" valign="top">
+		<table cellpadding=0 cellspacing=0 width="100%" class="%%%mode_class%%%">
+			<tr class="height">
+				<th class="%%%mode_class%%%">
+					<div style="float: left;">Vehicle Data</div>
+					<div class="vehicle_value">Value: <span id="vehicle_value">$%%%vehicle_value%%%</span></div>
+				</th>
+			</tr>
+
+			<tr class="height">
+				<td class="align_left_alt">
+					<div class="vehicle">
+						<span class="title" id="license_plate_span">
+							License Plate:
+						</span>
+						<br>
+						<span class="data" >
+							<input type="text" id="license_plate" name="license_plate" maxlength="10" value="%%%vehicle_license_plate%%%" onblur = "return strip_all_but(this,keybAlphaNumeric,((window.event)?window.event:event));" onkeypress="return editKeyBoard(this,keybAlphaNumeric,((window.event)?window.event:event));">
+						</span>
+					</div>
+					<div class="vehicle">
+						<span class="title" id="title_state_span">
+							Title State:
+						</span>
+						<br>
+						<span class="data">
+							%%%edit_vehicle_state%%%
+						</span>
+					</div>
+					
+					<div class="vehicle">
+						<span class="title" id="vehicle_vin_span">
+							VIN:
+						</span>
+						<br>
+						<span class="data" >
+							%%%edit_vehicle_vin%%%
+						</span>
+					</div>				
+				</td>
+			</tr>
+			
+			<tr class="height">
+				<td class="align_left">
+					<div class="vehicle">
+						<span class="title" id="vehicle_year_span">
+							Year:
+						</span>
+						<br>
+						<span class="data">
+							%%%edit_vehicle_year%%%
+						</span>
+					</div>
+					
+					<div class="vehicle">
+						<span class="title" id="vehicle_make_span">
+							Make:
+						</span>
+						<br>
+						<span class="data">
+							%%%edit_vehicle_make%%%
+						</span>
+					</div>
+				</td>
+			</tr>		
+			<tr class="height">
+				<td class="align_left_alt">	
+					<div class="vehicle" >
+						<span class="title" id="vehicle_series_span">
+							Series:
+						</span>
+						<br>
+						<span class="data">
+							%%%edit_vehicle_series%%%
+						</span>
+					</div>
+					
+					<div class="vehicle">
+						<span class="title" id="vehicle_body_span">
+							Style:
+						</span>
+						<br>
+						<span class="data" >
+							%%%edit_vehicle_body%%%
+						</span>
+					</div>
+				</td>
+			</tr>
+
+			<tr class="height">
+				<td class="align_left">
+					<div class="vehicle">
+						<span class="title" id="mileage_span">
+							Mileage:
+						</span>
+						<br>
+						<span class="data" >
+							<input type="text" id="mileage" name="mileage" maxlength="6" value="%%%vehicle_mileage%%%" onblur = "return strip_all_but(this,keybNumeric,((window.event)?window.event:event));" onkeypress="return editKeyBoard(this,keybNumeric,((window.event)?window.event:event));">
+						</span>
+					</div>
+				</td>
+			</tr>
+			
+			<tr class="height">
+				<td class="align_right">
+					<input type="hidden" name="action" value="save_vehicle_data">
+					<input type="hidden" id="value" name="value" value="%%%vehicle_value%%%">
+					<nobr>
+					<!-- %%%save_application_button%%%	-->
+					<input type="submit" value="Save Changes" class="button" onclick="return validate_vehicle_data();"><input type="reset" value="Cancel" class="button" onClick="reset_fields(vehicle_validation_array,'title');javascript:SetDisplay(0,0,9,'view', '%%%mode_class%%%_buttons');"></nobr>
+				</td>
+			</tr>
+		</table>
+		</td>
+	</tr>
+</table>
+</form>
+</div>

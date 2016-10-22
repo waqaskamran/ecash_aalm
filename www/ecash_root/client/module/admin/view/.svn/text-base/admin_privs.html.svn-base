@@ -1,0 +1,175 @@
+<table width="100%" class="privs" height="500">
+	<tr><th>Privileges</th></tr>
+<form name="priv_info" action='/' method="post"><input name="action" type="hidden" value="save">
+	<tr>
+		<td>
+			<table width="100%">
+				<tr>
+					<td>
+<!-- Start Exiting Agents Table -->
+<div id="all_agent_list" style="visibility: hidden;position:absolute;top:0px;left:0px;width:10px; height:10px; overflow:hidden;">
+<select id="agent_list_all" name="agent_list_all" size="31" style="width:165px" onChange="javascript:display_agent(this.options[this.selectedIndex].value, this.name);" >%%%exisiting_agent_list%%%</select>
+</div>
+<div id="active_agent_list" style="visibility: hidden;position:absolute;top:0px;left:0px;width:10px; height:10px; overflow:hidden;">
+<select id="agent_list_active" name="agent_list_active" size="31" style="width:165px" onChange="javascript:display_agent(this.options[this.selectedIndex].value, this.name);" >%%%exisiting_active_agent_list%%%</select>
+</div>
+						<table height="460px" width="180px">
+							<tr>
+								<td class="align_left">&nbsp;<b>Existing Profiles</b> <br><input type="checkbox" id="agents_toggle" onchange="javascript:toggle_agents_list();" checked>active only</td>
+							</tr>
+							<tr>
+								<td class="border_one">
+									<table>
+										<tr>
+											<td>
+											<div id="agents_list_wrapper">
+												<select name="agent_list" id="agent_list" size="31" style="width:165px" onChange="javascript:display_agent(this.options[this.selectedIndex].value, this.name);" >
+													%%%exisiting_active_agent_list%%%
+												</select>
+											</div>
+											</td>
+										</tr>
+									</table>
+								</td>
+							</tr>
+						</table>
+<!-- Stop Exiting Agents Table -->
+					</td>
+					<td>
+<!-- Start Agent Privileges -->
+						<table width="570px" height="460px">
+							<tr>
+								<td class="align_left">&nbsp;<b>Profile Privileges</b></td>
+							</tr>
+							<tr>
+								<td class="border_one">
+									<table width="100%">
+										<tr>
+											<td>
+												<table width="570px">
+													<tr>
+														<td class="align_left">&nbsp;<b>Profile Name</b></td>
+													</tr>
+													<tr>
+														<td class="border_one">
+															<table width="100%">
+																<tr><td class="tiny_space">&nbsp;</td></tr>
+																<tr>
+																	<td><nobr>First Name:</nobr></td>
+																	<td class="align_left"> <input name="name_first" disabled> </td>
+																	<td><nobr>Last Name:</nobr></td>
+																	<td class="align_left"> <input name="name_last" disabled> </td>
+																</tr>
+																<tr><td class="tiny_space">&nbsp;</td></tr>
+															</table>
+														</td>
+													</tr>
+												</table>
+											</td>
+										</tr>
+									</table>
+<!-- Stop Agent Privileges -->
+
+									<table width="570px">
+										<tr>
+											<td class="align_left">&nbsp;<b>Add Privileges</b></td>
+										</tr>
+										<tr>
+											<td class="border_one">
+												<table width="100%">
+													<tr>
+														<td>
+															<table width="100%">
+																<tr>
+																	<td class="align_center"> 
+																		<br/>Company:  
+																		<select name="all_companies_list" style="width:200px" onChange="javascript:get_company_groups();"> 
+																			%%%add_company_list%%%	
+																		</select>
+																	</td>
+																</tr>
+																<tr>
+																	<td class="tiny_space">&nbsp;</td>
+																</tr>
+																<tr>
+																	<td>Groups <br/>
+																		<select name="group_list" size="6" style="width:250px" onChange="javascript:get_privilege_tree();">
+																			%%%add_company_group_list%%%
+																		</select>
+																	</td>
+																</tr>
+															</table>
+														</td>
+														<td> Company-Section Privileges<br/>
+															<select name="add_privilege_list" size="9"style="width:250px;" DISABLED>
+															</select>
+														</td>
+													</tr>
+													<tr>
+														<td class="align_right" colspan="2">
+															<input name="add_agent_priv" type="button" onclick="javascript:add_group_to_agent();" value="Add Group To Profile" />&nbsp;
+														</td>
+													</tr>
+												</table>
+											</td>
+										</tr>
+<!------------------------->
+<!------------------------->
+<!------------------------->
+										<tr>
+											<td>
+												<table width="570px">
+													<tr>
+														<td class="align_left">&nbsp;<b>Agent Privileges</b></td>
+													</tr>
+													<tr>
+														<td class="border_one">
+															<table width="100%">
+																<tr>
+																	<td> Profile Companies <br/>  
+																		<select name="agent_company_list" style="width:250px" size="5" onchange="javascript:load_agent_company_groups();"> 
+																			%%%add_companies_list%%%	
+																		</select>
+																	</td>
+																	<td> Profile Groups <br/>
+																		<select name="agent_group_list" size="5" style="width:250px">
+																			%%%agent_group_list%%%
+																		</select>
+																	</td>
+																</tr>
+																<tr>
+																	<td class="align_right" colspan="2">
+																		<input name="remove_agent_priv" type="button" onclick="javascript:remove_group_from_agent();" value="Remove Privilege From Agent">&nbsp;
+																	</td>
+																</tr>
+															</table>
+														</td>
+													</tr>
+												</table>
+											</td>
+										</tr>
+									</table>
+								</td>
+							</tr>
+						</table>
+					</td>						
+				</tr>						
+			</table>
+		</td>
+	</tr>
+	</form>
+</table>
+<script type="text/javascript">
+if(last_agent_id) 
+{
+	var agent_options = document.getElementById('agent_list').options; //(document.getElementById('agents_toggle').checked ? document.getElementById('agent_list_active').options : document.getElementById('agent_list_all').options);
+	for(var i = 0; i < agent_options.length; ++i) 
+	{
+		if(agent_options[i].value == last_agent_id)
+		{
+			agent_options[i].selected = true;
+			display_agent(agent_options[i].value, 'agent_list');
+		}
+	}
+}
+</script>

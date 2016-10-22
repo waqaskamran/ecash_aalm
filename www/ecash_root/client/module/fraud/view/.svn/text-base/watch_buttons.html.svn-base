@@ -1,0 +1,19 @@
+<div id="watch_buttons" style="display: none;">
+	<div id="app_attributes">
+		%%%app_attribute_buttons%%%
+	</div>
+<div id="app_actions">
+		<div class="app_attribute_title">
+			App Actions
+		</div>
+		<div style="float: left;">
+			<div class="app_button">
+				%%%watch_button%%%
+			</div>
+		</div>
+	</div>
+</div>
+<div style="clear: both;">
+	<span style="text-align: left; float: left;">%%%back_button_link%%%</span>
+	<span style="text-align: center; float: right; width: 755px;">Controlling Agent: &nbsp; <b>%%%controlling_agent_name%%% </b></span>
+</div>

@@ -1,0 +1,41 @@
+K 25
+svn:wc:ra_dav:version-url
+V 83
+/svn/aalm_current/!svn/ver/1979/ecash/branches/sql_merge/ecash_cfe/lib/Achtransport
+END
+achtransport.class.php
+K 25
+svn:wc:ra_dav:version-url
+V 106
+/svn/aalm_current/!svn/ver/1979/ecash/branches/sql_merge/ecash_cfe/lib/Achtransport/achtransport.class.php
+END
+achtransport_https.class.php
+K 25
+svn:wc:ra_dav:version-url
+V 112
+/svn/aalm_current/!svn/ver/1979/ecash/branches/sql_merge/ecash_cfe/lib/Achtransport/achtransport_https.class.php
+END
+achtransport_sftp_agean.class.php
+K 25
+svn:wc:ra_dav:version-url
+V 117
+/svn/aalm_current/!svn/ver/1979/ecash/branches/sql_merge/ecash_cfe/lib/Achtransport/achtransport_sftp_agean.class.php
+END
+achtransport_ftp.class.php
+K 25
+svn:wc:ra_dav:version-url
+V 110
+/svn/aalm_current/!svn/ver/1979/ecash/branches/sql_merge/ecash_cfe/lib/Achtransport/achtransport_ftp.class.php
+END
+achtransport_ftps.class.php
+K 25
+svn:wc:ra_dav:version-url
+V 111
+/svn/aalm_current/!svn/ver/1979/ecash/branches/sql_merge/ecash_cfe/lib/Achtransport/achtransport_ftps.class.php
+END
+achtransport_sftp.class.php
+K 25
+svn:wc:ra_dav:version-url
+V 111
+/svn/aalm_current/!svn/ver/1979/ecash/branches/sql_merge/ecash_cfe/lib/Achtransport/achtransport_sftp.class.php
+END

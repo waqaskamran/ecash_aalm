@@ -1,0 +1,105 @@
+<table cellpadding="0" cellspacing="0" width="100%">
+	<tr>
+	    <td class="align_center" style="vertical-align: top; padding: 10px;">
+			<form action="/" method="get" style="padding: 0; margin: 0;" onsubmit="return makeInOrder(this.start_date, this.end_date)">
+				<input type="hidden" name="action" value="return_history">
+				<input type="hidden" name="mode" value="%%%mode_class%%%">
+				<table cellpadding="2" cellspacing="1" align="center">
+					<tr>
+						<th style="text-align: center;">Start Date</th>
+						<th style="text-align: center;">End Date</th>
+						<th> &nbsp; </th>
+					</tr>
+					<tr>
+						<td>
+							<span id="date_span" style="display: inline;">
+								<a href="#" onClick="PopCalendar('start_date', event.clientX, event.clientY, '%%%start_date%%%', 2);">select</a>&nbsp;
+								<input type="text" id="start_date" name="start_date" value="%%%start_date%%%" size="10" readonly style="border:inherit; background-color:inherit;" onChange="if(!makeInOrder(this, this.form.end_date))PopCalendar('start_date', findPosX(this), findPosY(this), '%%%start_date%%%', 2);">
+							</span>
+						</td>
+<script language=javascript type=text/javascript>
+isACH = false;
+function makeInOrder(a, b) 
+{
+	if (Date.parse(a.value) > Date.parse(b.value)) 
+	{
+		alert("End Date must not precede Start Date.");
+//		if (confirm("End Date must not precede Start Date. Swap?")) {
+//			var t = a.value;
+//			a.value = b.value;
+//			b.value = t;
+//			return true;
+//		} else {
+			return false;
+//		}
+	}
+	return true;
+}
+  function findPosX(obj)
+  {
+    var curleft = 0;
+    if(obj.offsetParent)
+        while(1) 
+        {
+          curleft += obj.offsetLeft;
+          if(!obj.offsetParent)
+            break;
+          obj = obj.offsetParent;
+        }
+    else if(obj.x)
+        curleft += obj.x;
+    return curleft;
+  }
+
+  function findPosY(obj)
+  {
+    var curtop = 0;
+    if(obj.offsetParent)
+        while(1)
+        {
+          curtop += obj.offsetTop;
+          if(!obj.offsetParent)
+            break;
+          obj = obj.offsetParent;
+        }
+    else if(obj.y)
+        curtop += obj.y;
+    return curtop;
+  }
+</script>
+						<td>
+							<span id="date_span" style="display: inline;">
+								<a href="#" onClick="PopCalendar('end_date', event.clientX, event.clientY, '%%%end_date%%%', 2);">select</a>&nbsp;
+								<input type="text" id="end_date" name="end_date" value="%%%end_date%%%" size="10" readonly style="border:inherit; background-color:inherit;" onChange="if(!makeInOrder(this.form.start_date, this))PopCalendar('end_date', findPosX(this), findPosY(this), '%%%end_date%%%', 2);">
+							</span>
+						</td>
+						<td>
+							<input type="submit" value="Go">
+						</td>
+					</tr>
+				</table>
+			</form>
+	    </td>
+	</tr>
+</table>
+<table cellpadding="0" cellspacing="0" width="100%" height="480" class="%%%mode_class%%%">
+  <tr>
+    <td class="align_left" style="vertical-align: top">
+    <div id="batch_history_wrapper" style="width: 780px; height: 480px; overflow: auto">
+       <table cellpadding="1" cellspacing="1" width="759" class="%%%mode_class%%%" id="batch_history_table">
+	  <tr>
+	   	<th class="%%%mode_class%%%" style="text-align: center;">ACH Report ID</th>
+	   	<th class="%%%mode_class%%%" style="text-align: center;">Date Created</th>
+	   	<th class="%%%mode_class%%%" style="text-align: center;">Date Requested</th>
+	   	<th class="%%%mode_class%%%" style="text-align: center;">Report Type</th>
+	   	<th class="%%%mode_class%%%" style="text-align: center;">Report Status</th>
+	   	<th class="%%%mode_class%%%" style="text-align: center;">Method</th>
+		<th class="%%%mode_class%%%" style="text-align: center;">ACH Provider</th>
+
+	  </tr>
+           %%%returnlist%%%
+       </table>
+     </div>
+    </td>
+  </tr>
+</table>

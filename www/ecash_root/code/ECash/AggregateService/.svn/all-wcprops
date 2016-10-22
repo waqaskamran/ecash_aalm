@@ -1,0 +1,23 @@
+K 25
+svn:wc:ra_dav:version-url
+V 94
+/svn/aalm_current/!svn/ver/2193/ecash/branches/sql_merge/ecash_cfe/code/ECash/AggregateService
+END
+API.php
+K 25
+svn:wc:ra_dav:version-url
+V 102
+/svn/aalm_current/!svn/ver/2186/ecash/branches/sql_merge/ecash_cfe/code/ECash/AggregateService/API.php
+END
+ECashAPIFactory.php
+K 25
+svn:wc:ra_dav:version-url
+V 114
+/svn/aalm_current/!svn/ver/2193/ecash/branches/sql_merge/ecash_cfe/code/ECash/AggregateService/ECashAPIFactory.php
+END
+Factory.php
+K 25
+svn:wc:ra_dav:version-url
+V 106
+/svn/aalm_current/!svn/ver/2186/ecash/branches/sql_merge/ecash_cfe/code/ECash/AggregateService/Factory.php
+END

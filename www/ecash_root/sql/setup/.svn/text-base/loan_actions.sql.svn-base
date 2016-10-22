@@ -1,0 +1,97 @@
+CREATE TABLE IF NOT EXISTS `loan_actions` (
+  `loan_action_id` int(10) unsigned NOT NULL,
+  `name_short` varchar(30) default NULL,
+  `description` varchar(255) default NULL,
+  `status` enum('ACTIVE','INACTIVE') NOT NULL default 'INACTIVE',
+  `type` set('PRESCRIPTION','FUND_DENIED','FUND_WITHDRAW','FUND_APPROVE','CS_WITHDRAW','CS_VERIFY','DEQUEUE') NOT NULL,
+  PRIMARY KEY  (`loan_action_id`),
+  KEY `idx_type` (`type`)
+);
+INSERT  IGNORE INTO `loan_actions` VALUES (1,'no_answer_at_work','EN-No Answer at Work#','INACTIVE','');
+INSERT  IGNORE INTO `loan_actions` VALUES (2,'does_not_work_here','EN-Contact at work# and \"Doesn\'t Work Here\"','INACTIVE','');
+INSERT  IGNORE INTO `loan_actions` VALUES (3,'work_answers_hello','EN-Work# Answer \"Hello\"','INACTIVE','');
+INSERT  IGNORE INTO `loan_actions` VALUES (4,'work_invalid','EN-Work# Invalid  (not company, etc)','INACTIVE','');
+INSERT  IGNORE INTO `loan_actions` VALUES (5,'work_disconnected','EN-Work# Disconnected','INACTIVE','');
+INSERT  IGNORE INTO `loan_actions` VALUES (6,'self_or_unemployed','EN-Self Employed or Unemployed','INACTIVE','');
+INSERT  IGNORE INTO `loan_actions` VALUES (7,'no_work_number','WN-Customer can\'t provide updated Work Phone','INACTIVE','');
+INSERT  IGNORE INTO `loan_actions` VALUES (8,'self_employed','WN-Customer Self Employed','INACTIVE','');
+INSERT  IGNORE INTO `loan_actions` VALUES (9,'does_not_want_loan','CW-Customer does not want loan - Loan Withdrawn','ACTIVE','CS_WITHDRAW');
+INSERT  IGNORE INTO `loan_actions` VALUES (10,'resides_in_ks_ga','ON-Customer resides in KS or GA - Unable to Fund','INACTIVE','');
+INSERT  IGNORE INTO `loan_actions` VALUES (11,'three_assoc_account','ON-3+ SSNs/People associated with Bank Acct','INACTIVE','');
+INSERT  IGNORE INTO `loan_actions` VALUES (12,'datax_perform_fail','ON-DataX IDV and/or Performance Failure','INACTIVE','');
+INSERT  IGNORE INTO `loan_actions` VALUES (13,'no_contact','EU-No Contact','INACTIVE','');
+INSERT  IGNORE INTO `loan_actions` VALUES (14,'work_unsure','EU-Contact at work# and \"not sure if works there\"','INACTIVE','');
+INSERT  IGNORE INTO `loan_actions` VALUES (15,'unable_to_contact','CU-Unable to contact Customer','INACTIVE','');
+INSERT  IGNORE INTO `loan_actions` VALUES (16,'answered_name_company','EP-Answered with name and company','INACTIVE','');
+INSERT  IGNORE INTO `loan_actions` VALUES (17,'name_company_voicemail','EP-Name and Company in Voicemail','INACTIVE','');
+INSERT  IGNORE INTO `loan_actions` VALUES (18,'super_verify','EP-H/R or Co-Worker Verification','INACTIVE','');
+INSERT  IGNORE INTO `loan_actions` VALUES (19,'talked_with_person','EP-Talked with Applicant/Customer','INACTIVE','');
+INSERT  IGNORE INTO `loan_actions` VALUES (20,'check_load_bearing','AN-Customer Checking Account is load bearing card','INACTIVE','');
+INSERT  IGNORE INTO `loan_actions` VALUES (21,'account_no_debied','AN-Checking Account cannot be debited','INACTIVE','');
+INSERT  IGNORE INTO `loan_actions` VALUES (22,'contacted_at_work','PP-Contacted Customer at Work - Verified Paydates','INACTIVE','');
+INSERT  IGNORE INTO `loan_actions` VALUES (23,'contacted_at_home','PP-Contacted Customer at Home - Verified Paydates','INACTIVE','');
+INSERT  IGNORE INTO `loan_actions` VALUES (24,'unable_verify_paydates','PU-Unable to Verify Paydates','INACTIVE','');
+INSERT  IGNORE INTO `loan_actions` VALUES (25,'specify_other','Other [Specify Reason]','ACTIVE','PRESCRIPTION,FUND_DENIED,FUND_WITHDRAW,FUND_APPROVE,CS_VERIFY');
+INSERT  IGNORE INTO `loan_actions` VALUES (26,'talked_no_home_phone','EP-Talked with Applicant - Does not have home phone','INACTIVE','');
+INSERT  IGNORE INTO `loan_actions` VALUES (27,'approve_three_ssn','AN-3+ SSNs/People associated with checking account','INACTIVE','');
+INSERT  IGNORE INTO `loan_actions` VALUES (28,'VERIFY_SAME_WH','Work and home phone are the same.','INACTIVE','PRESCRIPTION');
+INSERT  IGNORE INTO `loan_actions` VALUES (29,'ABA_CHECK','More than three social security numbers have been used with the specified bank account and routing number.','INACTIVE','PRESCRIPTION');
+INSERT  IGNORE INTO `loan_actions` VALUES (30,'VERIFY_MIN_INCOME','Self-reported monthly income is below  1,300.','INACTIVE','PRESCRIPTION');
+INSERT  IGNORE INTO `loan_actions` VALUES (31,'VERIFY_WORK_BIZ','Work phone may be a residential number.','INACTIVE','PRESCRIPTION');
+INSERT  IGNORE INTO `loan_actions` VALUES (32,'VERIFY_WORK_CELL','Work phone may be a cellular number.','INACTIVE','PRESCRIPTION');
+INSERT  IGNORE INTO `loan_actions` VALUES (33,'LIST_VERIFY_BANK_ABA_1','Bank ABA must be verified.','INACTIVE','PRESCRIPTION');
+INSERT  IGNORE INTO `loan_actions` VALUES (34,'cs_correct_work_number','Customer gave correct work number','ACTIVE','CS_VERIFY');
+INSERT  IGNORE INTO `loan_actions` VALUES (35,'cs_correct_home_number','Customer gave correct home number','ACTIVE','CS_VERIFY');
+INSERT  IGNORE INTO `loan_actions` VALUES (36,'cs_verified_income','Customer verified income','ACTIVE','CS_VERIFY');
+INSERT  IGNORE INTO `loan_actions` VALUES (37,'cs_verified_paydays','Customer verified paydays','ACTIVE','CS_VERIFY');
+INSERT  IGNORE INTO `loan_actions` VALUES (38,'cs_verified_employer','Customer verified employer','ACTIVE','CS_VERIFY');
+INSERT  IGNORE INTO `loan_actions` VALUES (39,'w_cu_all_unable','CU-ALL-Unable to contact Customer','ACTIVE','FUND_WITHDRAW');
+INSERT  IGNORE INTO `loan_actions` VALUES (40,'w_cw_all_customer_not','CW-ALL-Customer does not want loan - Loan Withdrawn','ACTIVE','FUND_WITHDRAW');
+INSERT  IGNORE INTO `loan_actions` VALUES (41,'w_eu_all_no_contact','EU-ALL-No Contact','ACTIVE','FUND_WITHDRAW');
+INSERT  IGNORE INTO `loan_actions` VALUES (42,'w_eu_all_contact_no_work','EU-ALL-Contact at work# and \"not sure if works there\"','ACTIVE','FUND_WITHDRAW');
+INSERT  IGNORE INTO `loan_actions` VALUES (43,'w_ew_all_no_answer_work','EW-ALL-No Answer at Work#','ACTIVE','FUND_WITHDRAW');
+INSERT  IGNORE INTO `loan_actions` VALUES (44,'w_ew_all_answer_work_hello','EW-ALL-Work# Answer \"Hello\"','ACTIVE','FUND_WITHDRAW');
+INSERT  IGNORE INTO `loan_actions` VALUES (45,'w_ew_all_work_invalid','EW-ALL-Work# Invalid (not company, etc)','ACTIVE','FUND_WITHDRAW');
+INSERT  IGNORE INTO `loan_actions` VALUES (46,'w_ew_all_work_disconnect','EW-ALL-Work# Disconnected','ACTIVE','FUND_WITHDRAW');
+INSERT  IGNORE INTO `loan_actions` VALUES (47,'w_en_aml_self_employ','EN-AML-Self Employed - aml bank statement','ACTIVE','FUND_WITHDRAW');
+INSERT  IGNORE INTO `loan_actions` VALUES (48,'w_eu_aml_contact_at_work_inval','EU-AML-Contact at work# & uses invalid verification method (the work #) - aml paystub','ACTIVE','FUND_WITHDRAW');
+INSERT  IGNORE INTO `loan_actions` VALUES (49,'w_pu_aml_unable_verify','PU-AML-Unable to Verify Paydates - aml paystub','ACTIVE','FUND_WITHDRAW');
+INSERT  IGNORE INTO `loan_actions` VALUES (50,'w_wn_aml_customer_work_phone','WN-AML-Customer can\'t provide updated Work Phone','ACTIVE','FUND_WITHDRAW');
+INSERT  IGNORE INTO `loan_actions` VALUES (51,'w_wn_aml_waiting_Loan_doc','WN-AML-Waiting on updated Loan Document (Changed amount or date)','ACTIVE','FUND_WITHDRAW');
+INSERT  IGNORE INTO `loan_actions` VALUES (52,'d_en_all_self_employed','EN-ALL-Self Employed or Unemployed','ACTIVE','FUND_DENIED');
+INSERT  IGNORE INTO `loan_actions` VALUES (53,'d_en_all_contact_work_not_work','EN-ALL-Contact at work# and \"Doesn\'t Work Here\"','ACTIVE','FUND_DENIED');
+INSERT  IGNORE INTO `loan_actions` VALUES (54,'d_wn_all_No_work_phone','WN-ALL-Customer can\'t provide updated Work Phone ','ACTIVE','FUND_DENIED');
+INSERT  IGNORE INTO `loan_actions` VALUES (55,'d_on_all_customer_ks_ga','ON-ALL-Customer resides in KS or GA - Unable to Fund','ACTIVE','FUND_DENIED');
+INSERT  IGNORE INTO `loan_actions` VALUES (56,'d_on_all_3_ssn','ON-ALL-3+ SSNs associated with Bank Acct','ACTIVE','FUND_DENIED');
+INSERT  IGNORE INTO `loan_actions` VALUES (57,'d_on_all_datax_FAIL','ON-ALL-DataX IDV and/or Performance Failure','ACTIVE','FUND_DENIED');
+INSERT  IGNORE INTO `loan_actions` VALUES (58,'d_an_all_checking_load','AN-ALL-Customer Checking Account is load bearing card','ACTIVE','FUND_DENIED');
+INSERT  IGNORE INTO `loan_actions` VALUES (59,'d_an_all_checking_not_debit','AN-ALL-Checking Account cannot be debited','ACTIVE','FUND_DENIED');
+INSERT  IGNORE INTO `loan_actions` VALUES (60,'a_ep_alll_answered','EP-ALL-Answered with name and company','ACTIVE','FUND_APPROVE');
+INSERT  IGNORE INTO `loan_actions` VALUES (61,'a_ep_all_voicemail','EP-ALL-Name and Company in Voicemail','ACTIVE','FUND_APPROVE');
+INSERT  IGNORE INTO `loan_actions` VALUES (62,'a_ep_all_hr_verify','EP-ALL-H/R or Co-Worker Verification','ACTIVE','FUND_APPROVE');
+INSERT  IGNORE INTO `loan_actions` VALUES (63,'a_ep_all_talked_work','EP-ALL-Talked with Applicant/Customer at Work','ACTIVE','FUND_APPROVE');
+INSERT  IGNORE INTO `loan_actions` VALUES (64,'a_ep_all_talked_home','EP-ALL-Talked with Applicant/Customer at Home','ACTIVE','FUND_APPROVE');
+INSERT  IGNORE INTO `loan_actions` VALUES (65,'a_ep_all_verified_military','EP-ALL-Verifed employment with military.com','ACTIVE','FUND_APPROVE');
+INSERT  IGNORE INTO `loan_actions` VALUES (66,'a_ep_all_verified_em_line','EP-ALL-Verifed employment with employment verification line','ACTIVE','FUND_APPROVE');
+INSERT  IGNORE INTO `loan_actions` VALUES (67,'a_ep_all_talked_applicant','EP-ALL-Talked with Applicant - Does not have home phone','ACTIVE','FUND_APPROVE');
+INSERT  IGNORE INTO `loan_actions` VALUES (68,'a_eu_all_contact_work_invalid','EU-ALL-Contact at work# & uses invalid verification method (the work #)','ACTIVE','FUND_APPROVE');
+INSERT  IGNORE INTO `loan_actions` VALUES (69,'a_eu_all_no_contact','EU-ALL-No Contact','ACTIVE','FUND_APPROVE');
+INSERT  IGNORE INTO `loan_actions` VALUES (70,'a_eu_all_contact_not_sure_work','EU-ALL-Contact at work# and \"not sure if works there\"','ACTIVE','FUND_APPROVE');
+INSERT  IGNORE INTO `loan_actions` VALUES (71,'a_pp_all_contact_work_verfied','PP-ALL-Contacted Customer at Work - Verified Paydates','ACTIVE','FUND_APPROVE');
+INSERT  IGNORE INTO `loan_actions` VALUES (72,'a_pp_all_contact_home_verfied','PP-ALL-Contacted Customer at Home - Verified Paydates','ACTIVE','FUND_APPROVE');
+INSERT  IGNORE INTO `loan_actions` VALUES (73,'e_pu_all_unable_verrfiy','PU-ALL-Unable to Verify Paydates ','ACTIVE','FUND_APPROVE');
+INSERT  IGNORE INTO `loan_actions` VALUES (74,'LIST_VERIFY_BANK_ABA_15','ABA Watch List 11-2-2005','INACTIVE','PRESCRIPTION');
+INSERT  IGNORE INTO `loan_actions` VALUES (75,'LIST_VERIFY_EMPLOYER_NAME_14','Employer Watch List 11-2-2005','INACTIVE','PRESCRIPTION');
+INSERT  IGNORE INTO `loan_actions` VALUES (76,'DATAX_PERF','Could not complete verification due to a missing or invalid DataX response.','INACTIVE','PRESCRIPTION');
+INSERT  IGNORE INTO `loan_actions` VALUES (77,'VERIFY_PAYDATES','Pay dates are within 5 days of each other.','INACTIVE','PRESCRIPTION');
+INSERT  IGNORE INTO `loan_actions` VALUES (78,'cu_invalid_home_number','CU - Home phone number is invalid','ACTIVE','FUND_DENIED');
+INSERT  IGNORE INTO `loan_actions` VALUES (79,'cu_invalid_work_number','CU - Work phone number is invalid','ACTIVE','FUND_DENIED');
+INSERT  IGNORE INTO `loan_actions` VALUES (80,'fd_fraud_on_list','FD - Fraud, On List','ACTIVE','FUND_DENIED');
+INSERT  IGNORE INTO `loan_actions` VALUES (81,'fd_high_risk_on_list','FD - High Risk, On List','ACTIVE','FUND_DENIED');
+INSERT  IGNORE INTO `loan_actions` VALUES (82,'fd_sent_to_fraud_by_underwriti','FD - Sent to Fraud by Underwriting','ACTIVE','FUND_DENIED');
+INSERT  IGNORE INTO `loan_actions` VALUES (83,'ON-ALL-TeleTrack Failure','ON-ALL-TeleTrack Failure','ACTIVE','FUND_DENIED');
+INSERT  IGNORE INTO `loan_actions` VALUES (87,'deq_num_disconnect','Number Disconnected','ACTIVE','DEQUEUE');
+INSERT  IGNORE INTO `loan_actions` VALUES (88,'deq_num_incorrect','Incorrect Number','ACTIVE','DEQUEUE');
+INSERT  IGNORE INTO `loan_actions` VALUES (89,'deq_left_msg','Left Message','ACTIVE','DEQUEUE');
+INSERT  IGNORE INTO `loan_actions` VALUES (90,'deq_no_ans','No Answer','ACTIVE','DEQUEUE');
+INSERT  IGNORE INTO `loan_actions` VALUES (91,'deq_arranged','Made Arrangement','ACTIVE','DEQUEUE');

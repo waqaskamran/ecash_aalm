@@ -1,0 +1,35 @@
+K 25
+svn:wc:ra_dav:version-url
+V 74
+/svn/aalm_current/!svn/ver/1979/ecash/branches/sql_merge/ecash_cfe/lib/RPC
+END
+HTTP.class.php
+K 25
+svn:wc:ra_dav:version-url
+V 89
+/svn/aalm_current/!svn/ver/1979/ecash/branches/sql_merge/ecash_cfe/lib/RPC/HTTP.class.php
+END
+Auth.class.php
+K 25
+svn:wc:ra_dav:version-url
+V 89
+/svn/aalm_current/!svn/ver/1979/ecash/branches/sql_merge/ecash_cfe/lib/RPC/Auth.class.php
+END
+SOAP.class.php
+K 25
+svn:wc:ra_dav:version-url
+V 89
+/svn/aalm_current/!svn/ver/1979/ecash/branches/sql_merge/ecash_cfe/lib/RPC/SOAP.class.php
+END
+PRPC.class.php
+K 25
+svn:wc:ra_dav:version-url
+V 89
+/svn/aalm_current/!svn/ver/1979/ecash/branches/sql_merge/ecash_cfe/lib/RPC/PRPC.class.php
+END
+RPC.class.php
+K 25
+svn:wc:ra_dav:version-url
+V 88
+/svn/aalm_current/!svn/ver/1979/ecash/branches/sql_merge/ecash_cfe/lib/RPC/RPC.class.php
+END

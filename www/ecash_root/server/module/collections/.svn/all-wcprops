@@ -1,0 +1,41 @@
+K 25
+svn:wc:ra_dav:version-url
+V 92
+/svn/aalm_current/!svn/ver/2985/ecash/branches/sql_merge/ecash_cfe/server/module/collections
+END
+module.class.php
+K 25
+svn:wc:ra_dav:version-url
+V 109
+/svn/aalm_current/!svn/ver/2985/ecash/branches/sql_merge/ecash_cfe/server/module/collections/module.class.php
+END
+pdf.class.php
+K 25
+svn:wc:ra_dav:version-url
+V 106
+/svn/aalm_current/!svn/ver/1979/ecash/branches/sql_merge/ecash_cfe/server/module/collections/pdf.class.php
+END
+EcldUnmatchedReturn.php
+K 25
+svn:wc:ra_dav:version-url
+V 116
+/svn/aalm_current/!svn/ver/1979/ecash/branches/sql_merge/ecash_cfe/server/module/collections/EcldUnmatchedReturn.php
+END
+EcldUnmatchedReturnFile.php
+K 25
+svn:wc:ra_dav:version-url
+V 120
+/svn/aalm_current/!svn/ver/1979/ecash/branches/sql_merge/ecash_cfe/server/module/collections/EcldUnmatchedReturnFile.php
+END
+quick_checks.class.php
+K 25
+svn:wc:ra_dav:version-url
+V 115
+/svn/aalm_current/!svn/ver/1979/ecash/branches/sql_merge/ecash_cfe/server/module/collections/quick_checks.class.php
+END
+collections.class.php
+K 25
+svn:wc:ra_dav:version-url
+V 114
+/svn/aalm_current/!svn/ver/2967/ecash/branches/sql_merge/ecash_cfe/server/module/collections/collections.class.php
+END

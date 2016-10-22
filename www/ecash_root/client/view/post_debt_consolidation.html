@@ -1,0 +1,62 @@
+
+
+<html>
+<head>
+<title>Post Debt Consolidation Payment - Application ID %%%application_id%%%</title>
+<script type="text/javascript" src="js/transactions.js"></script>
+<script type="text/javascript" >
+
+function isvalid()
+{
+	if(isNaN(parseInt(document.getElementById('actual_amount').value)) || document.getElementById('actual_amount').value <= 0 )
+	{
+		alert('Amount must be Numeric and greater than zero');
+		return false;
+		
+	}
+	else if(document.getElementById('actual_amount').value > amounts[document.getElementById('event_schedule_id').value])
+	{
+		alert('Amount can not exceed Event Amount');
+		return false;
+	}
+	return true;
+	
+}
+
+
+</script>
+
+<style>body { font-family:arial, sans-serif; }</style>
+
+</head>
+<body>
+<form id="post_payment_form" name="Debt Consolidation Posting" method="post" action="/" class="no_padding">
+<input type="hidden" name="mode" id="mode" value="%%%mode_class%%%">
+<input type="hidden" name="action" id="action" value="post_debt_consolidation">
+<input type="hidden" name="action_type" id="specific_action" value="save">
+<input type="hidden" name="application_id" id="application_id" value="%%%application_id%%%">
+<table cellpadding="3" cellspacing="0" border="0" class="%%%mode_class%%%">
+ <tr>
+  <td>
+  <label for="actual_amount">Actual Payment Amount:</label>
+  </td>
+  <td>
+  <input type="text" name="actual_amount" id="actual_amount" value="0">
+  </td>
+ </tr>
+ <tr>
+  <td>
+  <label for="event_schedule_id">Choose an Event:</label>
+  </td>
+  <td>
+  %%%event_schedule_dropdown%%%
+  </td>
+ </tr>
+ <tr>
+  <td colspan="2"><input type="button" value="Cancel" onClick="window.close();">
+  <input type="button" value="Post Payment" onClick="if(isvalid()){PostDebtConsolidation('%%%action_type%%%');}"></td>
+ </tr>
+</table>
+</form>
+</body>
+</html>

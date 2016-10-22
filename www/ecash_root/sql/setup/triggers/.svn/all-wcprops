@@ -1,0 +1,53 @@
+K 25
+svn:wc:ra_dav:version-url
+V 85
+/svn/aalm_current/!svn/ver/1979/ecash/branches/sql_merge/ecash_cfe/sql/setup/triggers
+END
+transaction_regiseter_before_update.sql
+K 25
+svn:wc:ra_dav:version-url
+V 125
+/svn/aalm_current/!svn/ver/1979/ecash/branches/sql_merge/ecash_cfe/sql/setup/triggers/transaction_regiseter_before_update.sql
+END
+event_amount_before_delete.sql
+K 25
+svn:wc:ra_dav:version-url
+V 116
+/svn/aalm_current/!svn/ver/1979/ecash/branches/sql_merge/ecash_cfe/sql/setup/triggers/event_amount_before_delete.sql
+END
+event_amount_before_update.sql
+K 25
+svn:wc:ra_dav:version-url
+V 116
+/svn/aalm_current/!svn/ver/1979/ecash/branches/sql_merge/ecash_cfe/sql/setup/triggers/event_amount_before_update.sql
+END
+app_fld_del.sql
+K 25
+svn:wc:ra_dav:version-url
+V 101
+/svn/aalm_current/!svn/ver/1979/ecash/branches/sql_merge/ecash_cfe/sql/setup/triggers/app_fld_del.sql
+END
+app_fld_insert.sql
+K 25
+svn:wc:ra_dav:version-url
+V 104
+/svn/aalm_current/!svn/ver/1979/ecash/branches/sql_merge/ecash_cfe/sql/setup/triggers/app_fld_insert.sql
+END
+event_amount_before_insert.sql
+K 25
+svn:wc:ra_dav:version-url
+V 116
+/svn/aalm_current/!svn/ver/1979/ecash/branches/sql_merge/ecash_cfe/sql/setup/triggers/event_amount_before_insert.sql
+END
+app_updt.sql
+K 25
+svn:wc:ra_dav:version-url
+V 98
+/svn/aalm_current/!svn/ver/1979/ecash/branches/sql_merge/ecash_cfe/sql/setup/triggers/app_updt.sql
+END
+app_insrt.sql
+K 25
+svn:wc:ra_dav:version-url
+V 99
+/svn/aalm_current/!svn/ver/1979/ecash/branches/sql_merge/ecash_cfe/sql/setup/triggers/app_insrt.sql
+END

@@ -1,0 +1,53 @@
+K 25
+svn:wc:ra_dav:version-url
+V 105
+/svn/aalm_current/!svn/ver/1979/ecash/branches/sql_merge/rule_editor/shared/rule_editor/lib/ext/source/dd
+END
+StatusProxy.js
+K 25
+svn:wc:ra_dav:version-url
+V 120
+/svn/aalm_current/!svn/ver/1979/ecash/branches/sql_merge/rule_editor/shared/rule_editor/lib/ext/source/dd/StatusProxy.js
+END
+Registry.js
+K 25
+svn:wc:ra_dav:version-url
+V 117
+/svn/aalm_current/!svn/ver/1979/ecash/branches/sql_merge/rule_editor/shared/rule_editor/lib/ext/source/dd/Registry.js
+END
+DragZone.js
+K 25
+svn:wc:ra_dav:version-url
+V 117
+/svn/aalm_current/!svn/ver/1979/ecash/branches/sql_merge/rule_editor/shared/rule_editor/lib/ext/source/dd/DragZone.js
+END
+ScrollManager.js
+K 25
+svn:wc:ra_dav:version-url
+V 122
+/svn/aalm_current/!svn/ver/1979/ecash/branches/sql_merge/rule_editor/shared/rule_editor/lib/ext/source/dd/ScrollManager.js
+END
+DropTarget.js
+K 25
+svn:wc:ra_dav:version-url
+V 119
+/svn/aalm_current/!svn/ver/1979/ecash/branches/sql_merge/rule_editor/shared/rule_editor/lib/ext/source/dd/DropTarget.js
+END
+DragSource.js
+K 25
+svn:wc:ra_dav:version-url
+V 119
+/svn/aalm_current/!svn/ver/1979/ecash/branches/sql_merge/rule_editor/shared/rule_editor/lib/ext/source/dd/DragSource.js
+END
+DDCore.js
+K 25
+svn:wc:ra_dav:version-url
+V 115
+/svn/aalm_current/!svn/ver/1979/ecash/branches/sql_merge/rule_editor/shared/rule_editor/lib/ext/source/dd/DDCore.js
+END
+DropZone.js
+K 25
+svn:wc:ra_dav:version-url
+V 117
+/svn/aalm_current/!svn/ver/1979/ecash/branches/sql_merge/rule_editor/shared/rule_editor/lib/ext/source/dd/DropZone.js
+END

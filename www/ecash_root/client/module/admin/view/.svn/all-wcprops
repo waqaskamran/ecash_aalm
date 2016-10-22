@@ -1,0 +1,179 @@
+K 25
+svn:wc:ra_dav:version-url
+V 91
+/svn/aalm_current/!svn/ver/4488/ecash/branches/sql_merge/ecash_cfe/client/module/admin/view
+END
+token_management.html
+K 25
+svn:wc:ra_dav:version-url
+V 113
+/svn/aalm_current/!svn/ver/1979/ecash/branches/sql_merge/ecash_cfe/client/module/admin/view/token_management.html
+END
+admin_menu.html
+K 25
+svn:wc:ra_dav:version-url
+V 107
+/svn/aalm_current/!svn/ver/1979/ecash/branches/sql_merge/ecash_cfe/client/module/admin/view/admin_menu.html
+END
+docs_config_email_manager.html
+K 25
+svn:wc:ra_dav:version-url
+V 122
+/svn/aalm_current/!svn/ver/1979/ecash/branches/sql_merge/ecash_cfe/client/module/admin/view/docs_config_email_manager.html
+END
+queue_config_queue_recycle_limit.html
+K 25
+svn:wc:ra_dav:version-url
+V 129
+/svn/aalm_current/!svn/ver/1979/ecash/branches/sql_merge/ecash_cfe/client/module/admin/view/queue_config_queue_recycle_limit.html
+END
+docs_config_printing_manager.html
+K 25
+svn:wc:ra_dav:version-url
+V 125
+/svn/aalm_current/!svn/ver/1979/ecash/branches/sql_merge/ecash_cfe/client/module/admin/view/docs_config_printing_manager.html
+END
+admin_global_campaign_rules.html
+K 25
+svn:wc:ra_dav:version-url
+V 124
+/svn/aalm_current/!svn/ver/4488/ecash/branches/sql_merge/ecash_cfe/client/module/admin/view/admin_global_campaign_rules.html
+END
+docs_config_document_sort.html
+K 25
+svn:wc:ra_dav:version-url
+V 122
+/svn/aalm_current/!svn/ver/1979/ecash/branches/sql_merge/ecash_cfe/client/module/admin/view/docs_config_document_sort.html
+END
+docs_config_package_manager.html
+K 25
+svn:wc:ra_dav:version-url
+V 124
+/svn/aalm_current/!svn/ver/1979/ecash/branches/sql_merge/ecash_cfe/client/module/admin/view/docs_config_package_manager.html
+END
+admin_holidays.html
+K 25
+svn:wc:ra_dav:version-url
+V 111
+/svn/aalm_current/!svn/ver/1979/ecash/branches/sql_merge/ecash_cfe/client/module/admin/view/admin_holidays.html
+END
+queue_config_new_queue.html
+K 25
+svn:wc:ra_dav:version-url
+V 119
+/svn/aalm_current/!svn/ver/1979/ecash/branches/sql_merge/ecash_cfe/client/module/admin/view/queue_config_new_queue.html
+END
+admin_groups.html
+K 25
+svn:wc:ra_dav:version-url
+V 109
+/svn/aalm_current/!svn/ver/1979/ecash/branches/sql_merge/ecash_cfe/client/module/admin/view/admin_groups.html
+END
+rules.html
+K 25
+svn:wc:ra_dav:version-url
+V 102
+/svn/aalm_current/!svn/ver/1979/ecash/branches/sql_merge/ecash_cfe/client/module/admin/view/rules.html
+END
+admin_profiles.html
+K 25
+svn:wc:ra_dav:version-url
+V 111
+/svn/aalm_current/!svn/ver/1979/ecash/branches/sql_merge/ecash_cfe/client/module/admin/view/admin_profiles.html
+END
+underwriting_rules.html
+K 25
+svn:wc:ra_dav:version-url
+V 115
+/svn/aalm_current/!svn/ver/2741/ecash/branches/sql_merge/ecash_cfe/client/module/admin/view/underwriting_rules.html
+END
+tags.html
+K 25
+svn:wc:ra_dav:version-url
+V 101
+/svn/aalm_current/!svn/ver/1979/ecash/branches/sql_merge/ecash_cfe/client/module/admin/view/tags.html
+END
+admin_intercept_card.html
+K 25
+svn:wc:ra_dav:version-url
+V 117
+/svn/aalm_current/!svn/ver/1979/ecash/branches/sql_merge/ecash_cfe/client/module/admin/view/admin_intercept_card.html
+END
+flag_type_config.html
+K 25
+svn:wc:ra_dav:version-url
+V 113
+/svn/aalm_current/!svn/ver/1979/ecash/branches/sql_merge/ecash_cfe/client/module/admin/view/flag_type_config.html
+END
+admin_ach_providers.html
+K 25
+svn:wc:ra_dav:version-url
+V 116
+/svn/aalm_current/!svn/ver/4372/ecash/branches/sql_merge/ecash_cfe/client/module/admin/view/admin_ach_providers.html
+END
+payment_types.html
+K 25
+svn:wc:ra_dav:version-url
+V 110
+/svn/aalm_current/!svn/ver/1979/ecash/branches/sql_merge/ecash_cfe/client/module/admin/view/payment_types.html
+END
+docs_config_email_footer.html
+K 25
+svn:wc:ra_dav:version-url
+V 121
+/svn/aalm_current/!svn/ver/1979/ecash/branches/sql_merge/ecash_cfe/client/module/admin/view/docs_config_email_footer.html
+END
+queue_config_recycle_now.html
+K 25
+svn:wc:ra_dav:version-url
+V 121
+/svn/aalm_current/!svn/ver/1979/ecash/branches/sql_merge/ecash_cfe/client/module/admin/view/queue_config_recycle_now.html
+END
+suppression_rules.html
+K 25
+svn:wc:ra_dav:version-url
+V 114
+/svn/aalm_current/!svn/ver/2741/ecash/branches/sql_merge/ecash_cfe/client/module/admin/view/suppression_rules.html
+END
+docs_config_process_manager.html
+K 25
+svn:wc:ra_dav:version-url
+V 124
+/svn/aalm_current/!svn/ver/1979/ecash/branches/sql_merge/ecash_cfe/client/module/admin/view/docs_config_process_manager.html
+END
+docs_config_document_manager.html
+K 25
+svn:wc:ra_dav:version-url
+V 125
+/svn/aalm_current/!svn/ver/1979/ecash/branches/sql_merge/ecash_cfe/client/module/admin/view/docs_config_document_manager.html
+END
+queue_config_queue_timeouts.html
+K 25
+svn:wc:ra_dav:version-url
+V 124
+/svn/aalm_current/!svn/ver/1979/ecash/branches/sql_merge/ecash_cfe/client/module/admin/view/queue_config_queue_timeouts.html
+END
+decision_rules.html
+K 25
+svn:wc:ra_dav:version-url
+V 111
+/svn/aalm_current/!svn/ver/1979/ecash/branches/sql_merge/ecash_cfe/client/module/admin/view/decision_rules.html
+END
+admin_privs.html
+K 25
+svn:wc:ra_dav:version-url
+V 108
+/svn/aalm_current/!svn/ver/1979/ecash/branches/sql_merge/ecash_cfe/client/module/admin/view/admin_privs.html
+END
+admin_nada.html
+K 25
+svn:wc:ra_dav:version-url
+V 107
+/svn/aalm_current/!svn/ver/1979/ecash/branches/sql_merge/ecash_cfe/client/module/admin/view/admin_nada.html
+END
+transaction_type_config.html
+K 25
+svn:wc:ra_dav:version-url
+V 120
+/svn/aalm_current/!svn/ver/1979/ecash/branches/sql_merge/ecash_cfe/client/module/admin/view/transaction_type_config.html
+END

@@ -1,0 +1,111 @@
+
+<style type="text/css">
+/* custom styles for this example */
+.yui-skin-sam .yui-dt-liner { white-space:nowrap; } 
+
+td.uploadBatchTable {
+	text-align: left;
+}
+
+
+/* Class for bad rows */
+.yui-skin-sam tr.bad,
+.yui-skin-sam tr.bad td.yui-dt-asc,
+.yui-skin-sam tr.bad td.yui-dt-desc,
+.yui-skin-sam tr.bad td.yui-dt-asc,
+.yui-skin-sam tr.bad td.yui-dt-desc,
+.yui-skin-sam tr.bad div.yui-dt-liner {
+    background-color: #a33;
+    color: #fff;
+}
+
+/* Class for good rows */
+.yui-skin-sam tr.good,
+.yui-skin-sam tr.good td.yui-dt-asc,
+.yui-skin-sam tr.good td.yui-dt-desc,
+.yui-skin-sam tr.good td.yui-dt-asc,
+.yui-skin-sam tr.good td.yui-dt-desc,
+.yui-skin-sam tr.good div.yui-dt-liner {
+    background-color: #3a3;
+    color: #fff;
+}
+
+</style>
+
+<table cellpadding="0" cellspacing="0" width="100%" style="background-color:#EEEEEE;">
+	<tr>
+	    <td class="align_center" style="vertical-align: top;padding: 10px;">
+			<form method=post enctype="multipart/form-data" action = "?module=loan_servicing&mode=batch_mgmt&action=upload_return">
+			<table align=center>
+				<tr>
+					<td colspan="2">
+						<table class="uploadBatchTable">
+							<!-- asm 104 -->
+							<tr>
+								<td>Return From:</td>
+								<td class="uploadBatchTable"><select id='file_format' name='file_format' onChange="javascript:disableCorrectionType();">%%%file_format_options%%%</select></td>
+							</tr>
+							<tr>
+								<td>Return Type:</td>
+								<td class="uploadBatchTable"><select id='file_type' name='file_type' onChange="javascript:disableCorrectionType();">%%%file_type_options%%%</select></td>
+							</tr>
+							<tr>
+								<td>Return File:</td>
+								<td align="left"><input type='file' id='return_file_upload' name='return_file_upload'><input type = submit value = Upload></td>
+							</tr>
+						</table>
+					</td>	
+				</tr>
+				<tr>
+					<td style="color:red;">%%%message%%%</td>
+				<tr>
+					<td><input type='submit' id='processfile' name='processfile' value="Process Return File" style="display:%%%Process_Disabled%%%"></td>
+					<!-- <td><input type='submit' id='processreschedulefile' name='processreschedulefile' value="Process and Reschedule Return File" style="display:%%%Process_Reschedule_Disabled%%%"></td> -->
+				</tr>
+			</table>
+			</form>
+	    </td>
+	</tr>
+</table>
+<div class="demo"><div id="return_data_table" style="width: 790px; height: 480px; overflow: auto;background-color:#EEEEEE;" class="yui-skin-sam">
+</div>
+
+<script type="text/javascript">
+var return_data = %%%return_data%%%;
+var Dom = YAHOO.util.Dom; 
+
+YAHOO.util.Event.onDOMReady(function () {
+
+
+	var myRowFormatter = function(elTr, oRecord) {
+		if (oRecord.getData('processing_status') == 'Exception') {
+			Dom.addClass(elTr, 'bad');
+		//	elTr.className = 'bad';
+		}
+		else if(oRecord.getData('processing_status') == 'Updated' || oRecord.getData('processing_status') == 'Corrected') {
+			Dom.addClass(elTr, 'good');	
+		}	
+		return true;
+	}; 
+var Ex = YAHOO.example;
+  var myColumnDefs = %%%columndefs%%%;
+Ex.myDataSource = new YAHOO.util.DataSource(return_data);
+Ex.myDataSource.responseType = YAHOO.util.DataSource.TYPE_JSARRAY;
+        Ex.myDataSource.responseSchema = {
+            fields: %%%columns%%%
+        };
+         Ex.myDataTable = new YAHOO.widget.DataTable("return_data_table",
+                myColumnDefs, Ex.myDataSource, {formatRow: myRowFormatter});
+ 
+});
+
+function disableCorrectionType()
+{	
+	if (document.getElementById('file_format').value == "viking")
+	{
+		document.getElementById('file_type').value = "returns";
+	}
+}
+
+</script>
+

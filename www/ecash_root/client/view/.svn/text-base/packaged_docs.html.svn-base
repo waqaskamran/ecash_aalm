@@ -1,0 +1,49 @@
+<div id="layout0group1layer4edit" %%%packaged_docs_edit_layer%%%>
+	<form method="post" action="/" name="PackagedDocuments" class="no_padding">
+		<input type="hidden" name="action" value="send_documents" />
+		<table cellpadding=0 cellspacing=0 width="100%">
+			<tr>
+				<td class="border" align="left" valign="top">
+					<table cellpadding=0 cellspacing=0 width="100%" class="%%%mode_class%%%" border="0">
+						<tr class="height">
+							<th colspan="4" class="%%%status_class%%%" style="background: %%%status_background_color%%%;">
+								<span style="float: left;">Send Packaged Docs</span><span style="float: right;"><a href="#" onClick="javascript:window.open('/?module=%%%module_name%%%&action=get_application_history&application_id=%%%application_id%%%', 'application_history', 'toolbar=no,location=no,directories=no,status=no,menubar=no,scrollbars=yes,resizable=no,copyhistory=no,width=515,height=420,left=150,top=150,screenX=150,screenY=150');">App. ID %%%application_id%%% %%%status_long%%%</a>&nbsp;%%%react_ind%%%&nbsp;%%%watch_ind%%%&nbsp;%%%fraud_ind%%%</span>
+							</th>
+						</tr>
+						<tr class="height">
+							<th class="search">&nbsp;Name</th>
+							<th class="search"></th>
+							<th class="search" style="text-align: right;"><nobr>Send</nobr></th>
+							<th class="search" style="width: 16px">&nbsp;</th>
+						</tr>
+						<tr>
+							<td colspan="4">
+								<div id="layout0group1layer4editscroll" style="height: 390px;">
+									%%%packaged_document_list%%%
+								</div>
+							</td>
+						</tr>
+						<tr>
+							<td colspan="4">
+								<table cellpadding="0" cellspacing="1" border="0"><tr><td>
+									<tr class="height">
+										<td class="align_left" colspan="3">&nbsp;</td>
+									</tr>
+									<tr class="height">
+										<td class="align_left_alt">Email:&nbsp;</td>
+										<td class="align_left_alt">
+											<input type="text" name="customer_email" value="%%%customer_email%%%" size=30 maxlength="100" class="input_text" />
+										</td>
+										<td class="align_right">
+											<input id="send_packaged_docs" type="submit" name="submit" value="Email Package" class="button" style="width: 80px;" onClick="javascript: return verifyDestination(value);" />
+										</td>
+									</tr>
+								</table>
+							</td>
+						</tr>
+					</table>
+				</td>
+			</tr>
+		</table>
+	</form>
+</div>

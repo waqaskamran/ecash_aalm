@@ -1,0 +1,117 @@
+
+<table width="100%" class="queue_config" height="500">
+	<tr>
+		<th style="background: #ebaeae; height:19px;">Document Manager</th>
+	</tr>
+	<tr>
+		<td>
+	<table width="100%">
+		<tr>
+			<td><input type="hidden" name="mode" id="mode" value="Document" />
+						<table border=1>
+										<th>Company
+										<tr>
+											<td><select name=company id=company onFocus="this.oldIndex=this.selectedIndex" onchange="if(!getLoanTypes(this.options[this.selectedIndex].value)) this.selectedIndex=this.oldIndex;" style="width:150px;"><option value=0>(Global)</option></select>
+									</table>
+			</td>
+			<td>
+									<div id=loantypediv name=loantypediv style="display:none">
+										<table border=1>
+												<th>Loan Type
+												<tr>
+													<td><select name=loan_type id=loan_type onFocus="this.oldIndex=this.selectedIndex" onchange="if(!getDocuments()) this.selectedIndex=this.oldIndex;" style="width:150px;"><option value=0>Company Specific</option></select>
+										</table>
+									</div>
+			</td>
+		</tr>
+	</table>
+	
+	</tr><tr><td>
+
+	<table width="100%" border="0" cols="2">
+		<tr>
+			<td width="50%" align="left" valign="top">
+				<select size="30" id="dm_document_list" style="width: 100%;" onChange="loadDocumentData(this.options[this.selectedIndex].value);">
+				
+				</select>
+			</td>
+			<td width="50%" align="left" valign="top">
+				<fieldset id=document_panel align="left" style="display:none;">
+					<legend align="left">Document</legend>
+					<div class="fieldset_div" style="padding-left: 5px; padding-right: 5px; padding-top: 5px; padding-bottom: 5px;">
+		
+					<div style="padding-left: 15px; text-align: left">
+						<span id="dm_doc_name_short_span" class="title">ECash Name</span>
+						<input type="text" name="name_short" id="dm_doc_name_short" style="width: 95%" onChange="changeDocument();">
+					</div>
+					<div style="padding-left: 15px; text-align: left">
+						<span class="title">Condor Document</span><br>
+						<select name="document_api" id="dm_condor_list" onChange="if(!this.options[0].selected){document.getElementById('dm_chk_pseudodoc').checked = false}else {document.getElementById('dm_chk_pseudodoc').checked = true} changeDocument();">
+							<option value="condor">Condor</option>
+						
+						</select>
+						<input type="checkbox" id="dm_chk_pseudodoc" onChange="if (this.checked == true) {document.getElementById('dm_condor_list').options[0].selected = true; document.getElementById('dm_chk_receivable').checked=true;}else {document.getElementById('dm_condor_list').disabled = false; } changeDocument(); " />
+						<label for="dm_flag_pseudodoc" style="width: 150px;">Only Receivable</label>	
+					</div>
+					<div style="padding-left: 15px; text-align: left">
+						<span id="dm_doc_sendmethod_span" class="title">Allowed Delivery Methods</span><br>
+						<select multiple name="send_method[]" id="dm_doc_sendmethod" size="2" onChange="changeDocument();">
+							<option value="email">Email</option>
+							<option value="fax">Fax</option>
+						</select>
+						<br>
+					</div>
+					</div>				
+				</fieldset>
+				<fieldset id=flag_panel style="display:none;">
+					<legend align="left">Flags</legend>
+					<div class="fieldset_div" style="padding-left: 5px; padding-right: 5px; padding-top: 5px; padding-bottom: 5px;">
+					<div style="padding-left: 15px; text-align: left;">
+						<input type="checkbox" id="dm_chk_active" onChange="changeDocument();" />
+						<label for="dm_flag_active" style="width: 150px;">Is Active</label>
+							<br>
+						<input type="checkbox" id="dm_chk_receivable" onChange="changeDocument(); " />
+						<label for="dm_flag_receivable" style="width: 150px;">Is Receivable</label>
+							<br>
+						<input type="checkbox" id="dm_chk_esig" onChange="changeDocument(); " />
+						<label for="dm_flag_esig" style="width: 150px;">Is eSig Document</label>
+			
+					</div>
+					</div>
+				</fieldset>
+				<fieldset id=alt_body_panel style="display:none;">
+					<legend align="left">Special Document Settings</legend>
+					<div class="fieldset_div" style="padding-left: 5px; padding-right: 5px; padding-top: 5px; padding-bottom: 5px;">
+					<div style="padding-left: 15px; text-align: left">
+						<span class="title">Alternate Email Body</span>
+						<select name="email_body" id="dm_sp_altbody" style="width: 100%" onChange="changeDocument();">
+						<option value="">None</option>
+						
+						</select>
+	
+					</div>
+					</div>
+				</fieldset>
+
+			</td>
+		</tr>
+	</table>
+<fieldset >
+<legend><span id='dm_docpkg_list_span' class="std_text">Action Buttons</span></legend>
+	<table>
+	<tr>
+		<td>	<input type=button id=addtoken name=addtoken value=Add onclick="addDocument()">
+		<td>	<input type=button value='Save' id=updatedocument name=updatedocument onClick='updateDocument();' style="display:none">
+		<td>	<input type=button value=Cancel id=revertdocument name=revertdocument onclick="revertDocument()" style="display:none">
+		<td>	<input type=button value=Delete id=deletedocument name=deletedocument onclick="deleteDocument()" style="display:none">	
+	</table>
+</fieldset>
+
+		</td>
+	</tr>
+
+</table>
+<script>
+document_ini();
+
+</script>

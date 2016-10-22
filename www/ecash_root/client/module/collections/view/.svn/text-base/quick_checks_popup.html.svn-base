@@ -1,0 +1,46 @@
+<html>
+	<head>
+		<title>Quick Checks View/Download</title>
+		<link rel="stylesheet" href="/css/style.css">
+		<SCRIPT TYPE="text/javascript">
+			<!--
+			window.focus();
+			//-->
+		</SCRIPT>
+	</head>
+	<body class="bg_local">
+		<form name="quick_checks_view_download" id="quick_checks_view_download_form" action='/?mode=quick_checks' method="post">
+			<input type="hidden" name="action" value="quick_checks_view_download">
+			<input type="hidden" name="quick_checks_batch_id" value="%%%quick_checks_batch_id%%%">
+
+			<table width="100%" class="quick_checks" >
+			
+				<tr>
+					<td colspan="3" align="center">
+						<h1>Quick Checks View/Download</h1>
+					</td>
+				</tr>
+				
+				<tr><td colspan="3" align="center">&nbsp;</td></tr>
+
+				<tr>
+					<td class="report_head"># in batch</td>
+					<td class="report_head">Total Amount</td>
+					<td class="report_head">Status</td>
+					<td class="report_head">Action</td>
+				</tr>
+				
+				%%%data_rows_concatenated%%%
+
+				<tr><td colspan="3" align="center">&nbsp;</td></tr>
+				
+				<tr>
+					<td colspan="3" align="center">
+						<input type="button" name="closeButton" value="Close This Window" onclick="window.close()" style="font-size:1.1em; font-weight:bold;">
+					</td>
+				</tr>
+				
+			</table>
+		</form>
+	</body>
+</html>

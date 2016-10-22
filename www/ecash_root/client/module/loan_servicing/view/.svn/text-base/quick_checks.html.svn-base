@@ -1,0 +1,18 @@
+<table width="100%" class="quick_checks" height="500">
+<form name="quick_checks" id="quick_checks_form" action='/?close_popup=true' method="post">
+	<input name="action" type="hidden" value="download_external_apps">
+	<input name="company_id" id='company_id' type="hidden" value='%%%company_id%%%'>
+	<tr>
+		<td>
+			%%%ext_applications%%% <br/><br/>
+			&nbsp;&nbsp;			
+			<input name="download" type="button" value="Download PDF" onClick="javascript:Process_Quick_Checks_PDF();">
+			<input name="download" type="button" value="Interal" onClick="javascript:Process_Quick_Checks();">
+		</td>
+	</tr>
+	<tr>
+		<td>&nbsp;</td>
+	</tr>
+	</form>
+</table>
+<iframe id="qc_frame" style="display: none;visibility: hidden;" height="1" width="1"></iframe>

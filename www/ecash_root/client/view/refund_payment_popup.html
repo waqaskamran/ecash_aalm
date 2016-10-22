@@ -1,0 +1,265 @@
+<html>
+<head>
+<link rel="stylesheet" href="css/transactions.css">
+<link rel="stylesheet" href="js/calendar/calendar-dp.css">
+<script type="text/javascript" src="js/transactions.js"></script>
+<script type="text/javascript" src="js/calendar/calendar.js"></script>
+<script type="text/javascript" src="js/calendar/lang/calendar-en.js"></script>
+<script>
+%%%popup_js_array%%%
+var refund_more = %%%refund_more%%%;
+var fund_amount = %%%fund_amount%%%;
+
+function switchit(selectname)
+{
+ if(%%%action_type%%%_form[selectname].disabled)
+ {
+ 	%%%action_type%%%_form[selectname].disabled = false;
+ }
+ else
+ {
+ 	%%%action_type%%%_form[selectname].disabled = true;
+ }
+}
+
+function switchdiv(divelm,mode) {
+	if (document.getElementByid) { // DOM3 = IE5, NS6
+		document.getElementByid(divelm).style.visibility = mode;
+	}
+	else 
+	{
+		if (document.layers) { // Netscape 4
+			document[divelm].visibility = mode;
+		}
+		else 
+		{ // IE 4
+			document.all[divelm].style.visibility = mode;
+		}
+	}
+}
+
+
+function ConfirmRefund()
+{
+	var frm = %%%action_type%%%_form;
+	frm.display_service_charge.value = 0;
+	frm.display_principal.value = 0;
+	frm.display_other.value = 0;
+	frm.display_service_charge.value_tid = 0;
+	frm.display_principal.value_tid = 0;
+	frm.display_other.value_tid = 0;	
+	
+	if(frm.amount.value <= 0) // mantis:3588
+	{
+		alert("Please enter a positive dollar value for the amount.");
+		return;
+	}
+
+	if(parseFloat(frm.amount.value) != frm.amount.value)
+	{
+		alert("Please make sure the amount is formatted correctly.");
+		return;
+	}
+	if(parseFloat(frm.amount.value) > 999)
+	{
+		alert("Amount can not be more than $1000.");
+		return;		
+	}
+	if(parseFloat(frm.amount.value) < 1)
+	{
+		alert("Amount can not be negative.");
+		return;		
+	}
+	if(!refund_more && Math.abs(parseFloat(frm.amount.value)) > Math.abs(parseFloat(fund_amount)))
+	{
+	    alert("You cannot refund an amount greater than the fund amount ($" + fund_amount + ").");
+        return;
+	}
+	if (Math.abs(parseFloat(frm.amount.value)) > Math.abs(parseFloat(frm.posted_total.value))) 
+	{
+	    if (!confirm("You are attempting to refund an amount greater than the outstanding balance on the account. Are you sure you want to do this?"))
+			return;
+	}
+	var amt = frm.amount.value;
+	
+	// Process Interest
+	if(frm.use_service_charge.checked)
+	{
+		var ti_sc = frm.transaction_id_service_charge[frm.transaction_id_service_charge.selectedIndex].value;
+		if(ti_sc == "")
+		{
+			alert("Please make sure Interest Transaction ID is selected.");
+			return;
+		}
+		frm.display_service_charge_tid.value = ti_sc;
+		if(ts_array[ti_sc] < amt && !frm.use_principle.checked)
+		{
+			alert("You are attempting to refund more than the amount on a transaction.");
+			return;
+		}
+		
+		//Fix the Finances
+		if(ts_array[ti_sc] > amt)
+		{
+			if (!confirm("You are attempting to refund the partial amount on a transaction are you sure you want to do this?")) return;
+			frm.display_service_charge.value = amt;
+			amt = 0;
+		}
+		else 
+		{
+			amt = amt - ts_array[ti_sc];
+			frm.display_service_charge.value = ts_array[ti_sc];
+		}
+	}
+	
+	// Process Principle
+	if(frm.use_principle.checked)
+	{
+		var ti_p = frm.transaction_id_principle[frm.transaction_id_principle.selectedIndex].value;
+		if(ti_p == "")
+		{
+			alert("Please make sure Principle Transaction Id is selected.");
+			return;
+		}
+		frm.display_principal_tid.value = ti_p;
+		if(ts_array[ti_p] < amt)
+		{
+			alert("You are attempting to refund more than the amount on a transaction.");
+			return;
+		}
+		
+		//Fix the Finances
+		if(tp_array[ti_p] > amt)
+		{
+			if (!confirm("You are attempting to refund the partial amount on a transaction are you sure you want to do this?")) return;
+			frm.display_principal.value = amt;
+			amt = 0;
+		}
+		else 
+		{
+			amt = amt - tp_array[ti_p];
+			frm.display_principal.value = tp_array[ti_p]; 			
+		}
+	}
+	
+	// Process Leftovers
+	if(amt != 0)
+	{
+		frm.display_other.value = amt;
+		switchdiv("tbl_display_other","visible");
+	}
+	
+	if(frm.use_service_charge.checked) switchdiv("tbl_display_service_charge","visible");
+	if(frm.use_principle.checked) switchdiv("tbl_display_principal","visible");	
+	//return;
+	switchdiv("refund_input","hidden");
+	switchdiv("refund_confirm","visible");
+}
+
+function ChangeRefund()
+{
+	switchdiv("tbl_display_service_charge","hidden");
+	switchdiv("tbl_display_principal","hidden");
+	switchdiv("tbl_display_other","hidden");
+	
+	switchdiv("refund_confirm","hidden");	
+	switchdiv("refund_input","visible");	
+}
+
+
+</script>
+<style>
+body { font-family:arial, sans-serif; }
+form.no_padding { padding: 0px; }
+td { text-align: center; }
+.left { text-align: left; }
+.right { text-align: right; }
+</style>
+</head>
+<body>
+<form id="%%%action_type%%%_form" name="%%%action_name%%%" method="post" action="/" class="no_padding" id="refund_input" onsubmit="return false;">
+<input type="hidden" name="posted_fees" id="posted_fees" value="%%%posted_fees%%%">
+<input type="hidden" name="posted_principal" id="posted_principal" value="%%%posted_principal%%%">
+<input type="hidden" name="posted_total" id="posted_total" value="%%%posted_total%%%">
+<input type="hidden" name="action" id="action" value="%%%action_type%%%">
+<input type="hidden" name="schedule_effect" id="schedule_effect" value="shorten">
+<input type="hidden" name="adjustment_target" value="fees">
+<input type="hidden" name="action_type" id="action_type" value="save">
+<div style="position: absolute; top: 0px; left: 0px;" id="refund_input">
+<table width="100%" cellpadding="0" cellspacing="0" border="0" style="height: 283px;" align="center" class="%%%mode_class%%%">
+<tbody>
+<tr style="height: 35px;">
+<td colspan="2">
+<p>Action: <b>%%%action_name%%% </b></p>
+<p>Please enter the amount of the transaction.</p>
+</td>
+</tr>
+<tr><td colspan="2">
+<table width="100%" border="0" align="center" cellspacing="2">
+<tr>
+   <td class="right" width="50%">Outstanding Amount:</td>
+   <td class="left" width="50%">$&nbsp;%%%posted_total%%%</td>
+</tr>
+<tr>
+  <td class="right">Amount %%%inline_text%%%:</td>
+  <td class="left"><input id="amount" name="amount" size="10" type="text"></td>
+</tr>
+<tr>
+  <td class="right">Interest: 
+  <input id="use_service_charge" name="use_service_charge" value="true" type="checkbox" onchange="switchit('transaction_id_service_charge')"></td>
+  <td class="left"><select name="transaction_id_service_charge" disabled><option value="">Transaction ID</option>%%%option_ts%%%</select></td>
+</tr>
+<tr>
+  <td class="right">Principal: 
+  <input id="use_principle" name="use_principle" value="true" type="checkbox" onchange="switchit('transaction_id_principle')"></td>
+  <td class="left"><select name="transaction_id_principle" disabled><option value="">Transaction ID</option>%%%option_tp%%%</select></td>
+</tr>
+</table>
+</td>
+</tr>
+<tr>
+  <td><input type="button" value="Cancel" onClick="window.close();"></td>
+  <td><input type="button" value="Next" onClick="ConfirmRefund();"></td>
+</tr>
+</tbody>
+</table>
+<div style="visibility: hidden; position: absolute; top:30px; left: 85px; z-index: 1; width:100%; " id="refund_confirm">
+<table width="360" cellpadding="0" cellspacing="0">
+	<tr>
+		<td><b>Amount</b></td>
+		<td>&nbsp;</td>
+		<td><b>Type</b></td>
+		<td><b>Transaction ID</b></td>
+	</tr>
+	<tr style="visibility: hidden;" id="tbl_display_service_charge">
+		<td nowrap>$<input type=textbox name=display_service_charge id=display_service_charge readonly size="10" value=0></td>
+		<td>&nbsp;</td>
+		<td style="text-align: left;">Interest</td>
+		<td><input type=textbox name=display_service_charge_tid id=display_service_charge_tid readonly size="10" value=0></td>
+	</tr>	
+	<tr style="visibility: hidden;" id="tbl_display_principal">
+		<td >$<input type=textbox name=display_principal id=display_principal readonly size="10" value=0></td>
+		<td>&nbsp;</td>
+		<td style="text-align: left;">Principal</td>
+		<td><input type=textbox name=display_principal_tid id=display_principal_tid readonly size="10" value=0></td>
+	</tr>
+	<tr style="visibility: hidden;" id="tbl_display_other">
+		<td >$<input type=textbox name=display_other id=display_other readonly size="10" value=0></td>
+		<td>&nbsp;</td>
+		<td style="text-align: left;">Other*</td>
+		<td>&nbsp;</td>
+	</tr>	
+	<tr>
+		<td colspan="4" style="padding: 0 4em; font-size: 9pt;">*This amount will be credited to the customers account to refund bank fees or other fees.</td>
+	</tr>	
+	<tr>
+		<td colspan="4" style="text-align: center;">
+		  	<input type="button" value="Back" onClick="ChangeRefund();">
+		  	<input type="button" value="Save %%%save_text%%%" onClick="SaveSinglePayment('%%%action_type%%%', this);">
+		</td>
+	</tr>
+</table>
+</div>
+</form>
+</body>
+</html>

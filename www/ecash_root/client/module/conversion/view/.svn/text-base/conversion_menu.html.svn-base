@@ -1,0 +1,48 @@
+<!-- Begin conversion_menu.html -->
+%%%JAVASCRIPT_disable_link%%%
+<div id="section_nav" style="height: 21px;">
+	<div class="nav_begin">&nbsp;</div>
+		%%%search_button%%%
+		%%%conversion_manager_button%%%
+
+	<script type="text/javascript">
+		var disabled_links = Array('get_next_app_id_1','get_next_app_id_2','get_next_app_id_3','get_next_app_id_4');
+		Disable_Many_Links(disabled_links,2000);
+	</script>
+
+
+	<!-- COLLECTIONS -->
+	<a href="javascript:Click_Link_Once('get_next_app_id_1','%%%next_app_dest_coll%%%')" class="menu" id="get_next_app_id_1">
+		<div class="menu_label_nextapp">
+			COLLECTION &nbsp;<span class="queue_count">%%%queue_count_coll%%%</span>
+		</div>
+	</a>
+	<!-- COLLECTIONS -->
+
+	<!-- ACTIVE -->
+	<a href="javascript:Click_Link_Once('get_next_app_id_2','%%%next_app_dest_act%%%')" class="menu" id="get_next_app_id_2">
+		<div class="menu_label_nextapp">
+			ACTIVE &nbsp;<span class="queue_count">%%%queue_count_act%%%</span>
+		</div>
+	</a>
+	<!-- ACTIVE -->
+
+	<!-- HOLD -->
+	<a href="javascript:Click_Link_Once('get_next_app_id_3','%%%next_app_dest_hold%%%')" class="menu" id="get_next_app_id_3">
+		<div class="menu_label_nextapp">
+			HOLD &nbsp;<span class="queue_count">%%%queue_count_hold%%%</span>
+		</div>
+	</a>
+	<!-- HOLD -->
+
+	<!-- OTHER -->
+	<a href="javascript:Click_Link_Once('get_next_app_id_4','%%%next_app_dest_other%%%')" class="menu" id="get_next_app_id_4">
+		<div class="menu_label_nextapp">
+			OTHER &nbsp;<span class="queue_count">%%%queue_count_other%%%</span>
+		</div>
+	</a>
+	<!-- OTHER -->
+
+</div>
+<div style="clear: both;"></div>
+<!-- End conversion_menu.html -->

@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<implementations>
+	<!-- Document Hash Implementation -->
+	<implementation legacyModel="ECash_Models_DocumentHash" containerClass="DB_Models_Container_1">
+		<authoritativeModel>
+			<model type="legacy" name="DocumentHash" />
+		</authoritativeModel>
+		<nonAuthoritativeModels>
+			<model type="service" name="DocumentHash" />
+		</nonAuthoritativeModels>
+		<matchColumns>
+			<matchColumn name="application_id" />
+			<matchColumn name="company_id" />
+			<matchColumn name="document_list_id" />
+			<matchColumn name="hash" />
+		</matchColumns>
+		<validators>
+			<validator name="LoadBy" />
+		</validators>
+		<observers>
+			<observer name="ValidationFailure" />
+			<observer name="NonAuthException" />
+		</observers>
+	</implementation>
+
+	<!-- Document Implementation -->
+	<implementation legacyModel="ECash_Models_Document" containerClass="DB_Models_SynchronizedKeyContainer_1">
+		<authoritativeModel>
+			<model type="legacy" name="Document" />
+		</authoritativeModel>
+		<nonAuthoritativeModels>
+			<model type="service" name="Document" />
+		</nonAuthoritativeModels>
+		<matchColumns>
+			<matchColumn name="document_id" />
+		</matchColumns>
+		<validators>
+			<validator name="LoadBy" />
+		</validators>
+		<observers>
+			<observer name="ValidationFailure" />
+			<observer name="NonAuthException" />
+		</observers>
+	</implementation>
+</implementations>

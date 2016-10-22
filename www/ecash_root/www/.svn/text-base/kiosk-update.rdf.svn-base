@@ -1,0 +1,22 @@
+<?xml version="1.0"?>
+<RDF:RDF xmlns:RDF="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:em="http://www.mozilla.org/2004/em-rdf#">
+<RDF:Description about="urn:mozilla:extension:{03cbd047-b2f1-457e-93a7-05f393ef5191}">
+ <em:updates><RDF:Seq>
+  <RDF:li resource="urn:mozilla:extension:{03cbd047-b2f1-457e-93a7-05f393ef5191}:1.0.0"/>
+ </RDF:Seq></em:updates>
+</RDF:Description>
+
+<RDF:Description about="urn:mozilla:extension:{03cbd047-b2f1-457e-93a7-05f393ef5191}:1.0.0">
+ <em:version>1.0.0</em:version>
+ <em:targetApplication>
+
+  <RDF:Description>
+   <em:id>{ec8030f7-c20a-464f-9b0e-13a3a9e97384}</em:id>
+	<em:minVersion>2.0</em:minVersion>
+	<em:maxVersion>2.0.0.*</em:maxVersion>
+   <em:updateLink>https://live.ecash.clkonline.com/kiosk.xpi</em:updateLink>
+  </RDF:Description>
+ </em:targetApplication>
+
+</RDF:Description>
+</RDF:RDF>

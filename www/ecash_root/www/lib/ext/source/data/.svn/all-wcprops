@@ -1,0 +1,101 @@
+K 25
+svn:wc:ra_dav:version-url
+V 90
+/svn/aalm_current/!svn/ver/1979/ecash/branches/sql_merge/ecash_cfe/www/lib/ext/source/data
+END
+SimpleStore.js
+K 25
+svn:wc:ra_dav:version-url
+V 105
+/svn/aalm_current/!svn/ver/1979/ecash/branches/sql_merge/ecash_cfe/www/lib/ext/source/data/SimpleStore.js
+END
+MemoryProxy.js
+K 25
+svn:wc:ra_dav:version-url
+V 105
+/svn/aalm_current/!svn/ver/1979/ecash/branches/sql_merge/ecash_cfe/www/lib/ext/source/data/MemoryProxy.js
+END
+DataProxy.js
+K 25
+svn:wc:ra_dav:version-url
+V 103
+/svn/aalm_current/!svn/ver/1979/ecash/branches/sql_merge/ecash_cfe/www/lib/ext/source/data/DataProxy.js
+END
+SortTypes.js
+K 25
+svn:wc:ra_dav:version-url
+V 103
+/svn/aalm_current/!svn/ver/1979/ecash/branches/sql_merge/ecash_cfe/www/lib/ext/source/data/SortTypes.js
+END
+DataField.js
+K 25
+svn:wc:ra_dav:version-url
+V 103
+/svn/aalm_current/!svn/ver/1979/ecash/branches/sql_merge/ecash_cfe/www/lib/ext/source/data/DataField.js
+END
+Record.js
+K 25
+svn:wc:ra_dav:version-url
+V 100
+/svn/aalm_current/!svn/ver/1979/ecash/branches/sql_merge/ecash_cfe/www/lib/ext/source/data/Record.js
+END
+HttpProxy.js
+K 25
+svn:wc:ra_dav:version-url
+V 103
+/svn/aalm_current/!svn/ver/1979/ecash/branches/sql_merge/ecash_cfe/www/lib/ext/source/data/HttpProxy.js
+END
+XmlReader.js
+K 25
+svn:wc:ra_dav:version-url
+V 103
+/svn/aalm_current/!svn/ver/1979/ecash/branches/sql_merge/ecash_cfe/www/lib/ext/source/data/XmlReader.js
+END
+JsonStore.js
+K 25
+svn:wc:ra_dav:version-url
+V 103
+/svn/aalm_current/!svn/ver/1979/ecash/branches/sql_merge/ecash_cfe/www/lib/ext/source/data/JsonStore.js
+END
+Store.js
+K 25
+svn:wc:ra_dav:version-url
+V 99
+/svn/aalm_current/!svn/ver/1979/ecash/branches/sql_merge/ecash_cfe/www/lib/ext/source/data/Store.js
+END
+JsonReader.js
+K 25
+svn:wc:ra_dav:version-url
+V 104
+/svn/aalm_current/!svn/ver/1979/ecash/branches/sql_merge/ecash_cfe/www/lib/ext/source/data/JsonReader.js
+END
+DataReader.js
+K 25
+svn:wc:ra_dav:version-url
+V 104
+/svn/aalm_current/!svn/ver/1979/ecash/branches/sql_merge/ecash_cfe/www/lib/ext/source/data/DataReader.js
+END
+Tree.js
+K 25
+svn:wc:ra_dav:version-url
+V 98
+/svn/aalm_current/!svn/ver/1979/ecash/branches/sql_merge/ecash_cfe/www/lib/ext/source/data/Tree.js
+END
+Connection.js
+K 25
+svn:wc:ra_dav:version-url
+V 104
+/svn/aalm_current/!svn/ver/1979/ecash/branches/sql_merge/ecash_cfe/www/lib/ext/source/data/Connection.js
+END
+ArrayReader.js
+K 25
+svn:wc:ra_dav:version-url
+V 105
+/svn/aalm_current/!svn/ver/1979/ecash/branches/sql_merge/ecash_cfe/www/lib/ext/source/data/ArrayReader.js
+END
+ScriptTagProxy.js
+K 25
+svn:wc:ra_dav:version-url
+V 108
+/svn/aalm_current/!svn/ver/1979/ecash/branches/sql_merge/ecash_cfe/www/lib/ext/source/data/ScriptTagProxy.js
+END

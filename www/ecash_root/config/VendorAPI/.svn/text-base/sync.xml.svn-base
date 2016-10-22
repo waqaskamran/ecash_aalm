@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ruleset>
+	<node id="syncApplication">
+		<expression name="process" type="ECash_CFE_Expression_Variable"><param>olp_process</param></expression>
+		<expression name="callcenter" type="ECash_CFE_Expression_Variable"><param>is_call_center</param></expression>
+		<expression name="signDocs" type="ECash_CFE_Expression_Variable"><param>ecash_sign_doc</param></expression>
+		<transition when="process.ecashapp_react" to="syncECashAppReact"/>
+		<transition when="callcenter.true" to="syncECashAppReact"/>
+		<transition when="signDocs.false" to="syncNew"/>
+	</node>
+	
+	<node id="syncECashAppReact">
+	</node>
+	
+	<node id="syncNew">
+	</node>
+	
+</ruleset>

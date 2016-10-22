@@ -1,0 +1,40 @@
+<div id="layout1group0layer0view" %%%transaction_summary_view_layer%%%>
+<table cellpadding="0" cellspacing="0" width="100%">
+<tr><td class="border" align="left" valign="top">
+<table cellpadding="0" cellspacing="0" width="100%" class="%%%mode_class%%%">
+<tr class="height">
+  <th colspan="1" class="%%%status_class%%%" style="background: %%%status_background_color%%%;">&nbsp;<nobr>Summary</nobr></th>
+  <th colspan="5" class="%%%status_class%%%" style="background: %%%status_background_color%%%; text-align: right;"><nobr><a href="#" onClick="javascript:window.open('/?module=%%%module_name%%%&action=get_application_history&application_id=%%%application_id%%%', 'application_history', 'toolbar=no,location=no,directories=no,status=no,menubar=no,scrollbars=yes,resizable=no,copyhistory=no,width=515,height=420,left=150,top=150,screenX=150,screenY=150');">App. ID %%%application_id%%% %%%status_long%%%</a> &nbsp;%%%ach_ind%%%&nbsp;%%%card_ind%%%&nbsp;%%%followup_ind%%%&nbsp;%%%react_ind%%%&nbsp;%%%watch_ind%%%&nbsp;%%%fraud_ind%%%&nbsp;%%%cust_has_fatal_ach_ind%%%&nbsp;</nobr></th>
+</tr>
+    <tr class="height">
+      <td class="align_left_alt_bold">&nbsp;Loan Balance:</td><td class="align_left_alt">$ %%%posted_total%%%</td>
+      <td class="align_left_alt_bold">Pending Balance:</td><td class="align_left_alt">$ %%%pending_total%%%</td>
+      <td class="align_left_alt_bold">Total Paid:</td><td class="align_left_alt">$ %%%total_paid%%%</td>
+    </tr>
+    <tr class="height">
+      <td class="align_left_bold">&nbsp;Principal Balance:</td><td class="align_left">$ %%%posted_principal%%%</td>
+      <td class="align_left_bold">Pending Principal:</td><td class="align_left">$ %%%pending_principal%%%</td>      
+      <td class="align_left_bold">Principal Paid:</td><td class="align_left">$ %%%paid_principal%%%</td>
+
+    </tr>
+    <tr class="height">
+      <td class="align_left_alt_bold">&nbsp;Fees Balance:</td><td class="align_left_alt">$ %%%posted_fees%%%</td>
+      <td class="align_left_alt_bold">Pending Fees:</td><td class="align_left_alt">$ %%%pending_fees%%%</td>
+      <td class="align_left_alt_bold">Fees Paid:</td><td class="align_left_alt">$ %%%paid_fees%%%</td>
+    </tr>
+    <tr class="height">
+      <td class="align_left_bold">&nbsp;Interest Balance:</td><td class="align_left">$ %%%posted_interest%%%</td>
+      <td class="align_left_bold">Pending Interest:</td><td class="align_left">$ %%%pending_interest%%%</td>
+      <td class="align_left_bold">Interest Paid:</td><td class="align_left">$ %%%paid_interest%%%</td>
+    </tr>
+    <tr class="height">
+      <td class="align_left_alt_bold">&nbsp;Renewals:</td><td class="align_left_alt">%%%posted_service_charge_count%%%</td>
+      <td class="align_left_alt_bold">Accrued Daily Interest:</td><td class="align_left_alt">$ %%%current_daily_interest%%%</td>
+      <td class="align_left_alt_bold">Initial Loan Amount:</td><td class="align_left_alt">$ %%%initial_principal%%%</td>
+    </tr>
+
+</table>
+</td>
+</tr>
+</table>
+</div>

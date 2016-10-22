@@ -1,0 +1,249 @@
+<!-- client/view/employment.html -->
+
+<script type="text/javascript">
+
+var app_status = '%%%status%%%';
+var level1 = '%%%level1%%%';
+//var old_employer_name = %%%employer_name%%%;
+
+function validate_employment_info()
+{
+	var isvalid = validate_fields(personal_employment_array,'std_text','error_text');
+
+	var new_employer_name = document.getElementById("EditAppEmpInfoEmpName").value.trim();
+
+	//alert(app_status+' '+level1+' '+new_employer_name+' '+isvalid+' '+old_employer_name);
+	
+	if (isvalid
+		&&
+		(
+			app_status == 'approved'
+			|| level1 == 'underwriting'
+			|| level1 == 'verification'
+		)
+		//&&
+		//(
+		//	old_employer_name != new_employer_name		
+		//)
+	)
+	{
+        	return WarnESigEmployer();
+	}
+	else
+	{
+	        return isvalid;
+	}
+}
+
+function WarnESigEmployer()
+{
+	return confirm("The changes in the Employer, Work Phone, Income, or Employed Since fields require that the customer re-sign their loan documents. If any from these fields are modified, the customer will be put into the 'In Process' status, and will need to have documents resent (by clicking 'Send e-sig') to email new loan documents and put them into the Pending status. Confirm?");
+}
+
+var personal_employment_array = {
+'EditAppEmpInfoEmpName' : /^[a-zA-Z0-9 .&-]{2,30}$/,
+'EditAppEmpInfoWorkPhone' : /^\([0-9]{3,3}\) [0-9]{3,3}-[0-9]{4,4}$/,
+'EditAppEmpInfoJobTitle':  /^[a-zA-Z0-9 .-]{0,30}$/,
+'EditAppEmpInfoNetIncome':  /^\d\d\d+(\.00){0,1}$/,
+'EditAppEmpInfoIncomeType':  /^employment|benefits|military|self_employment$/i
+};
+
+</script>
+<div id="layout0group0layer3view" %%%employment_view_layer%%%>
+<table cellpadding=0 cellspacing=0 width="100%">
+	<tr>
+		<td class="border" align="left" valign="top">
+			<table cellpadding=0 cellspacing=0 width="100%" class="%%%mode_class%%%">
+				<tr class="height">
+					<th colspan="3" class="%%%mode_class%%%">&nbsp;<nobr>Income Source</nobr></th>
+				</tr>
+				<tr class="height">
+					<td class="align_left_alt_bold">&nbsp;Income Type:&nbsp;</td>
+					<td class="align_left_alt">&nbsp;</td>
+					<td class="align_left_alt" id="AppEmpInfoIncomeType">%%%income_source_trim%%%</td>
+				</tr>
+				<tr class="height">
+					<td class="align_left_bold">&nbsp;Employer/Benefit Source:&nbsp;</td>
+					<td class="align_left">%%%contact_employer_name%%%</td>
+					<td class="align_left" id="AppEmpInfoEmpName">%%%employer_name_trim%%%</td>
+				</tr>
+				<!-- asm 86
+				<tr class="height">
+					<td class="align_left_alt_bold">&nbsp;Work Phone:&nbsp;
+					</td>
+					<td class="align_left_alt">%%%contact_phone_work%%%</td>
+					<td class="align_left_alt"><span id="AppEmpInfoWorkPhone">%%%phone_work_trim%%%</span> %%%phone_work_link%%% <span id="AppEmpInfoWorkPhoneExt">%%%phone_work_ext_trim%%%</span> %%%contact_phone_work_ext%%%</td>
+				</tr>
+				-->
+				<tr class="height">
+					<td class="align_left_alt_bold">&nbsp;Job Title:&nbsp;</td>
+					<td class="align_left_alt">%%%contact_job_title%%%</td>
+					<td class="align_left_alt" id="AppEmpInfoJobTitle">%%%job_title_trim%%%</td>
+				</tr>
+				<!-- asm 86
+				<tr class="height">
+					<td class="align_left_alt_bold">&nbsp;Income:&nbsp;</td>
+					<td class="align_left_alt">&nbsp;</td>
+					<td class="align_left_alt" id="AppEmpInfoNetIncome">$ %%%income_monthly_trim%%%</td>
+				</tr>
+				-->
+				<tr class="height">
+					<td class="align_left_bold">&nbsp;Employed Since:&nbsp;</td>
+					<td class="align_left">&nbsp;</td>
+					<td class="align_left"><span id="AppEmpInfoDateHire">%%%date_hire%%%</span> <span class="subtext">(%%%employment_duration%%%)</span></td>
+				</tr>
+				<tr class="height">
+					<th colspan="3"  class="%%%mode_class%%%">&nbsp;Origin</th>
+				</tr>
+				<tr class="height">
+					<td class="align_left_alt_bold">&nbsp;Date Created:&nbsp;</td>
+					<td class="align_left_alt">&nbsp;</td>
+					<td class="align_left_alt" id="AppEmpInfoDateCreated">%%%date_created_trim%%%</td>
+				</tr>
+				<tr class="height">
+					<td class="align_left_bold">&nbsp;Date Confirmed:&nbsp;</td>
+					<td class="align_left">&nbsp;</td>
+					<td class="align_left" id="AppEmpInfoDateConfirmed">%%%date_confirmed_trim%%%</td>
+				</tr>
+				<tr class="height">
+					<td class="align_left_alt_bold">&nbsp;IP Address:&nbsp;</td>
+					<td class="align_left_alt">&nbsp;</td>
+					<td class="align_left_alt" id="AppEmpInfoIPAddr">%%%ip_address_trim%%%</td>
+				</tr>
+				<tr class="height">
+					<td class="align_left_bold">&nbsp;Web Site:&nbsp;</td>
+					<td class="align_left">&nbsp;</td>
+					<td class="align_left" id="AppEmpInfoOriginURL">%%%origin_url%%%</td>
+				</tr>
+				<tr class="height">
+					<td class="align_left_alt_bold">&nbsp;Campaign:&nbsp;</td>
+					<td class="align_left_alt">&nbsp;</td>
+					<td class="align_left_alt" id="AppEmpInfoCampaignName">%%%campaign_name%%%</td>
+				</tr>
+				<tr class="height">
+					<td class="align_left_bold">&nbsp;Price Point:&nbsp;</td>
+					<td class="align_left">&nbsp;</td>
+					<td class="align_left" id="AppEmpInfoPricePoint">%%%price_point%%%</td>
+				</tr>
+				<tr class="height">
+					<td class="align_left_alt_bold">&nbsp;Promo ID:&nbsp;</td>
+					<td class="align_left_alt">&nbsp;</td>
+					<td class="align_left_alt" id="AppEmpInfoPromoID">%%%promo_id%%%</td>
+				</tr>
+				<tr class="height">
+					<td class="align_left_bold">&nbsp;Sub-code:&nbsp;</td>
+					<td class="align_left">&nbsp;</td>
+					<td class="align_left" id="AppEmpInfoPromoSubCode">%%%promo_sub_code%%%</td>
+				</tr>
+				<tr class="height">
+					<td colspan="3" class="align_right_alt">
+						%%%edit_employment_n_origin_link%%%
+					</td>
+				</tr>
+			</table>
+		</td>
+	</tr>
+</table>
+</div>
+<div id="layout0group0layer3edit" %%%employment_edit_layer%%%>
+<form method="post" action="/" name="Employment" class="no_padding">
+<input type="hidden" name="application_id" value="%%%application_id%%%">
+<table cellpadding=0 cellspacing=0 width="100%">
+	<tr>
+		<td class="border" align="left" valign="top">
+			<table cellpadding=0 cellspacing=0 width="100%" class="%%%mode_class%%%">
+				<tr class="height">
+					<th colspan="3" class="%%%mode_class%%%">&nbsp;<nobr>Income Source</nobr></th>
+				</tr>
+				<tr class="height">
+					<td class="align_left_bold"><span id = "emp_income_source_span" class="%%%income_source_color%%%">%%%income_source_overlink%%%&nbsp;Income Type%%%income_source_endlink%%%</span>:&nbsp;</td>
+					<td class="align_left">&nbsp;</td>
+					<td class="align_left"><input type="text" id="EditAppEmpInfoIncomeType" name="income_source" value="%%%income_source_edit%%%" maxlength="30" class="input_text" onblur = "return strip_all_but(this,keybAlphaNumeric,((window.event)?window.event:event));" onkeypress="return editKeyBoard(this,keybAlphaNumeric,((window.event)?window.event:event));"></td>
+				</tr>
+				<tr class="height">
+					<td class="align_left_alt_bold"><span id = "emp_employer_name_span">%%%employer_name_overlink%%%&nbsp;Employer/Benefit Source%%%employer_name_endlink%%%</span>:&nbsp;</td>
+					<td class="align_left_alt">%%%contact_employer_name%%%</td>
+					<td class="align_left_alt"><input type="text" id="EditAppEmpInfoEmpName" name="employer_name" value="%%%employer_name_edit%%%" maxlength="30" class="input_text"  onblur = "return strip_all_but(this,keybAlphaNumeric,((window.event)?window.event:event));" onkeypress="return editKeyBoard(this,keybAlphaNumeric,((window.event)?window.event:event));"></td>
+				</tr>
+				<!-- asm 86
+				<tr class="height">
+					<td class="align_left_bold"><span id = "emp_work_phone_span" class="%%%phone_work_color%%%">%%%phone_work_overlink%%%&nbsp;Work Phone%%%phone_work_endlink%%%</span>:&nbsp;</td>
+					<td class="align_left">%%%contact_phone_work%%% %%%phone_work_link%%%</td>
+					<td class="align_left">
+						<input type="text" id="EditAppEmpInfoWorkPhone" name="phone_work" value="%%%phone_work_edit%%%" maxlength="14" class="input_text" onblur = "return strip_all_but(this,keybNumeric,((window.event)?window.event:event),'() -)');" onkeypress="return editKeyBoard(this,keybNumeric,((window.event)?window.event:event));" onkeyup="mask(this.value,this,'0,4,5,9',Array('(',')',' ','-'),((window.event)?window.event:event));">
+						ext: <input type="text" id="EditAppEmpInfoWorkPhoneExt" name="phone_work_ext" value="%%%phone_work_ext_edit%%%" maxlength="5" size="4" class="input_text" onblur = "retrun strip_all_but(this,keybNumeric,((window.event)?window.event:event));" onkeypress="return editKeyBoard(this,keybNumeric,((window.event)?window.event:event));">
+					</td>
+				</tr>
+				-->
+				<tr class="height">
+					<td class="align_left_alt_bold"><span id = "emp_job_title_span" class="%%%job_title_color%%%">%%%job_title_overlink%%%&nbsp;Job Title%%%job_title_endlink%%%</span>:&nbsp;</td>
+					<td class="align_left_alt">%%%contact_job_title%%%</td>
+					<td class="align_left_alt"><input type="text" id="EditAppEmpInfoJobTitle" name="job_title" value="%%%job_title_edit%%%" maxlength="30" class="input_text" onblur = "return strip_all_but(this,keybAlphaNumeric,((window.event)?window.event:event));" onkeypress="return editKeyBoard(this,keybAlphaNumeric,((window.event)?window.event:event));"></td>
+				</tr>
+				<!-- asm 86
+				<tr class="height">
+					<td class="align_left_bold"><span id = "emp_income_span" class="%%%income_monthly_color%%%">%%%income_monthly_overlink%%%&nbsp;Income%%%income_monthly_endlink%%%</span>:&nbsp;</td>
+					<td class="align_left">&nbsp;</td>
+					<td class="align_left"><input type="text" id="EditAppEmpInfoNetIncome" name="income_monthly" value="%%%income_monthly_edit%%%" maxlength="30" class="input_text" onblur = "return strip_all_but(this,keybDecimal,((window.event)?window.event:event));" onkeypress="return editKeyBoard(this,keybDecimal,((window.event)?window.event:event));"></td>
+				</tr>
+				-->
+				<tr class="height">
+					<td class="align_left_alt_bold"><span>&nbsp;Employed Since</span>:&nbsp;</td></td>
+					<td class="align_left_alt">&nbsp;</td>
+					<td class="align_left_alt"><a href="#" onclick="PopCalendar4('EditAppEmpInfoDateHire', event, '', true);">select</a>&nbsp;<input type="text" id="EditAppEmpInfoDateHire" size = "10" name="date_hire" value="%%%date_hire%%%" maxlength="10" onblur = "return strip_all_but(this,keybDate,((window.event)?window.event:event));" onkeypress="return editKeyBoard(this,keybDate,((window.event)?window.event:event));" onkeyup="mask(this.value,this,'2,5',Array('/','/'),((window.event)?window.event:event));" readonly></td>
+				</tr>
+				<tr class="height">
+					<th colspan="3"  class="%%%mode_class%%%">&nbsp;Origin</th>
+				</tr>
+				<tr class="height">
+					<td class="align_left_alt_bold">&nbsp;Date Created:&nbsp;</td>
+					<td class="align_left_alt">&nbsp;</td>
+					<td class="align_left_alt" id="EditAppEmpInfoDateCreated">%%%date_created%%%</td>
+				</tr>
+				<tr class="height">
+					<td class="align_left_bold">&nbsp;Date Confirmed:&nbsp;</td>
+					<td class="align_left">&nbsp;</td>
+					<td class="align_left" id="EditAppEmpInfoDateConfirmed">%%%date_confirmed_trim%%%</td>
+				</tr>
+				<tr class="height">
+					<td class="align_left_alt_bold">&nbsp;IP Address:&nbsp;</td>
+					<td class="align_left_alt">&nbsp;</td>
+					<td class="align_left_alt" id="EditAppEmpInfoIPAddr">%%%ip_address%%%</td>
+				</tr>
+				<tr class="height">
+					<td class="align_left_bold">&nbsp;Web Site:&nbsp;</td>
+					<td class="align_left">&nbsp;</td>
+					<td class="align_left" id="EditAppEmpInfoOriginURL">%%%origin_url%%%</td>
+				</tr>
+				<tr class="height">
+					<td class="align_left_alt_bold">&nbsp;Campaign:&nbsp;</td>
+					<td class="align_left_alt">&nbsp;</td>
+					<td class="align_left_alt" id="EditAppEmpInfoCampaignName">%%%campaign_name%%%</td>
+				</tr>
+				<tr class="height">
+					<td class="align_left_bold">&nbsp;Price Point:&nbsp;</td>
+					<td class="align_left">&nbsp;</td>
+					<td class="align_left" id="EditAppEmpInfoPricePoint">%%%price_point%%%</td>
+				</tr>
+				<tr class="height">
+					<td class="align_left_alt_bold">&nbsp;Promo ID:&nbsp;</td>
+					<td class="align_left_alt">&nbsp;</td>
+					<td class="align_left_alt" id="EditAppEmpInfoPromoID">%%%promo_id%%%</td>
+				</tr>
+				<tr class="height">
+					<td class="align_left_bold">&nbsp;Sub-code:&nbsp;</td>
+					<td class="align_left">&nbsp;</td>
+					<td class="align_left" id="EditAppEmpInfoPromoSubCode">%%%promo_sub_code%%%</td>
+				</tr>
+				<tr class="height">
+					<td colspan="3" class="align_right_alt">
+						<input type="hidden" name="action" value="save_employment">
+						<nobr><input type="submit" value="Save Changes" class="button" onclick="return validate_employment_info();"> <input type="reset" value="Cancel" class="button" onClick="reset_fields(personal_employment_array,'std_text');SetDisplay(0,0,3,'view', '%%%mode_class%%%_buttons');"></nobr>
+					</td>
+				</tr>
+			</table>
+		</td>
+	</tr>
+</table>
+</form>
+</div>

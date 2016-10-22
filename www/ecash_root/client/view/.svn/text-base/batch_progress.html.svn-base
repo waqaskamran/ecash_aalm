@@ -1,0 +1,115 @@
+<script src="js/json.js"></script>
+<script type="text/javascript">
+
+var lastResponse = '';
+var progress_process_type;
+var domain = '%%%master_domain%%%';
+var keep_updating = true;
+var last_id = 0;
+
+function CheckProgress()
+{
+	if(keep_updating)
+	{
+		GrabProgress(progress_process_type);
+		setTimeout("CheckProgress()", 1500);
+	}
+}
+
+function GrabProgress()
+{
+	if(req = newXMLReqObject())
+	{
+    	var url = window.location.protocol + "//" + domain + "/get_progress.php?company_id="+company_id+"&process=" + progress_process_type;
+	    req.open("GET", url, false);
+	    req.send("");
+	}
+
+	if(req.readyState == 4) 
+	{
+		if(req.responseText != '' && req.responseText != lastResponse)
+		{
+			var Response = req.responseText.parseJSON();
+			last_id=Response.id
+			if(Response.percent != null)
+			{
+				progress_table = document.getElementById('progress_bar_td');
+				progress_bar = document.getElementById('progress_bar');
+				message = document.getElementById('progress_message');
+				
+				if(Response.percent == "999")
+				{
+					progress_bar.src = "image/standard/progress_bar_red.gif";
+					progress_bar.width = progress_table.width;
+					keep_updating = false;
+				}
+				else
+				{
+					pbwidth = progress_table.width/100 * Response.percent;
+					if(Response.percent >= 100)
+					{
+						pbwidth = progress_table.width;
+						keep_updating = false;
+					}
+
+					progress_bar.width = pbwidth;
+				}
+
+				if(Response.message != null)
+				{
+					var offset_scroll = message.scrollHeight - message.offsetHeight;
+					var scroll_bottom = (offset_scroll > 0 && message.scrollTop == offset_scroll);
+
+					message.innerHTML = message.innerHTML + Response.message;
+
+					if (scroll_bottom)
+					{
+						message.scrollTop = message.scrollHeight;
+					}
+				}
+			}
+			else
+			{
+				message = document.getElementById('progress_message');
+				message.innerHTML = message.innerHTML + Response.message;
+			}
+		}
+
+		lastResponse = req.responseText;
+	}
+}
+</script>
+
+<table cellpadding=0 cellspacing=0 width="100%" height="500" class="%%%mode_class%%%">
+	<tr class="bg">
+		<td class="align_left">
+			<form method="post" action="/">
+			<table cellpadding=0 cellspacing=0 width="100%" class="%%%mode_class%%%">
+				<tr>
+					<td>
+						<center>
+						<table id="progress_table" width="600" height="400">
+							<tr>
+								<td id="progress_bar_td" width="600" style="border:solid thin black; height:20px; background: white; text-align: left;">
+									<img id="progress_bar" src="image/standard/progress_bar_green.gif" height="20" width="1%" border="0">
+								</td>
+							</tr>
+							<tr>
+								<td style="border:solid thin black; font: 10pt courier; text-align: left; vertical-align: top; padding: 4px; background: white;">
+								<div id="progress_message" style="overflow:auto; height: 360px; padding: 0px; margin: 0px; white-space: pre;"></div>
+								</td>
+							</tr>
+						</table>
+						</center>
+					</td>
+				</tr>
+			</table>
+		</td>
+	</tr>
+</table>
+
+<script>
+	progress_process_type = '%%%progress_process_type%%%';
+	company_id = '%%%company_id%%%';
+	CheckProgress();
+</script>

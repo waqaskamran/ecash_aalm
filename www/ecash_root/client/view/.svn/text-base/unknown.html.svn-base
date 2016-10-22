@@ -1,0 +1,10 @@
+<html>
+<body>
+<pre>
+Unknown Request:
+<?php
+echo $display_data;
+?> 
+</pre>
+</body>
+</html>

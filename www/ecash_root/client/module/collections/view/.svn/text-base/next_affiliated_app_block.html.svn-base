@@ -1,0 +1,5 @@
+<div id="menu_label_nextapp" class="menu_label_nextapp" style="left: %%%app_button_pos%%%">
+%%%JAVASCRIPT%%%
+<script type="text/javascript">Disable_One_Link('%%%next_app_button_id%%%',2000);</script>
+<a href="javascript:Click_Link_Once('%%%next_app_button_id%%%','%%%next_app_dest%%%')" id="%%%next_app_button_id%%%" class="menu">%%%next_app_text%%% &nbsp;<span class="queue_count">%%%affiliated_queue_count%%%</span></a>
+</div>

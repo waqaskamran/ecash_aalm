@@ -1,0 +1,8 @@
+## Create Loan Document Packages
+
+INSERT INTO `document_list_package` VALUES ('2007-10-23 17:56:02','2007-10-23 17:56:02',1,10021,347),('2007-10-23 17:55:42','2007-10-23 17:55:42',1,10020,348),('2007-10-23 17:57:01','2007-10-23 17:57:01',2,10023,359),('2007-10-23 17:56:47','2007-10-23 17:56:47',2,10022,360),('2007-10-23 17:57:56','2007-10-23 17:57:56',3,10025,371),('2007-10-23 17:57:38','2007-10-23 17:57:38',3,10024,372),('2007-10-23 17:41:16','2007-10-23 17:41:16',4,10019,383),('2007-10-23 17:29:14','2007-10-23 17:29:14',4,10018,384),('2007-10-23 17:59:40','2007-10-23 17:59:40',5,10026,399);
+
+INSERT INTO `document_package` VALUES ('2007-10-23 17:29:14','2007-10-23 17:29:14','active',4,10018,'Title Loan Documents','title_loan_documents',382),('2007-10-23 17:41:16','2007-10-23 17:41:16','active',4,10019,'Payday Loan Documents','payday_loan_documents',381),('2007-10-23 17:55:42','2007-10-23 17:55:42','active',1,10020,'Title Loan Documents','title_loan_documents',346),('2007-10-23 17:56:02','2007-10-23 17:56:02','active',1,10021,'Payday Loan Documents','payday_loan_documents',345),('2007-10-23 17:56:47','2007-10-23 17:56:47','active',2,10022,'Title Loan Documents','title_loan_documents',358),('2007-10-23 17:57:01','2007-10-23 17:57:01','active',2,10023,'Payday Loan Documents','payday_loan_documents',357),('2007-10-23 17:57:38','2007-10-23 17:57:38','active',3,10024,'Title Loan Documents','title_loan_documents',370),('2007-10-23 17:57:56','2007-10-23 17:57:56','active',3,10025,'Payday Loan Documents','payday_loan_documents',369),('2007-10-23 17:59:40','2007-10-23 17:59:40','active',5,10026,'CA Loan Documents','ca_loan_documents',397);
+
+DELETE FROM document_list WHERE name = "Loan Document";
+

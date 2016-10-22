@@ -1,0 +1,51 @@
+digraph transactional_model {
+
+    node [shape=box];
+
+    rankdir=LR;
+
+    label="New Transactional Model DRD\nNote: Convenience data not shown";
+    labelloc="top";
+
+    event                           [peripheries=3];
+    transaction                     [peripheries=3];
+    event_amount                    [peripheries=3];
+
+    transactional_name              [peripheries=2];
+    mechanism                       [peripheries=2];
+    event_type                      [peripheries=2];
+    transaction_status              [peripheries=2];
+    context                         [peripheries=2];
+    event_amount_type               [peripheries=2];
+
+    application                     [peripheries=1];
+    company                         [peripheries=1];
+    agent                           [peripheries=1];
+    quick_check_details             [peripheries=1];
+    ach_details                     [peripheries=1];
+    credit_card_details             [peripheries=1];
+    external_collections_details    [peripheries=1];
+
+    event -> context;
+    event -> application;
+    event -> transaction [label="parent"];
+    event -> event_type;
+    event -> mechanism;
+    event -> agent;
+    transaction -> transaction_status;
+    transaction_status -> mechanism;
+    event_amount -> event;
+    event_amount -> event_amount_type;
+    event_amount -> transaction [label="once sent"];
+    transactional_name -> company;
+    transactional_name -> event_amount_type;
+    transactional_name -> event_type;
+    transactional_name -> mechanism;
+    transactional_name -> context;
+
+    quick_check_details -> transaction;
+    ach_details -> transaction;
+    credit_card_details -> transaction;
+    external_collections_details -> transaction;
+
+}

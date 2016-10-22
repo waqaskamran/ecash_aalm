@@ -1,0 +1,29 @@
+K 25
+svn:wc:ra_dav:version-url
+V 95
+/svn/aalm_current/!svn/ver/1979/ecash/branches/sql_merge/ecash_cfe/code/ECash/Clarity/Responses
+END
+Generic.php
+K 25
+svn:wc:ra_dav:version-url
+V 107
+/svn/aalm_current/!svn/ver/1979/ecash/branches/sql_merge/ecash_cfe/code/ECash/Clarity/Responses/Generic.php
+END
+Perf.php
+K 25
+svn:wc:ra_dav:version-url
+V 104
+/svn/aalm_current/!svn/ver/1979/ecash/branches/sql_merge/ecash_cfe/code/ECash/Clarity/Responses/Perf.php
+END
+Fund_Update.php
+K 25
+svn:wc:ra_dav:version-url
+V 111
+/svn/aalm_current/!svn/ver/1979/ecash/branches/sql_merge/ecash_cfe/code/ECash/Clarity/Responses/Fund_Update.php
+END
+Status_Update.php
+K 25
+svn:wc:ra_dav:version-url
+V 113
+/svn/aalm_current/!svn/ver/1979/ecash/branches/sql_merge/ecash_cfe/code/ECash/Clarity/Responses/Status_Update.php
+END

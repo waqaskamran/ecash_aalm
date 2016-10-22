@@ -1,0 +1,170 @@
+<div class='rules'>
+        <table cellspacing='1' cellpadding='4' border='0' width="100%">
+                <tr>
+                        <th colspan="6"  style="background: #B4DCAF">Global Campaign Rules</th>
+                </tr>
+		
+		<tr>
+			<th style='text-align:left;'>
+				<b> Min Age</b>
+			</th>
+			<th style='text-align:left;'>
+				<b>Military Allowed</b>
+			</th>
+			<th style='text-align:left;'>
+				<b>Min Monthly Income</b>
+			</th>
+			<th style='text-align:left;'>
+				<b>Bank ABA (Starting 2 digits range)</b>
+			</th>
+			<th style='text-align:left;'>
+				<b>Street or Address1 (Max Characters)</b>
+			</th>
+			<th style='text-align:left;'>
+			</th>
+		</tr>
+                %%%global_campaign_rule_list%%%
+        </table>
+</div>
+
+<!-- Add, Edit -->
+<div id="global_campaign_rule_dialog" style="display: none">
+	<div class='edit_dialog'>
+	<form name="global_campaign_rule_detail" method="post" action=""><input id="global_campaign_rule_detail_action" name="action" type="hidden" value="display_global_campaign_rules">
+			<table id="global_campaign_rule_detail_right" align="left" border="0px" cellpadding="0px" cellspacing="0px" width="100%">
+			<tr>
+			<th style='width:175px;'>
+				<select id="global_campaign_rule_age" name="global_campaign_rule_age">
+				<option value='18'>18</option>
+				<option value='19'>19</option>
+				<option value='20'>20</option>
+				<option value='21'>21</option>
+				</select>
+			</th>
+			
+			<th style='width:200px;'>
+				<select id="global_campaign_rule_military" name="global_campaign_rule_military">
+				<option value='no'>no</option>
+				<option value='yes'>yes</option>
+				</select>
+			</th>
+
+			<th style='width:200px;'>
+				<select id="global_campaign_rule_income_monthly" name="global_campaign_rule_income_monthly">
+				<option value='1000'>1000</option>
+				<option value='1100'>1100</option>
+				<option value='1200'>1200</option>
+				<option value='1300'>1300</option>
+				<option value='1400'>1400</option>
+				<option value='1500'>1500</option>
+				<option value='1600'>1600</option>
+				<option value='1700'>1700</option>
+				<option value='1800'>1800</option>
+				<option value='1900'>1900</option>
+				</select>
+			</th>
+			
+			<th style='width:220px;'>
+				<select id="global_campaign_rule_aba" name="global_campaign_rule_aba">
+				<option value='/^[4589]|^[1][6-9]|^[2][0]|^[3][3-9]|^[6][0]|^[7][3-9]/'>Currently not editable</option>
+				</select>
+			</th>
+			
+			<th style='width:200px;'>
+				<select id="global_campaign_rule_street" name="global_campaign_rule_street">
+				<option value='25'>25</option>
+				<option value='26'>26</option>
+				<option value='27'>27</option>
+				<option value='28'>28</option>
+				<option value='29'>29</option>
+				<option value='30'>30</option>
+				<option value='31'>31</option>
+				<option value='32'>32</option>
+				<option value='33'>33</option>
+				<option value='34'>34</option>
+				<option value='35'>35</option>
+				<option value='36'>36</option>
+				<option value='37'>37</option>
+				<option value='38'>38</option>
+				<option value='39'>39</option>
+				<option value='40'>40</option>
+				<option value='41'>41</option>
+				<option value='42'>42</option>
+				<option value='43'>43</option>
+				<option value='44'>44</option>
+				<option value='45'>45</option>
+				<option value='46'>46</option>
+				<option value='47'>47</option>
+				<option value='48'>48</option>
+				<option value='49'>49</option>
+				<option value='50'>50</option>
+				</select>
+			</th>
+
+			<th style='width:100px;'></th>
+			
+			</tr>
+			<tr class="height"></tr>
+			</table>
+			<div>
+			<td><button type='' name='add_edit_global_campaign_rule' id='add_edit_global_campaign_rule' action='' onclick="return Submit_Form();">Submit</button></td>
+			<td><button type='' onclick="javascript:Hide_Div('global_campaign_rule_dialog'); document.getElementById('global_campaign_rule_detail_action').value='display_global_campaign_rules';">Cancel</button></td>
+			</div>
+	</form>
+	</div>
+</div>
+
+<script type='text/javascript'>
+
+function add_global_campaign_rule()
+{
+	document.getElementById('global_campaign_rule_detail_action').value='add_global_campaign_rule';
+
+	Show_Div('global_campaign_rule_dialog');
+}
+
+function edit_global_campaign_rule(age, military, income_monthly, bank_aba, street)
+{
+	document.getElementById('global_campaign_rule_age').value = age;
+	document.getElementById('global_campaign_rule_military').value = military;
+	document.getElementById('global_campaign_rule_income_monthly').value = income_monthly;
+	document.getElementById('global_campaign_rule_aba').value = bank_aba;
+	document.getElementById('global_campaign_rule_street').value = street;
+
+	document.getElementById('global_campaign_rule_detail_action').value='edit_global_campaign_rule';
+
+	Show_Div('global_campaign_rule_dialog');
+}
+
+function Show_Div(target)
+{
+	document.getElementById(target).style.display = 'block';
+}
+
+function Hide_Div(target)
+{
+	document.getElementById(target).style.display = 'none';
+}
+
+function Submit_Form()
+{
+	if(!isNotWhiteSpace(document.getElementById('global_campaign_rule_name').value))
+	{
+		alert("The Name field cannot be empty.");
+		return false;
+	}
+	else
+	{
+		document.forms['ach_provider_detail'].submit();
+	}
+}
+
+function isNotWhiteSpace(value)
+{
+	var pattern = /\S/;
+	var regex = new RegExp(pattern);
+
+	return value.match(regex);
+}
+
+</script>

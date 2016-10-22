@@ -1,0 +1,161 @@
+<html>
+<head>
+<link rel="stylesheet" href="css/transactions.css">
+<link rel="stylesheet" href="js/calendar/calendar-dp.css">
+%%%serverdate%%%
+<script type="text/javascript" src="js/transactions.js"></script>
+<script type="text/javascript" src="js/calendar/calendar.js"></script>
+<script type="text/javascript" src="js/calendar/lang/calendar-en.js"></script>
+<script type="text/javascript" src="js/prototype-1.5.1.1.js"></script>
+<script type="text/javascript" src="js/json.js"></script>
+<script type="text/javascript">
+var minimum_payment = %%%payment_amount%%%;
+
+function calculateTotal()
+{
+	var my_total  =	document.getElementById('my_total');
+	var add_total = document.getElementById('extra_amount');
+
+	var f_add_total = parseFloat(document.getElementById('extra_amount').value);
+
+	var good_total = 0;
+
+	if (add_total.value.length == 0)
+	{
+		good_total = minimum_payment;
+	}
+	else
+	{
+		good_total = minimum_payment + f_add_total;
+	}
+
+	my_total.innerHTML = '$' + good_total.toFixed(2);
+}
+
+</script>
+<style>
+
+body 
+{ 
+	font-family:arial, sans-serif; 
+	background-color: #aaaaaa;
+}
+
+form.no_padding 
+{ 
+	padding: 0px; 
+}
+
+td 
+{ 
+	text-align: center; 
+}
+
+#transtable
+{
+	border: 1px dotted;
+}
+
+#transtable td
+{
+	border: 1px solid black;
+}
+
+#transtable tr
+{
+	border-spacing: 1px;
+}
+
+#transtable thead
+{
+	background-color: lightsteelblue;
+	text-align: center;
+}
+
+#transtable tbody
+{
+	background-color: white;
+}
+
+#desctable
+{
+	background-color: white;
+	border: 1px dotted;
+}
+
+#desctable td
+{
+	border: 1px solid black;
+}
+
+#desctable tr
+{
+	border-spacing: 1px;
+}
+
+#desctable thead
+{
+	background-color: lightsteelblue;
+	text-align: center;
+}
+
+#desctable tbody
+{
+	background-color: white;
+}
+
+button
+{
+	width: 100px;
+}
+.left { text-align: left; }
+.right { text-align: right; }
+</style>
+</head>
+<body %%%onload%%%>
+<form id="%%%action_type%%%_form" name="%%%action_name%%%" method="post" action="/" class="no_padding">
+<script type="text/javascript"> bases.push("%%%action_type%%%"); </script>
+<input type="hidden" name="application_id" id="application_id" value="%%%application_id%%%" />
+<input type="hidden" name="payment_type" value="%%%action_type%%%" />
+<input type="hidden" name="fund_date" value="%%%fund_date%%%" />
+<input type="hidden" name="fee" id="fee" value="%%%fee%%%"/>
+<input type="hidden" name="service_charge_balance" id="service_charge_balance_pending" value="%%%service_charge_balance_pending%%%"/>
+<input type="hidden" name="service_charge_balance" id="service_charge_balance" value="%%%service_charge_balance%%%"/>
+<input type="hidden" id="%%%action_type%%%_svc_charge_percentage" name="%%%action_type%%%_svc_charge_percentage" value="%%%svc_charge_percentage%%%" />
+<input type="hidden" id="%%%action_type%%%_interest_accrual_limit" name="%%%action_type%%%_interest_accrual_limit" value="%%%interest_accrual_limit%%%" />
+<input type="hidden" id="%%%action_type%%%_svc_charge_type" name="%%%action_type%%%_svc_charge_type" value="%%%svc_charge_type%%%" />
+<input type="hidden" name="posted_fees" id="posted_fees" value="%%%posted_fees%%%">
+<input type="hidden" name="application_id" id="application_id" value="%%%application_id%%%">
+<input type="hidden" name="posted_principal" id="posted_principal" value="%%%posted_principal%%%">
+<input type="hidden" name="posted_total" id="posted_total" value="%%%posted_total%%%">
+<input type="hidden" name="action" id="action" value="%%%action_type%%%">
+<input type="hidden" name="schedule_effect" id="schedule_effect" value="shorten">
+<input type="hidden" name="adjustment_target" value="fees">
+<input type="hidden" name="action_type" id="action_type" value="save">
+<input type="hidden" name="minimum_payment" value="%%%payment_amount%%%">
+
+<br />
+<br />
+
+<table width="100%" cellpadding="0" cellspacing="0" align="center" id="desctable">
+  <thead>
+    <tr>
+      <td colspan="2"><b>Renewal</b></td>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td colspan="2">Clicking "Save Renewal" will cause the loan to Renew.</td>
+    </tr>
+	<tr>
+	  <td><input type="button" value="Cancel" onClick="window.close();"></td><td><input type="button" id="savebutton" value="Save %%%save_text%%%" onClick="document.forms[0].submit()"></td>
+    </tr>
+  </tbody>
+</table>
+<!---
+      <td><input type="button" value="Cancel" onClick="window.close();"></td>
+      <td><input type="button" value="Save %%%save_text%%%" onClick="document.forms[0].submit()"></td> -->
+
+</form>
+</body>
+</html>

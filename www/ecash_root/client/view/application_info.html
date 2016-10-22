@@ -1,0 +1,179 @@
+<!-- client/view/application_info.html -->
+<script type="text/javascript">
+// This is so javascript can do checks similar to the SaveGeneralInfo
+var income_direct_deposit = '%%%income_direct_deposit%%%';
+
+// This signifies whether any direct deposit change requires resigning of the docs (whether to display the message)
+var dd_requires_resign    = %%%dd_requires_resign%%%;
+
+//[#29112] check loan amount and due date as well
+var fund_amount = '%%%fund_amount_trim%%%';
+var due_date = new String('%%%date_first_payment_display_trim%%%').replace(/-/g,'/');
+var app_status = '%%%status%%%';
+var rate_override = '%%%override_rate%%%';
+var rate_override_min = '%%%override_rate_min%%%';
+var rate_override_max = '%%%override_rate_max%%%';
+
+function app_confirm_direct_deposit_change()
+{
+	var app_info_form             = document.getElementById('Application_form');
+	var new_income_direct_deposit = app_info_form.income_direct_deposit[app_info_form.income_direct_deposit.selectedIndex].value.toLowerCase();
+    var new_fund_amount           = document.getElementById('fund_amount').value;
+    var date_first_element        = document.getElementById('date_first_payment');
+    var new_rate_override         = '';
+
+    if (document.getElementById('rate_override'))
+    {
+        new_rate_override = document.getElementById('rate_override').value;
+        if(new_rate_override != '' &&
+           (new_rate_override > parseInt(rate_override_max) ||
+            new_rate_override < parseInt(rate_override_min)))
+        {
+             alert("Override Rate must be between " + rate_override_min + " and " + 
+                   rate_override_max + " Percent");
+             return false;
+        }  
+    }
+
+
+    if (app_status != 'in_process' &&
+        ((date_first_element && date_first_element.value != due_date)  ||
+         fund_amount != new_fund_amount ||
+         (dd_requires_resign == true && income_direct_deposit.toLowerCase() != new_income_direct_deposit) ||
+         rate_override != new_rate_override))
+    {
+        return WarnESig();
+    }
+
+	return true;
+}
+</script>
+<div id="layout0group0layer2view" %%%application_info_view_layer%%%>
+	<table cellpadding=0 cellspacing=0 width="100%">
+		<tr>
+			<td class="border" align="left" valign="top">
+				<table cellpadding=0 cellspacing=0 width="100%" class="%%%mode_class%%%">
+					<tr class="height">
+						<th colspan="2" class="%%%mode_class%%%">&nbsp;<nobr>Application</nobr></th>
+					</tr>
+					<tr class="height">
+						<td class="align_left_alt_bold">&nbsp;Loan Type:</td>
+						<td class="align_left_alt">%%%loan_type_name%%%</td>
+					</tr>
+					<tr class="height">
+						<td class="align_left_bold">&nbsp;Direct Deposit:&nbsp;</td>
+						<td class="align_left">%%%income_direct_deposit_trim%%%</td>
+					</tr>
+					<tr class="height">
+						<td class="align_left_alt_bold">&nbsp;Fund Date:&nbsp;</td>
+						<td class="align_left_alt">%%%date_fund_actual_display_trim%%% &nbsp;%%%date_estimation_label%%%</td>
+					</tr>
+					
+					<tr class="height">
+						<td class="align_left_bold">&nbsp;Loan Amount:&nbsp;</td>
+						<td class="align_left">$ %%%fund_amount_trim%%%</td>
+					</tr>
+					
+					<tr class="height">
+						<td class="align_left_alt_bold">&nbsp;First Due Date:&nbsp;</td>
+						<td class="align_left_alt">%%%date_first_payment_display_trim%%% &nbsp;%%%date_estimation_label%%%</td>
+					</tr>
+					<tr class="height"><td class="align_left_bold">&nbsp;%%%rate_title%%%</td><td class="align_left">%%%rate_percent%%%</td></tr>
+					<tr class="height"><td class="align_left_alt_bold">&nbsp;User ID:</td><td class="align_left_alt">%%%login_user_id%%%</td></tr>
+					
+					<tr class="height"><td class="align_left_alt_bold">&nbsp;%%%coll_company_title%%%</td><td class="align_left_alt">%%%coll_company%%%</td></tr>
+					<tr class="height"><td class="align_left_bold">&nbsp;%%%coll_company_phone_title%%%</td><td class="align_left">%%%coll_company_phone%%%</td></tr>
+
+					<tr class="height">
+						<td colspan="2" class="align_right_alt">
+							%%%edit_application_info_link%%%
+						</td>
+					</tr>
+				</table>
+			</td>
+		</tr>
+	</table>
+</div>
+<div id="layout0group0layer2edit" %%%application_info_edit_layer%%%>
+<form method="post" action="/" id="Application_form" name="Application" class="no_padding">
+<input type="hidden" name="company_id" value="%%%company_id%%%">
+<input type="hidden" name="application_id" value="%%%application_id%%%">
+<table cellpadding=0 cellspacing=0 width="100%"><tr><td class="border" align="left" valign="top">
+<table cellpadding=0 cellspacing=0 width="100%" class="%%%mode_class%%%">
+	<tr class="height">
+		<th colspan="3" class="%%%mode_class%%%">&nbsp;<nobr>Application</nobr></th>
+	</tr>
+	<tr class="height"><td colspan="3" class="align_left_alt">&nbsp;</td></tr>
+	<tr class="height">
+		<td class="align_left_bold"><span class="%%%income_direct_deposit_color%%%">&nbsp;Direct Deposit</span>:&nbsp;</td>
+		<td class="align_left">&nbsp;</td>
+		<td class="align_left">%%%income_direct_deposit_drop%%%</td>
+	</tr>
+	<tr class="height">
+		<td class="align_left_alt_bold"><span class="%%%date_fund_actual_color%%%">%%%date_fund_actual_overlink%%%&nbsp;Fund Date%%%date_fund_actual_endlink%%%</span>:&nbsp;</td>
+		<td class="align_left_alt">&nbsp;</td>
+		<td class="align_left_alt">
+			%%%date_fund_actual_display_trim%%%
+			<input type="hidden" name="date_fund_actual_hidden" value="%%%date_fund_actual_hidden%%%" id="date_fund_actual_hidden">
+			<!-- %%%date_fund_actual_drop%%% -->
+		</td>
+	</tr>
+	<tr class="height">
+		<td class="align_left_bold"><span class="%%%fund_amount_color%%%">%%%fund_amount_overlink%%%&nbsp;Loan Amount%%%fund_amount_endlink%%%</span>:&nbsp;</td>
+		<td class="align_left">&nbsp;</td>
+		<td class="align_left">%%%fund_amount_drop%%%</td>
+	</tr>
+	<tr class="height">
+		<td class="align_left_alt_bold">
+			<span class="%%%date_first_payment_color%%%">
+				%%%date_first_payment_overlink%%%&nbsp;First Due Date:&nbsp;%%%date_first_payment_endlink%%%
+			</span>
+		</td>
+		<td class="align_left_alt">
+			%%%date_first_payment_popup%%%
+		</td>
+		<td class="align_left_alt">
+			%%%date_first_payment%%% 
+		</td>
+	</tr>
+	<tr class="height">
+		<td class="align_left_bold">
+			  &nbsp;%%%override_rate_title%%%
+		</td>
+		<td class="align_left">&nbsp;</td>
+		<td class="align_left">
+			  %%%override_rate_input%%%
+		</td>
+	</tr>
+	<tr class="height"><td colspan="3" class="align_left_alt">&nbsp;</td></tr>
+	<tr class="height"><td colspan="3" class="align_left">&nbsp;</td></tr>
+	<tr class="height"><td colspan="3" class="align_left_alt">&nbsp;</td></tr>
+	<tr class="height"><td colspan="3" class="align_left">&nbsp;</td></tr>
+	<tr class="height">
+		<td colspan="3" class="align_right_alt">
+			<input type="hidden" name="action" value="save_application">
+				<nobr>
+				
+
+			%%%save_application_button%%%	
+				
+				
+				<input type="reset" value="Cancel" class="button" onClick="javascript:SetDisplay(0,0,2,'view', '%%%mode_class%%%_buttons');"></nobr>
+		</td>
+	</tr>
+</table>
+</td></tr></table>
+<input type="hidden" id="paydate_0" name="paydate_0" value="%%%paydate_0%%%">
+<input type="hidden" id="paydate_1" name="paydate_1" value="%%%paydate_1%%%">
+<input type="hidden" id="paydate_2" name="paydate_2" value="%%%paydate_2%%%">
+<input type="hidden" id="paydate_3" name="paydate_3" value="%%%paydate_3%%%">
+<input type="hidden" id="paydate_list" name="paydate_list" value='%%%paydate_list%%%'>
+<input type="hidden" name="fund_date" value="%%%fund_date%%%">
+<input type="hidden" name="due_date_offset" value="%%%due_date_offset%%%">
+<input type="hidden" name="loan_type" value="%%%loan_type%%%">
+<input type="hidden" id="date_first_payment_day" name="date_first_payment_day" value="">
+<input type="hidden" id="date_first_payment_month" name="date_first_payment_month" value="">
+<input type="hidden" id="date_first_payment_year" name="date_first_payment_year" value="">
+<input type="hidden" id="new_first_due_date" name="new_first_due_date" value="no">
+</form>
+</div>

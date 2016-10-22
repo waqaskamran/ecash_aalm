@@ -1,0 +1,42 @@
+<table width="100%" class="rules">
+	<tr><th colspan="3" style="background: #B4DCAF">Investor Groups</th></tr>
+	<tr>
+		<td colspan="2">
+			<form style="margin: 0;padding: 0;" name="investor_groups" action='/?mode=tags' method="post" onsubmit="return Modify_Weights(true);" id="investor_groups">
+			<input name="action" type="hidden" value="modify_tags">
+			<input name="number_of_tags"  id="number_of_tags" type="hidden" value="%%%number_of_tags%%%">
+			<table width="100%" padding="0" border="0">
+				<tr>
+					<th style="background: #B4DCAF;" width="75%">Investor Group</th>
+					<th style="background: #B4DCAF;" width="25%">Current Weight</th>
+				</tr>
+				%%%weight_list%%%
+				<tr>
+					<td colspan="2" style="text-align: left;"><input type="button" value="Modify Weights" onclick="Modify_Weights();" /></td>
+				</tr>
+			</table>
+			</form>
+		</td>
+		<td colspan="1" valign="top">
+			<form style="margin: 0;padding: 0;" name="add_investor_groups" action='/?mode=tags' method="post"" id="add_investor_groups">
+			<input name="action" type="hidden" value="add_investor_group">
+			<table width="100%" padding="0" border="0">
+				<tr>
+					<th colspan="2" style="background: #B4DCAF;" width="100%" nowrap>Add Investor Group</th>
+				</tr>
+				<tr>
+					<td style="text-align:left;"> Investor Group Name</td>
+					<td style="text-align:left;"><input type="text" name="new_ig_name"></td>
+				</tr>		
+				<tr>
+					<td style="text-align:left;"> Investor Group Tag</td>
+					<td style="text-align:left;"><input type="text" name="new_ig_name_short"></td>
+				</tr>		
+				<tr>
+					<td colspan="2" style="text-align: left;"><input type="button" value="Add Group" onclick="Add_Investor_Group();" /></td>
+				</tr>
+			</table>
+			</form>
+		</td>
+	</tr>
+</table>

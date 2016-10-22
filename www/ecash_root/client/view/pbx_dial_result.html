@@ -1,0 +1,30 @@
+<html>
+<head>
+<title>PBX Dial Result</title>
+<script type="text/javascript">
+
+	function destruct()
+	{
+		window.close();
+	}
+
+	function start_timer()
+	{
+		window.setTimeout('destruct()', 1500);
+	}
+
+</script>
+</head>
+<body onload="self.focus();start_timer();">
+	<table>
+		<tr>
+			<td>Calling</td>
+			<td>%%%pbx_dial_number%%%</td>
+		</tr>
+		<tr>
+			<td>Status</td>
+			<td>%%%pbx_dial_result%%%</td>
+		</tr>
+	</table>
+</body>
+</html>

@@ -1,0 +1,108 @@
+<script type="text/javascript">
+	var pending_quick_checks_count = %%%quick_checks_pending_count%%%;
+
+	function checkIfEnteredQCCountIsLogical()
+	{
+		entered = document.getElementById('num_quick_checks_apps');
+
+		if (entered.value > pending_quick_checks_count)
+		{
+			alert('You must enter in a count lower or equal than ' + pending_quick_checks_count);
+			return false;
+		}
+		else if (entered.value <= 0)
+		{
+			alert('You must enter in a count greater than 0');
+			return false;
+		}
+		else if (isNaN(entered.value))
+		{
+			alert('Number of applications to process MUST be a number.');
+			return false;
+		}
+
+		return true;
+	}
+</script>
+<table cellpadding="0" cellspacing="0" width="100%" height="480" class="%%%mode_class%%%">
+	<tr>
+	    <td class="align_left" style="vertical-align: top">
+    		<div id="QuickChecksContainer" style="width: 790px; height: 480px; overflow: auto; background: #EEF0F4;">
+				<form action="/" method="POST">
+				<input type='hidden' name='action' value='search_quick_checks'>
+				<input type='hidden' name='mode' value='quick_checks'>
+				<table class="quick_checks_util" align="left" cellspacing="5">
+					<thead>
+						<tr>
+							<th class="report_head" colspan="6">Search QuickChecks</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr>
+							<td>&nbsp;</td>
+							<td>%%%from_date%%%</td>
+							<td>%%%to_date%%%</td>
+							<td>&nbsp; </td>
+							<td>&nbsp;</td>
+						</tr>
+						<tr>
+							<td colspan='5'>&nbsp;</td>
+						</tr>
+						<tr>
+							<td colspan=5><input type='submit' name='search_quick_checks_batches' value='Search QuickChecks Batches'></form></td>
+						</tr>
+					</tbody>
+				</table>
+				</form>
+				<br clear="all">&nbsp;<br>
+				<form action="/" method="POST">
+				<input type='hidden' name='action' value='process_quick_checks'>
+				<input type='hidden' name='mode' value='quick_checks'>
+				<table id="add_quick_checks_table" class="quick_checks_table" align="center" border="1" style="width: 95%; height: 20px; overflow: auto">
+					<thead>
+						<tr>
+							<th class="report_head" colspan="5">New QuickChecks Batch</td>
+						</tr>
+						<tr>
+							<th class="report_head">Batch Type</th>
+							<th class="report_head">Number of Applications to Process</th>
+							<th class="report_head">Number of Applications Pending</th>
+							<th class="report_head">Total Amount Pending</th>
+							<th class="report_head">Process</th>
+						</tr>
+					</thead>
+					<tbody>
+						<td>
+							%%%batch_report_select%%%
+						</td>
+						<td><input type="text" name="num_apps" id="num_quick_checks_apps" value="%%%quick_checks_pending_count%%%"></td>
+						<td>%%%quick_checks_pending_count%%%</td>
+						<td>%%%quick_checks_pending_amount%%%</td>
+						<td><input type="submit" value="Process" onClick="javascript: return checkIfEnteredQCCountIsLogical()"></td>
+					</tbody>
+				</table>
+				</form>
+				<br>
+				<table id="quick_checks_table" class="quick_checks_table" align="center" border="1" style="width: 95%; height: 20px; overflow: auto">
+					<thead>
+						<tr>
+							<th class="report_head" colspan="7">QuickChecks Batches</td>
+						</tr>
+						<tr>
+							<th class="report_head">Batch ID</th>
+							<th class="report_head">Batch Date</th>
+							<th class="report_head">Batch Type</th>
+							<th class="report_head">Number of Applications</th>
+							<th class="report_head">Total Amount</th>
+							<th class="report_head">Status</th>
+							<th class="report_head">Download</th>
+						</tr>
+					</thead>
+					<tbody>
+						%%%quick_checks_batches%%%
+					</tbody>
+				</table>
+			</div>
+		</td>
+	</tr>
+</table>

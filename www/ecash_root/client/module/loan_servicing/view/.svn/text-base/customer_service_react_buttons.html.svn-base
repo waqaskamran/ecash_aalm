@@ -1,0 +1,53 @@
+<div id="customer_service_buttons">
+	<div id="app_attributes">
+		%%%app_attribute_buttons%%%
+	</div>
+	<div id="app_actions">
+		<div class="app_attribute_title">
+			App Actions
+		</div>
+		<div style="float: left;">
+		<div class="app_button">
+			<input id="AppActionFollowUp" type="button" name="submit_button" class="button3%%%follow_up_disabled%%%" value="Follow Up" onClick="OpenDialogSized('/?action=get_followup&type=customer_service&application_id=%%%application_id%%%', '400', '300');"%%%follow_up_disabled%%%>
+		</div>
+		<div class="app_button">
+			<input id="AppActionWithdrawApp" type="button" name="submit_button" value="Withdraw App" class="button2%%%cs_withdraw_disabled%%%" onClick="javascript:OpenDialogTall('/?action=loan_action&type=Withdraw&loan_section=CS&application_id=%%%application_id%%%&customer_email=%%%customer_email%%%');"%%%cs_withdraw_disabled%%%>
+		</div>
+		<div class="app_button">
+			<input id="AppActionSendToVerify" type="button" name="submit_button" value="Send to Verify" class="button2%%%cs_reverify_disabled%%%" onClick="javascript:OpenDialogTall('/?action=loan_action&type=Reverify&loan_section=CS&application_id=%%%application_id%%%');"%%%cs_reverify_disabled%%%>
+		</div>
+                <div class="app_button">
+                        <input id="AppActionSendToInProcess" type="button" name="submit_button" value="Send to In Process" class="button2%%%inprocess_button_disabled%%%" onClick="javascript:Update_Status_Direct('In_Process', 'In Process');"%%%inprocess_button_disabled%%%>
+                </div>
+
+		</div>
+		<div style="float: left;">
+		<div class="app_button">
+			<form id="send_react_offer" method="post" action="/" class="no_padding">
+			<input id="AppActionAppId" type="hidden" name="application_id" value="%%%application_id%%%">
+			<input id="AppActionReactAction" type="hidden" name="action" value="send_react_offer">
+			<!--
+			<input type="button" name="submit_button" class="button3" value="Reactivate" onClick="window.open('%%%new_app_url%%%%%%new_app_get_str%%%', 'new_app', 'toolbar=no,location=no,directories=no,status=no,menubar=no,scrollbars=yes,resizable=yes,copyhistory=no,width=800,height=600,left=10,top=10,screenX=10,screenY=10');">			
+			-->
+			<input id="AppActionReact" type="button" name="submit_button" %%%react_button_disabled%%% class="button3%%%react_button_disabled%%%" value="Reactivate" onClick="reactivation_frame.location = '%%%new_app_url_soap%%%%%%new_app_get_str_soap%%%&react_type=react';SetDisplay(1,1,5,'view', 'reactivation_buttons');">
+		</div>
+		
+		<div class="app_button">
+			<input id="AppActionSendReactOffer" type="submit" name="submit_button" %%%react_button_disabled%%% class="button3%%%react_button_disabled%%%" value="Send React Offer">
+		</form>
+		</div>
+		<div class="app_button">
+			%%%watch_button%%%
+		</div>
+		<div class="app_button">
+		        <input id="AppActionOutgoingCallDispositions" type="button" %%%outgoing_call_dispositions_disabled%%% name="submit_button" value="Call" class="button2%%%outgoing_call_dispositions_disabled%%%" onClick="OpenDialogSized('/?action=outgoing_call_dispositions&application_id=%%%application_id%%%', '600', '300');"%%%outgoing_call_dispositions_disabled%%%>
+		</div>
+		</div>
+	</div>
+	
+</div>
+
+<div style="clear: both;">
+	<span style="text-align: left; float: left;">%%%back_button_link%%%</span>
+	<span style="text-align: center; float: right; width: 755px;">Controlling Agent: &nbsp; <b>%%%controlling_agent_name%%% </b></span>
+</div>

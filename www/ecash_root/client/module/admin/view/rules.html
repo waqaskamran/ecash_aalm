@@ -1,0 +1,216 @@
+<table width="100%" class="rules" height="500">
+	<tr><th colspan="3" style="background: #B4DCAF">Business Rules</th></tr>
+<form name="rule_info" action='/' method="post"><input name="action" type="hidden" value="modify_rules">
+	<tr>
+		<td valign='top'>
+			<table width="100%">
+				<tr>
+<!------------------------->
+<!----- LOAN TYPES -------->
+<!------------------------->
+					<td>
+						<table width="377px">
+							<tr>
+								<td class="align_left"><b> Rule Set </b></td>
+							</tr>
+							<tr>
+								<td class="border_one" align='left'>
+									<table width="100%">
+										<tr>
+											<td class="align_left"> Rule Names <br/>
+												<select name="loan_type_list" size="7" style="width:220px;" onChange="javascript:get_loan_rules();">
+													%%%loan_type_list%%%
+												</select>
+											</td>
+											<td class="align_left" valign='top'><br/>
+												<table>
+													<tr>
+														<td class="align_left"> <b>Status</b> </td>
+													</tr>
+													<tr>
+														<td>&nbsp;&nbsp;&nbsp;<input type='text' name='loan_type_status' size='18'></td>
+													</tr>
+													<tr>
+														<td class="align_left"> <b>Company</b> </td>
+													</tr>
+													<tr>
+														<td> &nbsp;&nbsp;%%%company_name%%% </td>
+													</tr>
+												</table>
+											</td>
+										</tr>
+									</table>
+								</td>
+							</tr>
+						</table>
+					</td>
+
+					<td>&nbsp; </td>
+<!------------------------->
+<!----- LOAN RULES -------->
+<!------------------------->
+					<td>
+						<table width="377px">
+							<tr>
+								<td class="align_left"><b> Rule Version </b></td>
+							</tr>
+							<tr>
+								<td class="border_one" align='left'>
+									<table width="100%">
+										<tr>
+											<td class="align_left"> Version Names <br/>
+												<select name="loan_rule_list" size="7" style="width:220px;" onChange="javascript:get_rule_components();">
+													%%%loan_rule_list%%%
+												</select>
+											</td>
+											<td class="align_left" valign='top'><br/>
+												<table>
+													<tr>
+														<td class="align_left"> <b>Status</b> </td>
+													</tr>
+													<tr>
+														<td>&nbsp;&nbsp;&nbsp;<input type='text' name='loan_rule_status' size='18'></td>
+													</tr>
+													<tr>
+														<td class="align_left"> <b>Effective Date</b> </td>
+													</tr>
+													<tr>
+														<td>&nbsp;&nbsp;&nbsp;<input type='text' name='loan_rule_effective' size='18'></td>
+													</tr>
+												</table>
+											</td>
+										</tr>
+									</table>
+								</td>
+							</tr>
+						</table>
+					</td>
+				</tr>						
+			</table>
+			<table width="100%">
+				<tr>
+<!-------------------------------->
+<!----- RULE COMPONENTS --------->
+<!-------------------------------->
+					<td>
+						<table width="377px">
+							<tr>
+								<td class="align_left"><b> Rule Components </b></td>
+							</tr>
+							<tr>
+								<td class="border_one" align='left'>
+									<table width="100%">
+										<tr>
+											<td class="align_left"> Component Names <br/>
+												<select name="rule_component_list" size="11" style="width:270px;" onChange="javascript:get_component_params();">
+													%%%rule_component_list%%%
+												</select>
+											</td>
+											<td class="align_left" valign='top'><br/>
+												<table>
+													<tr>
+														<td class="align_left"> <b>Grandfather</b> </td>
+													</tr>
+													<tr>
+														<td>&nbsp;&nbsp;&nbsp;<input type='text' name='grandfather' size='8' ></td>
+													</tr>
+												</table>
+											</td>
+										</tr>
+									</table>
+								</td>
+							</tr>
+						</table>
+					</td>
+
+					<td>&nbsp; </td>
+<!------------------------------------>
+<!----- RULE COMPONENT PARAMS -------->
+<!------------------------------------>
+					<td>
+						<table width="377px">
+							<tr>
+								<td class="align_left"><b> Rule Component Parameters </b></td>
+							</tr>
+							<tr>
+								<td class="border_one" align='left'>
+									<table width="100%">
+										<tr>
+											<td class="align_left"> Component Parameter Names <br/>
+												<select name="component_parm_list" size="11" style="width:220px;" onChange="javascript:get_component_parm_value();">
+													%%%component_parm_list%%%
+												</select>
+											</td>
+											<td class="align_left" valign='top'><br/>
+												<table>
+													<tr>
+														<td class="align_left"> <b>User Configurable</b> </td>
+													</tr>
+													<tr>
+														<td>&nbsp;&nbsp;&nbsp;<input type='text' name='user_configurable' size='18'></td>
+													</tr>
+													<tr>
+														<td class="align_left"> <b>Unit Of Measure</b> </td>
+													</tr>
+													<tr>
+														<td>&nbsp;&nbsp;&nbsp;<input type='text' name='unit_of_measure' size='18'></td>
+													</tr>
+												</table>
+											</td>
+										</tr>
+									</table>
+								</td>
+							</tr>
+						</table>
+					</td>
+				</tr>						
+			</table>
+			<div id='rule_param_div'">
+			<!-- Previous style was for 'visibility:hidden' but broke the ability to modify the rule value -->
+			<table width='769px'>
+				<tr>
+					<td class="align_left"><b> Rule Component Parameter Value And Restrictions </b></td>
+				</tr>
+				<tr>
+					<td class="border_one" align='left'>
+						<table width="100%">
+							<tr>
+								<td>
+									<table>
+										<tr>
+											<td width='33%'> Parameter Value<br/><br/>
+												Original Value: <input type='text' name='component_parm_value' id='component_parm_value' size='28' onkeypress='return isComponentParmDisabled();'>
+												<!-- GF 17060 - The value of this hidden field will dictate whether or not the text field is writable -->
+												<input type="hidden" name="component_parm_disabled" id="component_parm_disabled" value="false" />
+												<br/>
+												<div id='rule_param_select_div' style='visibility:hidden;'>
+												<br/>Modified Value: 
+												<select name="select_component_parm_value" id="select_component_parm_value" 
+												style='width:180px;'></select>
+												</div>
+												
+											</td>
+											<td class="align_left" width='67%'>&nbsp;&nbsp;Description<br/>
+												&nbsp;&nbsp;<textarea name='parm_description' cols='70' rows='3' READONLY>
+												</textarea>
+											</td>
+										</tr>
+									</table>
+								</td>
+							</tr>
+						</table>
+					</td>
+				</tr>
+			</table>
+			<table width='769px'>
+				<tr>
+					<td class="align_right"><br/>
+						<input type="button" name="modify_button" onClick="javascript:save_business_rule();" value="Modify Rule">
+					</td>
+				</tr>
+			</table>
+			</div>			
+		</td>
+	</tr>
+</form>
+</table>

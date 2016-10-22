@@ -1,0 +1,1960 @@
+<link rel="stylesheet" type="text/css" href="/css/grid-report.css">
+<link rel="stylesheet" type="text/css" href="/css/toolbar-report.css">
+<script src="/js/yui/utilities/utilities.js"></script>
+<script src="/js/lib/yui-ext.js"></script>
+<script>
+
+				
+	var query_sections = Array();
+	query_sections[0] = "report_options";
+	query_sections[1] = "query_option_create_field_select";
+	query_sections[2] = "query_option_create_opt_select";
+	query_sections[3] = "query_option_create_val_entry";
+	query_sections[4] = "query_option_create_finalize";
+	query_sections[5] = "query_option_create_result_fields";
+	query_sections[6] = "query_option_create_confirmation";
+
+	var typeOperation = Array();
+	typeOperation['in'] 					= "In";
+	typeOperation['notin'] 					= "Not In";
+	typeOperation['lessthan'] 				= "Less Than";
+	typeOperation['lessthanequalto'] 		= "Is Less Than or Equal To";
+	typeOperation['greaterthan'] 			= "Greater Than";
+	typeOperation['greaterthanequalto'] 	= "Is Greater Than or Equal To";
+	typeOperation['between'] 				= "Between";
+	typeOperation['notbetween'] 			= "Not In Between";
+	typeOperation['equalto'] 				= "Equals";
+	typeOperation['notequalto'] 			= "Does Not Equals";
+	typeOperation['like'] 					= "Like";
+	typeOperation['notlike'] 				= "NOT LIKE";
+
+
+	//YUI-EXT
+	var sm 			= null;
+	var cm 			= null;
+	var dm 			= null;
+	var grid 	 	= null;
+	var toolbar	 	= null;
+	
+	function getRefToDivNest( divID, oDoc ) 
+	{
+		if( !oDoc ) { oDoc = document; }
+		if( document.layers ) 
+		{
+			if( oDoc.layers[divID] ) { return oDoc.layers[divID]; } else 
+			{
+				for( var x = 0, y; !y && x < oDoc.layers.length; x++ ) 
+				{
+					y = getRefToDivNest(divID,oDoc.layers[x].document); }
+				return y; } }
+		if( document.getElementById ) { return document.getElementById(divID); }
+		if( document.all ) { return document.all[divID]; }
+		return document[divID];
+	}
+
+
+	function AJAXGrid(report_details)
+	{
+		try
+		{
+			url = "/?mode=report_wizard&action=download_report&get_page=true";
+			headfilter = "";
+			headschema = "";
+			headschema = new Array();
+			var columnHeaders = new Array();
+			for(var i=0; i<report_details['headeritems'].length; i++)
+			{
+				var item = report_details['headeritems'][i];
+				headfilter += '<option value=\''+ item['name'] +'\'>'+ item["value"] +'</option>';
+				
+				var columnConfig = new Object();
+				columnConfig.header = item["value"];
+				columnConfig.width = 100;
+				columnHeaders[i] = columnConfig;
+				headschema[i] = item['name'];
+			}		
+			
+			this.sm = new YAHOO.ext.grid.SingleSelectionModel();
+			this.cm = new YAHOO.ext.grid.DefaultColumnModel(columnHeaders);
+			this.cm.defaultSortable = true;
+			
+			this.dm = new YAHOO.ext.grid.XMLDataModel({
+			    tagName: 'ITEM',
+			    totalTag: 'totalitems',
+			    fields: headschema
+			});		
+			this.dm.createParams_original = this.dm.createParams;
+			this.dm.createParams = function(pageNum, sortColumn, sortDir){
+									    params = dm.createParams_original(pageNum, sortColumn, sortDir);
+									    params['sort'] = dm.schema.fields[sortColumn];
+									    if(document.getElementById('filter_field')) 
+										{
+											params['filter_field'] = document.getElementById('filter_field').value;
+									    }
+									    if(document.getElementById('filter_text')) 
+										{
+											params['filter_text'] = document.getElementById('filter_text').value;
+									    }
+									    return params;
+									};		
+			this.dm.initPaging(url, 100);
+			this.grid = new YAHOO.ext.grid.Grid('display_report', this.dm, this.cm, this.sm);
+			this.grid.render();
+			
+			this.toolbar = this.grid.getView().getPageToolbar();
+			this.toolbar.addSeparator();
+			this.toolbar.addText(report_details["totalitems"] + ' total record(s)');
+			this.toolbar.addSeparator();
+			this.toolbar.addText('Filter:');
+			this.toolbar.addText('<select name=filter_field id=filter_field>'+headfilter+'</select>');
+			this.toolbar.addText('<input type=text name=filter_text id=filter_text>');
+			this.toolbar.addText('<input type=button name=button_submit id=button_submit value=Update onClick=dm.loadPage(1);>');
+			this.toolbar.addText('<input type=button name=button_clear id=button_clear value=Reset onClick=document.getElementById(\'filter_text\').value=\'\';dm.loadPage(1);>');			
+			this.dm.loadPage(1);
+			query_div = getRefToDivNest('display_report');
+			query_div.style.visibility = 'visible';	
+		} 
+		catch (err)
+		{
+			alert(err);
+		}
+	}
+	
+	function move_up(obj)
+	{
+	  var currernt;
+	  var reverse;
+	  if(obj.options[obj.options.selectedIndex].index > 0)
+	  {
+	    current_txt = obj.options[obj.options.selectedIndex].text;
+	    current_val = obj.options[obj.options.selectedIndex].value;
+	    
+	    reverse_txt = obj.options[obj.options[obj.options.selectedIndex].index-1].text;
+	    reverse_val = obj.options[obj.options[obj.options.selectedIndex].index-1].value;
+	    
+	    obj.options[obj.options.selectedIndex].text 	= reverse_txt;
+	    obj.options[obj.options.selectedIndex].value 	= reverse_val;
+	    
+	    obj.options[obj.options[obj.options.selectedIndex].index-1].text 	= current_txt;
+	    obj.options[obj.options[obj.options.selectedIndex].index-1].value 	= current_val;
+	    
+	    self.focus();
+	    obj.options.selectedIndex--;
+	  }
+	}
+	
+	function move_down(obj)
+	{
+	  var currernt;
+	  var next;
+	  if(obj.options[obj.options.selectedIndex].index != obj.length-1)
+	  {
+	    current_txt = obj.options[obj.options.selectedIndex].text;
+	    current_val = obj.options[obj.options.selectedIndex].value;
+	    
+	    next_txt = obj.options[obj.options[obj.options.selectedIndex].index+1].text;
+	    next_val = obj.options[obj.options[obj.options.selectedIndex].index+1].value;
+	    
+	    obj.options[obj.options.selectedIndex].text 	=  next_txt;
+	    obj.options[obj.options.selectedIndex].value 	=  next_val;
+	    
+	    obj.options[obj.options[obj.options.selectedIndex].index+1].text 	= current_txt;
+	    obj.options[obj.options[obj.options.selectedIndex].index+1].value 	= current_val;
+	    
+	    self.focus();
+	    obj.options.selectedIndex++;
+	  }
+	}	
+	
+	function InterfaceAction(opt,frm)
+	{
+		switch(opt.name)
+		{
+			case 'query_option_create_process':
+			case 'query_option_create':
+			case 'query_option_man':
+			case 'query_option_next':
+			case 'query_option_back':
+			case 'query_option_cancel':
+			case 'query_option_confirm':
+			case 'query_option_export':
+			case 'query_option_manager_and':
+			case 'query_option_manager_or':
+			case 'query_option_manager_change':
+			case 'query_option_manager_delete':
+			case 'add_result_field':
+			case 'remove_result_field':
+				QueryOption(opt,frm)
+				break;
+			case 'query_option_select':
+				QueryManagement(opt,frm);				
+				break;
+			case 'query_manage_run':
+				RunQuery(opt,frm);				
+				break;
+			case 'query_manage_change':
+				EditQuery(opt,frm);
+				break;	
+			case 'query_manage_delete':
+				DeleteXMLQuery(opt,frm);
+				break;				
+			default:
+				alert("TBD(interface):"+ opt.name);
+				return;
+				break;
+		}
+
+	}
+	
+	function resetForm(frm)
+	{
+		// Deselect Operations
+		frm.query_option_create_operations.selectedIndex 	= null;
+
+		// Null out Constant Value
+		frm.query_option_create_constant_value.value 		= null;
+		
+		// Remove all query options
+		frm.query_option_create_queries.length 				= 0;
+		
+		//Removed selected fields
+		frm.query_option_create_result_selected.length		= 0;
+		
+		frm.current_query_case.value 						= "";
+		
+		frm.query_option_create_constant_value.value		= "";
+	
+		//frm.current_query.value 							= "";
+	
+		//frm.query_mode.value 								= "new";
+		
+		frm.section_page.value = 0;
+	
+	}
+	
+	function resetInterface(frm,complete)
+	{
+		// Hide Navigation
+		var hidedivs = Array();
+		hidedivs[0] = "query_option_create_navigation";
+		hidedivs[1] = "query_value_entry_constant";
+		hidedivs[2] = "query_value_entry_field";
+		hidedivs[3] = "query_value_entry_field_list";
+		hidedivs[4] = "new_query";
+		hidedivs[5] = "query_option_create_confirmation";
+		hidedivs[6] = "display_report";
+		hidedivs[7] = "query_option_create_field_select";
+		hidedivs[8] = "manage_query";
+		hidedivs[9] = "query_option_create_finalize";
+		hidedivs[10]= "query_option_create_opt_select";
+		hidedivs[11]= "query_option_create_val_entry";
+		hidedivs[12]= "query_option_create_result_fields";
+		hidedivs[13] = "query_value_entry_timestamp";
+		
+		for(var i = 0; i <hidedivs.length; i++) 
+		{
+			query_div = getRefToDivNest(hidedivs[i]);
+			query_div.style.visibility = 'hidden';					
+		}
+		
+		if(complete != true)
+		{
+			// Show Main Interface
+			query_div = getRefToDivNest('report_options');
+			query_div.style.visibility = 'visible';
+			frm.section.value = "start";
+		}
+		document.getElementById('display_report').innerHTML = "";
+	}
+	
+	function QueryManagement(opt,frm)
+	{
+		resetInterface(frm,true);
+		resetForm(frm);
+		query_div = getRefToDivNest('new_query');
+		query_div.style.visibility = 'hidden';
+		query_div = getRefToDivNest('manage_query');
+		query_div.style.visibility = 'visible';	
+		frm.query_option_export.disabled = true;
+		query_div = getRefToDivNest('export_div');
+		query_div.style.visibility = 'hidden';
+		frm.save_mode.value = "save";
+		reqReports();
+	}
+	
+	function RunQuery(opt,frm)
+	{
+		if(frm.query_manage_list.value != "")
+		{
+			initQueryXMLByID(frm.query_manage_list.value);
+			
+		}
+		else
+		{
+			alert("Please select a query.");
+		}
+		
+	}
+	
+	function DeleteXMLQuery(opt,frm)
+	{
+		if(confirm("Are you sure you want to delete this query?"))
+		{
+			var url = "/?mode=report_wizard&action=download_report&delete_query=" + frm.query_manage_list.value;
+			req.open("GET", url, false);
+			req.send("");			
+			alert("Query Deleted");
+			InterfaceAction(frm.query_option_select,frm);			
+		}
+	}
+	
+	function EditQuery(opt,frm)
+	{
+
+		if(frm.query_manage_list.value != "")
+		{
+			initGetXMLByID(frm.query_manage_list.value);
+		}
+	}
+	
+	function QueryOption(opt,frm)
+	{
+		query_div = getRefToDivNest('manage_query');
+		query_div.style.visibility = 'hidden';	
+		query_div = getRefToDivNest('new_query');
+		query_div.style.visibility = 'visible';
+		
+		frm.section.value 	= "query_options";
+		var orig_page 	= frm.section_page.value;
+		frm.query_option_back.disabled = false;
+		frm.query_option_export.disabled = true;
+		query_div = getRefToDivNest('export_div');
+		query_div.style.visibility = 'hidden';		
+		switch(opt.name)
+		{
+			case 'query_option_export':
+				query_div = getRefToDivNest('new_query');
+				query_div.style.visibility = 'hidden';			
+				var url = "/?mode=report_wizard&action=download_report&csv=true";
+
+				if(frm.csv_headers.checked)
+					url += "&csv_headers=true";
+
+				window.location = url;		
+				frm.query_option_export.disabled = false;	
+				query_div = getRefToDivNest('export_div');
+				query_div.style.visibility = 'visible';							
+				break;			
+			case 'query_option_create_process':
+				frm.existing_query_id.value		= "";
+				frm.existing_query_title.value 	= "";
+				initReportGroups();
+				resetInterface(frm,false);
+				resetForm(frm);
+				frm.section_page.value = 0;
+				frm.save_mode.value = "new";				
+				//query_div = getRefToDivNest('report_options');
+				//query_div.style.visibility = 'visible';
+				break;
+			case 'query_option_create':
+				initReportTypes();
+				frm.section_page.value = 1;
+				query_div = getRefToDivNest('new_query');
+				query_div.style.visibility = 'visible';
+				query_div = getRefToDivNest('query_option_create_navigation');
+				query_div.style.visibility = 'visible';				
+				break;
+			case 'query_option_man':
+				showManual(opt,frm);
+				break;
+			case 'query_option_next':
+				frm.section_page.value++;
+				break;
+			case 'query_option_back':
+				// We have queries so we must go back to the Queries Screen
+				if(frm.query_option_create_queries.options.length > 0 && frm.section_page.value == 1)
+				{
+					frm.section_page.value = 4;
+					// We might be able to go back this far but we cant just keep going back
+					frm.query_option_back.disabled = true;
+				}
+				else
+				{
+					frm.section_page.value--;
+				}
+				// Reset
+				if(frm.section_page.value == 0)
+				{
+					initReportGroups();
+					resetInterface(frm,false);
+					resetForm(frm);					
+				}
+				break;
+			case 'query_option_cancel':
+				initReportTypes();
+				resetInterface(frm,false);
+				resetForm(frm);				
+				frm.section_page.value = 0;
+				break
+			case 'query_option_confirm':
+				switch(opt.value)
+				{
+					case "Yes":
+						if(frm.save_mode.value == "save")
+						{
+							//lets Save the query before going to the next page
+							var xml_query = ConstructXMLQuery(frm);
+							var r_groups = frm.query_manage_list;						
+							initQueryXML(xml_query,"save",r_groups.options[r_groups.selectedIndex].value);							
+						}
+						else
+						{
+							var report_name = prompt("Enter a description for the new query.\nQuery Description:");
+							if(report_name != null && report_name != "")
+							{
+								//lets Save the query before going to the next page
+								var xml_query = ConstructXMLQuery(frm);
+								initQueryXML(xml_query,report_name,"false");
+							}
+						}
+						break;
+					case "No":
+						var xml_query = ConstructXMLQuery(frm);
+						initQueryXML(xml_query,"","false");
+						//frm.section_page.value++;
+						break;
+					case "Cancel":
+						resetInterface(frm,false);
+						resetForm(frm);	
+						frm.section_page.value = 0;	
+						break;												
+				}
+				break;
+			case 'query_option_manager_and':
+				// Lets add another Query
+				frm.current_query_case.value = "AND";
+				QueryOption(frm.query_option_create,frm);
+				break;
+			case 'query_option_manager_or':	
+				// Lets add another Query
+				frm.current_query_case.value = "OR";
+				QueryOption(frm.query_option_create,frm);
+				break;
+			case 'query_option_manager_change':
+					if(ChangeQuery(frm))
+					{
+						frm.query_mode.value = "change";
+						QueryOption(frm.query_option_create,frm);
+					}						
+				break;
+			case 'query_option_manager_delete':
+					DeleteQuery(frm);
+				break;		
+			case 'add_result_field':
+					ResultFieldAdd(frm);
+				break;
+			case 'remove_result_field':
+					ResultFieldRemove(frm);
+				break;				
+			default:
+				alert("TBD(query):"+ opt.name);
+				break;						
+		}
+		// Interface Has Changed do something
+		if(orig_page != frm.section_page.value)
+		{
+			// Swap divs
+			for(var i=0; i<query_sections.length; i++)
+			{
+				query_div = getRefToDivNest(query_sections[i]);				
+				if(i == frm.section_page.value)
+				{
+					query_div.style.visibility = 'visible';
+				}
+				else
+				{
+					query_div.style.visibility = 'hidden';
+				}
+			}
+			
+			// Query Optinon Section  Preprocessor
+			frm.query_option_next.value = "Next";
+			switch(frm.section_page.value)
+			{			
+				case "0":
+					break;
+				case "1":
+					frm.query_option_create_constant_value.value = "";
+					break;
+				case "2":
+					var idx = frm.query_option_create_fields.selectedIndex;
+					if(opt.name != "query_option_back")
+						initGenSelectField();
+						
+					document.getElementById('query_option_create_field_name_title').innerHTML = "<b>"+frm.query_option_create_fields[idx].text+"<b>";
+					document.getElementById('query_option_create_field_name_value').innerHTML = "<b>"+frm.query_option_create_fields[idx].text+"<b>";
+					QueryTypeSwitch("hidden");
+					
+					break;
+				case "3":
+					// We Need to remove the entry we just added (we'll readded it next is added)
+					if(opt.name == "query_option_back")
+						RemoveNewQuery(frm);
+					var idx = frm.query_option_create_operations.selectedIndex;
+					document.getElementById('query_option_create_operations_value').innerHTML = "<b>"+frm.query_option_create_operations[idx].text+"<b>";
+					//.multiple
+					if(frm.query_option_create_operations[idx].value == "in" || frm.query_option_create_operations[idx].value == "notin")
+					{
+						frm.query_option_create_field_list_value.multiple = true;
+					}
+					else
+					{
+						frm.query_option_create_field_list_value.multiple = false;
+					}
+	
+					QueryTypeSwitch(frm.query_value_type[frm.query_value_type.selectedIndex].value);
+					break;	
+				case "4":
+					// We need to compile what we created and save it in a list
+					frm.query_option_back.disabled = true;
+					if(opt.name == "query_option_next" && frm.auto_processing.value == "false")
+						NewQueryGen(frm);
+						
+					query_div = getRefToDivNest("query_option_create_navigation");
+					query_div.style.visibility = 'visible';				
+					QueryTypeSwitch("hidden");
+					frm.query_option_create_queries.options.selectedIndex = -1;
+					break;
+				case "5":	
+					frm.query_option_next.value = "Finish";
+					break;
+				case "6":
+					query_div = getRefToDivNest("query_option_create_navigation");
+					query_div.style.visibility = 'hidden';
+					//resetInterface(frm);
+					break;						
+				default:
+					alert("TBD(query_section):"+ frm.section_page.value);
+					return;
+					break;					
+			}
+			FormValidate(frm);
+		}
+	}
+	
+	function FormValidate(frm)
+	{
+		// Find the Section we need to Validate
+		// The we validation the section page
+		frm.query_option_next.disabled = true;
+		switch(frm.section.value)
+		{
+			case "query_options":
+				switch(frm.section_page.value)
+				{
+					// Check the Field Select Page
+					case "1":
+						if(frm.query_option_create_fields.value != "")
+							frm.query_option_next.disabled = false;
+						break;
+					// Check the Query Selection Page
+					case "2":
+						if(frm.query_option_create_operations.value != "")
+							frm.query_option_next.disabled = false;
+						
+						break;		
+					// Check the Value Entry
+					case "3":
+						var idx = frm.query_value_type.selectedIndex;
+						if(idx != -1)
+						{
+							var idx = frm.query_value_type.selectedIndex;
+							switch(frm.query_value_type[idx].value)
+							{
+								case "constant":
+									if(frm.query_option_create_constant_value.value != "")
+										frm.query_option_next.disabled = false;
+									break;
+								case "field":
+									if(frm.query_option_create_field_value.value != "")
+										frm.query_option_next.disabled = false;										
+									break;
+								case "field_list":
+									if(frm.query_option_create_field_list_value.selectedIndex != -1)
+										frm.query_option_next.disabled = false;	
+									break;
+								case "date":
+								case "datetime":																			
+								case "timestamp":
+									if(frm.query_start_date.value != "" && frm.query_end_date.value != "" )
+										frm.query_option_next.disabled = false;	
+									break;
+							}							
+						}
+						break;
+					// 
+					case "4":
+						frm.query_option_next.disabled = false;
+						break;
+					case "5":
+						if(frm.query_option_create_result_selected.length > 0)
+							frm.query_option_next.disabled = false;					
+					default:
+						break;
+				}
+				break;
+			
+		}		
+	}
+	
+	function QueryTypeSwitch(mode)
+	{
+		query_div1 = getRefToDivNest("query_value_entry_constant");	
+		query_div2 = getRefToDivNest("query_value_entry_field");	
+		query_div3 = getRefToDivNest("query_value_entry_field_list");
+		query_div4 = getRefToDivNest("query_value_entry_timestamp");			
+		switch(mode)
+		{
+			case "constant":
+				query_div1.style.visibility = 'visible';
+				query_div2.style.visibility = 'hidden';
+				query_div3.style.visibility = 'hidden';
+				query_div4.style.visibility = 'hidden';
+				break;
+			case "field":
+				query_div1.style.visibility = 'hidden';
+				query_div2.style.visibility = 'visible';			
+				query_div3.style.visibility = 'hidden';
+				query_div4.style.visibility = 'hidden';
+				break;	
+			case "field_list":
+				query_div1.style.visibility = 'hidden';
+				query_div2.style.visibility = 'hidden';
+				query_div3.style.visibility = 'visible';
+				query_div4.style.visibility = 'hidden';
+				break;
+			case "date":	
+			case "datetime":				
+			case "timestamp":
+				query_div1.style.visibility = 'hidden';
+				query_div2.style.visibility = 'hidden';
+				query_div3.style.visibility = 'hidden';
+				query_div4.style.visibility = 'visible';
+				break;
+			case "hidden":
+			default:
+				query_div1.style.visibility = 'hidden';
+				query_div2.style.visibility = 'hidden';
+				query_div3.style.visibility = 'hidden';
+				query_div4.style.visibility = 'hidden';
+				break;							
+		}
+	}
+
+	function showManual(opt,frm)
+	{
+		query_div = getRefToDivNest("report_manual");
+		switch(query_div.style.visibility)
+		{
+			case "visible":
+				query_div.style.visibility = "hidden";
+				break;
+			case "hidden":
+				query_div.style.visibility = "visible";
+				break;				
+		}
+		
+	}
+	
+	function NewQueryGen(frm)
+	{
+		var query_string 		= "";
+		var option_text 		= "";
+		var option_value 		= "";		
+		var idx 				= frm.query_option_create_operations.selectedIndex;
+		// Handle multiple queries
+		if(frm.current_query_case.value != "")
+		{
+			option_text += "("+frm.current_query_case.value+") ";
+			option_value += "[case]"+frm.current_query_case.value;
+		}
+
+		//Consturc query from fields.	
+		query_string 	+= "[field_one]" + frm.query_option_create_fields.selectedIndex;
+		option_text 	+= frm.query_option_create_fields.options[frm.query_option_create_fields.selectedIndex].text;
+		query_string 	+= "[operation]" + frm.query_option_create_operations.value;		
+		option_text 	+= " "+ frm.query_option_create_operations[idx].text;
+		var idx = frm.query_value_type.selectedIndex;
+		if(idx != -1)
+		{
+			var idx = frm.query_value_type.selectedIndex;
+			switch(frm.query_value_type[idx].value)
+			{
+				case "constant":
+					if(frm.query_option_create_constant_value.value != "")
+						query_string += "[constant]"+frm.query_option_create_constant_value.value;
+						option_text 	+= " "+frm.query_option_create_constant_value.value;
+					break;
+				case "field":
+					if(frm.query_option_create_field_value.value != "")
+						query_string += "[field_two]"+frm.query_option_create_field_value.selectedIndex;
+						option_text 	+= " "+frm.query_option_create_field_value.options[frm.query_option_create_field_value.selectedIndex].text;
+					break;		
+				case "field_list":
+					var qocfl = frm.query_option_create_field_list_value;
+					var mult_sel = "";
+					if(qocfl.value != "")
+					{
+						for(var i=0; i<qocfl.length; i++)
+						{
+							if(qocfl[i].selected)
+							{
+								if(mult_sel != "") mult_sel += ",";
+								mult_sel += qocfl[i].value;
+							}
+						}
+						query_string += "[field_list]"+mult_sel;
+						option_text 	+= " "+mult_sel;
+					}
+					break;
+				case "date":	
+				case "datetime":
+				case "timestamp":
+					query_string += "["+frm.query_value_type[idx].value+"]"+frm.query_start_date.value + "," + frm.query_end_date.value;
+					option_text 	+= " "+frm.query_start_date.value + " and " + frm.query_end_date.value;
+					break;	
+			}
+		}
+
+		frm.current_query.value 	= query_string;
+ 		option_value 				+= frm.current_query.value;	
+		if(frm.query_mode.value == "new")
+		{	 		
+			frm.query_option_create_queries.options[frm.query_option_create_queries.length] = new Option(option_text,option_value);
+		}
+		else if(frm.query_mode.value == "change")
+		{
+			// Change the selected one
+			frm.query_option_create_queries.options[frm.query_option_create_queries.selectedIndex] = new Option(option_text,option_value);
+			// And we cant go back
+			frm.query_option_back.disabled = true;
+		}
+	}
+	
+	function RemoveNewQuery(frm)
+	{
+		var frm_qry = frm.query_option_create_queries;
+		var pre_pend = "";
+		
+		if(frm.current_query_case.value != "")
+			pre_pend = "[case]"+frm.current_query_case.value;		
+					
+		var compare_val = pre_pend + frm.current_query.value;
+		
+		//alert(compare_val + " " + frm_qry.options[frm_qry.length - 1].value);
+		if(compare_val == frm_qry.options[frm_qry.length - 1].value)
+		{
+			frm_qry.options[frm_qry.length - 1] = null;
+		}
+	}
+	
+	function ResultFieldAdd(frm)
+	{
+		//query_option_create_result_avail
+		//query_option_create_result_selected
+		for(var i=0; i<frm.query_option_create_result_avail.length; i++)
+		{	
+			var avail_op_value = "";
+			var avail_op_text = "";	
+			if(frm.query_option_create_result_avail[i].selected)
+			{
+				var avail_op_value = frm.query_option_create_result_avail.options[i].value;
+				var avail_op_text = frm.query_option_create_result_avail.options[i].text;								
+				for(var x=0; x<frm.query_option_create_result_selected.length; x++)
+				{
+					var result_op_value = frm.query_option_create_result_selected.options[x].value;
+					var result_op_text = frm.query_option_create_result_selected.options[x].text;
+					// Stop in out tracks because we cant have dupes
+					if(result_op_value ==  avail_op_value)
+						avail_op_value = "";
+				}
+				if(avail_op_value != "")
+				{
+					frm.query_option_create_result_selected.options[frm.query_option_create_result_selected.length] = new Option(avail_op_text,avail_op_value);
+					frm.query_option_next.disabled = false;					
+				}
+			}
+		}
+		
+	}
+	
+	function ResultFieldRemove(frm)
+	{
+		//query_option_create_result_avail
+		//query_option_create_result_selected	
+		if(frm.query_option_create_result_selected.selectedIndex != -1)
+		{	
+			frm.query_option_create_result_selected.options[frm.query_option_create_result_selected.selectedIndex] = null;
+
+			if(frm.query_option_create_result_selected.length == -1 || frm.query_option_create_result_selected.length == 0)	
+				frm.query_option_next.disabled = true;
+		}
+	}	
+	
+	function DeleteQuery(frm)
+	{
+		//query_option_create_queries	
+		if(frm.query_option_create_queries.options.selectedIndex == 0)
+		{
+			alert("Can not delete original query.");
+		}
+		else
+		{
+			frm.query_option_create_queries.options[frm.query_option_create_queries.options.selectedIndex] = null;
+		}
+	}
+	
+	function ChangeQuery(frm)
+	{
+		//query_option_create_queries		
+		if(frm.query_option_create_queries.options.selectedIndex != -1)
+		{		
+			// Save the query as if it was the one we were just using
+			frm.current_query.value = frm.query_option_create_queries.options[frm.query_option_create_queries.options.selectedIndex].value;
+			// We need to change to change mode
+			frm.query_mode.value = "change";
+			var query_array = frm.current_query.value.split("[");
+			for(var i=0; i<query_array.length; i++)
+			{
+				if(query_array[i] != "")
+				{
+					var query_obj = query_array[i].split("]");
+					frm.current_query_case.value = "";
+					switch(query_obj[0])
+					{
+						case "case":
+							frm.current_query_case.value = query_obj[1];
+							break;
+						case "field_one":
+							frm.query_option_create_fields.selectedIndex = query_obj[1];	
+							break;	
+						case "operation":
+							for(var x=0; x<frm.query_option_create_operations.length; x++)
+							{
+								if(frm.query_option_create_operations.options[x].value == query_obj[1])
+								{
+									frm.query_option_create_operations.selectedIndex = x;
+								}
+							}							
+							break;		
+						case "constant":
+						case "field_two":
+						case "field_list":
+							// Field Two is not the same name as field
+							if(query_obj[0] == "field_two") query_obj[0] = "field";
+							for(var x = 0; x < frm.query_value_type.length; x++) 
+							{
+								if(query_obj[0] == frm.query_value_type[x].value)
+								{
+									frm.query_value_type[x].checked = true;
+									switch(query_obj[0])
+									{
+										case "constant":
+											frm.query_option_create_constant_value.value = query_obj[1];
+											break;
+										case "field":
+											frm.query_option_create_field_value.selectedIndex = query_obj[1];
+											break;	
+										case "field_list":
+											var fl_arr = query_obj[1].split(",");
+											var fl_frm = frm.query_option_create_field_list_value;
+											for(var y=0; y<fl_frm.length; y++)
+											{
+												for(var z=0; z<fl_arr.length; z++)
+												{
+													if(fl_frm[y].value = fl_arr[z])
+													{
+														fl_frm[y].checked;
+													}
+												}
+											}
+											break;																						
+									}
+								}
+						
+							}						
+							break;								
+						
+					}
+				}
+			}
+			return true;
+		}
+		
+		return false;		
+	}	
+	
+	function ajaxreq()
+	{
+	    if(window.XMLHttpRequest) 
+		{
+	    	try 
+			{
+				req = new XMLHttpRequest();
+	        } 
+			catch(e) 
+			{
+				req = false;
+	        }
+	    // branch for IE/Windows ActiveX version
+	    } 
+		else if(window.ActiveXObject) 
+		{
+	       	try 
+			{
+	        	req = new ActiveXObject("Msxml2.XMLHTTP");
+	      	} 
+			catch(e) 
+			{
+	        	try 
+				{
+	          		req = new ActiveXObject("Microsoft.XMLHTTP");
+	        	} 
+				catch(e) 
+				{
+	          		req = false;
+	        	}
+			}
+	    }	
+	    return req;	
+	}
+	
+	
+	function initGetXMLByID(id)
+	{
+		var req = ajaxreq();
+	    	
+		if(req) 
+		{
+			//req.onreadystatechange = processEditXML;
+			var url = "/?mode=report_wizard&action=download_report&get_xml=" + id;
+			req.open("GET", url, false);
+			req.send("");
+			processEditXML(req);
+		} 		
+		
+	}
+	
+	function processEditXML(req) 
+	{	
+	    if (req.readyState == 4) 
+		{
+	    	if (req.status == 200) 
+			{
+		    		var xmldoc = req.responseXML;
+		    		var frm = document.forms[0];
+		    		
+		    		var sel_rep_type	= "";
+		    		var query_items 	= xmldoc.getElementsByTagName('query_items').item(0);
+		    		var result_items 	= xmldoc.getElementsByTagName('result_items').item(0);
+		    		var report_type 	= xmldoc.getElementsByTagName('report_type').item(0);
+		    		
+		    		//Find the report type (if we find it then we can edit
+		    		for (var iNode = 0; iNode < report_type.childNodes.length; iNode++) 
+		    		{
+		    			var node = report_type.childNodes.item(iNode);
+		    			if(node.nodeName == "#text")
+		    				sel_rep_type = node.nodeValue;	
+    			
+		    		}
+    		
+					if(sel_rep_type != "")
+					{
+						// We need to Kick Start the Query Create Process
+						// And populate any needed fields
+						frm.auto_processing.value = "true";
+						resetInterface(frm,true);
+						
+						var rgroups = frm.query_option_report_groups;	
+						for(var i=0; i<rgroups.length; i++)
+						{
+							if(rgroups.options[i].value == sel_rep_type)
+							{
+								rgroups.selectedIndex = i;
+							}
+						}
+											
+						initReportTypes();
+						var qocf = frm.query_option_create_fields;
+
+												
+						//Populate and Jump to the Query Details Screen
+						//var field_name
+						var option_text 	= "";
+						var option_value	= "";
+						var insert_set		= false;
+						// Set Query Items
+			    		for (var iNode = 0; iNode < query_items.childNodes.length; iNode++) 
+			    		{
+			    			var node = query_items.childNodes.item(iNode);
+			    			if(node.nodeName == "query_item")
+			    			{
+			    				for(var x=0; x<node.childNodes.length; x++)
+			    				{
+			    					col = node.childNodes.item(x);
+			    					if(col.nodeName == "item")
+			    					{
+			    						var col_data 	= col.attributes;
+			    						var col_name 	= col_data.getNamedItem("name").value;
+			    						var col_value	= col_data.getNamedItem("value").value;	
+			    						var col_title	= col_data.getNamedItem("title").value;	
+				    					switch(col_name)
+				    					{	    	
+											case "case":
+												option_text		+= "("+col_title+")";
+												option_value 	+= "["+col_name+"]" + col_value;
+												break;
+											case "constant":
+											case "field_two":
+											case "field_list":
+												insert_set = true;												
+											case "field_one":
+											case "operation":	
+												// map the											
+												if(col_name == "field_one" || col_name == "field_two")
+												{
+													for(var z=0; z<qocf.length; z++)
+													{
+														if(qocf.options[z].value == col_value)
+														{
+															col_value = z;
+															break;
+														}
+													}
+												}
+												option_text		+= " "+col_title;												
+												option_value 	+= "["+col_name+"]" + col_value;
+												break;
+											case "date":	
+											case "datetime":
+											case "timestamp":
+												insert_set = true;
+												var rExp = /,/gi;
+												option_text		+= " "+col_title.replace(rExp," AND ");
+											    option_value 	+= "["+col_name+"]" + col_value;
+												break;	
+				    					}
+				    					if(insert_set)
+				    					{
+				    						frm.query_option_create_queries.options[frm.query_option_create_queries.length] = new Option(option_text,option_value);
+				    						insert_set 		= false;
+				    						option_value	= "";
+				    						option_text		= "";
+				    						
+				    					}
+			    					}
+			    				}
+			    			}
+    			
+			    		}	
+			    		
+			    		// Set Result Items
+			    		for (var iNode = 0; iNode < result_items.childNodes.length; iNode++) 
+			    		{
+			    			var node = result_items.childNodes.item(iNode);	
+			    			if(node.nodeName == "result_item")
+			    			{
+		    						var col_data 	= node.attributes;
+		    						var col_name 	= col_data.getNamedItem("name").value;
+		    						var col_value	= col_data.getNamedItem("value").value;	
+		    						var col_title	= col_data.getNamedItem("title").value;				    				
+									
+		    						frm.query_option_create_result_selected.options[frm.query_option_create_result_selected.length] = new Option(col_title,col_name);
+			    			}
+			    			
+			    		}
+						frm.section_page.value = 3;
+						InterfaceAction(frm.query_option_next,frm);						
+						
+						frm.auto_processing.value = "false";
+							
+					}		    		
+					
+	    		
+		    }	
+	    }	
+	}
+	
+	function reqReports()
+	{
+		var req = ajaxreq();
+	    	
+		if(req) 
+		{
+			//req.onreadystatechange = processReqReports;
+			var url = "/?mode=report_wizard&action=download_report&get_reports=true";
+			req.open("GET", url, false);
+			req.send("");
+			processReqReports(req);
+		} 
+	}
+
+	function processReqReports() 
+	{
+	    // only if req shows loaded
+	    var frm = document.forms[0];
+	    frm.query_manage_list.length = 0;
+	    var option_value = "";
+	    var option_text = "";
+	    if (req.readyState == 4) 
+		{
+			try
+		    {
+		    	if (req.status == 200) 
+				{
+		    		try
+		    		{
+
+		    			frm.query_manage_list.length = 0;
+			    		var xmldoc = req.responseXML;
+			    		
+						var root = xmldoc.getElementsByTagName('root').item(0);
+						var version = "";
+			    		for (var iNode = 0; iNode < root.childNodes.length; iNode++) 
+						{
+			    			var node = root.childNodes.item(iNode);
+			    			if(node.nodeName == "list")
+			    			{
+			    				
+
+			    				for(var i=0; i<node.childNodes.length; i++)
+			    				{
+			    					var col = node.childNodes.item(i);
+			    					if(col.nodeName == "item")
+			    					{
+			    						var col_data 	= col.attributes;
+			    						var col_name 	= col_data.getNamedItem("name").value;
+			    						var col_value	= col_data.getNamedItem("value").value;
+										switch(col_name)
+										{
+											case "date_created":
+												var created = col_value;
+												break;
+											case "reports_listing_id":
+												option_value = col_value;
+												break;
+											case "title":
+												option_text = col_value;
+												break;												
+											case "version":
+												var version = col_value;
+												break;
+										}
+										if(version != "")
+										{
+											var texstr = option_text + " - " + "("+created+") Version:" + version;
+											frm.query_manage_list[frm.query_manage_list.length] = new Option(texstr,option_value);
+											option_value = "";
+											option_text = "";
+											version = "";
+										}
+			    					}
+			    				}	    	
+			    			}
+			    		}
+						initReportGroups();		 
+		    		}
+		    		catch(err)
+		    		{
+		    			alert("Query returned no results.");	    			
+		    		}
+		        } 
+				else 
+				{
+		        	alert('There was a problem retrieving the XML data:\\n' +  req.statusText); 
+		        }
+	    		
+    		}
+    		catch(err)
+    		{
+    			alert("Query timed out.");	    			
+    		}		        
+      
+		}
+		
+	}
+		    	
+	
+	function initQueryXML(xml,savename,version_check)
+	{
+		//url = "/?mode=report_wizard&action=download_report&build_query=" + escape(xml) + "&savequery=" + escape(savename) + "&version_update=" + escape(version_check);
+
+		var req = ajaxreq();
+	    	
+		if(req) 
+		{
+			req.onreadystatechange = processQueryXML;
+			var url = "/?mode=report_wizard&action=download_report&build_query=" + escape(xml) + "&savequery=" + escape(savename) + "&version_update=" + escape(version_check);
+			query_work_div = getRefToDivNest("query_option_working");
+			query_work_div.style.visibility = "visible";			
+			req.open("GET", url, true);
+			req.send("");
+		} 
+		
+	}
+		
+	function initQueryXMLByID(id)
+	{
+		var req = ajaxreq();
+	    	
+		if(req) 
+		{
+			req.onreadystatechange = processQueryXML;
+			var url = "/?mode=report_wizard&action=download_report&get_query=" + id;
+			var frm = document.forms[0];
+			//frm.debug_text.value = url;
+			resetInterface(frm,true);
+			query_work_div = getRefToDivNest("query_option_working");
+			query_work_div.style.visibility = "visible";			
+			req.open("GET", url, true);
+			req.send("");
+			//processQueryXML(req);
+		} 
+	}	
+	
+	function initQueryXMLByPageID(id)
+	{
+		var req = ajaxreq();
+	    	
+		if(req) 
+		{
+			req.onreadystatechange = processQueryXML;
+			var url = "/?mode=report_wizard&action=download_report&get_page=" + id;
+			var frm = document.forms[0];
+			//frm.debug_text.value = url;
+			resetInterface(frm,true);
+			query_work_div = getRefToDivNest("query_option_working");
+			query_work_div.style.visibility = "visible";			
+			req.open("GET", url, true);
+			req.send("");
+			//processQueryXML(req);
+		} 
+	}	
+		
+	function processQueryXML() 
+	{
+	    // only if req shows loaded
+	    var frm = document.forms[0];
+	    var report_details = Array();
+	    report_details['headeritems'] = Array();
+	    var hi = 0;
+	    if (req.readyState == 4) 
+		{
+			try
+		    {
+		    	if (req.status == 200) 
+				{
+		    		query_work_div = getRefToDivNest("query_option_working");
+		    		try
+		    		{
+			    		var xmldoc = req.responseXML;
+						var root = xmldoc.getElementsByTagName('root').item(0);
+					
+			    		for (var iNode = 0; iNode < root.childNodes.length; iNode++) 
+			    		{
+			    			var node = root.childNodes.item(iNode);
+			    			if(node.nodeName == "header_items")
+			    			{
+			    				for(var i=0; i<node.childNodes.length; i++)
+			    				{
+			    					var col = node.childNodes.item(i);
+			    					if(col.nodeName == "item")
+			    					{
+										var col_data = col.attributes;
+										var col_name = col_data.getNamedItem("name").value;
+										var col_value = col_data.getNamedItem("value").value;
+										report_details['headeritems'][hi] = Array();
+				    					report_details['headeritems'][hi]['name'] = col_name;
+				    					report_details['headeritems'][hi]['value'] = col_value;
+				    					hi++;
+			    					}
+			    				}			    				
+			    			}
+			    			else if(node.nodeName != "#text")
+			    			{
+			    				switch(node.nodeName)
+			    				{
+			    					case "totalitems":
+			    					case "maxshow":
+			    					case "totalpages":
+			    					case "currentpage":
+			    						var col_data 	= node.attributes;
+			    						report_details[node.nodeName] = col_data.getNamedItem("value").value;
+			    						break;
+			    				}
+			    			}
+			    		}
+
+			    		if(report_details['totalitems'] > 0)
+			    		{
+			    			//initQueryXMLByPageID
+				    		resetInterface(frm,true);
+				    		frm.query_option_export.disabled = false;	
+							query_div = getRefToDivNest('export_div');
+							query_div.style.visibility = 'visible';					    						
+				    		document.getElementById('display_report').innerHTML = "";
+				    		AJAXGrid(report_details);
+							query_div = getRefToDivNest('display_report');
+							query_div.style.visibility = 'visible';
+			    		}
+			    		else
+			    		{
+			    			throw "Query returned no results.";
+			    		}
+		    		}
+		    		catch(err)
+		    		{
+		    			alert("Query returned no results.");	    			
+		    		}
+		        } else 
+				{
+		        	alert('There was a problem retrieving the XML data:\\n' +  req.statusText); 
+		        }
+    		}
+    		catch(err)
+    		{
+    			alert("Query timed out.");	    			
+    		}		        
+	        query_work_div.style.visibility = "hidden";	        
+		}
+	}			
+	
+	function initGenSelectField()
+	{
+		var req = ajaxreq();
+	    	
+		if(req) 
+		{
+			//req.onreadystatechange = processFieldValues;
+			var frm = document.forms[0];
+			var idx = frm.query_option_create_fields.selectedIndex;
+			var idx2 = frm.query_option_report_groups.selectedIndex;
+			var url = "/?mode=report_wizard&action=download_report&get_distinct_field="+frm.query_option_create_fields[idx].value+"&table_view="+frm.query_option_report_groups[idx2].value;
+		
+			req.open("GET", url, false);
+			req.send("");
+			processFieldValues(req);
+		}		
+	}
+	
+	function processFieldValues()
+	{
+	    // only if req shows loaded	   
+		//query_div = getRefToDivNest("query_option_working");
+		//query_div.style.visibility = "visible";	    	     
+		var list_name = "";
+		var field_type = "";
+		var field_desc = "";
+	    if (req.readyState == 4) 
+		{
+	    	if (req.status == 200) 
+			{
+	    		var frm = document.forms[0];
+	    		var xmldoc = req.responseXML;
+				var listfield = false;	
+	    		frm.query_option_create_operations.length = 0;
+				frm.query_option_create_field_list_value.length = 0;
+				frm.query_value_type.length = 0;
+				frm.query_value_type.options[frm.query_value_type.length] = new Option("(Select comparison type)","");
+	    		var root = xmldoc.getElementsByTagName('root').item(0);
+	    		
+	    		for (var iNode = 0; iNode < root.childNodes.length; iNode++) 
+				{
+	    			
+	    			var node = root.childNodes.item(iNode);
+	    			if(node.nodeName == "col")
+	    			{
+	    				var col_data 	= node.attributes;
+	    				var col_value 	= col_data.getNamedItem("value").value;
+	    				switch(col_data.getNamedItem("name").value)
+	    				{
+	    					case "Type":
+	    						field_type = col_value;
+	    						break;
+	    					case "Desc":
+	    						field_desc = col_value;
+	    						break;
+	    					case "drop_down_column":
+	    						if(col_value != "")
+	    						{
+	    							listfield = true;
+	    							frm.query_value_type.options[frm.query_value_type.length] = new Option("Listed Item","field_list");
+	    						}
+	    						list_name = col_value;
+	    						break;
+	    						
+	    				}
+	    				
+	    			} 
+	    			else if(node.nodeName == "list")
+	    			{
+	    				var col_data 	= node.attributes;
+	    				
+	    				for(var i=0; i<node.childNodes.length; i++)
+	    				{
+	    					var list_item = node.childNodes.item(i);
+	    					if(list_item.nodeName == "item")
+	    					{
+		    					var list_item_data 	= list_item.attributes;
+		    					var list_item_data_val = list_item_data.getNamedItem("value").value;
+		    					var list_item_data_nam = list_item_data.getNamedItem("name").value;
+			    				switch(col_data.getNamedItem("name").value)
+			    				{
+			    					case "Operations":
+			    						frm.query_option_create_operations.options[frm.query_option_create_operations.length] = new Option(list_item_data_val,list_item_data_nam);
+			    						break;
+			    					case list_name:
+			    						frm.query_option_create_field_list_value.options[frm.query_option_create_field_list_value.length] = new Option(list_item_data_val,list_item_data_val);
+			    						break;
+			    				}	    						
+	    					}
+    					
+	    				}
+	    			}
+	    			
+	    		}
+	    		switch(field_type)
+	    		{
+					case"char":
+					case"varchar":
+					case"binary":
+					case"varbinary":
+					case"tinyblob":
+					case"tinytext":
+					case"blob":
+					case"text":
+					case"mediumblob":
+					case"mediumtext":
+					case"longblob":
+					case"longtext":
+					case"smallint":
+					case"mediumint":
+					case"int":
+					case"integer":
+					case"bigint":
+					case"float":
+					case"double":
+					case"double precision":
+					case"decimal":					
+					case"tinyint":
+						if(listfield == false)
+						{
+							frm.query_value_type.options[frm.query_value_type.length] = new Option("Constant Value","constant");
+							//frm.query_value_type.options[frm.query_value_type.length] = new Option("Another Field","field");
+						}
+						else
+						{
+							// Hack since we have listed items we are onling goinf to show a drop down
+							frm.query_option_create_operations.length = 0;
+							frm.query_option_create_operations.options[frm.query_option_create_operations.length] = new Option('In','in');
+							frm.query_option_create_operations.options[frm.query_option_create_operations.length] = new Option('Not In','notin');
+						}
+						break;
+					case"enum":
+						break;
+					case"date":						
+					case"datetime":	
+					case"timestamp":
+						frm.query_value_type.options[frm.query_value_type.length] = new Option("Date Select",field_type);
+						break;
+					/*
+					case"bool":
+					case"boolean":
+						frm.query_value_type.options[frm.query_value_type.length] = new Option("Constant Value","constant");
+					case"dec":
+					case"time":
+					case"year":
+					*/
+					default:
+						break;
+	    		}
+	        } 
+			else 
+			{
+	        	alert('There was a problem retrieving the XML data:\\n' +  req.statusText); 
+	        }
+	        query_div.style.visibility = "hidden";
+		}
+				
+	}
+	
+	function initReportGroups()
+	{
+		var req = ajaxreq();
+
+		if(req) 
+		{
+			//req.onreadystatechange = processRepAppGroups;
+			var url = "/?mode=report_wizard&action=download_report&get_report_groups=true";
+			req.open("GET", url, false);
+			req.send("");
+			processRepAppGroups(req);
+		} 
+	}
+	
+	function processRepAppGroups() 
+	{
+	    // only if req shows loaded	    
+	    if (req.readyState == 4) 
+		{
+	    	if (req.status == 200) 
+			{
+	    		var frm = document.forms[0];
+	    		var xmldoc = req.responseXML;
+
+				frm.query_option_report_groups.length = 0;
+	    		var root = xmldoc.getElementsByTagName('root').item(0);
+	    		for (var iNode = 0; iNode < root.childNodes.length; iNode++) 
+				{
+	    			var node = root.childNodes.item(iNode);
+	    			if(node.nodeName == "list")
+	    			{
+	    				var option_value = "";
+	    				var option_text = "";
+	    				for(var i=0; i<node.childNodes.length; i++)
+	    				{
+	    					var col = node.childNodes.item(i);
+	    					if(col.nodeName == "item")
+	    					{
+	    						var col_data 	= col.attributes;
+	    						switch(col_data.getNamedItem("name").value)
+	    						{
+	    							case 'table_name':
+	    								var option_value = col_data.getNamedItem("value").value;
+	    								break;
+	    							case 'display_name':
+	    								var option_text = col_data.getNamedItem("value").value;
+	    								break;	    								
+	    						}
+	    						if(option_value != "" && option_text != "")
+	    						{
+	    							frm.query_option_report_groups.options[frm.query_option_report_groups.length] = new Option(option_text,option_value);
+	    						}
+	    					}
+	    					
+	    				}
+	    			}
+	    			
+	    		}
+	        } 
+			else 
+			{
+	        	alert('There was a problem retrieving the XML data:\\n' +  req.statusText); 
+	        }
+		}
+	}
+			
+	function initReportTypes()
+	{
+		var req = ajaxreq();
+	    	
+		if(req) 
+		{
+			// We Chnage this to be Synch not Ansy
+			//req.onreadystatechange = processRepAppTypes;
+			var frm = document.forms[0];
+			var report_groups = frm.query_option_report_groups;
+			var url = "/?mode=report_wizard&action=download_report&get_report_types="+report_groups[report_groups.selectedIndex].value;
+			req.open("GET", url, false);
+			req.send("");
+			processRepAppTypes(req);
+		} 
+	}			
+	
+	function processRepAppTypes(req) 
+	{
+	    // only if req shows loaded	    
+	    if (req.readyState == 4) 
+		{
+	    	if (req.status == 200) 
+			{
+	    		var frm = document.forms[0];
+	    		var xmldoc = req.responseXML;
+
+	    		var root = xmldoc.getElementsByTagName('root').item(0);
+
+	    		frm.query_option_create_fields.length 		= 0;
+	    		frm.query_option_create_field_value.length 	= 0;
+	    		frm.query_option_create_result_avail.length	= 0;
+	    		for (var iNode = 0; iNode < root.childNodes.length; iNode++) 
+				{
+	    			var node = root.childNodes.item(iNode);
+	    			if(node.childNodes.length > 0)
+	    			{
+	    				
+		    			var el_table_name 			= ((node.childNodes.item(1)).childNodes.item(0)).data;
+		    			var el_column_name 			= ((node.childNodes.item(3)).childNodes.item(0)).data;
+		    			var el_human_readable_name 	= ((node.childNodes.item(5)).childNodes.item(0)).data;
+		    			
+	    				var option_value	= el_column_name;
+	    				var option_text		= el_human_readable_name;
+					
+						frm.query_option_create_fields.options[frm.query_option_create_fields.length] = new Option(option_text,option_value);
+						frm.query_option_create_field_value.options[frm.query_option_create_field_value.length] = new Option(option_text,option_value);							
+						frm.query_option_create_result_avail.options[frm.query_option_create_result_avail.length] = new Option(option_text,option_value);	
+	    			}    			
+					
+	    		}
+	    		
+	        } 
+			else 
+			{
+	        	alert('There was a problem retrieving the XML data:\\n' +  req.statusText); 
+	        }
+		}
+	}	
+	
+	function ConstructXMLQuery(frm)
+	{
+		var query_xml 	= "<xml>\n";
+		var query_ele 	= frm.query_option_create_queries;
+		var query_len 	= query_ele.length;
+		var result_ele 	= frm.query_option_create_result_selected;
+		var result_len 	= result_ele.length;
+		var report_groups = frm.query_option_report_groups;
+		var company_id 	= frm.company_id;
+		// Build the Query Items
+		query_xml += "<query_items>\n";
+		for(var i=0; i<query_len; i++)
+		{
+			var query_row = query_ele.options[i].value.split("[");
+			query_xml += "\t<query_item>\n";
+			for(var x=0; x<query_row.length; x++)
+			{
+				
+				if(query_row[x] != "")
+				{
+					var query_column = query_row[x].split("]");
+					var query_title = query_column[1];
+					switch(query_column[0])
+					{
+						case 'field_one':
+							query_title = frm.query_option_create_fields.options[query_column[1]].text;
+							query_column[1] = frm.query_option_create_fields.options[query_column[1]].value;
+							break;
+						case 'field_two':
+							query_title = frm.query_option_create_field_value.options[query_column[1]].text;
+							query_column[1] = frm.query_option_create_fields.options[query_column[1]].value;
+							break;
+						case "date":							
+						case "datetime":							
+						case 'timestamp':						
+						case 'field_list':
+							// Should have to do anything but just in case
+							break;		
+						case 'operation':
+							query_title = typeOperation[query_column[1]];
+							break;
+					}
+					query_xml += "\t\t<item name='"+query_column[0]+"' value='"+query_column[1]+"' title='"+query_title+"'>"+query_column[1]+"</item>\n";
+				}				
+			}
+			query_xml += "\t</query_item>\n";
+		}
+		query_xml += "</query_items>\n";	
+		
+		// Build the Result Set
+		query_xml += "<result_items>\n";
+		for(var i=0; i<result_len; i++)
+		{
+			query_xml += "\t<result_item name='"+result_ele[i].value+"' value='"+result_ele[i].text+"' title='"+result_ele[i].text+"'>"+result_ele[i].value+"</result_item>\n";
+		}
+		query_xml += "</result_items>\n";
+		
+		query_xml += "<company_id>"+ company_id[company_id.selectedIndex].value +"</company_id>\n";
+		query_xml += "<company_name>"+ company_id[company_id.selectedIndex].text +"</company_name>\n";
+		query_xml += "<report_type>"+ report_groups[report_groups.selectedIndex].value +"</report_type>\n";
+		
+		query_xml += "</xml>\n";
+		
+		//Debug		
+		//alert(query_xml);
+		//frm.debug_text.value = field_list;
+		return 	query_xml;
+	}
+</script>
+<table width="100%" border="0" style='background: #EEEEEE'>
+	<tr class="valign_top">
+		<th>
+			Report Wizard
+		</th>
+	</tr>
+	<tr class="valign_top"><td>
+	<form id="report_wizard" style="padding: 0px;">
+	<input type="hidden" name="section" value="start">
+	<input type="hidden" name="section_page" value="0">
+		<table width=100% cellpadding="0" cellspacing="0"><tr><td align="left" nowrap>
+			<input type=button name="query_option_select" value="Select a Previous Saved Query" onclick="InterfaceAction(this,this.form);">
+			<input type=button name="query_option_create_process" value="Create a New Query" onclick="InterfaceAction(this,this.form);">	
+		</td><td width=100%></td><td align=right nowrap>
+			<div id=export_div style="visibility:hidden;">
+			<input type=button name="query_option_export" value="Export CSV" onclick="InterfaceAction(this,this.form);" DISABLED>
+			<input type=checkbox name=csv_headers value=true checked>with headers.	
+			</div>
+		<td></tr>
+		</table>
+	<div id="report_result" class="reporting">
+
+		<div id="report_options" style="visibility:hidden;position: relative; left: 275px; top: 100px;width:0px;height:0px;">
+		<table border=1>
+		<tr>
+		<th>Report Options</th></tr>
+		<tr><td  bgcolor="silver">
+			<table>
+			<tr><td>Please Select a Report Type</td></tr>
+			<tr><td>
+			<select name="query_option_report_groups" style="width: 225px"></select>
+			%%%company_select_list%%%
+			<input type=button name="query_option_create" value="Select Report Type" onclick="InterfaceAction(this,this.form);">
+			</td></tr>
+			</table>
+		</td></tr>
+		</table>
+		</div>	
+
+		<div id="manage_query" align="center" style="visibility:hidden;position: relative; left: 55px; top: 0px;width:0px;height:0px;">
+		<table border=1 width=650>
+		<tr><th>(Query Managment)</th></tr>
+		<tr><td  bgcolor="silver">
+		<table width=100%>
+		<tr><td align=center>Query List</td></tr>
+		<tr><td height=300 width=100%>
+		Please select an exsiting query.
+		<SELECT size="15" name="query_manage_list" style="width: 540px"></select><br>
+		<input type=button name="query_manage_run" value="Run Report" onclick="InterfaceAction(this,this.form);">
+		<input type=button name="query_manage_change" value="Edit Report" onclick="InterfaceAction(this,this.form);">
+		<input type=button name="query_manage_delete" value="Delete Report" onclick="InterfaceAction(this,this.form);">
+		</td></tr></table>
+		</td></tr></table>		
+		</div>
+
+		<div id="new_query" align="center" style="visibility:hidden;position: relative; left: 55px; top: 0px;width:0px;height:0px;">
+		<table border=1 width=650>
+		<tr><th>(New Query)</th></tr>
+		<tr><td  bgcolor="silver">
+		<table width=100%>
+		<tr><td align=center>Query Wizard</td></tr>
+		<tr><td height=300 width=100%>
+		
+		
+			<div id="query_option_create_field_select" style="visibility:hidden;position: absolute;left: 20px; top: 50px;width:0px;height:0px;">
+				<table width=100%>
+				<tr><td><b>Step 1: Field Selection</b><td></tr>
+				<tr><td>Select a field from the list below<td></tr>
+				<tr><td align="center">
+				<SELECT size="15" name="query_option_create_fields" style="width: 600px" onchange="FormValidate(this.form)">
+				</select>
+				<td></tr>
+				</table>	
+			</div>
+			
+			
+
+			<div id="query_option_create_opt_select" style="visibility:hidden;position: absolute;left: 20px; top: 50px;width:0px;height:0px;">
+				<table width=100%>
+				<tr><td><b>Step 2: Query Selection</b><td></tr>
+				<tr><td>Select a query operation to perform on the select field<td></tr>
+				<tr><td height="15px"><div id="query_option_create_field_name_title"></div><td></tr>
+				<tr><td align="center">
+				<SELECT size="9" name="query_option_create_operations" style="width: 600px" onchange="FormValidate(this.form)">	</select>
+				<td></tr>
+				</table>			
+			</div>
+			
+
+			<div id="query_option_create_val_entry" style="visibility:hidden;position: absolute;left: 20px; top: 45px;width:600px;height:0px;">
+				<table width=100% id=workit>
+				<tr><td><b>Step 3: Value Entry</b></td></tr>
+				<tr><td>Enter a value to complete your expression</td></tr>
+				<tr><td nowrap>
+				<select name="query_value_type" onChange="QueryTypeSwitch(this.value);FormValidate(this.form)"></select>
+				</td></tr>
+				<tr><td width=100% nowrap>
+				<div id="query_option_create_field_name_value"></div>
+				<div id="query_option_create_operations_value"></div>
+				</td></tr>
+				<tr><td align="left" >
+					<div id="query_value_entry_constant" style="visibility:hidden;position: absolute;top: 120px;width: 600px;">
+					Constant Value<br>(use commas (,) to seperate list)<br>
+					<input type="text" name="query_option_create_constant_value" onKeyUp="FormValidate(this.form);">
+					</div>
+					<div id="query_value_entry_field" style="visibility:hidden;position: absolute;top: 95px;width: 300px;">
+					<SELECT size="7" name="query_option_create_field_value" style="width: 600px" onchange="FormValidate(this.form)">
+					</select>		
+					</div>
+					<div id="query_value_entry_field_list" style="visibility:hidden;position: absolute;top: 95px;width: 300px;">
+					<SELECT size="7" name="query_option_create_field_list_value" style="width: 600px" onchange="FormValidate(this.form)">
+					</select>		
+					</div>
+					<div id="query_value_entry_timestamp" sstyle="visibility:hidden;position: absolute;top: 95px;width: 300px;">
+						<div id="cal_view_start" style="position: absolute;top: 95px;width: 0px;left:50px;"></div>
+						<div id="cal_view_start_disp" style="position: absolute;top: 75px;width: 200px;left:30px;">
+							<b>Start Date:</b> <input type="text" name="query_start_date" id="query_start_date" readonly SIZE=7 onchange="FormValidate(this.form)">
+						</div>
+						<div id="cal_view_end" style="position: absolute;top: 95px;width: 0px;left:395px;"></div>
+						<div id="cal_view_end_disp" style="position: absolute;top: 75px;width: 200px;left:370px;">
+							<b>End Date:</b> <input type="text" name="query_end_date" id="query_end_date" readonly SIZE=7 onchange="FormValidate(this.form)")>
+						</div>
+					</div>					
+				</td></tr>
+				</table>		
+			</div>
+	
+
+			<div id="query_option_create_finalize" style="visibility:hidden;position: absolute;left: 20px; top: 50px;width:0px;height:0px;">
+				<table width=100%>
+				<tr><td>Add conditions by pressing the AND or OR buttons.<td></tr>
+				<tr><td>Press Delete to remove a condition.<td></tr>
+				<tr><td><div id="query_option_create_field_name_title"></div><td></tr>
+				<tr><td>
+				<SELECT size="10" name="query_option_create_queries" style="width: 600px" onchange="FormValidate(this.form)"></select>		
+				<td></tr>
+				<tr><td width=100%>
+					<div style="position: absolute;left: 0px; top: 200px;">
+						<input type=button name="query_option_manager_and" value="AND" onclick="InterfaceAction(this,this.form);">
+					</div>
+					<div style="position: absolute;left: 50px; top: 200px;">
+						<input type=button name="query_option_manager_or" value="OR" onclick="InterfaceAction(this,this.form);">
+					</div>
+					<div style="position: absolute;left: 480px; top: 200px;">
+					<!--
+						<input type=button name="query_option_manager_change" value="Change" onclick="InterfaceAction(this,this.form);">
+						-->
+					</div>
+					<div style="position: absolute;left: 550px; top: 200px;">
+						<input type=button name="query_option_manager_delete" value="Delete" onclick="InterfaceAction(this,this.form);">
+					</div>
+				</td></tr>
+				</table>			
+			</div>
+			
+
+			<div id="query_option_create_result_fields" style="visibility:hidden;position: absolute;left: 20px; top: 50px;width:0px;height:0px;">
+				<table width=100%>
+				<tr><td>
+				<div style="width: 600px">
+				Select which fields will be included in this query
+				Select the field from the left and click add<br>To remove select field from right and click remove.
+				</div>
+				<tr><td align=center>
+					<table>
+						<tr><td>
+						<SELECT size="11" name="query_option_create_result_avail" style="width: 240px" MULTIPLE></select>	
+						</td><td align=center>
+						<input type=button name=add_result_field	value=Add onclick="InterfaceAction(this,this.form);"><br>
+						<input type=button name=remove_result_field	value=Remove onclick="InterfaceAction(this,this.form);">
+						</td><td>
+						<SELECT size="11" name="query_option_create_result_selected" style="width: 240px"></select>		
+						</td><td>
+						<input type=button name="query_option_create_result_move_up" value="UP" onClick="move_up(query_option_create_result_selected)"><br>
+						<input type=button name="query_option_create_result_move_down" value="DOWN" onClick="move_down(query_option_create_result_selected)"><br>
+						</td></tr>
+					</table>
+				<td></tr>
+				</table>			
+			</div>		
+			
+			<div id="query_option_create_confirmation" style="visibility:hidden;position: absolute;left: 235px; top: 125px;text-align: center;width:0px; height:0px;">
+				<table>
+				<tr><td nowrap align=center>Would you like to save this query?</td></tr>
+				<tr>
+				<td>
+				
+				<input type=button name="query_option_confirm" value="Yes" onclick="InterfaceAction(this,this.form);">
+				<input type=button name="query_option_confirm" value="No" onclick="InterfaceAction(this,this.form);">
+				<input type=button name="query_option_confirm" value="Cancel" onclick="InterfaceAction(this,this.form);">
+				
+				</td>
+				
+				</tr></table>
+			</div>
+		</td></tr>
+		<tr><td>
+			<div id="query_option_create_navigation" style="position: absolute;left: 235px; top: 325px;text-align: center;width:0px;">
+			<table width=100% border=0>
+			<tr><td align="center" nowrap>
+				<input type=button name="query_option_back" value="Back" onclick="InterfaceAction(this,this.form);">
+				<input type=button name="query_option_next" value="Next" onclick="InterfaceAction(this,this.form);">
+			</td>
+			<td width=100%></td>
+			<td align="right"><input type=button name="query_option_cancel" value="Cancel" onclick="InterfaceAction(this,this.form);"></td>
+			</tr>
+			</table>
+			</div>
+		</td></tr>
+		</table>
+	</td></tr>
+	</table>
+	</div>			
+		   <div	id="query_option_working" 
+				align="center" 
+				style="
+						background-color:white;
+						visibility:hidden;
+						position: absolute; 
+						left: 0px; 
+						top: 0px;
+						width:785px;
+						height:425px;">
+					<div 
+						id="loading-image" 
+						style="	
+							background-repeat: no-repeat;
+					    	background-position:top left;	
+							background-image:url('image/loading.gif');
+							background-color:white;
+							top:175px;left:350px;
+							position:absolute;		
+				    		padding-left:20px;
+							height:18px;
+							text-align:left;				
+						">Loading
+					</div>
+			</div>
+	<input type=hidden name="existing_query_id" value="">
+	<input type=hidden name="existing_query_title" value="">
+	<input type=hidden name="current_query_case" value="">
+	<input type=hidden name="current_query" value="">
+	<input type=hidden name="query_mode" value="new">
+	<input type=hidden name="save_mode" value="new">
+	<input type=hidden name="auto_processing" value="false">
+	<div id=display_report style="visibility:hidden;height:380px;width:778px;"></div>	
+	</div>
+	 <!-- <textarea name=debug_text rows="10"></textarea> -->
+	</form>	
+	
+	</td></tr>
+</table>
+<script language="javascript">
+function nullclick() { return false; } 
+function CalDateSet(cal, date) { cal.sel.value = date; FormValidate(document.getElementById('report_wizard')); }
+
+function CalCreate(divSet, calSet)
+{
+	var el = document.getElementById(calSet);
+	var calendar = new Calendar(true, el.value, CalDateSet, nullclick);
+	calendar.setRange(1900, 2070);
+	var caldiv = document.getElementById(divSet);
+	calendar.create(caldiv);
+	calendar.sel = el;
+	calendar.callCloseHandler = nullclick();	
+	return calendar;
+}
+
+var cal_start 	= CalCreate('cal_view_start', 'query_start_date');
+var cal_en		= CalCreate('cal_view_end', 'query_end_date');
+
+</script>
+
+
+

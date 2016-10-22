@@ -1,0 +1,172 @@
+<table width="100%" class="rules" height="500">
+	<tr><th colspan="3" style="background: #B4DCAF">Decisioning Rules</th></tr>
+	<tr height="100%">
+		<td valign="top" align="left">
+			
+			<table width="100%" height="100%" border="0">
+				<tr>
+					<td class="align_left" width="100%" colspan="2">
+						%%%rule_error%%%
+					</td>
+				</tr>
+				
+				<tr>
+					<td class="align_left" width="50%">
+						<b>Rule Sets</b>
+					</td>
+					<td class="align_left" width="50%">
+						<b>Rules</b>
+					</td>
+				</tr>
+				<tr>
+					<td class="align_left" valign="top">
+						<select name="RuleSets" id="AdminDecRuleSets" size="12" style="width:300px" onChange="javascript:get_decision_rules()">
+						%%%rule_set_options%%%
+						</select>
+					</td>
+					<td class="align_left" valign="top">
+						<select name="Rules" id="AdminDecRules" size="12" style="width:300px" onChange="javascript:display_rule()">
+						</select>
+					</td>
+				</tr>
+				
+				<tr>
+					<td class="align_left" colspan=2>
+						<b>Rule Description</b>
+					</td>
+				</tr>
+				<tr>
+					<td class="align_left"  valign="top" colspan=2>
+						<textarea name="RuleDescription" id="AdminDecRuleDescription" style="width:700px; height: 75px" READONLY></textarea>
+					</td>
+				</tr>
+				
+				<tr>
+					<td class="align_left" colspan=2>
+					
+						<table border="0" width="100%">
+							<tr>
+								<td class="align_left" width="33%">
+									<b>Date Modified</b>
+								</td>
+								<td class="align_left" width="33%">
+									<b>Value</b>
+								</td>
+								<td class="align_left" width="34%">
+									<b>Mode</b>
+								</td>
+							</tr>
+							<tr>
+								<td class="align_left" valign="top">
+									<textarea name="DateModified" id="AdminDecRuleDateModified" style="width: 200px;" rows="1" READONLY></textarea>
+								</td>
+								<td class="align_left" valign="top">
+									<textarea name="RuleValue" id="AdminDecRuleValue" style="width: 200px; height: 50px;" READONLY></textarea>
+								</td>
+								<td class="align_left" valign="top">
+									<textarea name="RuleMode" id="AdminDecRuleMode" style="width: 200px;" rows="1" READONLY></textarea>
+								</td>
+							</tr>
+						</table>
+					
+					</td>
+				</tr>
+			</table>
+			
+		</td>
+	</tr>
+</form>
+</table>
+
+<script type='text/javascript'>
+
+var rule_set_element = document.getElementById('AdminDecRuleSets');
+var rules_element = document.getElementById('AdminDecRules');
+var rules_description = document.getElementById('AdminDecRuleDescription');
+var rules_date = document.getElementById('AdminDecRuleDateModified');
+var rules_value = document.getElementById('AdminDecRuleValue');
+var rules_mode = document.getElementById('AdminDecRuleMode');
+
+checkFieldsForDisable();
+
+//rules['company'][0]['id']
+//rules['bcg-2'][0]['id']
+//rules['nsc'][0]['name']
+var rules = new Array();
+
+%%%rules_javascript%%%
+
+function get_decision_rules()
+{
+	clearForm();
+
+	var selection = rule_set_element.options[rule_set_element.selectedIndex].value;
+	var numRules = rules[selection].length;
+
+	for(var i = 0; i< numRules; i++)
+	{
+		var option = document.createElement('option');
+		option.text = rules[selection][i]['name'];
+		option.value = i;
+		rules_element.options.add(option, null);
+	}
+
+	checkFieldsForDisable();
+}
+
+function display_rule()
+{
+	clearRuleInfo();
+	
+	var ruleSetValue = rule_set_element.options[rule_set_element.selectedIndex].value;
+	var ruleValue    = rules_element.options[rules_element.selectedIndex].value;
+	var rule         = rules[ruleSetValue][ruleValue];
+	
+	rules_description.value = rule['description'];
+	rules_date.value = rule['date_modified'];
+	rules_value.value = rule['value'];
+	rules_mode.value = rule['mode'];
+
+	checkFieldsForDisable();
+}
+
+function checkFieldsForDisable()
+{
+	disableNullField(rules_description);
+	disableNullField(rules_date);
+	disableNullField(rules_value);
+	disableNullField(rules_mode);
+}
+
+function disableNullField(element)
+{
+	if(element.value == '')
+	{
+		element.disabled = true;
+	}
+	else
+	{
+		element.disabled = false;
+	}
+}
+
+function clearForm()
+{
+	var length = rules_element.options.length;
+	
+	for(var i = 0; i <= length; i++)
+	{
+		rules_element.remove(0);
+	}
+
+	clearRuleInfo();
+}
+
+function clearRuleInfo()
+{
+	rules_description.value = null;
+	rules_date.value = null;
+	rules_value.value = null;
+	rules_mode.value = null;
+}
+</script>

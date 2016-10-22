@@ -1,0 +1,15 @@
+/* Puts all applications that were covered by old rule to the new INITIAL rule set (not needed on Live) */
+UPDATE application SET rule_set_id='429' WHERE (SELECT COUNT(*) FROM rule_set WHERE rule_set.rule_set_id = application.rule_set_id) = 0;
+
+/* Sets all applications to the one and only company for LCS */
+UPDATE application SET company_id='1';
+
+/* Get rid of all rows where company_id != 1 */
+DELETE FROM schedule_model WHERE company_id != 1;
+
+/* Get rid of all of old saved report data */
+DELETE FROM resolve_payments_due_report;
+DELETE FROM resolve_flash_report;
+DELETE FROM resolve_daily_cash_report;
+DELETE FROM resolve_ar_report;
+DELETE FROM open_advances_report;

@@ -1,0 +1,201 @@
+<html>
+<head>
+<link rel="stylesheet" href="css/transactions.css">
+<link rel="stylesheet" href="js/calendar/calendar-dp.css">
+%%%serverdate%%%
+<script type="text/javascript" src="js/transactions.js"></script>
+<script type="text/javascript" src="js/date_validation.js"></script>
+<script type="text/javascript" src="js/calendar/calendar.js"></script>
+<script type="text/javascript" src="js/calendar/lang/calendar-en.js"></script>
+<script type="text/javascript" src="js/prototype-1.5.1.1.js"></script>
+<script type="text/javascript" src="js/json.js"></script>
+<script type="text/javascript">
+
+var maximum_payment = %%%maximum_payment%%%;
+
+function isValidPaydownPayout(save_btn)
+{
+	// [#40758] disable button so agent doesn't double-submit
+	save_btn.disabled = true;
+
+	var mySelect = document.getElementById('select');
+
+	if ('%%%action_type%%%' == 'paydown')
+	{
+		myAmount = document.getElementById('amount').value;
+
+		if (myAmount > maximum_payment)
+		{
+			alert('You cannot have a paydown for more than the principal amount, perhaps you meant to use "Payout"');
+			save_btn.disabled = false;
+			return false;
+		}
+	}
+
+	// Other dates are assumed to be good
+	if (mySelect.checked == false)
+	{
+		SaveSinglePayment('%%%action_type%%%', save_btn);
+		return true;
+	}
+
+	var paydown_date = document.getElementById('scheduled_date').value;
+	// The goal here is to detect whether the entered date in the box
+	// is okay to eCash.
+    var req = ajax_check_paydown_date({
+            params:[{
+                action:'is_holiday_or_weekend',
+                function:'Date_Validation',
+                    date:paydown_date
+            }],
+            onSuccess: function (transport) {
+                var result = transport.responseText.parseJSON();
+
+                if (result) {
+					if (result.error)
+					{
+						error_overlay(result.error);
+					}
+					else if (result.result == true)
+                    {
+						alert('The entered payout/paydown date cannot be on a weekend or holiday');
+                    }
+					else if (result.result == false)
+					{
+					    var req = ajax_check_paydown_date({
+					            params:[{
+					                action:'has_date_passed',
+					                function:'Paydate_Calculator',
+					                    date:paydown_date
+					            }],
+					            onSuccess: function (transport) {
+					                var result = transport.responseText.parseJSON();
+
+					                if (result) {
+										if (result.result.error)
+										{
+											error_overlay(result.result.error);
+		                                    save_btn.disabled = false;
+										}
+										else if (result.result == true)
+					                    {
+											alert('The entered payout/paydown date cannot be in the past.');
+		                                    save_btn.disabled = false;
+					                    }
+										else if (result.result == false)
+										{
+											SaveSinglePayment('%%%action_type%%%', save_btn);
+										}
+					                } else {
+					                    error_overlay(transport.responseText);
+	                                    save_btn.disabled = false;
+					                }
+					            }
+					
+					    });
+					}
+                } else {
+                    error_overlay(transport.responseText);
+                    save_btn.disabled = false;
+                }
+            }
+
+    });
+}
+
+function ajax_check_paydown_date(request) {
+    request.method = 'date_validation';
+    return ecash_JSON_RPC(request)
+}
+
+</script>
+
+<style>
+body { font-family:arial, sans-serif; }
+form.no_padding { padding: 0px; }
+td { text-align: center; }
+.left { text-align: left; }
+.right { text-align: right; }
+</style>
+</head>
+<body %%%onload%%%>
+<form id="%%%action_type%%%_form" name="%%%action_name%%%" method="post" action="/" class="no_padding">
+<script type="text/javascript"> bases.push("%%%action_type%%%"); </script>
+<input type="hidden" name="application_id" id="application_id" value="%%%application_id%%%" />
+<input type="hidden" name="payment_type" value="%%%action_type%%%" />
+<input type="hidden" name="fund_date" value="%%%fund_date%%%" />
+<input type="hidden" name="fee" id="fee" value="%%%fee%%%"/>
+<input type="hidden" name="service_charge_balance" id="service_charge_balance_pending" value="%%%service_charge_balance_pending%%%"/>
+<input type="hidden" name="service_charge_balance" id="service_charge_balance" value="%%%service_charge_balance%%%"/>
+<input type="hidden" id="%%%action_type%%%_svc_charge_percentage" name="%%%action_type%%%_svc_charge_percentage" value="%%%svc_charge_percentage%%%" />
+<input type="hidden" id="%%%action_type%%%_interest_accrual_limit" name="%%%action_type%%%_interest_accrual_limit" value="%%%interest_accrual_limit%%%" />
+<input type="hidden" id="%%%action_type%%%_svc_charge_type" name="%%%action_type%%%_svc_charge_type" value="%%%svc_charge_type%%%" />
+<input type="hidden" name="posted_fees" id="posted_fees" value="%%%posted_fees%%%">
+<input type="hidden" name="application_id" id="application_id" value="%%%application_id%%%">
+<input type="hidden" name="posted_principal" id="posted_principal" value="%%%posted_principal%%%">
+<input type="hidden" name="posted_total" id="posted_total" value="%%%posted_total%%%">
+<input type="hidden" name="action" id="action" value="%%%action_type%%%">
+<input type="hidden" name="schedule_effect" id="schedule_effect" value="shorten">
+<input type="hidden" name="adjustment_target" value="fees">
+<input type="hidden" name="action_type" id="action_type" value="save">
+<table width="100%" cellpadding="0" cellspacing="0" border="0" style="height: 283px;" align="center" class="%%%mode_class%%%">
+<tbody>
+<tr style="height: 35px;">
+<td colspan="2">
+<p>Action: <b>%%%action_name%%% </b></p>
+<hr>
+</td>
+</tr>
+<tr><td colspan="2">
+<table width="100%" border="0" align="center" cellspacing="2">
+%%%outstanding_amount_tr%%%
+<tr>
+	<td class="right">Effective Date</td>
+	<td>&nbsp;</td>
+</tr>
+
+%%%next_business_day_tr%%%
+
+<tr>
+	<td class="right"><label for="next">Next Due Date (%%%next_due_date%%%)</label></td>
+	<td class="left"><input type="radio" name="edate" id="next" %%%next_onclick%%% value="%%%next_due_date%%%"%%%next_date_checked%%%></td>
+</tr>
+
+
+<tr>
+	<td class="right"><label for="select">Select</label></td>
+	<td class="left"><input type="radio" name="edate" id ="select" value="select" %%%select_onclick%%%  >
+
+
+<input id="scheduled_date" %%%scheduled_date_onchange%%% onclick="document.getElementById('select').checked=true;" name="scheduled_date" type="text" size="10" >
+	<a href="#" onClick="javascript:PopCalendar6('scheduled_date',event,'%%%next_business_day%%%','%%%calendar_end%%%');document.getElementById('select').checked=true;">(select)</a>
+	</td>
+</tr>
+<tr>
+	<td>
+	&nbsp;
+	</td>
+	<td>
+	&nbsp;
+	</td>
+</tr>
+%%%amount_tr%%%
+
+%%%optional_tr%%%
+
+</table>
+</td>
+</tr>
+<tr>
+  <td><input type="button" value="Cancel" onClick="window.close();"></td>
+  <td><input type="button" value="Save %%%save_text%%%" onClick="isValidPaydownPayout(this);"></td>
+</tr>
+</tbody>
+</table>
+
+
+
+
+</form>
+</body>
+</html>

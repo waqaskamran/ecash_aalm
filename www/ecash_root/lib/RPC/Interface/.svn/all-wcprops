@@ -1,0 +1,23 @@
+K 25
+svn:wc:ra_dav:version-url
+V 84
+/svn/aalm_current/!svn/ver/1979/ecash/branches/sql_merge/ecash_cfe/lib/RPC/Interface
+END
+Dummy.class.php
+K 25
+svn:wc:ra_dav:version-url
+V 100
+/svn/aalm_current/!svn/ver/1979/ecash/branches/sql_merge/ecash_cfe/lib/RPC/Interface/Dummy.class.php
+END
+PrinterConfiguration.class.php
+K 25
+svn:wc:ra_dav:version-url
+V 115
+/svn/aalm_current/!svn/ver/1979/ecash/branches/sql_merge/ecash_cfe/lib/RPC/Interface/PrinterConfiguration.class.php
+END
+DummyiWsdl.class.php
+K 25
+svn:wc:ra_dav:version-url
+V 105
+/svn/aalm_current/!svn/ver/1979/ecash/branches/sql_merge/ecash_cfe/lib/RPC/Interface/DummyiWsdl.class.php
+END

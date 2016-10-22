@@ -1,0 +1,283 @@
+<script>
+	var queue_info = %%%queue_json%%%
+	var do_error_clear = false;
+	function selectQueue()
+	{
+		clearError();
+		var queue_select = document.getElementById('queue_select');
+		var queue_form = document.queue_recycle_limit;
+		var queue = queue_info[queue_select.options[queue_select.selectedIndex].value];
+		queue_form.queue_name.value = queue.queue_name;
+		queue_form.queue_name_display.value = queue.queue_display_name;
+		queue_form.queue_name_short.value = queue_select.options[queue_select.selectedIndex].value;
+		selectValue(queue_form.queue_type, queue.type);
+		selectValue(queue_form.queue_company_id, queue.company_id);
+		selectValue(queue_form.queue_group_id, queue.group);
+		selectValue(queue_form.section_id, queue.location);
+		selectValue(queue_form.display_section_id_1, queue.alt_location);
+		selectValue(queue_form.queue_recycle_limit, queue.recycle_limit);
+		selectValue(queue_form.queue_timeout_limit, (queue.recycle_time ? queue.recycle_time : 'none'));
+		queue_form.queue_info_submit.style.display =  '';
+		document.getElementById('created_on_cell').innerHTML = queue.date_created;
+		document.getElementById('last_modified_cell').innerHTML = queue.date_modified;
+		if(queue.is_system_queue > 0 || queue.count > 0)
+		{
+			queue_form.queue_name.disabled = true;
+			queue_form.queue_name_display.disabled = true;
+			queue_form.queue_name_short.disabled = true;
+			queue_form.queue_type.disabled = true;
+			queue_form.queue_company_id.disabled = true;
+			queue_form.queue_group_id.disabled = true;
+			queue_form.section_id.disabled = true;
+			queue_form.display_section_id_1.disabled = true;
+		} else {
+			queue_form.queue_name.disabled = false;
+			queue_form.queue_name_display.disabled = false;
+			queue_form.queue_name_short.disabled = false;
+			queue_form.queue_type.disabled = false;
+			queue_form.queue_company_id.disabled = false;
+			queue_form.queue_group_id.disabled = false;
+			queue_form.section_id.disabled = false;			
+			queue_form.display_section_id_1.disabled = false;			
+		}
+	}
+	
+	function selectValue(select_box, value)
+	{
+		var options = select_box.options;
+		if(value < 1)
+		{
+			options[0].selected = true;
+		}
+		for(var i = 0; i < options.length; i++)
+		{
+			if(options[i].value == value)
+			{
+				options[i].selected = true;
+				break;
+			}
+		}
+	}
+	
+	function selectAdd()
+	{
+		clearError();
+		var queue_form = document.queue_recycle_limit;
+		queue_form.reset();
+		queue_form.queue_function_add.checked = true;
+		queue_form.queue_select.disabled = true;
+		queue_form.queue_select.selectedIndex = 0;
+		queue_form.queue_info_submit.style.display =  '';
+		queue_form.queue_info_submit.value = "Add Queue";
+		queue_form.queue_name.disabled = false;
+		queue_form.queue_name_display.disabled = false;
+		queue_form.queue_name_short.disabled = false;
+		queue_form.queue_type.disabled = false;
+		queue_form.queue_company_id.disabled = false;
+		queue_form.queue_group_id.disabled = false;
+		queue_form.section_id.disabled = false;			
+		queue_form.display_section_id_1.disabled = false;			
+		
+		//now clear out all the values
+		queue_form.queue_name.value = '';
+		queue_form.queue_name_display.value = '';
+		queue_form.queue_name_short.value = '';
+		queue_form.queue_type.selectedIndex = 0;
+		queue_form.queue_company_id.selectedIndex = 0;
+		queue_form.queue_group_id.selectedIndex = 0;
+		queue_form.section_id.selectedIndex = 0;
+		queue_form.display_section_id_1.selectedIndex = 0;
+		queue_form.queue_recycle_limit.selectedIndex = 0;
+		queue_form.queue_timeout_limit.selectedIndex = 0;
+		document.getElementById('created_on_cell').innerHTML = '&nbsp;';
+		document.getElementById('last_modified_cell').innerHTML = '&nbsp;';
+	}
+	
+	function selectEdit()
+	{
+		clearError();
+		var queue_form = document.queue_recycle_limit;
+		queue_form.queue_function_edit.checked = true;
+		queue_form.queue_select.disabled = false;
+		if(queue_form.queue_select.selectedIndex > 0)
+		{
+			queue_form.queue_info_submit.style.display = '';
+		} else {
+			queue_form.queue_info_submit.style.display = "none";
+		}
+		queue_form.queue_info_submit.value = 'Modify Queue';
+	}
+	
+	function selectDelete()
+	{
+		clearError();
+		var queue_form = document.queue_recycle_limit;
+		queue_form.queue_function_delete.checked = true;
+		queue_form.queue_select.disabled = false;
+		if(queue_form.queue_select.selectedIndex > 0)
+		{
+			queue_form.queue_info_submit.style.display = '';
+		} else {
+			queue_form.queue_info_submit.style.display = "none";
+		}
+		queue_form.queue_info_submit.value = 'Delete Queue';		
+	}
+
+	function clearError()
+	{
+		if(do_error_clear)
+		{
+			document.getElementById('error_block').innerHTML = '';
+		} else {
+			do_error_clear = true;
+		}
+	}
+	
+	
+</script>
+<table width="100%" class="queue_config" height="500">
+	<tr>
+		<th style="background: #CCCCCC; height:19px;">Manage Queues</th>
+	</tr>
+	<form name="queue_recycle_limit" action='/' method="post">
+	<input type="hidden" name="mode" value="queue_config" />
+	<input type="hidden" name="action" value="new_queue" />
+	<input type="hidden" name="module" value="admin" />
+	<input type="hidden" name="go" value="go" />
+	<tr>
+		<td width="100%">
+			<table width="100%">
+				<tr>
+					<td width="30%" align="left" valign="top"><input type="radio" id="queue_function_add" name="queue_function" value="add" onclick="selectAdd()">Add</td>
+					<td width="30%" align="left" valign="top"><input type="radio" id="queue_function_edit" name="queue_function" value="edit" onclick="selectEdit()">Edit</td>
+					<td width="30%" align="left" valign="top"><input type="radio" id="queue_function_delete" name="queue_function" value="delete" onclick="selectDelete()">Delete</td>				
+				</tr>
+			</table>
+		</td>
+	</tr>
+	<tr>
+		<td width="100%" valign="top">
+			<table style="border:1px solid black;" width="95%" align="center">
+				<tr>
+					<td valign="top">
+					<table border=0>
+						<tr>
+							<td class="align_left">
+								&nbsp;<b>Existing Queues</b> 
+							</td>
+							</tr>
+							<tr>
+							<td class="align_left">
+								<select size="20" name='queue_select' id="queue_select" onchange="selectQueue()" disabled>
+									<option>[none]</option>
+									%%%queue_list%%%
+								</select>
+							</td>
+						</tr>
+					</table>
+					</td>
+					<td width="80%" valign="top">
+						<div align="center">
+						<div id="error_block">%%%error_block%%%</div>
+						<table width="100%" cellpadding="5">
+							<tr>
+                                <td style="text-align: right"><b>Created On:</b></td>
+                                <td style="text-align: left" id="created_on_cell"> 
+                                        &nbsp;  
+                                </td>      
+                            </tr>         
+                            <tr>
+                                <td style="text-align: right"><b>Last Modified:</b></td>
+                                <td style="text-align: left" id="last_modified_cell">
+                                        &nbsp;        
+                                </td>   
+                            </tr>      
+                            <tr>  
+								<td style="text-align: right"><b>Company</b></td>
+								<td style="text-align: left">
+									<select name="queue_company_id">
+										<option value="-1">(All Companies)</option>
+										%%%queue_company_list%%%
+									</select>
+								</td>
+							</tr>
+							<tr>
+								<td style="text-align: right"><b>Type</b></td>
+								<td style="text-align: left">
+									<select name="queue_type">
+										%%%queue_type_list%%%
+									</select>
+								</td>
+							</tr>
+			
+							<tr>
+								<td style="text-align: right;"><b%%%name_color%%%>Full Name</b></td>
+								<td style="text-align: left"><input type="text" name="queue_name" size="30" value="%%%queue_name%%%" /></td>
+							</tr>
+							<tr>
+								<td style="text-align: right"><b%%%display_color%%%>Display Name</b></td>
+								<td style="text-align: left"><input type="text" name="queue_name_display" size="30" value="%%%queue_name_display%%%" /></td>
+							</tr>
+							<tr>
+								<td style="text-align: right"><b%%%short_color%%%>Short Name</b></td>
+								<td style="text-align: left"><input type="text" name="queue_name_short" size="30" value="%%%queue_name_short%%%" /></td>
+							</tr>
+			
+							<tr>
+								<td style="text-align: right"><b>Group</b></td>
+								<td style="text-align: left">
+									<select name="queue_group_id">
+										%%%queue_groups%%%
+									</select>
+								</td>
+							</tr>
+							<tr>
+								<td style="text-align: right"><b>Open Location</b></td>
+								<td style="text-align: left">
+									<select name="section_id">
+										%%%module_listing%%%
+									</select>
+								</td>
+							</tr>
+							<!-- if someone wants to get creative, you could add many alt display locations via javascript -->
+							<tr>
+								<td style="text-align: right"><b>Alt. Display Location</b></td>
+								<td style="text-align: left">
+									<select name="display_section_id_1">
+										%%%alt_module_listing%%%
+									</select>								
+								</td>
+							</tr>
+							<tr>
+								<td style="text-align: right"><b>Recycle Limit</b></td>
+								<td style="text-align: left">
+									<select name="queue_recycle_limit" id="queue_recycle_limit">
+										%%%queue_recycle_limit_options%%%
+									</select>
+								</td>
+							</tr>
+							<tr>
+								<td style="text-align: right"><b>Recycle Time</b></td>
+								<td style="text-align: left">
+									<select name="queue_timeout_limit" id="queue_timeout_limit">
+										%%%queue_timeout_options%%%
+									</select>								
+								</td>
+							</tr>
+							<tr>
+								<td colspan="2">
+									<input id="queue_info_submit" type="submit" name="submit" value="Add Queue" style="display:none" />
+								</td>
+							</tr>
+						</table>
+						</div>
+					</td>
+				</tr>
+			</table>
+		</td>
+	</tr>
+	</form>
+</table>
+<script>
+select%%%queue_function%%%();
+</script>

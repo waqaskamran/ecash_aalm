@@ -1,0 +1,77 @@
+K 25
+svn:wc:ra_dav:version-url
+V 87
+/svn/aalm_current/!svn/ver/1979/ecash/branches/sql_merge/ecash_cfe/code/ECash/ACHReport
+END
+ACHExceptionsReport.php
+K 25
+svn:wc:ra_dav:version-url
+V 111
+/svn/aalm_current/!svn/ver/1979/ecash/branches/sql_merge/ecash_cfe/code/ECash/ACHReport/ACHExceptionsReport.php
+END
+ACHException.php
+K 25
+svn:wc:ra_dav:version-url
+V 104
+/svn/aalm_current/!svn/ver/1979/ecash/branches/sql_merge/ecash_cfe/code/ECash/ACHReport/ACHException.php
+END
+Corrections.php
+K 25
+svn:wc:ra_dav:version-url
+V 103
+/svn/aalm_current/!svn/ver/1979/ecash/branches/sql_merge/ecash_cfe/code/ECash/ACHReport/Corrections.php
+END
+Parser.php
+K 25
+svn:wc:ra_dav:version-url
+V 98
+/svn/aalm_current/!svn/ver/1979/ecash/branches/sql_merge/ecash_cfe/code/ECash/ACHReport/Parser.php
+END
+IConfig.php
+K 25
+svn:wc:ra_dav:version-url
+V 99
+/svn/aalm_current/!svn/ver/1979/ecash/branches/sql_merge/ecash_cfe/code/ECash/ACHReport/IConfig.php
+END
+Process.php
+K 25
+svn:wc:ra_dav:version-url
+V 99
+/svn/aalm_current/!svn/ver/1979/ecash/branches/sql_merge/ecash_cfe/code/ECash/ACHReport/Process.php
+END
+Returns.php
+K 25
+svn:wc:ra_dav:version-url
+V 99
+/svn/aalm_current/!svn/ver/1979/ecash/branches/sql_merge/ecash_cfe/code/ECash/ACHReport/Returns.php
+END
+IReport.php
+K 25
+svn:wc:ra_dav:version-url
+V 99
+/svn/aalm_current/!svn/ver/1979/ecash/branches/sql_merge/ecash_cfe/code/ECash/ACHReport/IReport.php
+END
+Config.php
+K 25
+svn:wc:ra_dav:version-url
+V 98
+/svn/aalm_current/!svn/ver/1979/ecash/branches/sql_merge/ecash_cfe/code/ECash/ACHReport/Config.php
+END
+IParser.php
+K 25
+svn:wc:ra_dav:version-url
+V 99
+/svn/aalm_current/!svn/ver/1979/ecash/branches/sql_merge/ecash_cfe/code/ECash/ACHReport/IParser.php
+END
+ReportManager.php
+K 25
+svn:wc:ra_dav:version-url
+V 105
+/svn/aalm_current/!svn/ver/1979/ecash/branches/sql_merge/ecash_cfe/code/ECash/ACHReport/ReportManager.php
+END
+IProcess.php
+K 25
+svn:wc:ra_dav:version-url
+V 100
+/svn/aalm_current/!svn/ver/1979/ecash/branches/sql_merge/ecash_cfe/code/ECash/ACHReport/IProcess.php
+END

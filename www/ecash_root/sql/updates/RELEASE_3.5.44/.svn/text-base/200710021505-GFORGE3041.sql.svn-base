@@ -1,0 +1,1 @@
+insert into loan_actions (name_short,description,status,type) values ('v_references','Verified References','ACTIVE','FUND_APPROVE');

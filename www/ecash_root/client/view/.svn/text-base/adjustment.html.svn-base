@@ -1,0 +1,145 @@
+<html>
+<head>
+<link rel="stylesheet" href="css/style.css">
+<link rel="stylesheet" href="css/transactions.css">
+<link rel="stylesheet" href="js/calendar/calendar-dp.css">
+%%%serverdate%%%
+<script type="text/javascript" src="js/transactions.js"></script>
+<script type="text/javascript" src="js/calendar/calendar.js"></script>
+<script type="text/javascript" src="js/calendar/lang/calendar-en.js"></script>
+<script type="text/javascript">
+
+function isvalid(save_btn)
+{
+	// [#40758] disable button so agent doesn't double-submit
+	save_btn.disabled = true;
+
+	if(isNaN(parseInt(document.getElementById('adjustment_amount').value)) || document.getElementById('adjustment_amount').value <= 0 )
+	{
+		alert('Amount must be Numeric and greater than zero');
+		save_btn.disabled = false;
+		return false;
+	}
+	else if(document.getElementById('adjustment_target').value == 'fee' && document.getElementById('adjustment_amount').value > %%%posted_fees%%% && document.getElementById('adjustment_type').value == 'debit')
+	{
+		alert('You can not reduce fee balance below zero');
+		save_btn.disabled = false;
+		return false;
+	}
+		else if (document.getElementById('adjustment_target').value == 'lienfee' && document.getElementById('adjustment_amount').value > %%%posted_lien_fees%%% && document.getElementById('adjustment_type').value == 'debit')
+	{
+		alert('You can not reduce lien fee balance below zero');
+		save_btn.disabled = false;
+		return false;
+	}
+	else if (document.getElementById('adjustment_target').value == 'deliveryfee' && document.getElementById('adjustment_amount').value > %%%posted_delivery_fees%%% && document.getElementById('adjustment_type').value == 'debit')
+	{
+		alert('You can not reduce delivery fee balance below zero');
+		save_btn.disabled = false;
+		return false;
+	}
+	else if(document.getElementById('adjustment_target').value == 'principal' && document.getElementById('adjustment_amount').value > %%%posted_principal%%% && document.getElementById('adjustment_type').value == 'debit')
+	{
+		alert('You can not reduce principal balance below zero');
+		save_btn.disabled = false;
+		return false;
+	}
+	else if(document.getElementById('adjustment_target').value == 'service_charge' && document.getElementById('adjustment_amount').value > %%%posted_service_charge%%% && document.getElementById('adjustment_type').value == 'debit')
+	{
+		alert('You can not reduce Interest balance below zero');
+		save_btn.disabled = false;
+		return false;
+	}
+	
+	return true;
+	
+}
+
+
+</script>
+<style>
+body { font-family:arial, sans-serif; }
+form.no_padding { padding: 0px; }
+td { text-align: center; }
+.left { text-align: left; }
+.right { text-align: right; }
+</style>
+</head>
+<body>
+<form id="adjustment_form" name="Internal Adjustment" method="post" action="/" class="no_padding">
+<input type="hidden" name="posted_fees" id="posted_fees" value="%%%posted_fees%%%">
+<input type="hidden" name="posted_principal" id="posted_principal" value="%%%posted_principal%%%">
+<input type="hidden" name="posted_total" id="posted_total" value="%%%posted_total%%%">
+<input type="hidden" name="action" id="action" value="adjustment">
+<input type="hidden" name="action_type" id="action_type" value="save">
+<input type="hidden" name="schedule_effect" value="shorten">
+<table width="100%" cellpadding="0" cellspacing="0" border="0" style="height: 283px;" align="center" class="%%%mode_class%%%">
+<tbody>
+<tr style="height: 35px;">
+<td colspan="2">
+<p>Action: <span style='font-weight:bold;'>Internal Adjustment</span></p>
+<p>Please enter the amount, type, date, and description of the adjustment.</p>
+</td></tr>
+<tr><td colspan="2">
+<table width="100%" border="0" align="center" cellspacing="2">
+<tr>
+	<td class="right"> Principal Balance:	</td>
+	<td class="left"> $%%%posted_principal%%% </td>
+</tr>
+<tr>
+	<td class="right"> Fee Balance: </td>
+	<td class="left"> $%%%posted_fees%%% </td>
+	
+</tr>
+%%%display_lien_fee_tr%%%
+%%%display_delivery_fee_tr%%%
+<tr>
+	<td class="right"> Interest Balance: </td>
+	<td class="left"> $%%%posted_service_charge%%% </td>
+</tr>
+
+<tr>
+  <td class="right">Amount:</td>
+  <td class="left"><input id="adjustment_amount" name="adjustment_amount" size="10" type="text"></td>
+</tr>
+<tr>
+  <td class="right">Type:</td>
+  <td class="left">
+    <select id="adjustment_type" name="adjustment_type">
+      <option value="credit">Credit (Increase Balance)</option>
+      <option value="debit">Debit (Reduce Balance)</option>
+    </select>
+  </td>
+</tr>
+<tr>
+  <td class="right">Balance to Adjust:</td>
+  <td class="left">
+    <select id="adjustment_target" name="adjustment_target">
+      <option value="fee" default>Fees</option>
+      %%%lien_fee_option%%%
+	  %%%delivery_fee_option%%%
+      <option value="principal">Principal (Up to Loan Amount)</option>
+      <option value="service_charge">Interest Charge</option>
+    </select>
+  </td>
+</tr>
+<tr>
+  <td class="right">Date:</td>
+  <td class="left"><input id="adjustment_date" name="adjustment_date" type="text" size="10" %%%date_field%%%>%%%date_anchor%%%</td>
+</tr>
+<tr>
+  <td class="right">Description:</td>
+  <td class="left"><input name="adjustment_description" id="adjustment_description" type="text" size="30" maxlength="200" value=""></td>
+</tr>
+</table>
+</td>
+</tr>
+<tr>
+  <td><input type="button" value="Cancel" onClick="javascript:window.close();"></td>
+  <td><input type="button" value="Save Adjustment" onClick="if(isvalid(this)){SaveAdjustment(this);}"></td>
+</tr>
+</tbody>
+</table>
+</form>
+</body>
+</html>

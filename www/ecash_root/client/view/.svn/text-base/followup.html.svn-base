@@ -1,0 +1,178 @@
+<html>
+<head>
+<link rel="stylesheet" href="css/style.css">
+<link rel="stylesheet" href="js/calendar/calendar-dp.css">
+<script type="text/javascript" src="js/transactions.js"></script>
+<script type="text/javascript" src="js/calendar/calendar.js"></script>
+<script type="text/javascript" src="js/calendar/lang/calendar-en.js"></script>
+<title>Schedule Follow-Up</title>
+<script type="text/javascript">
+var allowSaturday = %%%allow_saturday_followups%%%;
+var allowSunday = %%%allow_sunday_followups%%%;
+
+function CheckValue(e)
+{
+	var value = e.options[e.selectedIndex].value;
+	if (value == 'DATE')
+	{
+		document.getElementById("date_span").style.display = "table-row";
+		document.getElementById("time_span").style.display = "table-row";
+	}
+	else
+	{
+		document.getElementById("date_span").style.display = "none";
+		document.getElementById("time_span").style.display = "none";
+	}
+}
+
+function CheckInterval()
+{
+	var s = document.getElementById("interval");
+	var choice = s.options[s.selectedIndex].value;
+	
+	var comment = document.getElementById('frm_comment');
+	if (comment.value == '') {
+		alert("Please add a comment to this followup.");
+		return false;
+	}
+	if (choice == "DATE")
+	{
+		var dateval = document.getElementById("follow_up_day").value;
+	    //[#21225] Add time selection
+	    var timestr = document.getElementById("follow_up_hour").value + ':' +
+	        document.getElementById("follow_up_min").value + ' ' +
+	        document.getElementById("follow_up_ampm").value;
+	    var datestr = dateval + ' ' + timestr;
+		if (isNaN(Date.parse(datestr)) || (Date.parse(datestr) < new Date))
+		{
+			alert("Please enter a valid date and time.");
+			return false;
+		}
+
+	    document.getElementById('follow_up_date').value = datestr;
+		PHPValidateDate(datestr);
+	}
+	else
+	{
+		document.followup.submit();
+	}
+
+}
+
+function processReqChange() {
+    // only if req shows "loaded"
+    if (req.readyState == 4) {
+        // only if "OK"
+        if (req.status == 200) {
+           	if(req.responseText == "1")
+           	{
+           		document.followup.submit();
+           	} 
+           	else
+           	{
+           		alert(req.responseText);
+           	}
+        } else {
+            alert("There was a problem retrieving the XML data:\n" +
+                req.statusText);
+        }
+    }
+}
+
+function PHPValidateDate(intdate)
+{
+	req = false;
+    // branch for native XMLHttpRequest object
+    if(window.XMLHttpRequest) {
+    	try {
+			req = new XMLHttpRequest();
+        } catch(e) {
+			req = false;
+        }
+    // branch for IE/Windows ActiveX version
+    } else if(window.ActiveXObject) {
+       	try {
+        	req = new ActiveXObject("Msxml2.XMLHTTP");
+      	} catch(e) {
+        	try {
+          		req = new ActiveXObject("Microsoft.XMLHTTP");
+        	} catch(e) {
+          		req = false;
+        	}
+		}
+    }
+    	
+	if(req) {
+		req.onreadystatechange = processReqChange;
+		var url = "validate_calendar.php?type=%%%followup_type%%%&validate=date&datestr=" + intdate;
+		req.open("GET", url, true);
+		req.send("");
+	}    
+	
+
+}
+</script>
+</head>
+<body class="bg" onload="self.focus();">
+<form method="post" action="/" class="no_padding" name="followup">
+<table>
+%%%serverdate%%%
+ <tr>
+  <td class="align_left">Callback: </td>
+  <td class="align_left">
+   <select name="interval" id="interval" onchange="CheckValue(this);">
+%%%followup_opts%%%
+   </select>
+   </td>
+  </tr>
+  <tr id="date_span">
+   <td><span style="display: inline;">
+     Follow Up Date:
+   </td><td class="align_left">
+     <input type="text" id="follow_up_day" name="follow_up_day" value="" readonly> <a href="#" onClick="PopCalendar('follow_up_day', (event.clientX-130), event.clientY, null, false, null, null, false, allowSaturday, allowSunday);">(select)</a>&nbsp;</span></td>
+  </tr>
+  <tr id="time_span">
+   <td>
+     Follow Up Time:
+   </td>
+	<td class="align_left">
+     <input type="text" size="2" maxlength="2" id="follow_up_hour" name="follow_up_hour" value="12" />:<input type="text" size="2" maxlength="2" id="follow_up_min" name="follow_up_min" value="00" />&nbsp;
+	 <select id="follow_up_ampm" name="follow_up_ampm"><option value="AM" selected>AM</option><option value="PM">PM</option></select>
+	</td>
+  </tr>
+  <tr><td class="align_left">Comment: </td>
+      <td class="align_left"><input type="text" id="frm_comment" name="comment" size="40"></td>
+</tr>
+
+<tr>
+<td class="align_left">Send Application to: </td>
+<td class="align_left">
+<select name="agents_followup" id="agents_followup">
+%%%agents_list_followup%%%
+</select>
+</td>
+</tr>
+
+<tr>
+<td class="align_left">Category: </td>
+<td class="align_left">
+<select name="category_followup" id="category_followup">
+%%%category_list_followup%%%
+</select>
+</td>
+</tr>
+
+  <tr>
+  <td colspan="2" class="align_right">
+   <input type="button" value="OK" class="button" onClick="javascript: CheckInterval();">
+  	<input type="button" value="Cancel" class="button" onClick="javascript:self.close()"> 
+	</td>
+  </tr>
+</table>
+<input type="hidden" name="follow_up_date" id="follow_up_date" value="" />
+<input type="hidden" name="action" value="add_follow_up">
+<input type="hidden" name="mode" value="%%%lower_followup_type%%%">
+<input type="hidden" name="application_id" value="%%%application_id%%%">
+</form>
+</body>
+</html>

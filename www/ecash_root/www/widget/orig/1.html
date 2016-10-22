@@ -1,0 +1,64 @@
+<html>
+<head>
+<title>Income dropdown sample</title>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+
+<script language="JavaScript" type="text/JavaScript">
+<!--
+function MM_jumpMenu(targ,selObj,restore){ //v3.0
+  eval(targ+".location='"+selObj.options[selObj.selectedIndex].value+"'");
+  if (restore) selObj.selectedIndex=0;
+}
+//-->
+</script>
+</head>
+<body bgcolor="#ffffff" leftmargin="0" topmargin="0" marginwidth="0" marginheight="0">
+<table width="846" border="0" cellspacing="0" cellpadding="0">
+  <tr> 
+    <td><img name="dropdown_r1_c1" src="images/dropdown_r1_c1.gif" width="846" height="888" border="0" alt=""></td>
+  </tr>
+  <tr> 
+    <td background="images/dropdown_r3_c1.gif"><table width="569" border="0" align="center" cellpadding="3" cellspacing="0">
+        <tr bgcolor="#FFFF99"> 
+          <td width="280"> 
+            <div align="right"><font size="2" face="Verdana, Arial, Helvetica, sans-serif"><strong>How 
+              often are you paid:</strong></font></div></td>
+          <form name="form1">
+            <td width="277"> <select name="menu1" onChange="MM_jumpMenu('parent',this,0)">
+                <option>Please Select</option>
+                <option value="1.html" selected>Every Week</option>
+                <option value="3.html">Twice Per Month</option>
+                <option value="2.html">Every Other Week</option>
+                <option value="4.html">Once Per Month</option>
+              </select> </td>
+          </form>
+        </tr>
+        <tr bgcolor="#006699"> 
+          <td colspan="2"> 
+            <div align="center"><font color="#FFFF00" size="2" face="Verdana, Arial, Helvetica, sans-serif"><strong>You 
+              have selected that you get paid Every Week. <br>
+              Please complete the additional information below.</strong></font></div></td>
+        </tr>
+        <tr bgcolor="#FFFF99"> 
+          <td> 
+            <div align="right"><font size="2" face="Verdana, Arial, Helvetica, sans-serif"><strong>Day 
+              of Week:</strong></font></div></td>
+          <td bgcolor="#FFFF99"> 
+            <select name="select">
+              <option selected>Select Day</option>
+              <option>Monday</option>
+              <option>Tuesday</option>
+              <option>Wednesday</option>
+              <option>Thursday</option>
+              <option>Friday</option>
+            </select>
+          </td>
+        </tr>
+      </table></td>
+  </tr>
+  <tr> 
+    <td><img name="dropdown_r4_c1" src="images/dropdown_r4_c1.gif" width="846" height="131" border="0" alt=""></td>
+  </tr>
+</table>
+</body>
+</html>

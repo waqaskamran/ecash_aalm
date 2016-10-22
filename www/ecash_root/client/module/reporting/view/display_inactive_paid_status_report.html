@@ -1,0 +1,45 @@
+<form name="score_report" class="no_padding" action="/?module=reporting&action=generate_report" method="post">
+<table width="100%" border="0">
+	<tr class="valign_top">
+		<th style='background: #EEEEEE'>
+			%%%report_title%%%
+		</th>
+	</tr>
+	<tr class="valign_top">
+		<td>
+		<table width="100%">
+			<tr>
+				<td width="33%" class="align_left">
+					Start Date : %%%start_date%%%
+				</td>
+				<td width="33%" class="align_left">
+					  End Date : %%%end_date%%%  
+				</td>
+				<td width="26%" class="align_right">
+					   %%%company_select_list%%%
+				</td>
+			</tr>
+			<tr>
+				<td>
+				</td>
+			</tr>
+			<tr>
+				<td width="33%">
+				</td>
+				<td width="33%">
+					<input type="submit" class="button" value="Submit">
+					<input type="hidden" name=mode value="%%%report_mode%%%">
+					&nbsp;
+					<input type="button" class="button" value="Refresh" onclick="reset();submit();">
+				</td>
+				<td width="33%" class="align_right">
+					%%%download_link%%%
+				</td>
+			</tr>
+		</table>
+		</td>
+	</tr>
+	%%%search_message%%%
+	%%%search_result_set%%%
+</table>
+</form>

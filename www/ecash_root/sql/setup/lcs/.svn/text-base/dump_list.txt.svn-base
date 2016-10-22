@@ -1,0 +1,6 @@
+rule_component                 - Holds the rule names
+rule_component_parm            - defines valid input for rule values
+rule_set                       - Has lists of rules
+rule_set_component             - Links rule_set to rule_component
+rule_set_component_parm_value  - Holds values for rules
+transaction_type               - Holds transaction types and pending periods for them

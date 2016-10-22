@@ -1,0 +1,23 @@
+K 25
+svn:wc:ra_dav:version-url
+V 90
+/svn/aalm_current/!svn/ver/2968/ecash/branches/sql_merge/ecash_cfe/code/ECash/ITSettlement
+END
+it_settlement_summary.html
+K 25
+svn:wc:ra_dav:version-url
+V 117
+/svn/aalm_current/!svn/ver/1979/ecash/branches/sql_merge/ecash_cfe/code/ECash/ITSettlement/it_settlement_summary.html
+END
+it_settlement.class.php
+K 25
+svn:wc:ra_dav:version-url
+V 114
+/svn/aalm_current/!svn/ver/2968/ecash/branches/sql_merge/ecash_cfe/code/ECash/ITSettlement/it_settlement.class.php
+END
+it_settlement_interface.iface.php
+K 25
+svn:wc:ra_dav:version-url
+V 124
+/svn/aalm_current/!svn/ver/1979/ecash/branches/sql_merge/ecash_cfe/code/ECash/ITSettlement/it_settlement_interface.iface.php
+END

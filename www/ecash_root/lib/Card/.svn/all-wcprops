@@ -1,0 +1,41 @@
+K 25
+svn:wc:ra_dav:version-url
+V 75
+/svn/aalm_current/!svn/ver/4940/ecash/branches/sql_merge/ecash_cfe/lib/Card
+END
+card_processor.class.php
+K 25
+svn:wc:ra_dav:version-url
+V 100
+/svn/aalm_current/!svn/ver/1979/ecash/branches/sql_merge/ecash_cfe/lib/Card/card_processor.class.php
+END
+card.class.php
+K 25
+svn:wc:ra_dav:version-url
+V 90
+/svn/aalm_current/!svn/ver/1979/ecash/branches/sql_merge/ecash_cfe/lib/Card/card.class.php
+END
+card_utils.class.php
+K 25
+svn:wc:ra_dav:version-url
+V 96
+/svn/aalm_current/!svn/ver/1979/ecash/branches/sql_merge/ecash_cfe/lib/Card/card_utils.class.php
+END
+card_batch.class.php
+K 25
+svn:wc:ra_dav:version-url
+V 96
+/svn/aalm_current/!svn/ver/3037/ecash/branches/sql_merge/ecash_cfe/lib/Card/card_batch.class.php
+END
+card_batch_interface.iface.php
+K 25
+svn:wc:ra_dav:version-url
+V 106
+/svn/aalm_current/!svn/ver/1979/ecash/branches/sql_merge/ecash_cfe/lib/Card/card_batch_interface.iface.php
+END
+card_batch_anet.class.php
+K 25
+svn:wc:ra_dav:version-url
+V 101
+/svn/aalm_current/!svn/ver/1979/ecash/branches/sql_merge/ecash_cfe/lib/Card/card_batch_anet.class.php
+END

@@ -1,0 +1,10 @@
+<html>
+<head>
+<title>Payment Card Audit Log</title>
+</head>
+<body onload="self.focus();">
+
+%%%card_audit_log%%%
+
+</body>
+</html>

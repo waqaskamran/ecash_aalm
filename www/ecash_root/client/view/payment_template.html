@@ -1,0 +1,47 @@
+<div id="debugmessage" style="background-color:white; color:black; position:fixed; top:0; left:0; font-size:12pt; font-weight:bold;"></div>
+<div class="payment_template" id="%%%layer_id%%%" %%%layer_style%%%>
+ <form method="post" action="/" name="%%%layer_form_name%%%" id="%%%layer_form_id%%%" class="no_padding">
+  <script type="text/javascript"> bases.push("%%%payment_type%%%"); </script>
+  <input type="hidden" name="has_payment_arrangements" value="%%%has_payment_arrangements%%%" />
+  <input type="hidden" name="application_id" id="application_id" value="%%%application_id%%%" />
+  <input type="hidden" name="company_id" id="company_id" value="%%%company_id%%%" />
+  <input type="hidden" name="action" value="save_payments" />
+  <input type="hidden" name="schedule_effect" value="shorten" />
+  <input type="hidden" name="dispersion" value="normal" />
+  <input type="hidden" name="payment_type" value="%%%payment_type%%%" />
+  <input type="hidden" id="next_business_day" name="next_business_day" value="%%%next_business_day%%%" />
+  <input type="hidden" id="%%%payment_type%%%_svc_charge_percentage" name="%%%payment_type%%%_svc_charge_percentage" value="%%%svc_charge_percentage%%%" />
+  <input type="hidden" id="%%%payment_type%%%_interest_accrual_limit" name="%%%payment_type%%%_interest_accrual_limit" value="%%%interest_accrual_limit%%%" />
+  <input type="hidden" id="%%%payment_type%%%_interest_period_days" name="%%%payment_type%%%_interest_period_days" value="%%%interest_period_days%%%" />
+  <input type="hidden" id="%%%payment_type%%%_svc_charge_type" name="%%%payment_type%%%_svc_charge_type" value="%%%svc_charge_type%%%" />
+  <input type="hidden" id="%%%payment_type%%%_interest_accrued" name="%%%payment_type%%%_interest_accrued" value="%%%interest_accrued%%%" />
+  <input type="hidden" id="%%%payment_type%%%_interest_accrued_to_date" name="%%%payment_type%%%_interest_accrued_to_date" value="%%%interest_accrued_to_date%%%" />
+  <input type="hidden" id="%%%payment_type%%%_posted_service_charge_total" name="%%%payment_type%%%_posted_service_charge_total" value="%%%posted_service_charge_total%%%" />
+  <input type="hidden" id="%%%payment_type%%%_interest_paid_to_date" name="%%%payment_type%%%_interest_paid_to_date" value="%%%interest_paid_to_date%%%" />
+  <input type="hidden" id="%%%payment_type%%%_principal_balance" name="%%%payment_type%%%_principal_balance" value="%%%posted_principal%%%" />
+  <input type="hidden" id="%%%payment_type%%%_interest_balance" name="%%%payment_type%%%_interest_balance" value="%%%posted_interest%%%" />
+  <input type="hidden" id="%%%payment_type%%%_interest_balance_with_pending" name="%%%payment_type%%%_interest_balance_with_pending" value="%%%posted_and_pending_interest%%%" />
+  <input type="hidden" id="%%%payment_type%%%_principal_balance_with_pending" name="%%%payment_type%%%_principal_balance_with_pending" value="%%%posted_and_pending_principal%%%" />
+  <input type="hidden" id="%%%payment_type%%%_service_charge_balance" name="%%%payment_type%%%_service_charge_balance" value="%%%posted_fees%%%" />
+  <input type="hidden" id="%%%payment_type%%%_service_charge_balance_with_pending" name="%%%payment_type%%%_service_charge_balance_with_pending" value="%%%posted_and_pending_fees%%%" />
+  <input type="hidden" id="%%%payment_type%%%_total_balance" name="%%%payment_type%%%_total_balance" value="0" />
+  <input type="hidden" id="%%%payment_type%%%_total_balance_with_pending" name="%%%payment_type%%%_total_balance_with_pending" value="%%%posted_total%%%" />
+  <input type="hidden" id="%%%payment_type%%%_total_balance_without_pending" name="%%%payment_type%%%_total_balance_without_pending" value="%%%posted_pending_total%%%" />
+  <input type="hidden" id="%%%payment_type%%%_principal_val" name="%%%payment_type%%%_principal_val" value="0.00" />
+  <input type="hidden" id="%%%payment_type%%%_service_val" name="%%%payment_type%%%_service_val" value="0.00" />
+  <input type="hidden" id="%%%payment_type%%%_fund_date" name="%%%payment_type%%%_fund_date" value="%%%fund_date_slashes%%%" />
+  <input type="hidden" id="%%%payment_type%%%_arrangement_min_payment" name="%%%payment_type%%%_arrangement_min_payment" value="%%%arrangement_min_payment%%%" />
+  <input type="hidden" id="%%%payment_type%%%_display_action_effective" name="%%%payment_type%%%_display_action_effective" value="%%%display_action_effective%%%" />
+   <input type="hidden" id="%%%payment_type%%%_check_type" name="%%%payment_type%%%_check_type" value="%%%check_type%%%" />
+  <table cellspacing="0" cellpadding="0" width="100%">
+   <tr class="height">
+    <th colspan="0" class="%%%status_class%%%" style="background: %%%status_background_color%%%;">&nbsp;<nobr>%%%layer_form_name%%% - App. ID: %%%application_id%%%</nobr></th>
+   </tr>
+   <tr>
+    <td>
+     %%%payment_table%%%
+    </td>
+   </tr>
+  </table>
+ </form>
+</div>

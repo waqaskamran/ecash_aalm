@@ -1,0 +1,173 @@
+<html>
+<body>
+<table border="1">
+	<tr>
+		<td colspan="4" align="right">
+		Transaction Period : %%%report_date%%%
+		</td>
+	</tr>
+	<tr>
+		<th>Category</th>
+		<th>Sub Category</th>
+		<th>Description</th>
+		<th>Total Amount</th>
+	</tr>
+	
+	<tr>
+		<td>A. New Loans Funded</td>
+		<td>&nbsp;</td>
+		<td>&nbsp;</td>
+		<td>$%%%fund_amount%%%</td>
+	</tr>
+	
+	<tr>
+		<td>&nbsp;</td>
+		<td>&nbsp;</td>
+		<td>&nbsp;</td>
+		<td>&nbsp;</td>
+	</tr>
+	
+	<tr>
+		<td>B. Funding Failed</td>
+		<td>&nbsp;</td>
+		<td>&nbsp;</td>
+		<td>$%%%funding_failed_amount%%%</td>
+	</tr>
+
+	<tr>
+		<td>&nbsp;</td>
+		<td>&nbsp;</td>
+		<td>&nbsp;</td>
+		<td>&nbsp;</td>
+	</tr>
+
+	<tr>
+		<td>C. Loan Payments</td>
+		<td>Active Loan Principal</td>
+		<td>&nbsp;</td>
+		<td>$%%%lender_principal%%%</td>
+	</tr>
+	
+	<tr>
+		<td>&nbsp;</td>
+		<td>Active Loan 10% APR</td>
+		<td>&nbsp;</td>
+		<td>$%%%lender_interest%%%</td>
+	</tr>
+		
+	<tr>
+		<td>&nbsp;</td>
+		<td>&nbsp;</td>
+		<td>Subtotal:</td>
+		<td>$%%%lender_principal_interest%%%</td>
+	</tr>
+	
+	<tr>
+		<td>&nbsp;</td>
+		<td>&nbsp;</td>
+		<td>&nbsp;</td>
+		<td>&nbsp;</td>
+	</tr>
+		
+	<tr>
+		<td>D. Rescinded Payments</td>
+		<td>Payments Returned</td>
+		<td>&nbsp;</td>
+		<td>$%%%payments_returned_amount%%%</td>
+	</tr>
+
+
+	<tr>
+		<td>&nbsp;</td>
+		<td>Refunds</td>
+		<td>&nbsp;</td>
+		<td>$%%%refunded_amount%%%</td>
+	</tr>
+
+	<tr>
+		<td>&nbsp;</td>
+		<td>&nbsp;</td>
+		<td>Subtotal:</td>
+		<td>$%%%rescinded_payments_subtotal%%%</td>
+	</tr>
+
+	<tr>
+		<td>&nbsp;</td>
+		<td>&nbsp;</td>
+		<td>&nbsp;</td>
+		<td>&nbsp;</td>
+	</tr>
+
+	<tr>
+		<td>E. Bankruptcy Principal</td>
+		<td>Bankruptcy Principal</td>
+		<td>&nbsp;</td>
+		<td>$%%%lender_principal_bankruptcy%%%</td>
+	</tr>
+	
+	<tr>
+		<td>&nbsp;</td>
+		<td>Bankruptcy 10% APR</td>
+		<td>&nbsp;</td>
+		<td>$%%%lender_interest_bankruptcy%%%</td>
+	</tr>
+	
+	<tr>
+		<td>&nbsp;</td>
+		<td>&nbsp;</td>
+		<td>Subtotal:</td>
+		<td>$%%%lender_principal_interest_bankruptcy%%%</td>
+	</tr>
+	
+	<tr>
+		<td>&nbsp;</td>
+		<td>&nbsp;</td>
+		<td>&nbsp;</td>
+		<td>&nbsp;</td>
+	</tr>
+	
+	<tr>
+		<td>F. Loans Past Due</td>
+		<td>Principal Balance Due</td>
+		<td>&nbsp;</td>
+		<td>$%%%past_due_principal%%%</td>
+	</tr>
+	
+	<tr>
+		<td>&nbsp;</td>
+		<td>Interest Due</td>
+		<td>&nbsp;</td>
+		<td>$%%%past_due_interest%%%</td>
+	</tr>
+
+	<tr>
+		<td>&nbsp;</td>
+		<td>Bank Fees Due</td>
+		<td>&nbsp;</td>
+		<td>$%%%past_due_fees%%%</td>
+	</tr>
+
+	<tr>
+		<td>&nbsp;</td>
+		<td>&nbsp;</td>
+		<td>Subtotal:</td>
+		<td>$%%%past_due_subtotal%%%</td>
+	</tr>
+	
+	<tr>
+		<td>&nbsp;</td>
+		<td>&nbsp;</td>
+		<td>&nbsp;</td>
+		<td>&nbsp;</td>
+	</tr>
+	
+	<tr>
+		<td><b>Net Amount Due to CSO</b></td>
+		<td colspan="2">Net of A - B - C (subtotal) + D (subtotal) - E (subtotal) - F (subtotal)</td>
+		<td>$%%%lender_total%%%</td>
+	</tr>
+	
+	
+</table>
+</body>
+</html>

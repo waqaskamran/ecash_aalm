@@ -1,0 +1,49 @@
+<html>
+<head>
+<title>%%%title%%%</title>
+<link rel="stylesheet" href="css/style.css">
+<script type="text/javascript" src="js/login.js"></script>
+</head>
+<body class="%%%current_bg%%%" onload="checkParentWindow();">
+<center>
+<form action="/" method="post" id="login_form" onSubmit="%%%login_submit_javascript%%%">
+<table cellpadding=0 cellspacing=0><tr><td class="border">
+<table cellpadding=0 cellspacing=0 class="login">
+%%%login_errors%%%
+<tr class="bg"><th colspan="2">ECash Login - %%%current_server%%% </th><tr>
+<tr class="bg"><td class="align_left">&nbsp;Username:&nbsp;</td>
+	<td class="align_left"><input type="text" name="login" id="login"></td></tr>
+<tr class="bg"><td class="align_left">&nbsp;Password:&nbsp;</td>
+	<td class="align_left"><input type="password" name="password" id="login"></td></tr>
+%%%additional_fields%%%
+<tr class="bg"><td class="align_left">&nbsp;Company:&nbsp;</td>
+	<td class="align_left"><select name="abbrev" id="login_company" onChange="%%%login_onchange_js%%%">
+	%%%companies%%%
+		</select>
+	</td></tr>
+<tr class="bg"><td colspan="2">
+<input type="submit" id="submit" value="login" class="button">
+</td></tr>
+</table>
+</td></tr><table>
+<input type="hidden" name="page" value="login" class="button">
+<script type="text/javascript">
+<!-- // this is done this way in order to force fire the onChange event -->
+	var defaultCompany = '%%%login_default_company%%%';
+	
+	for ( i = 0 ; i < document.getElementById('login_company').options.length ; i++ ) 
+	{
+		if (document.getElementById('login_company').options[i].value == defaultCompany) 
+		{
+			document.getElementById('login_company').options[i].selected = true;
+			document.getElementById('login_company').selectedIndex = i;
+			document.getElementById('login_company').onchange();
+			break;
+		}
+	}
+		
+</script>
+</form>
+</center>
+</body>
+</html> 

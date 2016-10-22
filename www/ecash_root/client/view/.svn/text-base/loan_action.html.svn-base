@@ -1,0 +1,75 @@
+<html>
+<head>
+<link rel="stylesheet" href="/css/style.css">
+<script>
+function Other_Reason_Swap()
+{
+	var status = document.getElementById("change_status_comment").disabled;
+	document.getElementById("change_status_comment").disabled = ((status) ? false : true);
+	document.getElementById("text").style.visibility = ((status) ? "visible" : "hidden");
+}
+
+function atLeastOne()
+{
+  var objForm = document.forms[0];
+  var el = document.getElementsByName('loan_actions[]');
+  for(i=0;i<el.length;i++)
+  {
+    if(el[i].checked)
+    {    	
+       return checkOther();
+    }
+  }
+  alert("Please check at least one reason.");
+  return false;
+}
+
+function checkOther()
+{
+	if((!document.getElementById("change_status_comment").disabled))
+	{
+		if(document.getElementById("change_status_comment").value == "")
+		{
+			alert("Please enter 'other' reason.");	
+			return false;
+		}
+	}
+	return true;
+}
+
+</script>
+</head>
+<body class="bg" onload="self.focus();">
+<form method="post" action="/" name="Deny Comment" class="no_padding" onSubmit="return atLeastOne()">
+<table>
+<tr>
+<th colspan="2" class="%%%mode%%%" style="border: 2px solid gray; text-align: center;">
+<b>%%%type%%%</b>
+</th>
+</tr>
+<tr>
+<td rowspan="2">
+<div style="width: 290px; height: 150px; overflow: auto;">
+%%%opts%%%
+</div>
+<div id="text" style="visibility: hidden;">
+Other: <input type="text" name="comment" id="change_status_comment" disabled></div>
+</td>
+%%%send_docs%%%
+</tr>
+<tr>
+<td valign=bottom>
+<input type="hidden" name="action" value="change_status">
+<input type="hidden" name="application_id" value="%%%application_id%%%">
+<input type="hidden" name="customer_email" value="%%%customer_email%%%">
+<input type="hidden" name="submit_button" value="%%%type%%%">
+<input type="submit" name="submit" value="Save" class="button" onSubmit="javascript:return CheckLoanActions();">
+<input type="button" name="cancel" value="Cancel" onClick="javascript:self.close();" class="button">
+</td>
+</tr>
+
+</table>
+
+</form>
+</body>
+</html>

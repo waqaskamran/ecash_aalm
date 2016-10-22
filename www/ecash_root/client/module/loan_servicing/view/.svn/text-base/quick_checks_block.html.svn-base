@@ -1,0 +1,7 @@
+<div id="AppSubMenuDivQuickChecks" class="menu_label_quick_checks">
+<a id="AppSubMenuLinkQuickChecks" href="#" onClick="Toggle_Menu('quick_checks');" class="menu">Quick Checks</a>
+</div>
+<div class="menu_layer" id="quick_checks">
+<a id="AppSubMenuLinkQuickChecksSubItemProcessing" href="/?mode=quick_checks&action=search_quick_checks" class="menu">Processing</a>
+<a id="AppSubMenuLinkQuickChecksSubItemReceiving" href="/?mode=quick_checks&action=receive_quick_checks" class="menu">Receiving</a>
+</div>

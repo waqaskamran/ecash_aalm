@@ -1,0 +1,101 @@
+K 25
+svn:wc:ra_dav:version-url
+V 107
+/svn/aalm_current/!svn/ver/1979/ecash/branches/sql_merge/rule_editor/shared/rule_editor/lib/ext/source/data
+END
+SimpleStore.js
+K 25
+svn:wc:ra_dav:version-url
+V 122
+/svn/aalm_current/!svn/ver/1979/ecash/branches/sql_merge/rule_editor/shared/rule_editor/lib/ext/source/data/SimpleStore.js
+END
+MemoryProxy.js
+K 25
+svn:wc:ra_dav:version-url
+V 122
+/svn/aalm_current/!svn/ver/1979/ecash/branches/sql_merge/rule_editor/shared/rule_editor/lib/ext/source/data/MemoryProxy.js
+END
+DataProxy.js
+K 25
+svn:wc:ra_dav:version-url
+V 120
+/svn/aalm_current/!svn/ver/1979/ecash/branches/sql_merge/rule_editor/shared/rule_editor/lib/ext/source/data/DataProxy.js
+END
+SortTypes.js
+K 25
+svn:wc:ra_dav:version-url
+V 120
+/svn/aalm_current/!svn/ver/1979/ecash/branches/sql_merge/rule_editor/shared/rule_editor/lib/ext/source/data/SortTypes.js
+END
+DataField.js
+K 25
+svn:wc:ra_dav:version-url
+V 120
+/svn/aalm_current/!svn/ver/1979/ecash/branches/sql_merge/rule_editor/shared/rule_editor/lib/ext/source/data/DataField.js
+END
+Record.js
+K 25
+svn:wc:ra_dav:version-url
+V 117
+/svn/aalm_current/!svn/ver/1979/ecash/branches/sql_merge/rule_editor/shared/rule_editor/lib/ext/source/data/Record.js
+END
+HttpProxy.js
+K 25
+svn:wc:ra_dav:version-url
+V 120
+/svn/aalm_current/!svn/ver/1979/ecash/branches/sql_merge/rule_editor/shared/rule_editor/lib/ext/source/data/HttpProxy.js
+END
+XmlReader.js
+K 25
+svn:wc:ra_dav:version-url
+V 120
+/svn/aalm_current/!svn/ver/1979/ecash/branches/sql_merge/rule_editor/shared/rule_editor/lib/ext/source/data/XmlReader.js
+END
+JsonStore.js
+K 25
+svn:wc:ra_dav:version-url
+V 120
+/svn/aalm_current/!svn/ver/1979/ecash/branches/sql_merge/rule_editor/shared/rule_editor/lib/ext/source/data/JsonStore.js
+END
+Store.js
+K 25
+svn:wc:ra_dav:version-url
+V 116
+/svn/aalm_current/!svn/ver/1979/ecash/branches/sql_merge/rule_editor/shared/rule_editor/lib/ext/source/data/Store.js
+END
+JsonReader.js
+K 25
+svn:wc:ra_dav:version-url
+V 121
+/svn/aalm_current/!svn/ver/1979/ecash/branches/sql_merge/rule_editor/shared/rule_editor/lib/ext/source/data/JsonReader.js
+END
+DataReader.js
+K 25
+svn:wc:ra_dav:version-url
+V 121
+/svn/aalm_current/!svn/ver/1979/ecash/branches/sql_merge/rule_editor/shared/rule_editor/lib/ext/source/data/DataReader.js
+END
+Tree.js
+K 25
+svn:wc:ra_dav:version-url
+V 115
+/svn/aalm_current/!svn/ver/1979/ecash/branches/sql_merge/rule_editor/shared/rule_editor/lib/ext/source/data/Tree.js
+END
+Connection.js
+K 25
+svn:wc:ra_dav:version-url
+V 121
+/svn/aalm_current/!svn/ver/1979/ecash/branches/sql_merge/rule_editor/shared/rule_editor/lib/ext/source/data/Connection.js
+END
+ArrayReader.js
+K 25
+svn:wc:ra_dav:version-url
+V 122
+/svn/aalm_current/!svn/ver/1979/ecash/branches/sql_merge/rule_editor/shared/rule_editor/lib/ext/source/data/ArrayReader.js
+END
+ScriptTagProxy.js
+K 25
+svn:wc:ra_dav:version-url
+V 125
+/svn/aalm_current/!svn/ver/1979/ecash/branches/sql_merge/rule_editor/shared/rule_editor/lib/ext/source/data/ScriptTagProxy.js
+END

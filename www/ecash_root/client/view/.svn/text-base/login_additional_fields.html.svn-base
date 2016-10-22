@@ -1,0 +1,50 @@
+<tr class="bg" id="login_phone_extension_row"><td class="align_left_bold">&nbsp;Phone Extension:&nbsp;</td>
+	<td class="align_left"><input type="text" name="phone_extension" id="login_phone_extension" value="%%%agent_phone_extension%%%"></td></tr>
+<script type="text/javascript">
+
+	var validCompanyList = new Array(%%%pbx_company_active_list%%%);
+
+	function checkPhoneAllowed(val) 
+	{
+		for ( i = 0 ; i < validCompanyList.length ; i++ ) 
+		{
+			if (validCompanyList[i] == val) return true;
+		}
+		
+		return false;
+		
+	}
+	
+	function togglePhoneExtRow(on)
+	{
+		var row = document.getElementById("login_phone_extension_row");
+		
+		if (!on) 
+		{
+			row.style.display = "none";
+			row.style.visibility = "hidden";
+		}
+		else 
+		{
+			row.style.display = "";
+			row.style.visibility = "visible";
+		}
+	
+	}
+	
+	function validatePhoneField()
+	{
+		var row = document.getElementById("login_phone_extension_row");
+		var field = document.getElementById("login_phone_extension");
+		
+		if ( row.style.display != 'none' && field.value != parseInt(field.value) ) 
+		{
+			alert("Please fill in your phone extension");
+			return false;
+		}
+		
+		return true;
+	}
+	
+</script>
+	

@@ -1,0 +1,35 @@
+K 25
+svn:wc:ra_dav:version-url
+V 88
+/svn/aalm_current/!svn/ver/1979/ecash/branches/sql_merge/ecash_cfe/tests/ECash/VendorAPI
+END
+AuthenticatorTest.php
+K 25
+svn:wc:ra_dav:version-url
+V 110
+/svn/aalm_current/!svn/ver/1979/ecash/branches/sql_merge/ecash_cfe/tests/ECash/VendorAPI/AuthenticatorTest.php
+END
+ApplicationFactoryTest.php
+K 25
+svn:wc:ra_dav:version-url
+V 115
+/svn/aalm_current/!svn/ver/1979/ecash/branches/sql_merge/ecash_cfe/tests/ECash/VendorAPI/ApplicationFactoryTest.php
+END
+DriverTest.php
+K 25
+svn:wc:ra_dav:version-url
+V 103
+/svn/aalm_current/!svn/ver/1979/ecash/branches/sql_merge/ecash_cfe/tests/ECash/VendorAPI/DriverTest.php
+END
+DocumentTest.php
+K 25
+svn:wc:ra_dav:version-url
+V 105
+/svn/aalm_current/!svn/ver/1979/ecash/branches/sql_merge/ecash_cfe/tests/ECash/VendorAPI/DocumentTest.php
+END
+ApplicationTest.php
+K 25
+svn:wc:ra_dav:version-url
+V 108
+/svn/aalm_current/!svn/ver/1979/ecash/branches/sql_merge/ecash_cfe/tests/ECash/VendorAPI/ApplicationTest.php
+END

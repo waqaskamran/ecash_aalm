@@ -1,0 +1,20 @@
+CREATE TABLE IF NOT EXISTS `comment` (
+  `date_modified` timestamp NOT NULL default CURRENT_TIMESTAMP,
+  `date_created` timestamp NOT NULL default '0000-00-00 00:00:00',
+  `company_id` int(10) unsigned NOT NULL default '0',
+  `application_id` int(10) unsigned NOT NULL default '0',
+  `comment_id` int(10) unsigned NOT NULL,
+  `source` enum('loan agent','call center agent','system','customer') NOT NULL default 'loan agent',
+  `type` enum('standard','withdraw','deny','followup','reverify','transaction','collection','notes','row','declined','ach_correction') NOT NULL,
+  `related_table` varchar(100) default NULL,
+  `related_key` int(10) unsigned default NULL,
+  `visibility` enum('public','private','hidden') NOT NULL default 'public',
+  `agent_id` int(10) unsigned NOT NULL default '0',
+  `comment` text NOT NULL,
+  PRIMARY KEY  (`comment_id`),
+  KEY `idx_comment_app_id` (`application_id`,`comment_id`),
+  KEY `idx_comment_app_date` (`application_id`,`date_created`),
+  KEY `idx_comment_related_tbl` (`application_id`,`related_table`,`related_key`,`date_created`),
+  KEY `idx_related_key` (`related_key`),
+  KEY `idx_comment_type_dt` (`type`,`date_created`,`application_id`)
+);

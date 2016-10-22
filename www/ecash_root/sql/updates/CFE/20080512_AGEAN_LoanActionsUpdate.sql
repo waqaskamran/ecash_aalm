@@ -1,0 +1,3 @@
+alter table `loan_actions` change column `type` set('PRESCRIPTION','FUND_DENIED','FUND_WITHDRAW','FUND_APPROVE','CS_WITHDRAW','CS_VERIFY','DEQUEUE','FRAUD','HIGH_RISK','CS_REVERIFY');
+INSERT INTO `loan_actions` VALUES ('','cs_reverify_qualified','Customer does not qualify for loan amount','ACTIVE','CS_REVERIFY'),('','cs_reverify_payday','Due date does not fall on a payday','ACTIVE','CS_REVERIFY');
+UPDATE `loan_actions` SET type=CONCAT(type, ',CS_REVERIFY') where name_short='specify_other';

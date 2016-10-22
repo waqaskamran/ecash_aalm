@@ -1,0 +1,96 @@
+<html>
+<head>
+<link rel="stylesheet" href="css/transactions.css">
+<link rel="stylesheet" href="css/style.css">
+<link rel="stylesheet" href="js/calendar/calendar-dp.css">
+<style>
+.right {
+	text-align:right;
+}
+.left {
+	text-align:left;
+}
+</style>
+<script type="text/javascript" src="js/transactions.js"></script>
+<script type="text/javascript" src="js/calendar/calendar.js"></script>
+<script type="text/javascript" src="js/calendar/lang/calendar-en.js"></script>
+<script type="text/javascript" src="js/layout.js"></script>
+<script type="text/javascript">
+var debt_company_array = {
+'debt_company_name' : /^[\s\S]+$/,
+'debt_company_address1' : /^[\s\S]+$/,
+'debt_company_city' : /^[\s\S]+$/,
+'debt_company_state':  /^\S+$/,
+'debt_company_zipcode':  /^[0-9]{5,5}-{0,1}([0-9]{4,4}){0,1}$/,
+'debt_company_phone' : /^[0-9]{3,3}[0-9]{3,3}-{0,1}[0-9]{4,4}$/,
+
+
+
+};
+
+</script>
+</head>
+<body>
+<form id="debt_company_form" name="Debt Company" method="post" action="/" class="no_padding">
+<input type="hidden" name="application_id" value="%%%application_id%%%" />
+<input type="hidden" name="action" id="action" value="debt_company">
+<input type="hidden" name="action_type" id="action_type" value="%%%action_type%%%">
+<input type="hidden" name="debt_company_id" id="debt_company_id" value="%%%debt_company_id%%%">
+
+<table width="100%" cellpadding="0" cellspacing="0" border="0" style="height: 283px;" align="center" class="%%%mode_class%%%">
+<tbody>
+<tr style="height: 35px;">
+<td colspan="2">
+<p>Please enter the Debt Consolidation Company information.</p>
+</td></tr>
+<tr><td colspan="2">
+<table width="100%" border="0" align="center" cellspacing="2">
+<tr>
+  <td class="right"><span id="debt_company_name_span" class="%%%debt_company_name_color%%%">Company Name:</span></td>
+  <td class="left"><input id="debt_company_name" name="debt_company_name" size="25" type="text" maxlength="100" value="%%%debt_company_name%%%"></td>
+</tr>
+<tr>
+  <td class="right"><span id="debt_company_address1_span" class="%%%debt_company_address1_color%%%">Address 1:</span></td>
+  <td class="left">
+<input id="debt_company_address1" name="debt_company_address1" size="25" type="text" maxlength="50" value="%%%debt_address_1%%%">
+  </td>
+</tr>
+<tr>
+  <td class="right">Address 2:</td>
+  <td class="left">
+<input id="debt_company_address2" name="debt_company_address2" size="25" type="text" maxlength="50" value="%%%debt_address_2%%%">
+  </td>
+</tr>
+<tr>
+  <td class="right"><span id="debt_company_city_span" class="%%%debt_company_city_color%%%">City:</span></td>
+  <td class="left">
+<input id="debt_company_city" name="debt_company_city" size="25" type="text" maxlength="30" value="%%%debt_city%%%">
+  </td>
+</tr>
+<tr>
+  <td class="right"><span id="debt_company_state_span" class="%%%debt_company_state_color%%%">State:</span></td>
+  <td class="left">
+   %%%debt_state_drop%%%
+
+<span id="debt_company_zipcode_span" class="%%%debt_company_zipcode_color%%%">Zip Code:</span> <input id="debt_company_zipcode" name="debt_company_zipcode" size="10" type="text" maxlength="9" value="%%%debt_zip_code%%%"> 
+
+  </td>
+</tr>
+<tr>
+  <td class="right"><span id="debt_company_phone_span" class="stdtext">Phone Number:</span></td>
+  <td class="left">
+<input id="debt_company_phone" name="debt_company_phone"  type="text"  value="%%%debt_contact_phone%%%" maxlength="10" class="input_text" onblur = "return strip_all_but(this,keybNumeric,((window.event)?window.event:event));" onkeypress="return editKeyBoard(this,keybNumeric,((window.event)?window.event:event));" >
+  </td>
+</tr>
+</table>
+</td>
+</tr>
+<tr>
+  <td><input type="button" value="Cancel" onClick="javascript:window.close();"></td>
+  <td><input type="button" value="%%%submit_type%%%" onClick="if(validate_fields(debt_company_array,'std_text','error_text')){AddDebtCompany();}else{return false;}"></td>
+</tr>
+</tbody>
+</table>
+</form>
+</body>
+</html>

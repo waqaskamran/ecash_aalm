@@ -1,0 +1,168 @@
+<script type="text/javascript">
+
+function Validate_Intercept_Card()
+{
+	var m = "A";
+	var n = "K";
+
+	var current_letter = "";
+	var current_cell = "";
+	var card_values_string = "";
+	
+	for (var i = m.charCodeAt(0); String.fromCharCode(i) != n; i++)
+	{
+		current_letter = String.fromCharCode(i);
+
+		for (var j = 1; j <= 5; j++)
+		{
+			//trim
+			current_cell = (document.getElementById("intercept_cell_" + current_letter + j).value).replace(/^\s+|\s+$/g, "");
+			document.getElementById("intercept_cell_" + current_letter + j).value = current_cell;
+			
+			if(current_cell.length != 1)
+			{
+				alert("Please enter one character per cell. Cell: " + current_letter  + j);
+				return false;
+				
+			}
+
+			if(!isAlphaNumeric(current_cell))
+			{
+				alert("All cells must be alphanumerical. Cell: " + current_letter + j);
+				return false;
+				
+			}
+			
+			card_values_string += current_cell;
+		}
+	}
+	
+	document.getElementById("intercept_card_values_string").value = card_values_string;
+
+	document.getElementById("intercept_card_form").submit();
+}
+
+function Reset_Intercept_Card()
+{
+	var m = "A";
+	var n = "K";
+
+	var current_letter = "";
+	
+	for (var i = m.charCodeAt(0); String.fromCharCode(i) != n; i++)
+	{
+		current_letter = String.fromCharCode(i);
+
+		for (var j = 1; j <= 5; j++)
+		{		
+			document.getElementById("intercept_cell_" + current_letter + j).value = "";
+		}
+	}
+}
+
+function isAlphaNumeric(val)
+{
+	if (val.match(/^[a-zA-Z0-9]+$/))
+	{
+		return true;
+	}
+	else
+	{
+		return false;
+	} 
+}
+
+</script>
+
+<style type="text/css">
+div#intercept_card {
+	margin-top: 100px;
+}
+
+div#intercept_card p {
+	height: 20px;
+	text-align: center;
+	color: red;
+}
+
+div#intercept_card table {
+	border-collapse: collapse;
+	margin-left: auto;
+	margin-right: auto;
+}
+
+div#intercept_card td, div#intercept_card th
+{
+	border: 1px solid black;
+	font-size: 12pt;
+}
+
+div#intercept_card tbody input {
+	border: 0px;
+	text-align:center;
+	font-size: 12pt;
+}
+.cell{
+	text-align: center;
+}
+</style>
+
+<form id="intercept_card_form" method="post" action="/" class="no_padding">
+<input type="hidden" name="mode" value="intercept_card" />
+<input type="hidden" name="action" value="update_intercept_card" />
+<input type="hidden" name="intercept_card_values_string" id="intercept_card_values_string" value="" />
+
+<div id="main_contents" class="admin_company_data">
+	<div class="main_head">Intercept Card</div>
+
+	<div id="intercept_card">
+		<p>%%%msg%%%</p>
+		<table>
+			<thead>
+				<tr>
+					<th>&nbsp;</th>
+					<th>A</th>
+					<th>B</th>
+					<th>C</th>
+					<th>D</th>
+					<th>E</th>
+					<th>F</th>
+					<th>G</th>
+					<th>H</th>
+					<th>I</th>
+					<th>J</th>
+					<th>&nbsp;</th>
+				</tr>
+			
+				%%%intercept_card_html%%%
+
+				<tr>
+					<th>&nbsp;</th>
+					<th>A</th>
+					<th>B</th>
+					<th>C</th>
+					<th>D</th>
+					<th>E</th>
+					<th>F</th>
+					<th>G</th>
+					<th>H</th>
+					<th>I</th>
+					<th>J</th>
+					<th>&nbsp;</th>
+				</tr>	
+				<tr></tr>
+				
+			</thead>
+			
+			<tbody>
+				<!-- -->
+			</tbody>	
+		</table>
+		<p></p>
+		<p>
+			<input type="button" value="Save" onClick="javascript:Validate_Intercept_Card();" />
+		   	<input type="button" value="Reset" onClick="javascript:Reset_Intercept_Card();" />
+		</p>
+	</div>
+</div>
+</form>

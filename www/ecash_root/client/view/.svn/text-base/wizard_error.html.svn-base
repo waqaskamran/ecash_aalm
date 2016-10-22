@@ -1,0 +1,18 @@
+<html>
+<head>
+<link rel="stylesheet" href="css/style.css">
+<title>Paydate Wizard</title>
+</head>
+<body class="bg" onload="self.focus();">
+<form method="post" action="/" class="no_padding">
+<table width="450">
+<tr>
+	<td valign="middle"><span class="error_text">All fields must be filled out in the wizard</span></td>
+</tr>
+<tr>
+	<td valign="middle"><a href="#" onClick="javascript:self.close();">Close</a></td>
+</tr>
+</table>
+</form>
+</body>
+</html>

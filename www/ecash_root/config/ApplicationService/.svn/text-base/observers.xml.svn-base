@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<observers>
+	<observer name="NonAuthException" class="DB_Models_ContainerNonAuthExceptionLogging_1" type="log">
+		<parameters>
+			<parameter name="log_location">appsvc</parameter>
+		</parameters>
+	</observer>
+	<observer name="ValidationFailure" class="DB_Models_ContainerValidationFailureLogging_1" type="log">
+		<parameters>
+			<parameter name="log_location">appsvc</parameter>
+		</parameters>
+	</observer>
+</observers>

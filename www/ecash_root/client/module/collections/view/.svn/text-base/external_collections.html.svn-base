@@ -1,0 +1,107 @@
+<script type="text/javascript">
+	var pending_second_tier_count = %%%second_tier_pending_count%%%;
+
+	function checkIfEnteredCountIsLogical()
+	{
+		entered = document.getElementById('num_second_tier_apps');
+
+		if (entered.value > pending_second_tier_count)
+		{
+			alert('You must enter in a count lower or equal than ' + pending_second_tier_count);
+			return false;
+		}
+		else if (entered.value <= 0)
+		{
+			alert('You must enter in a count greater than 0');
+			return false;
+		}
+		else if (isNaN(entered.value))
+		{
+			alert('Number of applications to process MUST be a number.');
+			return false;
+		}
+
+		return true;
+	}
+</script>
+<table cellpadding="0" cellspacing="0" width="100%" height="480" class="%%%mode_class%%%">
+	<tr>
+	    <td class="align_left" style="vertical-align: top">
+    		<div id="SecondTierContainer" style="width: 790px; height: 480px; overflow: auto; background: #EEF0F4;">
+				<form action="/" method="POST">
+				<input type='hidden' name='action' value='search_external_apps'>
+				<input type='hidden' name='mode' value='external'>
+				<table class="second_tier_util" align="left" cellspacing="5">
+					<thead>
+						<tr>
+							<th class="report_head" colspan="6">Search 2nd Tier Batches</td>
+						</tr>
+					</thead>
+					<tbody>
+						<tr>
+							<td>&nbsp;</td>
+							<td>%%%from_date%%%</td>
+							<td>%%%to_date%%%</td>
+							<td>&nbsp; </td>
+							<td>&nbsp;</td>
+						</tr>
+						<tr>
+							<td colspan='5'>&nbsp;</td>
+						</tr>
+						<tr>
+							<td colspan=5><input type='submit' name='search_second_tier_batches' value='Search 2nd Tier Batches'></form></td>
+						</tr>
+					</tbody>
+				</table>
+				<br clear="all">&nbsp;<br>
+				<form action="/" method="POST">
+				<input type='hidden' name='action' value='external_batch_process'>
+				<input type='hidden' name='mode' value='external'>
+				<table id="add_second_tier_table" class="second_tier_table" align="center" border="1" style="width: 95%; height: 20px; overflow: auto">
+					<thead>
+						<tr>
+							<th class="report_head" colspan="5">New 2nd Tier Batch</td>
+						</tr>
+						<tr>
+							<th class="report_head">Batch Company</td>
+							<th class="report_head">Number of Applications to Process</td>
+							<th class="report_head">Number of Applications Waiting</td>
+							<th class="report_head">Process</td>
+						</tr>
+					</thead>
+					<tbody>
+						<td>
+							<select name="batch_report">
+								%%%second_tier_batch_companies%%%
+							</select>
+						</td>
+						<td><input type="text" name="num_apps" id="num_second_tier_apps" value="%%%second_tier_pending_count%%%"></td>
+						<td>%%%second_tier_pending_count%%%</td>
+						<td><input type="submit" value="Process" onClick="javascript: return checkIfEnteredCountIsLogical()"></td>
+					</tbody>
+				</table>
+				</form>
+				<br>
+				<table id="second_tier_table" class="second_tier_table" align="center" border="1" style="width: 95%; height: 20px; overflow: auto">
+					<thead>
+						<tr>
+							<th class="report_head" colspan="7">2nd Tier Batches</td>
+						</tr>
+						<tr>
+							<th class="report_head">Batch ID</th>
+							<th class="report_head">Batch Date</th>
+							<th class="report_head">Batch Company</th>
+							<th class="report_head">Batch Type</th>
+							<th class="report_head">Number of Applications</th>
+							<th class="report_head">Status</th>
+							<th class="report_head">Batch Download</th>
+						</tr>
+					</thead>
+					<tbody>
+						%%%second_tier_batches%%%
+					</tbody>
+				</table>
+			</div>
+		</td>
+	</tr>
+</table>

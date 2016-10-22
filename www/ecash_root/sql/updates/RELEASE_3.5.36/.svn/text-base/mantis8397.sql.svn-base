@@ -1,0 +1,1 @@
+UPDATE holiday set name = 'Washingtons Birthday' where name LIKE "Washington%";

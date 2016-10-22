@@ -1,0 +1,10 @@
+<div id="manual_payment_buttons" style="display: none;">
+<table width="95%" border="0">
+<tr>
+<td><input type="button" name="submit_button" value="Clear" class="button2"
+           onClick="javascript:ClearPayments('manual_payment');" ></td>
+<td><input type="button" name="submit_button" value="Save" class="button2"
+           onClick="javascript:SavePayments('manual_payment', this);" style="position:relative;left:80px;"></td>
+</tr>
+</table>
+</div>

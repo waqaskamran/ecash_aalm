@@ -1,0 +1,172 @@
+<html>
+<head>
+<title>Compare React Customer</title>
+<link rel="stylesheet" href="css/style.css">
+<link rel="stylesheet" href="css/transactions.css">
+<script src="js/customer_centric_interface.js"></script>
+<script src="js/json.js"></script>
+<script>
+	var encoded_applications = '%%%encoded_applications%%%';
+	other_applications = encoded_applications.parseJSON();
+
+	var view_pointer = 0;
+</script>
+</head>
+<body>
+<h1>Compare React to existing Applications</h1>
+This application has been created without verifying that the customer is the same<br>
+as previous accounts using the same social security number.<br>
+<br>
+Compare the new application info on the left with the previous applications on<br>
+the right to determine if this customer is the same.<br>
+<br>
+<table>
+	<tr>
+	<!-- Left Side -->
+		<td>
+			<table>
+				<tr>
+					<th colspan="2">New Application</th>
+				</tr>
+				<tr>
+					<td style="text-align:left;">Application ID</td>
+					<td style="text-align:left;">%%%application_id%%%</td>
+				</tr>
+				<tr>
+					<td style="text-align:left;">Social Security Number</td>
+					<td style="text-align:left;">%%%formatted_ssn%%%</td>
+				</tr>
+				<tr>
+					<td style="text-align:left;">Customer Name</td>
+					<td style="text-align:left;">%%%customer_name%%%</td>
+				</tr>
+				<tr>
+					<td style="text-align:left;">Street Address</td>
+					<td style="text-align:left;">%%%street_address%%%</td>
+				</tr>
+				<tr>
+					<td style="text-align:left;">City</td>
+					<td style="text-align:left;">%%%city%%%</td>
+				</tr>
+				<tr>
+					<td style="text-align:left;">State</td>
+					<td style="text-align:left;">%%%state%%%</td>
+				</tr>
+				<tr>
+					<td style="text-align:left;">Zip Code</td>
+					<td style="text-align:left;">%%%zip_code%%%</td>
+				</tr>
+				<tr>
+					<td style="text-align:left;">Home Phone</td>
+					<td style="text-align:left;">%%%phone_home%%%</td>
+				</tr>
+				<tr>
+					<td style="text-align:left;">Cell Phone</td>
+					<td style="text-align:left;">%%%phone_cell%%%</td>
+				</tr>
+				<tr>
+					<td style="text-align:left;">Work Phone</td>
+					<td style="text-align:left;">%%%employer_phone%%%</td>
+				</tr>				
+				<tr>
+					<td style="text-align:left;">Employer</td>
+					<td style="text-align:left;">%%%employer_name%%%</td>
+				</tr>
+				<tr>
+					<td style="text-align:left;">Current Status</td>
+					<td style="text-align:left;">%%%current_status%%%</td>
+				</tr>
+				<tr>
+					<td colspan=2>&nbsp;</td>
+				</tr>
+			</table>
+		</td>
+		<td width="100">&nbsp;</td>
+		<td>
+			<table>
+				<tr>
+					<th colspan="2">Old Application(s)</th>
+				</tr>
+				<tr>
+					<td style="text-align:left;">Application ID</td>
+					<td style="text-align:left;" id="view_old_app_id"></td>
+				</tr>
+				<tr>
+					<td style="text-align:left;">Social Security Number</td>
+					<td style="text-align:left;" id="view_old_app_ssn"></td>
+				</tr>
+				<tr>
+					<td style="text-align:left;">Customer Name</td>
+					<td style="text-align:left;" id="view_old_app_name"></td>
+				</tr>
+					<td style="text-align:left;">Street Address</td>
+					<td style="text-align:left;" id="view_old_app_address"></td>
+				</tr>
+				<tr>
+					<td style="text-align:left;">City</td>
+					<td style="text-align:left;" id="view_old_app_city"></td>
+				</tr>
+				<tr>
+					<td style="text-align:left;">State</td>
+					<td style="text-align:left;" id="view_old_app_state"></td>
+				</tr>
+				<tr>
+					<td style="text-align:left;">Zip Code</td>
+					<td style="text-align:left;" id="view_old_app_zip_code"></td>
+				</tr>
+				<tr>
+					<td style="text-align:left;">Home Phone</td>
+					<td style="text-align:left;" id="view_old_app_phone_home"></td>
+				</tr>
+				<tr>
+					<td style="text-align:left;">Cell Phone</td>
+					<td style="text-align:left;" id="view_old_app_phone_cell"></td>
+				</tr>
+				<tr>
+					<td style="text-align:left;">Work Phone</td>
+					<td style="text-align:left;" id="view_old_app_employer_phone"></td>
+				</tr>				
+				<tr>
+					<td style="text-align:left;">Employer</td>
+					<td style="text-align:left;" id="view_old_app_employer"></td>
+				</tr>
+				<tr>
+					<td style="text-align:left;">Current Status</td>
+					<td style="text-align:left;" id="view_old_app_status"></td>
+				</tr>
+				<tr>
+					<td colspan=2>
+						<input type="button" value="Previous" onclick="javascript:viewPreviousApp();">
+						<input type="button" value="Next" onclick="javascript:viewNextApp();">
+					</td>
+				</tr>
+			</table>
+		</td>
+	</tr>
+</table>	
+<br>
+<form id="react_verify" method="post" action="/" class="no_padding">
+<input type="hidden" name="action" value="react_verification">
+<input type="hidden" name="application_id" value="%%%application_id%%%">
+<input type="hidden" name="customer_id" value="%%%customer_id%%%">
+<input type="hidden" name="old_ssn" value="%%%formatted_ssn%%%">
+<input type="hidden" name="new_ssn" value="">
+<input type="hidden" name="comment" value="">
+<table>
+	<tr>
+		<td colspan="6" align="left" style="text-align: left;">
+			<input type="radio" id="react_type" name="react_type" value="same" checked> Customer is the same<br>
+			<input type="radio" id="react_type" name="react_type" value="different"> Customer is different, change SSN<br> 
+		</td>
+  	</tr>
+  	<tr>
+		<td style="text-align:left;">
+			<input type="button" value="Submit" onclick="react_verify_submit()">
+		</td>
+  	</tr>
+</table>
+</form>
+
+<script>
+	viewApp(view_pointer);
+</script>

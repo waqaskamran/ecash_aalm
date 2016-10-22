@@ -1,0 +1,31 @@
+<div id="high_risk_queue_buttons" style="display: none;">
+	<div id="app_attributes">
+		%%%app_attribute_buttons%%%
+	</div>
+	
+	<div id="app_actions">
+		<div class="app_attribute_title">
+			App Actions
+		</div>
+		<div style="float: left;">
+			<div class="app_button">
+				<input id="AppActionFollowUp" type="button" %%%follow_up_disabled%%% name="submit_button" class="button2%%%follow_up_disabled%%%" value="Follow Up" onClick="javascript:OpenDialogSized('/?action=get_followup&type=high_risk_queue&application_id=%%%application_id%%%', '400', '300');"%%%follow_up_disabled%%%>
+			</div>
+			<div class="app_button">
+				<input id="AppActionReleaseUnderwrite" type="button" %%%release_underwriting_button_disabled%%% name="submit_button" class="button2%%%release_underwriting_button_disabled%%%" value="Release" onClick="javascript:OpenDialogTall('/?action=loan_action&mode=high_risk_queue&type=Release&loan_section=HIGH_RISK&application_id=%%%application_id%%%&customer_email=%%%customer_email%%%&mutually_exclusive=1');">
+			</div>
+			<div class="app_button">
+				<input id="AppActionDenyApp" type="button" %%%deny_button_disabled%%% name="submit_button" class="button3%%%deny_button_disabled%%%" value="Deny" onClick="javascript:OpenDialogTall('/?action=loan_action&mode=high_risk_queue&type=Deny&application_id=%%%application_id%%%&customer_email=%%%customer_email%%%');">
+			</div>
+		</div>
+		<div style="float: left;">
+			<div class="app_button">
+				<input id="AppActionWithdrawApp" type="button" %%%withdraw_disabled%%% name="submit_button" class="button3%%%withdraw_disabled%%%" value="Withdraw" onClick="javascript:OpenDialogTall('/?action=loan_action&mode=high_risk_queue&type=Withdraw&application_id=%%%application_id%%%&customer_email=%%%customer_email%%%');">
+			</div>
+		</div>
+	</div>
+</div>
+<div style="clear: both;">
+	<span style="text-align: left; float: left;">%%%back_button_link%%%</span>
+	<span style="text-align: center; float: right; width: 755px;">Controlling Agent: &nbsp; <b>%%%controlling_agent_name%%% </b></span>
+</div>

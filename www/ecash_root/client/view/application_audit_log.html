@@ -1,0 +1,31 @@
+<html>
+<head>
+<title>Application Audit Log</title>
+</head>
+<script type="text/javascript">
+	function setHeight()
+	{
+	
+		var docHeight=400;
+		var docWidth=300;
+	 	if (document.documentElement && document.documentElement.scrollHeight)
+		{
+			docWidth = document.scrollWidth+20;
+	
+		}
+		if (document.body)
+		{
+			docWidth = document.body.scrollWidth+20;
+	
+		}
+	
+	self.resizeTo((docWidth),(docHeight));
+	
+	}
+</script>
+<body onload="self.focus();setHeight();">
+
+%%%application_audit_log%%%
+
+</body>
+</html>

@@ -1,0 +1,7 @@
+<html>
+<body>
+<!-- #include file="js.php"-->
+<!-- #include virtual="/js.php"-->
+<!--#include virtual="http://widget.1.paydate.ds05.tss/js.php"-->
+</body>
+</html>

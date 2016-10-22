@@ -1,0 +1,51 @@
+<script type="text/javascript">
+
+function GetFlagDetails(flag)
+{
+	
+	document.getElementById('name_short').innerHTML = document.getElementById(flag+'_name_short').innerHTML;
+	document.getElementById('name').innerHTML = document.getElementById(flag+'_name').innerHTML;
+	document.getElementById('agent').innerHTML = document.getElementById(flag+'_agent').innerHTML;
+	document.getElementById('date').innerHTML = document.getElementById(flag+'_date').innerHTML;
+	document.getElementById('loan_action').innerHTML = document.getElementById(flag+'_loan_action').innerHTML;
+	document.getElementById('flag_id').value = document.getElementById(flag+'_id').innerHTML;
+	document.getElementById('application_flag_type').value = document.getElementById(flag+'_name_short').innerHTML;
+	
+	
+	SetDisplay(0,2,2,'view');
+}
+
+</script>
+
+<div id="layout0group0layer10view" %%%application_flag_view_layer%%%>
+	<table cellpadding=0 cellspacing=0 width="100%">
+		<tr>
+			<td class="border" align="left" valign="top">
+					<table cellpadding=0 cellspacing=0 width="100%" class="%%%mode_class%%%" border="0">
+						<tr class="height">
+							<th colspan="2" class="%%%mode_class%%%" style="padding-left: 4px;">Application Flags</th>
+							<th class="%%%mode_class%%%" style="text-align: right">
+							</th>
+						</tr>
+						<tr>
+							<td style="padding: 0px; margin: 0px;" colspan="3">
+								<div id="layout0group0layer10viewscroll" style="height: 220px;">
+						<table class='{$mode}' border='0' cellspacing='0' width='100%'>
+							<tr class='height'>
+								<th class='search' width='20%' style='padding-left: 4px;'>Flag</th>
+								<th class='search' width='5%'>&nbsp;</td>
+								<th class='search' width='20%'>Agent</th>
+								<th class='search' width='55%'>Date</div></th>
+							</tr>	
+							%%%current_app_flags%%%
+						</table>
+								</div>
+							</td>
+						</tr>
+						
+						</tr>
+					</table>
+			</td>
+		</tr>
+	</table>
+</div>

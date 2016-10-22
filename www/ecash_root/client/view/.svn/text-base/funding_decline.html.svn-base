@@ -1,0 +1,36 @@
+<html>
+<head>
+<link rel="stylesheet" href="css/style.css">
+<script>
+function atLeastOne()
+{
+  var objForm = document.forms[0];
+  var el = document.getElementsByName('loan_actions');
+  for(i=0;i<el.length;i++)
+  {
+    if(el[i].checked)
+    {    	
+       return checkOther();
+    }
+  }
+  alert("Please select a reason.");
+  return false;
+}
+
+</script>
+</head>
+<body class="bg" onload="self.focus();">
+	<center>
+		<form id="decline" method="post" action="/" class="no_padding" onSubmit="return atLeastOne();">
+			<input type="hidden" name="application_id" value="%%%application_id%%%">
+			<input type="hidden" name="action" value="decline">
+			<div id="checkdiv" style=" width: 400px; height: 400px; overflow: auto; border: 1px solid #C3C3C4;" >
+			%%%opts%%%
+			</div>
+		<br>
+		<input type="submit" name="submit" value="Decline" class="button" onSubmit="javascript:return CheckLoanActions();">
+		<input type="button" name="cancel" value="Cancel" onClick="javascript:self.close();" class="button">
+		</form>
+	</center>
+	</body>
+	</html>

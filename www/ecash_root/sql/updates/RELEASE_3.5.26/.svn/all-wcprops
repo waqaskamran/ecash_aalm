@@ -1,0 +1,29 @@
+K 25
+svn:wc:ra_dav:version-url
+V 93
+/svn/aalm_current/!svn/ver/1979/ecash/branches/sql_merge/ecash_cfe/sql/updates/RELEASE_3.5.26
+END
+200708211826-NADA_Indices.sql
+K 25
+svn:wc:ra_dav:version-url
+V 123
+/svn/aalm_current/!svn/ver/1979/ecash/branches/sql_merge/ecash_cfe/sql/updates/RELEASE_3.5.26/200708211826-NADA_Indices.sql
+END
+200708201235-mantis_10844.sql
+K 25
+svn:wc:ra_dav:version-url
+V 123
+/svn/aalm_current/!svn/ver/1979/ecash/branches/sql_merge/ecash_cfe/sql/updates/RELEASE_3.5.26/200708201235-mantis_10844.sql
+END
+20070821856_mantis-10840.sql
+K 25
+svn:wc:ra_dav:version-url
+V 122
+/svn/aalm_current/!svn/ver/1979/ecash/branches/sql_merge/ecash_cfe/sql/updates/RELEASE_3.5.26/20070821856_mantis-10840.sql
+END
+200708171435-MANTIS_10059.sql
+K 25
+svn:wc:ra_dav:version-url
+V 123
+/svn/aalm_current/!svn/ver/1979/ecash/branches/sql_merge/ecash_cfe/sql/updates/RELEASE_3.5.26/200708171435-MANTIS_10059.sql
+END

@@ -1,0 +1,172 @@
+<html>
+<head>
+<title>Chargeback Reversal</title>
+<link rel="stylesheet" href="css/transactions.css">
+<link rel="stylesheet" href="js/calendar/calendar-dp.css">
+<style>body { font-family:arial, sans-serif; }</style>
+<script type="text/javascript" src="js/transactions.js"></script>
+<script type="text/javascript" src="js/calendar/calendar.js"></script>
+<script type="text/javascript" src="js/calendar/lang/calendar-en.js"></script>
+<script>
+%%%popup_js_array%%%
+function CheckChargeback()
+{
+	var frm = chargeback_reversal_form;
+    if('' == frm.amount.value)
+    {
+        alert("Please enter an amount.");
+        return false;
+    }
+
+	if(parseFloat(frm.amount.value) != frm.amount.value)
+	{
+		alert("Please make sure the amount is formatted correctly.");
+		return false;
+	}
+	
+	if(frm.event_id.selectedIndex == -1)
+	{
+		alert("Please make sure Event Id is selected.");
+		return false;		
+	}
+	if(parseFloat(frm.amount.value) > 999)
+	{
+		alert("Amount can not be more than $1000.");
+		return false;		
+	}
+	if(parseFloat(frm.amount.value) < 1)
+	{
+		alert("Amount can not be less than $1.00.");
+		return false;	
+	}	
+	return true;	
+}
+
+function TotalChargebackRev()
+{
+	var frm = chargeback_reversal_form;
+	amt = 0;
+	if(frm.event_id.selectedIndex != -1)
+	{
+		for(i=0; i<frm.event_id.length; i++)
+		{
+			if(frm.event_id.options[i].selected)
+			{
+				amt = parseFloat(amt) + parseFloat(tr_array[frm.event_id.options[i].value]);
+			}
+		}
+	}
+	frm.amount.value = Math.abs(amt).toFixed(2);
+}
+
+function getRefToDivNest( divID, oDoc ) {
+	if( !oDoc ) { oDoc = document; }
+	if( document.layers ) {
+		if( oDoc.layers[divID] ) { return oDoc.layers[divID]; } else {
+			for( var x = 0, y; !y && x < oDoc.layers.length; x++ ) {
+				y = getRefToDivNest(divID,oDoc.layers[x].document); }
+			return y; } }
+	if( document.getElementById ) { return document.getElementById(divID); }
+	if( document.all ) { return document.all[divID]; }
+	return document[divID];
+}
+	
+function swdiv()
+{
+	var frm = chargeback_reversal_form;
+	var sumdata = document.getElementById('submit_summary');
+	var tmphtml = "<table width=100% border=0><tr>";
+	tmphtml = tmphtml + "<td><b>Amount</b></td>";
+	tmphtml = tmphtml + "<td><b>Type</b></td>";
+	tmphtml = tmphtml + "<td><b>Event ID</b></td>";
+	tmphtml = tmphtml +"</tr>";
+	for(i=0; i<frm.event_id.length; i++)
+	{
+		if(frm.event_id.options[i].selected)
+		{	
+			var amt = parseFloat(tr_array[frm.event_id.options[i].value]);
+			tmphtml = tmphtml + "<tr>";
+			tmphtml = tmphtml + "<td>$" + Math.abs(amt).toFixed(2); + "</td>";
+			tmphtml = tmphtml + "<td nowrap>Chargeback Reversal</td>";
+			tmphtml = tmphtml + "<td>"+ frm.event_id.options[i].value +"</td>";
+			tmphtml = tmphtml + "</tr>";
+		}
+	}
+	tmphtml = tmphtml +"</table>";
+	sumdata.innerHTML = tmphtml;
+	query_div = getRefToDivNest("firstpage");
+	query_div.style.visibility = 'hidden';		
+	query_div = getRefToDivNest("finalpage");
+	query_div.style.visibility = 'visible';	
+}
+</script>
+</head>
+<body><br><br>
+<form id="%%%action_type%%%_form" name="%%%action_name%%%"  method="post" action="/" class="no_padding" onsubmit="return false;">
+<input type="hidden" name="posted_fees" id="posted_fees" value="%%%posted_fees%%%">
+<input type="hidden" name="posted_principal" id="posted_principal" value="%%%posted_principal%%%">
+<input type="hidden" name="posted_total" id="posted_total" value="%%%posted_total%%%">
+<input type="hidden" name="action" id="action" value="%%%action_type%%%">
+<input type="hidden" name="schedule_effect" id="schedule_effect" value="shorten">
+<input type="hidden" name="adjustment_target" value="fees">
+<input type="hidden" name="action_type" id="action_type" value="save">
+<div id="firstpage" style="position:absolute;top:25;">
+<table width=100%>
+<tr>
+	<td align="center"> Action: <b>Chargeback Reversal</b></td>
+</tr>
+<tr>
+	<td align="left">Please select event id.</td>
+</tr>
+<tr>
+<td width=100%>
+	<table width=100% cellpadding="1" cellspacing="1">
+    <tr>
+        <td>Event ID:</td>
+        <td width=100%><select name="event_id" onChange="if(this.value != 0) this.form.amount.value = Math.abs(tr_array[this.value]).toFixed(2)"><option value=0>Event ID</option>%%%option_tr%%%</select></td>
+    </tr>
+    <tr>
+        <td nowrap>Amount to Chargeback:</td>
+        <td width=100%><input type=text name="amount" id="amount" size="10" readonly></td>
+    </tr>
+	<tr>
+		<td>Case Number:</td>
+		<td width=50%><input type=text name=case_number size="20"></td>
+	</tr>	
+	<tr>
+		<td>Description:</td>
+		<td width=50%><textarea name=description style="font-family: Arial, Verdana, Helvetica, Sans-Serif"></textarea></td>
+	</tr>
+	</table>
+</td>
+</tr>
+<tr>
+<td width=100%>
+<br>
+	<table width=100%>
+	<tr>
+		<td width=50% align=center><input type="button" name=Cancel value=Cancel onClick="window.close();"></td>
+		<td width=50% align=center><input type="button" name="Save Reversal" value="Save Reversal" onClick="if(CheckChargeback()) { swdiv(); }"></td>
+	</tr>
+</td>
+</tr>
+</table>
+</div>
+<div id="finalpage" style="position:absolute;top:25;visibility:hidden;">
+<table width=100%>
+<tr>
+	<td align="center"> Action: <b>Chargeback Reversal</b></td>
+</tr>
+</table>
+<div id=submit_summary></div>
+<br>
+<table width=100%>
+<tr>
+	<td width=50% align=center><input type="button" name=Cancel value=Cancel onClick="window.close();"></td>
+	<td width=50% align=center><input type="button" name="Confirm" value="Confirm" onClick="SaveSinglePayment('chargeback_reversal', this);"></td>
+</tr>
+</table>
+</div>
+</form>
+</body>
+</html>

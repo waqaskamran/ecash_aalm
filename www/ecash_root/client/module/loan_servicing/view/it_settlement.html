@@ -1,0 +1,52 @@
+<table cellpadding="0" cellspacing="0" width="100%" height="480" class="%%%mode_class%%%">
+	<tr>
+	    <td class="align_left" style="vertical-align: top">
+    		<div id="ITSettlementReportContainer" style="width: 790px; height: 480px; overflow: auto">
+				<form action="/" method="POST">
+				<table class="it_settlement_util" align="left" cellspacing="5">
+					<thead>
+						<tr>
+							<th class="report_head" colspan="6">Search IT Settlement Reports</td>
+						</tr>
+					</thead>
+					<tbody>
+						<tr>
+							<td>Current Only:<input type='checkbox' name='current_only' %%%current_only%%%></td>
+							<td>&nbsp;</td>
+							<td>%%%from_date%%%</td>
+							<td>%%%to_date%%%</td>
+							<td>&nbsp; </td>
+							<td>&nbsp;</td>
+						</tr>
+						<tr>
+							<td colspan='6'>&nbsp;</td>
+						</tr>
+						<tr>
+							<td colspan=6><input type='submit' name='search_it_settlement' value='Search IT Settlement Reports'></td>
+						</tr>
+					</tbody>
+				</table>
+				</form>
+				<br clear="all">&nbsp;<br>
+				<table id="it_settlement_table" class="it_settlement_table" align="center" border="1" style="width: 95%; height: 20px; overflow: auto">
+					<thead>
+						<tr>
+							<th class="report_head" colspan="6">IT Settlement Reports</td>
+						</tr>
+						<tr>
+							<th class="report_head">Report Date</td>
+							<th class="report_head">Reports</td>
+							<th class="report_head">Regenerate</td>
+							<th class="report_head">Resend</td>
+							<th class="report_head">Status</td>
+							<th class="report_head">Send Status</td>
+						</tr>
+					</thead>
+					<tbody>
+						%%%current_it_settlement_reports%%%
+					</tbody>
+				</table>
+			</div>
+		</td>
+	</tr>
+</table>

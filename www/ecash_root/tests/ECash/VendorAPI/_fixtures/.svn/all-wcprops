@@ -1,0 +1,35 @@
+K 25
+svn:wc:ra_dav:version-url
+V 98
+/svn/aalm_current/!svn/ver/1979/ecash/branches/sql_merge/ecash_cfe/tests/ECash/VendorAPI/_fixtures
+END
+ApplicationTest.xml
+K 25
+svn:wc:ra_dav:version-url
+V 118
+/svn/aalm_current/!svn/ver/1979/ecash/branches/sql_merge/ecash_cfe/tests/ECash/VendorAPI/_fixtures/ApplicationTest.xml
+END
+expect_app_data.dat
+K 25
+svn:wc:ra_dav:version-url
+V 118
+/svn/aalm_current/!svn/ver/1979/ecash/branches/sql_merge/ecash_cfe/tests/ECash/VendorAPI/_fixtures/expect_app_data.dat
+END
+AuthenticatorTest.xml
+K 25
+svn:wc:ra_dav:version-url
+V 120
+/svn/aalm_current/!svn/ver/1979/ecash/branches/sql_merge/ecash_cfe/tests/ECash/VendorAPI/_fixtures/AuthenticatorTest.xml
+END
+post_sent_expected_state_object.dat
+K 25
+svn:wc:ra_dav:version-url
+V 134
+/svn/aalm_current/!svn/ver/1979/ecash/branches/sql_merge/ecash_cfe/tests/ECash/VendorAPI/_fixtures/post_sent_expected_state_object.dat
+END
+post_sent_data.dat
+K 25
+svn:wc:ra_dav:version-url
+V 117
+/svn/aalm_current/!svn/ver/1979/ecash/branches/sql_merge/ecash_cfe/tests/ECash/VendorAPI/_fixtures/post_sent_data.dat
+END

@@ -1,0 +1,247 @@
+<html>
+	<head>
+		<link rel="stylesheet" href="css/style.css">
+		<script type="text/javascript" src="js/layout.js"></script>
+		<script type="text/javascript">
+			function Other_Reason_Swap()
+			{
+				var status = document.getElementById("change_status_comment").disabled;
+				document.getElementById("change_status_comment").disabled = ((status) ? false : true);
+				document.getElementById("text").style.visibility = ((status) ? "visible" : "hidden");
+			}
+
+			function atLeastOne()
+			{
+				if (document.getElementById('comments'))
+				{
+					if(!isNotWhiteSpace(document.getElementById('comments').value))
+					{
+						alert("The Comments field cannot be empty.");
+						return false;
+					}
+					else
+					{
+						document.getElementById('comments_field').value = document.getElementById('comments').value;
+					}
+				}
+
+				var objForm = document.forms[0];
+				var el = document.getElementsByName('loan_actions[]');
+
+				for (i = 0; i < el.length; i++)
+				{
+					if (el[i].checked)
+					{
+						return checkOther();
+					}
+				}
+
+				alert("Please check at least one reason.");
+				return false;
+			}
+
+			function checkOther()
+			{
+				if (!document.getElementById("change_status_comment").disabled)
+				{
+					if (document.getElementById("change_status_comment").value == '')
+					{
+						alert("Please enter 'other' description");
+						return false;
+					}
+				}
+
+				return true;
+			}
+
+			function Do_On_Change(id, other_id)
+			{
+				var txt_field_element = document.getElementById('other_' + id);
+
+				if (document.getElementById(id).value == other_id)
+				{
+					txt_field_element.style.visibility = 'visible';
+				}
+				else
+				{
+					txt_field_element.style.visibility = 'hidden';
+				}
+			}
+
+			function Verify_Loan_Actions(key_string)
+			{
+				var key_array = key_string.split(' ');
+
+				var i;
+				for (i in key_array)
+				{
+					var other_text_element = document.getElementById('other_' + key_array[i]);
+
+					if (other_text_element.style.visibility != 'visible')
+					{
+						other_text_element.value = '';
+					}
+					else if (!isNotWhiteSpace(other_text_element.value))
+					{
+						alert("Other (Specify) field cannot be empty.");
+						return false;
+					}
+				}
+			}
+		</script>
+	</head>
+	<body class="bg" onload="self.focus();">
+
+<form id='disposition_form' method="post" action="/" class="no_padding">
+<input type="hidden" name="action" value="save_dispositions" />
+<input type="hidden" name="application_id" value="%%%application_id%%%" />
+<input type="hidden" name="agent_id" value="%%%agent_id%%%" />
+<input type="hidden" name="curmode" value="%%%curmode%%%" />
+<input type="hidden" name="curmodule" value="%%%curmodule%%%" />
+<table style="border-collapse: collapse; width: 100%; border: 2px solid gray;">
+	<tr>
+		<th colspan="5" class="internal" style="border: 2px solid gray; text-align: center;">
+			<b>Outgoing Call Dispositions</b>
+		</th>
+
+	</tr>
+	<tr style="background-color: lightgray;">
+		<td style="text-align: left;">
+			<label for="CALL_WORK">Work Phone</label>
+		</td>
+		<td style="text-align: left;">
+			<select name="loan_action[CALL_WORK]" id="CALL_WORK" onChange="Do_On_Change('CALL_WORK', '357');" style="width: 100%;">
+				%%%work_dispositions_select_list%%%
+			</select>
+
+
+		</td>
+		<td class="align_left">
+			<input type="text" style="visibility: hidden;" name="other_CALL_WORK" id="other_CALL_WORK" size="20" />
+
+		</td>
+
+		<td class="align_left"><label for="CALL_WORK_flag"><b>Resolved:</b></label></td>
+		<td class="align_left"><input type=checkbox name="CALL_WORK_flag" id="CALL_WORK_flag" checked></td>
+	</tr>
+	<tr style="background-color: white;">
+		<td style="text-align: left;">
+			<label for="CALL_CELL">Cell Phone</label>
+		</td>
+		<td style="text-align: left;">
+			<select name="loan_action[CALL_CELL]" id="CALL_CELL" onChange="Do_On_Change('CALL_CELL', '357');" style="width: 100%;">
+				%%%cell_dispositions_select_list%%%
+			</select>
+
+
+		</td>
+		<td class="align_left">
+			<input type="text" style="visibility: hidden;" name="other_CALL_CELL" id="other_CALL_CELL" size="20" />
+		</td>
+
+		<td class="align_left"><label for="CALL_CELL_flag"><b>Resolved:</b></label></td>
+		<td class="align_left"><input type=checkbox name="CALL_CELL_flag" id="CALL_CELL_flag" checked></td>
+	</tr>
+	<tr style="background-color: lightgray;">
+		<td style="text-align: left;">
+			<label for="CALL_HOME">Home Phone</label>
+
+		</td>
+		<td style="text-align: left;">
+			<select name="loan_action[CALL_HOME]" id="CALL_HOME" onChange="Do_On_Change('CALL_HOME', '357');" style="width: 100%;">
+				%%%home_dispositions_select_list%%%
+			</select>
+
+
+		</td>
+		<td class="align_left">
+			<input type="text" style="visibility: hidden;" name="other_CALL_HOME" id="other_CALL_HOME" size="20" />
+
+		</td>
+
+		<td class="align_left"><label for="CALL_HOME_flag"><b>Resolved:</b></label></td>
+		<td class="align_left"><input type=checkbox name="CALL_HOME_flag" id="CALL_HOME_flag" checked></td>
+
+	</tr>
+	<tr style="background-color: white;">
+		<td style="text-align: left;">
+			<label for="CALL_REF_1">Personal Reference 1</label>
+		</td>
+		<td style="text-align: left;">
+			<select name="loan_action[CALL_REF_1]" id="CALL_REF_1" onChange="Do_On_Change('CALL_REF_1', '357');" style="width: 100%;">
+				%%%ref_1_dispositions_select_list%%%
+			</select>
+
+
+		</td>
+		<td class="align_left">
+			<input type="text" style="visibility: hidden;" name="other_CALL_REF_1" id="other_CALL_REF_1" size="20" />
+
+		</td>
+
+		<td class="align_left"><label for="CALL_REF_1_flag"><b>Resolved:</b></label></td>
+		<td class="align_left"><input type=checkbox name="CALL_REF_1_flag" id="CALL_REF_1_flag" checked></td>
+	</tr>
+	<tr style="background-color: lightgray;">
+		<td style="text-align: left;">
+			<label for="CALL_REF_2">Personal Reference 2</label>
+		</td>
+		<td style="text-align: left;">
+			<select name="loan_action[CALL_REF_2]" id="CALL_REF_2" onChange="Do_On_Change('CALL_REF_2', '357');" style="width: 100%;">
+				%%%ref_2_dispositions_select_list%%%
+			</select>
+
+
+		</td>
+		<td class="align_left">
+			<input type="text" style="visibility: hidden;" name="other_CALL_REF_2" id="other_CALL_REF_2" size="20" />
+
+		</td>
+
+		<td class="align_left"><label for="CALL_REF_2_flag"><b>Resolved:</b></label></td>
+		<td class="align_left"><input type=checkbox name="CALL_REF_2_flag" id="CALL_REF_2_flag" checked></td>
+	</tr>
+
+
+	<!-- #15480 -->
+	%%%canned_comments_html%%%
+<!--
+	<tr style="background-color: BAE0E8; border: 2px solid gray;">
+		<td style="text-align: left;">
+			<label for="comment_canned_list">Canned Comments</label>
+		</td>
+
+		<td style="text-align: left;">
+			<select multiple="multiple" size="5" style="width: 100%;" name="comment_canned_list_ddbox[]" id="comment_canned_list_ddbox"></select>
+		</td>
+		<td style="text-align: left;">
+		</td>
+	</tr>
+
+-->
+	<tr style="background-color: BAE0E8; border: 2px solid gray;">
+		<td style="text-align: left;">
+			<label for="comment_canned_list">Comments</label>
+
+		</td>
+		<td style="text-align: left;">
+			<textarea name="free_comment" id="free_comment" style="height: 100%; width:100%;"></textarea>
+		</td>
+		<td style="text-align: left;">
+		</td>
+
+		<td class="align_left"><label for="free_comment_flag"><b>Resolved:</b></label></td>
+		<td class="align_left"><input type=checkbox name="free_comment_flag" id="free_comment_flag"></td>
+	</tr>
+	<!-- ------------------------ -->
+
+</table>
+
+<div style="text-align: center;">
+	<input type="submit" name="submit" value="Save" class="button"  />
+	&nbsp;
+	<input type="button" name="cancel" value="Cancel" onClick="javascript:self.close();" class="button" />
+</div>
+	</body>
+</html>
+

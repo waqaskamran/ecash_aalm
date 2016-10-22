@@ -1,0 +1,96 @@
+<!-- Begin Contact Information Popup Layer -->
+
+<script type="text/javascript">
+function Display_Contact_Information(varApplicationContactId)
+{
+	varCategorySelected = selectArrayValue(
+		document.getElementById('contact_category').options,
+		varContactInformation[varApplicationContactId]['category']);
+	varFlagSelected = selectArrayValue(
+		document.getElementById('contact_flag').options,
+		varContactInformation[varApplicationContactId]['flag']);
+	document.getElementById('application_contact_id').value = varApplicationContactId;
+	document.getElementById('contact_category').selectedIndex = varCategorySelected;
+	document.getElementById('contact_flag').selectedIndex = varFlagSelected;
+	document.getElementById('contact_number').value = varContactInformation[varApplicationContactId]['number'];
+	document.getElementById('contact_notes').value = varContactInformation[varApplicationContactId]['notes'];
+	if(varContactInformation[varApplicationContactId]['primary'])
+	{
+		document.getElementById('contact_notes').disabled=true;
+	}
+	else 
+	{
+		document.getElementById('contact_notes').disabled=false;
+	}
+	return false;
+}
+
+function selectArrayValue(varArray, varValue)
+{
+	for (i in varArray)
+	{
+		if (varArray[i].value == varValue)
+		{
+			return i;
+		}
+	}
+}
+
+function validateContactPhone()
+{
+	var varContactPhone = document.getElementById('contact_number').value;
+	if (varContactPhone.replace(/\D/g, '').length != 10)
+	{
+		alert('The phone number is not valid. Please make sure it has exactly 10 digits and try again.');
+		return false;
+	}
+
+	return true;
+}
+</script>
+
+<div id="layout0group2layer1edit" %%%contact_information_popup_edit_layer%%%>
+	<form method="post" action="/" name="contact_information" class="no_padding">
+	<input type="hidden" name="action" value="save_contact_information" />
+	<input type="hidden" name="contact[application_id]" value="%%%application_id%%%" />
+	<input type="hidden" name="application_id" value="%%%application_id%%%" />
+	<input type="hidden" name="contact[application_contact_id]" id="application_contact_id" value="" />
+	<table cellpadding=0 cellspacing=0 width="100%">
+		<tr>
+			<td class="border" align="left" valign="top">
+				<table cellpadding=0 cellspacing=0 width="100%" class="%%%mode_class%%%" border="0">
+					<tr class="height">
+						<th colspan="2" class="%%%mode_class%%%" style="padding-left: 4px;">Edit Contact Information</th>
+					</tr>
+					<tr>
+						<td class="align_left_alt_bold" style="padding-left: 4px;">Category:</td>
+						<td class="align_left_alt" style="padding-right: 4px;">%%%contact_category_selection%%%</td>
+					</tr>
+					<tr>
+						<td class="align_left_alt_bold" style="padding-left: 4px;">Flag:</td>
+						<td class="align_left_alt" style="padding-right: 4px;">%%%contact_flag_selection%%%</td>
+					</tr>
+					<tr>
+						<td class="align_left_bold" style="padding-left: 4px;">Number:</td>
+						<td class="align_left" style="padding-right: 4px;"><input type="text" name="contact[number]"  maxlength="15" id="contact_number" value="" style="width: 100%;" /></td>
+					</tr>
+					<tr>
+						<td class="align_left_bold" style="padding-left: 4px;" colspan="2">Notes:</td>
+					</tr>
+					<tr>
+						<td class="align_left" colspan="2" style="height: 70px; padding-right: 4px;">
+							<textarea name="contact[notes]" id="contact_notes" style="height: 100%; width:100%;"></textarea>
+						</td>
+					</tr>
+					<tr>
+						<td class="align_left"> <input type="button" value="New" class="button" onClick="Display_Contact_Information(0);" /></td>
+						<td class="align_right"><input type="submit" value="Save Changes" class="button" onClick="return validateContactPhone();" /></td>
+					</tr>
+				</table>
+			</td>
+		</tr>
+	</table>
+	</form>
+</div>
+
+<!-- End Contact Information Popup Layer -->

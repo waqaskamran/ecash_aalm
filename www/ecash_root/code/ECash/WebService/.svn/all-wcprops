@@ -1,0 +1,47 @@
+K 25
+svn:wc:ra_dav:version-url
+V 88
+/svn/aalm_current/!svn/ver/4771/ecash/branches/sql_merge/ecash_cfe/code/ECash/WebService
+END
+DocumentClient.php
+K 25
+svn:wc:ra_dav:version-url
+V 107
+/svn/aalm_current/!svn/ver/4723/ecash/branches/sql_merge/ecash_cfe/code/ECash/WebService/DocumentClient.php
+END
+AppClient.php
+K 25
+svn:wc:ra_dav:version-url
+V 102
+/svn/aalm_current/!svn/ver/4771/ecash/branches/sql_merge/ecash_cfe/code/ECash/WebService/AppClient.php
+END
+InquiryClient.php
+K 25
+svn:wc:ra_dav:version-url
+V 106
+/svn/aalm_current/!svn/ver/4733/ecash/branches/sql_merge/ecash_cfe/code/ECash/WebService/InquiryClient.php
+END
+SOAPModelClient.php
+K 25
+svn:wc:ra_dav:version-url
+V 108
+/svn/aalm_current/!svn/ver/1979/ecash/branches/sql_merge/ecash_cfe/code/ECash/WebService/SOAPModelClient.php
+END
+QueryClient.php
+K 25
+svn:wc:ra_dav:version-url
+V 104
+/svn/aalm_current/!svn/ver/4726/ecash/branches/sql_merge/ecash_cfe/code/ECash/WebService/QueryClient.php
+END
+LoanActionClient.php
+K 25
+svn:wc:ra_dav:version-url
+V 109
+/svn/aalm_current/!svn/ver/4771/ecash/branches/sql_merge/ecash_cfe/code/ECash/WebService/LoanActionClient.php
+END
+Factory.php
+K 25
+svn:wc:ra_dav:version-url
+V 100
+/svn/aalm_current/!svn/ver/1979/ecash/branches/sql_merge/ecash_cfe/code/ECash/WebService/Factory.php
+END

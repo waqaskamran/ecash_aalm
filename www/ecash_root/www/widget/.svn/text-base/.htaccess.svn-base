@@ -1,0 +1,3 @@
+AddHandler server-parsed .shtml
+AddType    text/html     shtml
+Options +Includes

@@ -1,0 +1,1 @@
+update transaction_type set pending_period=2 where clearing_type='ach' and pending_period=3

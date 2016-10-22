@@ -1,0 +1,162 @@
+<script type="text/javascript">
+	var footers = %%%email_footers%%%;
+
+	function ValidateAdd()
+	{
+		if (document.getElementById('ef_add_email_address').value == '')
+		{
+			alert('Please specify a valid email address.');
+			return false;
+		}
+
+		return true;
+	}
+
+	function ValidateAdd()
+	{
+		if (document.getElementById('ef_add_email_address').value == '')
+		{
+			alert('Please specify a valid email address.');
+			return false;
+		}
+
+		return true;
+	}
+
+	function ValidateRemoval()
+	{
+		if (document.getElementById('ef_incoming_email_addresses').length < 2)
+		{
+			alert('There must be at least one Incoming Email Address.');
+			return false;
+		}
+
+		if (document.getElementById('ef_incoming_email_addresses').selectedIndex == -1)
+		{
+			alert('No email address has been selected.');
+			return false;
+		}
+
+		return true;
+	}
+
+	function BuildEmailList(items)
+	{
+		document.getElementById('ef_incoming_email_addresses').length = 0;
+
+		for (var n = 0; n < items.length; n++)
+		{
+			document.getElementById('ef_incoming_email_addresses')[n] = new Option(items[n], items[n], false);
+		}
+	}
+
+	function SetFooter()
+	{
+		var company = document.getElementById('footer_company').options[document.getElementById('footer_company').selectedIndex].value;
+		var queue = document.getElementById('footer_queue').options[document.getElementById('footer_queue').selectedIndex].value;
+
+		document.getElementById('ef_footer_id').value = '';
+		document.getElementById('ef_footer_text').value = '';
+		document.getElementById('ef_response_sender_label').value = '';
+
+		BuildEmailList(footers[company][queue]['incoming_emails']);
+
+		document.getElementById('ef_footer_id').value = footers[company][queue]['id'];
+		document.getElementById('ef_footer_text').value = footers[company][queue]['text'];
+		document.getElementById('ef_response_sender_label').value = footers[company][queue]['sender_label'];
+	}
+
+	function get_last_settings()
+	{
+		SetFooter();
+	}
+</script>
+
+<form name="email_footers" action='/' method="post" onsubmit="return save();">
+<input type="hidden" name="mode" value="docs_config" />
+<input type="hidden" name="action" value="update_email_footer" />
+<input id="ef_footer_id" type="hidden" name="footer_id" value="0" />
+
+<div id="main_contents" class="admin_document_manager">
+	<div class="main_head">Email Manager</div>
+	<div>
+		<div class="group_left">
+			<fieldset>
+				<legend>Queue</legend>
+				<div class="form_group_label">
+					<div>
+						<label for="footer_queue">Queue</label>
+						<select tabindex="2" id="footer_queue" name="footer_queue" onchange="javascript:SetFooter();">
+							<option value="servicing_email_queue" selected>Servicing</option>
+							<option value="collections_email_queue">Collections</option>
+						</select>
+					</div>
+				</div>
+			</fieldset>
+		</div>
+
+		<div class="group_right">
+			<fieldset>
+				<legend>Company</legend>
+				<div class="form_group_label">
+					<div>
+						<label for="footer_company">Company</label>
+						<select tabindex="2" id="footer_company" name="footer_company" onchange="javascript:SetFooter();">
+							%%%companies_list%%%
+						</select>
+					</div>
+				</div>
+			</fieldset>
+		</div>
+
+		<div class="group_left">
+			<fieldset>
+				<legend>Incoming Email Addresses</legend>
+				<div class="form_group_label">
+					<div>
+						<label for="ef_add_email_address">Add:</label>
+						<input type="text" id="ef_add_email_address" name="add_email_address" /><br />
+						<input name="commit" type="submit" value="Add" onclick="document.email_footers.action.value = 'add_incoming_email'; return ValidateAdd();" />
+					</div>
+
+					<div>
+						<label for="ef_incoming_email_addresses">Emails:</label>
+						<select id="ef_incoming_email_addresses" name="incoming_email_addresses" size="5" style="width: 100%;">
+						</select>
+						<input name="commit" type="submit" value="Remove Selected Email" onclick="document.email_footers.action.value = 'remove_incoming_email'; return ValidateRemoval();" />
+					</div>
+				</div>
+			</fieldset>
+		</div>
+
+		<div class="group_right">
+			<fieldset>
+				<legend>Sender Email Address</legend>
+				<div class="form_group_label">
+					<div>
+						<label for="ef_response_sender_label">Email:</label>
+						<input type="text" id="ef_response_sender_label" name="response_sender_label" size="26" />
+					</div>
+				</div>
+			</fieldset>
+		</div>
+
+		<div class="group_none">
+			<fieldset>
+				<legend>Footer Text</legend>
+				<div class="form_group_label">
+					<div>
+						<label for="ef_footer_text">Footer:</label>
+						<textarea tabindex="3" id="ef_footer_text" name="footer_text" rows="6"></textarea>
+					</div>
+				</div>
+			</fieldset>
+		</div>
+
+		<div class="form_buttons">
+			<input tabindex='3' name="commit" type="submit" value=" Save " />
+		</div>
+	</div>
+</div>
+
+</form>

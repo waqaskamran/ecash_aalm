@@ -1,0 +1,51 @@
+<html>
+<head>
+<link rel="stylesheet" href="css/transactions.css">
+<link rel="stylesheet" href="js/calendar/calendar-dp.css">
+<script type="text/javascript" src="js/transactions.js"></script>
+<script type="text/javascript" src="js/calendar/calendar.js"></script>
+<script type="text/javascript" src="js/calendar/lang/calendar-en.js"></script>
+<style>
+body { font-family:arial, sans-serif; }
+form.no_padding { padding: 0px; }
+td { text-align: center; }
+.left { text-align: left; }
+.right { text-align: right; }
+</style>
+</head>
+<body>
+<form id="import_account_form" name="Import Account" method="post" action="/" class="no_padding">
+<input type="hidden" name="action" id="action" value="import_account">
+<input type="hidden" name="action_type" id="action_type" value="save">
+<table width="100%" cellpadding="0" cellspacing="0" border="0" style="height: 283px;" align="center">
+<tbody>
+<tr style="height: 35px;">
+<td colspan="2">
+<p>Please select the status this account should be moved to.</p>
+</td></tr>
+<tr><td colspan="2">
+<table width="100%" border="0" align="center" cellspacing="2">
+<tr>
+  <td class="right">Target Status:</td>
+  <td class="left">
+    <select id="target_status" name="target_status">
+    <option value="active,servicing,customer,*root">Customer/Servicing/Active</option>
+    <option value="paid,customer,*root">Customer/Paid</option>
+    <option value="current,arrangements,collections,customer,*root">Collections/Arrangements</option>
+    <option value="queued,contact,collections,customer,*root">Collections/Contact</option>
+    <option value="queued,bankruptcy,collections,customer,*root">Collections/Bankruptcy</option>
+    <option value="quickcheck,collections,customer,*root">Collections/Quickcheck</option>
+    </select>
+</tr>
+</table>
+</td>
+</tr>
+<tr>
+  <td><input type="button" value="Cancel" onClick="javascript:window.close();"></td>
+  <td><input type="button" value="Import" onClick="javascript:SaveImportAccount();"></td>
+</tr>
+</tbody>
+</table>
+</form>
+</body>
+</html>

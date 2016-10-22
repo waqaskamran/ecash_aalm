@@ -1,0 +1,36 @@
+<div id="layout0group0layer7view" %%%loan_actions_view_layer%%%>
+	<table cellpadding=0 cellspacing=0 width="100%">
+		<tr>
+			<td class="border" align="left" valign="top">
+					<table cellpadding=0 cellspacing=0 width="100%" class="%%%mode_class%%%" border="0">
+						<tr class="height">
+							<th colspan="4" class="%%%mode_class%%%" >&nbsp;Loan Actions</th>
+							<th class="%%%mode_class%%%" style="text-align: right">
+							</th>
+						</tr>
+						<tr class="height">
+							<th class="search" width="50px"><div style="width:120px; overflow:hidden">&nbsp;Action</div></th>
+							<th class="search" style="width: 75px;">Agent</th>
+							<th class="search" style="width: 47px;">Status</th>
+							<th class="search" style="width: 57px;">Date/Time</th>
+							<th class="search">Resolved?</th>
+						</tr>
+						<tr>
+							<td colspan="5">
+								<div id="layout0group0layer7viewscroll" style="height: 176px;"> %%%loan_actions%%% </div>
+							</td>
+						</tr>
+						<tr class="height">
+							<th colspan="5" class="search" >&nbsp;Process:&nbsp; %%%olp_process%%%</th>
+							</th>
+						</tr>
+						<!--<tr class="height">
+							<th colspan="4" class="%%%mode_class%%%">%%%follow_up_message%%%</th>
+							</th>
+						</tr>
+						-->						
+					</table>
+			</td>
+		</tr>
+	</table>
+</div>

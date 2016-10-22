@@ -1,0 +1,199 @@
+<script type="text/javascript">
+
+function validate_references()
+{
+	var isvalid = true;
+	var id = 1;
+	var focusobj = null;
+	while (document.getElementById("personal_ref_id_" + id))
+	{
+		document.getElementById("name_span_" + id).className = 'std_text';
+		document.getElementById("phone_span_" + id).className = 'std_text';
+		document.getElementById("relationship_span_" + id).className = 'std_text';
+		
+		if (document.getElementById("ref_name_" + id).value.trim().length < 2)
+		{
+		
+			var name_err = false;
+			if (id < 3)
+			{
+				name_err = true;
+			
+			}
+			else
+			{
+				if (!document.getElementById("ref_relationship_" + id).value.trim() == '' || !document.getElementById("ref_phone_" + id).value.trim() == '')
+				{
+					name_err = true;
+					
+				}
+			}
+				
+		
+			if (name_err)
+			{
+				
+				document.getElementById("name_span_" + id).className = 'error_text';
+				isvalid=false;
+			
+				if (focusobj)
+				{
+					
+				}
+				else
+				{
+					focusobj = document.getElementById("ref_name_" + id);
+				}
+			}
+		}
+			
+		if ((document.getElementById("ref_phone_" + id).value.trim() == '') || (document.getElementById("ref_phone_" + id).value.trim().length < 14 && document.getElementById("ref_phone_" + id).value.trim().length != 0))
+		{
+			var phone_err=false;
+			if(id < 3 || document.getElementById("ref_phone_" + id).value.trim().length != 0)
+			{
+				phone_err = true;
+			
+			}
+			else
+			{
+				if(!document.getElementById("ref_name_" + id).value.trim() == '' || !document.getElementById("ref_relationship_" + id).value.trim() == '')
+				{
+					phone_err = true;
+					
+				}
+			}
+			if(phone_err)
+			{
+				document.getElementById("phone_span_" + id).className = 'error_text';
+				isvalid = false;
+			
+				if(focusobj)
+				{
+					
+				}
+				else
+				{
+					focusobj = document.getElementById("ref_phone_" + id);
+				}
+			}
+		}
+			
+		if(document.getElementById("ref_relationship_" + id).value.trim().length < 2)
+		{
+			var rel_err = false;
+			if(id < 3)
+			{
+				rel_err = true;
+			
+			}
+			else
+			{
+				if(!document.getElementById("ref_name_" + id).value.trim() == '' || !document.getElementById("ref_phone_" + id).value.trim() == '')
+				{
+					rel_err = true;
+					
+				}
+			}
+			
+			if(rel_err)
+			{
+				document.getElementById("relationship_span_" + id).className = 'error_text';
+				isvalid = false;
+				
+				if(focusobj)
+				{
+					
+				}
+				else
+				{
+					focusobj = document.getElementById("ref_relationship_" + id);
+				}
+			}
+			
+			
+		}
+			
+		id++;			
+		
+	}
+	
+	if(focusobj)
+	{
+		focusobj.focus();
+	}
+	return isvalid;
+	
+}
+
+function reset_references()
+{
+
+	var id = 1;
+	
+	while (document.getElementById("personal_ref_id_" + id))
+	{
+		document.getElementById("name_span_" + id).className = 'std_text';
+		document.getElementById("phone_span_" + id).className = 'std_text';
+		document.getElementById("relationship_span_" + id).className = 'std_text';
+		id++;
+	}
+	
+}
+
+
+</script>
+<div id="layout0group0layer6view" %%%personal_reference_view_layer%%%>
+<table cellpadding="0" cellspacing="0" width="100%">
+	<tr>
+		<td class="border" align="left" valign="top">
+		<div style="height: 240px; overflow:auto">
+			<table cellpadding="0" cellspacing="0" width="100%" class="%%%mode_class%%%">
+				<tr class="height">
+					<th colspan="3" class="%%%mode_class%%%">&nbsp;<nobr>Personal References</nobr></th>
+				</tr>
+				<tr class="height">
+					<td colspan="3" class="align_right_alt">
+						%%%edit_personal_references_link%%%
+					</td>
+				</tr>
+%%%personal_references_display_html%%%
+				<tr><td colspan="0">&nbsp;</td></tr>
+				<tr class="height">
+					<td colspan="3" class="align_right_alt">
+						%%%edit_personal_references_link%%%
+					</td>
+				</tr>
+			</table>
+		</div>
+		</td>
+	</tr>
+</table>
+</div>
+
+<div id="layout0group0layer6edit" %%%personal_reference_edit_layer%%%>
+<form method="post" action="/" name="Personal Reference" class="no_padding">
+<input type="hidden" id="EditAppPersonalReferenceAppId" name="application_id" value="%%%application_id%%%">
+<table cellpadding=0 cellspacing=0 width="100%">
+	<tr>
+		<td class="border" align="left" valign="top">
+			<div id="group0layer6editscroll" style="height: 240px; overflow:auto">
+			<table cellpadding=0 cellspacing=0 width="100%" class="%%%mode_class%%%">
+				<tr class="height">
+					<th colspan="3" class="%%%mode_class%%%">&nbsp;<nobr>Personal Reference</nobr></th>
+				</tr>
+%%%personal_references_edit_html%%%
+				<tr><td colspan="0">&nbsp;</td></tr>
+				<tr class="height">
+					<td colspan="0" class="align_right_alt">
+						<input type="hidden" id="EditAppPersonalReferenceAction" name="action" value="save_personal_references">
+						<nobr><input type="submit" id="EditAppPersonalReferenceSave" value="Save Changes" class="button" onclick="return validate_references();"> <input type="reset" id="EditAppPersonalReferenceCancel" value="Cancel" class="button" onClick="reset_references();SetDisplay(0,0,6,'view', '%%%mode_class%%%_buttons');"></nobr>
+					</td>
+				</tr>
+			</div>
+			</table>
+		</td>
+	</tr>
+</table>
+</form>
+</div>

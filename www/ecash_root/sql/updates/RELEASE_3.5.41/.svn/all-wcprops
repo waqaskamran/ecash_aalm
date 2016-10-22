@@ -1,0 +1,23 @@
+K 25
+svn:wc:ra_dav:version-url
+V 93
+/svn/aalm_current/!svn/ver/1979/ecash/branches/sql_merge/ecash_cfe/sql/updates/RELEASE_3.5.41
+END
+Mantis11024.sql
+K 25
+svn:wc:ra_dav:version-url
+V 109
+/svn/aalm_current/!svn/ver/1979/ecash/branches/sql_merge/ecash_cfe/sql/updates/RELEASE_3.5.41/Mantis11024.sql
+END
+Mantis9784.sql
+K 25
+svn:wc:ra_dav:version-url
+V 108
+/svn/aalm_current/!svn/ver/1979/ecash/branches/sql_merge/ecash_cfe/sql/updates/RELEASE_3.5.41/Mantis9784.sql
+END
+Underwriting_queue_name_update.sql
+K 25
+svn:wc:ra_dav:version-url
+V 128
+/svn/aalm_current/!svn/ver/1979/ecash/branches/sql_merge/ecash_cfe/sql/updates/RELEASE_3.5.41/Underwriting_queue_name_update.sql
+END

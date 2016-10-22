@@ -1,0 +1,48 @@
+<!-- Begin Contact Information Layer -->
+
+<script type="text/javascript">
+	function QuickDial()
+	{
+		varDialNumber = window.prompt('Please enter the number to dial:', '');
+		if (varDialNumber == '' || varDialNumber == null)
+		{
+			return false;
+		}
+
+		varSaneNumber = varDialNumber.replace(/\D/g, '');
+		if (varSaneNumber.length != 10)
+		{
+			alert('The number entered [' + varDialNumber + '] is not valid. It must contain 10 digits.');
+			return false;
+		}
+
+		window.open('/?action=pbx_dial&application_id=%%%application_id%%%&dial_number=' + varSaneNumber + '&add_contact=true&type=phone&category=Other+Phone&contact_global_search=true', 'PBX Dial', 'toolbar=no,location=no,directories=no,status=no,menubar=no,scrollbars=yes,resizable=no,copyhistory=no,width=300,height=100,left=150,top=150,screenX=150,screenY=150');
+		return false;
+	}
+</script>
+
+<div id="layout0group0layer8view" %%%contact_information_view_layer%%%>
+	<table cellpadding=0 cellspacing=0 width="100%">
+		<tr>
+			<td class="border" align="left" valign="top">
+					<table cellpadding=0 cellspacing=0 width="100%" class="%%%mode_class%%%" border="0">
+						<tr class="height">
+							<th colspan="2" class="%%%mode_class%%%" style="padding-left: 4px;">Contact Information</th>
+							<th class="%%%mode_class%%%" style="text-align: right">
+								%%%contact_quick_dial_button%%%
+							</th>
+						</tr>
+						<tr>
+							<td style="padding: 0px; margin: 0px;" colspan="3">
+								<div id="layout0group0layer8viewscroll" style="height: 220px;">
+									%%%contact_information%%%
+								</div>
+							</td>
+						</tr>
+					</table>
+			</td>
+		</tr>
+	</table>
+</div>
+
+<!-- End Contact Information Layer -->

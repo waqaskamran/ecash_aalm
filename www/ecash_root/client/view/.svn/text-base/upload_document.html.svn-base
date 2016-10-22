@@ -1,0 +1,63 @@
+<div id="layout0group1layer5edit" %%%upload_document_edit_layer%%%>
+	<form method="post" action="/" enctype="multipart/form-data" name="UploadDocument" class="no_padding" id="doc_upload">
+		<script>
+			var doc_upload_ot = new receiveDocumentList(document.getElementById('doc_upload'));
+			doc_upload_ot.setDocumentList('%%%js_all_docs%%%');
+			doc_upload_ot.setCopiaList('%%%js_copia_docs%%%');
+			doc_upload_ot.setCondorList('%%%js_condor_docs%%%');
+		</script>
+		<input type="hidden" name="action" value="upload_document" />
+		<table cellpadding=0 cellspacing=0 width="100%">
+			<tr>
+				<td class="border" align="left" valign="top">
+					<table cellpadding=0 cellspacing=0 width="100%" class="%%%mode_class%%%" border="0">
+						<tr class="height">
+							<th colspan="3" class="%%%status_class%%%" style="background: %%%status_background_color%%%;">
+								<span style="float:left;">
+									<nobr>Upload Document</nobr>
+								</span>
+							</th>
+							<th colspan="3" class="%%%status_class%%%" style="background: %%%status_background_color%%%; text-align: right;"><nobr><a href="#" onClick="javascript:window.open('/?module=%%%module_name%%%&action=get_application_history&application_id=%%%application_id%%%', 'application_history', 'toolbar=no,location=no,directories=no,status=no,menubar=no,scrollbars=yes,resizable=no,copyhistory=no,width=515,height=420,left=150,top=150,screenX=150,screenY=150');">App. ID %%%application_id%%% %%%status_long%%%</a>&nbsp;%%%react_ind%%%&nbsp;%%%watch_ind%%%&nbsp;%%%fraud_ind%%%&nbsp;</nobr></th>
+						</tr>
+						<tr class="height">
+							<th colspan="5" class="search">&nbsp;Name</th>
+							<th class="search" style="text-align: right;"><nobr>Receive</nobr></th>
+						</tr>
+						<tr>
+							<td colspan="6">
+								<div id="layout0group1layer5editscroll" style="height: 390px;">
+									%%%upload_document_list%%%
+								</div>
+								<div id="layout0group1layer5edit_condor" style="display: none;white-space:nowrap;">
+									<input type="checkbox" name="signature_status" value="signed">Signed &nbsp;&nbsp;&nbsp;Archive ID:
+								</div>
+								<div id="layout0group1layer5edit_copia" style="display: none;white-space:nowrap;">
+									DNIS: <input type="text" name="dnis" value="" size="4" class="input_text" />&nbsp;
+									TIFF: <input type="text" name="tiff" value="" size="10" class="input_text" />
+								</div>
+							</td>
+						</tr>
+
+						<tr class="height">
+							<td class="align_left_alt">File:&nbsp;</td>
+							<td class="align_left_alt" colspan="6">
+								<input type="file" name="upload_document" value="" style="width: 100%" class="input_file" />
+							</td>
+						</tr>
+						<tr class="height">
+							<td colspan="7" class="align_right">
+								<input type="hidden" name="action" value="upload_document" />
+								<input type="hidden" name="application_id" value="%%%application_id%%%" />
+								<input id="upload_document" type="submit" name="submit" value="Upload Document" class="button" style="width: 160px;" onClick="javascript:return doc_update_ot.validateSelected(this);" ;" />
+							</td>
+						</tr>
+						<tr class="height">
+							<td colspan="6" class="align_left_alt">%%%tiff_message%%%</td>
+							<td class="align_right_alt"></td>
+						</tr>
+					</table>
+				</td>
+			</tr>
+		</table>
+	</form>
+</div>

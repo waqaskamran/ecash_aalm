@@ -1,0 +1,58 @@
+
+<!-- Begin applcation -->
+<div class="%%%mode_class%%%" id="application">
+	<div id="submenu_bar" class="%%%mode_class%%%">
+		%%%personal_link%%%
+		%%%id_and_credit_link%%%
+		%%%application_link%%%
+		%%%employment_n_origin_link%%%
+		%%%conversion_info_button%%%
+		%%%documents_link%%%
+		%%%transaction_link%%%
+		%%%loan_actions_link%%%
+	</div>
+	<div class="clearer"></div>
+	%%%app_info_bar%%%
+	
+	<div id="layouts">
+		%%%layouts%%%
+	</div>
+	    
+	<div id="footer">
+		<!-- For fees that currently only applies to Title Loans -->
+		<form method="post" action="/" id="Fees_form" name="Fees">
+			<input type="hidden" name="action" value="add_fee">
+			<input type="hidden" name="application_id" value="%%%application_id%%%">
+			<input type="hidden" name="type" value="">
+		</form>
+		<!-- Used for status affecting buttons, investor groups, etc. -->
+		<form id="change_status" method="post" action="/" class="no_padding">
+			<input type="hidden" name="application_id" value="%%%application_id%%%">
+			<input type="hidden" name="action" id="change_status_action" value="change_status_sans_popup">
+			<input type="hidden" name="submit_button" id="application_submit_button" value="">
+			<input type="hidden" name="investor_group" id="investor_group" value="">
+			<input id="change_status_comment" type="hidden" name="comment" value="">
+			
+		<!-- Put this tag here because it was breaking the Skip Trace functionality [jeffd][#14486] -->
+		</form>
+		<form id="rollover_form" name="rollover_form" method="post" action="/" >
+			<input type="hidden" name="action" value="execute_rollover">
+			<input type="hidden" name="application_id" value="%%%application_id%%%">
+		</form>
+			%%%mode_buttons%%%
+	</div>
+	<div style="clear: both;"></div>
+
+</div>
+
+<!-- mantis:4646
+<form id="change_contact" method="post" action="/" class="no_padding">
+	<input type="hidden" name="application_id" value="%%%application_id%%%">
+	<input type="hidden" name="panel" id="change_contact_panel" value="">
+	<input type="hidden" name="action" value="change_contact">
+	<input type="hidden" name="contact_setting" id="new_contact_status" value="">
+	<input id="change_field" type="hidden" name="change_contact_field" value="">
+</form>
+-->
+
+<!-- End application -->

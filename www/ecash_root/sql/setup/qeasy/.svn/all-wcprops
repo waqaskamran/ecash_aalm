@@ -1,0 +1,125 @@
+K 25
+svn:wc:ra_dav:version-url
+V 82
+/svn/aalm_current/!svn/ver/1979/ecash/branches/sql_merge/ecash_cfe/sql/setup/qeasy
+END
+cfe_rule_action.sql
+K 25
+svn:wc:ra_dav:version-url
+V 102
+/svn/aalm_current/!svn/ver/1979/ecash/branches/sql_merge/ecash_cfe/sql/setup/qeasy/cfe_rule_action.sql
+END
+rule_set.sql
+K 25
+svn:wc:ra_dav:version-url
+V 95
+/svn/aalm_current/!svn/ver/1979/ecash/branches/sql_merge/ecash_cfe/sql/setup/qeasy/rule_set.sql
+END
+cfe_rule.sql
+K 25
+svn:wc:ra_dav:version-url
+V 95
+/svn/aalm_current/!svn/ver/1979/ecash/branches/sql_merge/ecash_cfe/sql/setup/qeasy/cfe_rule.sql
+END
+ach_return_code.sql
+K 25
+svn:wc:ra_dav:version-url
+V 102
+/svn/aalm_current/!svn/ver/1979/ecash/branches/sql_merge/ecash_cfe/sql/setup/qeasy/ach_return_code.sql
+END
+transaction_type.sql
+K 25
+svn:wc:ra_dav:version-url
+V 103
+/svn/aalm_current/!svn/ver/1979/ecash/branches/sql_merge/ecash_cfe/sql/setup/qeasy/transaction_type.sql
+END
+cfe_rule_set.php
+K 25
+svn:wc:ra_dav:version-url
+V 99
+/svn/aalm_current/!svn/ver/1979/ecash/branches/sql_merge/ecash_cfe/sql/setup/qeasy/cfe_rule_set.php
+END
+rule_component.sql
+K 25
+svn:wc:ra_dav:version-url
+V 101
+/svn/aalm_current/!svn/ver/1979/ecash/branches/sql_merge/ecash_cfe/sql/setup/qeasy/rule_component.sql
+END
+post-conv
+K 25
+svn:wc:ra_dav:version-url
+V 92
+/svn/aalm_current/!svn/ver/1979/ecash/branches/sql_merge/ecash_cfe/sql/setup/qeasy/post-conv
+END
+loan_type.sql
+K 25
+svn:wc:ra_dav:version-url
+V 96
+/svn/aalm_current/!svn/ver/1979/ecash/branches/sql_merge/ecash_cfe/sql/setup/qeasy/loan_type.sql
+END
+cfe_rule_condition.sql
+K 25
+svn:wc:ra_dav:version-url
+V 105
+/svn/aalm_current/!svn/ver/1979/ecash/branches/sql_merge/ecash_cfe/sql/setup/qeasy/cfe_rule_condition.sql
+END
+cfe_action.sql
+K 25
+svn:wc:ra_dav:version-url
+V 97
+/svn/aalm_current/!svn/ver/1979/ecash/branches/sql_merge/ecash_cfe/sql/setup/qeasy/cfe_action.sql
+END
+company.php
+K 25
+svn:wc:ra_dav:version-url
+V 94
+/svn/aalm_current/!svn/ver/1979/ecash/branches/sql_merge/ecash_cfe/sql/setup/qeasy/company.php
+END
+cfe_event.sql
+K 25
+svn:wc:ra_dav:version-url
+V 96
+/svn/aalm_current/!svn/ver/1979/ecash/branches/sql_merge/ecash_cfe/sql/setup/qeasy/cfe_event.sql
+END
+cfe_rule_set.sql
+K 25
+svn:wc:ra_dav:version-url
+V 99
+/svn/aalm_current/!svn/ver/1979/ecash/branches/sql_merge/ecash_cfe/sql/setup/qeasy/cfe_rule_set.sql
+END
+cfe_variable.sql
+K 25
+svn:wc:ra_dav:version-url
+V 99
+/svn/aalm_current/!svn/ver/1979/ecash/branches/sql_merge/ecash_cfe/sql/setup/qeasy/cfe_variable.sql
+END
+rule_set_component.sql
+K 25
+svn:wc:ra_dav:version-url
+V 105
+/svn/aalm_current/!svn/ver/1979/ecash/branches/sql_merge/ecash_cfe/sql/setup/qeasy/rule_set_component.sql
+END
+access_group.php
+K 25
+svn:wc:ra_dav:version-url
+V 99
+/svn/aalm_current/!svn/ver/1979/ecash/branches/sql_merge/ecash_cfe/sql/setup/qeasy/access_group.php
+END
+rule_component_parm.sql
+K 25
+svn:wc:ra_dav:version-url
+V 106
+/svn/aalm_current/!svn/ver/1979/ecash/branches/sql_merge/ecash_cfe/sql/setup/qeasy/rule_component_parm.sql
+END
+loan_actions.sql
+K 25
+svn:wc:ra_dav:version-url
+V 99
+/svn/aalm_current/!svn/ver/1979/ecash/branches/sql_merge/ecash_cfe/sql/setup/qeasy/loan_actions.sql
+END
+rule_set_component_parm_value.sql
+K 25
+svn:wc:ra_dav:version-url
+V 116
+/svn/aalm_current/!svn/ver/1979/ecash/branches/sql_merge/ecash_cfe/sql/setup/qeasy/rule_set_component_parm_value.sql
+END

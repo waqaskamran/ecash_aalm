@@ -1,0 +1,6 @@
+<a id="AppSubMenuLinkAccountMgmt" href="/?module=loan_servicing&mode=account_mgmt&action=show_search" class="menu">
+	<div class="menu_label_account_mgmt level2nav" id="AppSubMenuDivAccountMgmt">
+		Account Mgmt
+	</div>
+</a>
+

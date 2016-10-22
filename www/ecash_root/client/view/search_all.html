@@ -1,0 +1,66 @@
+<!-- Begin search -->
+<table cellpadding=0 cellspacing=0 width="100%" height="500" class="%%%mode_class%%%">
+	<tr>
+		<td class="align_left" colspan="2">
+			<form method="post" action="/">
+			<table cellpadding=0 cellspacing=1 width="100%" class="%%%mode_class%%%" border=0>
+				<tr>
+					<td class="align_left"><span class="title">Criteria Type:</span></td><td></td><td class="align_left"><span class="title">Search Criteria:</span></td>
+					<td width="20">&nbsp;</td>
+					<td class="align_left" width="55%"></td>
+					<td class="align_left" valign="top" rowspan=5 colspan=2 width="18%">%%%view_history%%%</td>
+				</tr>
+				<tr>
+					<td>%%%criteria_type_1_drop%%%</td>
+					<td>%%%search_deliminator_1_drop%%%</td>
+					<td class="align_left"><input id="AppSearchAllCriteria1" type="text" name="search_criteria_1" value="%%%search_criteria_1%%%"></td>
+					<td></td>
+					<td class="align_left" valign="top"></td>
+				</tr>
+				<tr>
+					<td>%%%criteria_type_2_drop%%%</td>
+					<td>%%%search_deliminator_2_drop%%%</td>
+					<td class="align_left"><input id="AppSearchAllCriteria2" type="text" name="search_criteria_2" value="%%%search_criteria_2%%%"></td>
+					<td></td>
+					<td class="align_left" width="55%"></td>
+				</tr>
+				<tr>
+					<td colspan=2><input type="checkbox" name="search_option" id="AppSearchAllOption" %%%search_option_checked%%% >Balance only accounts</td>
+					<td><nobr><input id="AppSearchAllSearch" type="submit" name="search" value="Search" onClick="return verifySearchCriteriaFormat()"><input id="AppSearchAllClearSearch" type="button" onClick="Clear_Search()" value="Clear Search"></nobr>
+						<input id="AppSearchAllAction" type="hidden" name="action" value="search">
+						<input id="AppSearchAllModule" type="hidden" name="module" value="%%%module%%%">
+						<input id="AppSearchAllMode" type="hidden" name="mode" value="%%%mode%%%">
+					</td>
+					<td></td>
+					<td valign="top" width="25%">%%%search_message%%%</td>
+				</tr>
+			</table>
+			</form>
+		</td>
+	</tr>
+	<tr height="100%">
+		<td>
+			<table class="search_table" align="left">
+			<tr>
+				<th class="company_id"><a id="AppSearchResortCompany" href='/?mode=%%%mode_class%%%&action=show_search&sort=display_short'>Co.</a></th>
+				<th class="app_id"><a id="AppSearchResortAppId" href='/?mode=%%%mode_class%%%&action=show_search&sort=application_id'>ID</a></th>
+				<th class="first_name"><a id="AppSearchResortFirstName" href='/?mode=%%%mode_class%%%&action=show_search&sort=name_first'>First Name</a></th>
+				<th class="last_name"><a id="AppSearchResortLastName" href='/?mode=%%%mode_class%%%&action=show_search&sort=name_last'>Last Name</a></th>
+				<th class="ssn"><a id="AppSearchResortSSN" href='/?mode=%%%mode_class%%%&action=show_search&sort=social'>SSN</a></th>
+				<th class="street"><a id="AppSearchResortStreet" href='/?mode=%%%mode_class%%%&action=show_search&sort=street'>Street</a></th>
+				<th class="city"><a id="AppSearchResortCity" href='/?mode=%%%mode_class%%%&action=show_search&sort=city'>City</a></th>
+				<th class="state"><a id="AppSearchResortState" href='/?mode=%%%mode_class%%%&action=show_search&sort=state'>St.</a></th>
+				<th class="status"><a id="AppSearchResortStatus" href='/?mode=%%%mode_class%%%&action=show_search&sort=status'>Status</a></th>
+				<th class="amount"><a id="AppSearchResortBalance" href='/?mode=%%%mode_class%%%&action=show_search&sort=amount'>Balance</a></th>
+			</tr>
+			<tr>
+				<td colspan="10">
+				<div id="search_results" class="%%%mode_class%%%">
+				%%%search_results%%%
+				</div>
+				</td>
+			</tr>
+		</td>
+	</tr>
+</table>
+<!-- End search -->

@@ -1,0 +1,2 @@
+insert into company_property (company_id, property, value) VALUES ('2', 'DOCUMENT_TEST_FAX', '8003655561');
+insert into company_property (company_id, property, value) VALUES ('3', 'DOCUMENT_TEST_FAX', '8003655561');

@@ -1,0 +1,83 @@
+<html>
+<head>
+<link rel="stylesheet" href="css/style.css">
+<script type="text/javascript" src="js/layout.js"></script>
+<title>Do Not Loan</title>
+
+<script type="text/javascript">
+
+function Remove_DNL()
+{	
+	document.getElementById('do_not_loan_action').value = "remove_do_not_loan";
+	document.getElementById('do_not_loan_form').submit();
+}
+
+function Override_DNL()
+{	
+	document.getElementById('do_not_loan_action').value = "override_do_not_loan";
+	document.getElementById('do_not_loan_form').submit();
+}
+
+function Remove_Override_DNL()
+{	
+	document.getElementById('do_not_loan_action').value = "remove_override_do_not_loan";
+	document.getElementById('do_not_loan_form').submit();
+}
+
+function Display_Other_Reason()
+{
+	if(document.getElementById("dnl_category_drop_box").value == 'other')
+		document.getElementById("do_not_loan_other_specify").style.visibility = "visible";
+	else
+		document.getElementById("do_not_loan_other_specify").style.visibility = "hidden";
+}
+
+function Set_DNL(category)
+{
+	if(document.getElementById("do_not_loan_other_specify").style.visibility == "visible" 
+		&& !isNotWhiteSpace(document.getElementById('do_not_loan_other_specify').value))
+	{
+		alert("The Other (Specify) field cannot be empty.");
+		return false;
+	}
+	
+	if(!isNotWhiteSpace(document.getElementById('do_not_loan_explanation').value))
+	{
+		alert("The Explanation field cannot be empty.");
+		return false;
+	}
+	document.getElementById('do_not_loan_exp').value = document.getElementById('do_not_loan_explanation').value;
+	
+	
+	document.getElementById('do_not_loan_category').value = category;
+	
+	if(category == 'other')
+	{
+		document.getElementById('do_not_loan_other_reason').value = document.getElementById('do_not_loan_other_specify').value;
+	}	
+	
+	document.getElementById('set_do_not_loan').submit();
+}
+
+</script>
+
+</head>
+<body class="bg" onload="self.focus();">
+    %%%dnl_body%%%
+	<form id="set_do_not_loan" method="post" action="/" class="no_padding">
+	<input type="hidden" name="action" value="set_do_not_loan">
+	<input type="hidden" name="application_id" value="%%%application_id%%%">
+	<input type="hidden" name="ssn" value="%%%ssn%%%">
+	<input type="hidden" name="do_not_loan_category" id="do_not_loan_category" value="">
+	<input type="hidden" name="do_not_loan_exp" id="do_not_loan_exp" value="">
+	<input type="hidden" name="do_not_loan_other_reason" id="do_not_loan_other_reason" value="">
+	</form>
+
+	<form id="do_not_loan_form" method="post" action="/" class="no_padding">
+	<input type="hidden" name="action" id="do_not_loan_action" value="">
+	<input type="hidden" name="application_id" value="%%%application_id%%%">
+	<input type="hidden" name="ssn" value="%%%ssn%%%">
+	<input type="hidden" name="ssn_wk" value="%%%ssn%%%"> <!-- What is this for? -->
+	</form>
+</body>
+</html>

@@ -1,0 +1,47 @@
+K 25
+svn:wc:ra_dav:version-url
+V 79
+/svn/aalm_current/!svn/ver/1979/ecash/branches/sql_merge/ecash_cfe/code/ECashUI
+END
+AbstractModule.php
+K 25
+svn:wc:ra_dav:version-url
+V 98
+/svn/aalm_current/!svn/ver/1979/ecash/branches/sql_merge/ecash_cfe/code/ECashUI/AbstractModule.php
+END
+Page.php
+K 25
+svn:wc:ra_dav:version-url
+V 88
+/svn/aalm_current/!svn/ver/1979/ecash/branches/sql_merge/ecash_cfe/code/ECashUI/Page.php
+END
+AbstractPage.php
+K 25
+svn:wc:ra_dav:version-url
+V 96
+/svn/aalm_current/!svn/ver/1979/ecash/branches/sql_merge/ecash_cfe/code/ECashUI/AbstractPage.php
+END
+LegacyPage.php
+K 25
+svn:wc:ra_dav:version-url
+V 94
+/svn/aalm_current/!svn/ver/1979/ecash/branches/sql_merge/ecash_cfe/code/ECashUI/LegacyPage.php
+END
+LegacyResponse.php
+K 25
+svn:wc:ra_dav:version-url
+V 98
+/svn/aalm_current/!svn/ver/1979/ecash/branches/sql_merge/ecash_cfe/code/ECashUI/LegacyResponse.php
+END
+Module.php
+K 25
+svn:wc:ra_dav:version-url
+V 90
+/svn/aalm_current/!svn/ver/1979/ecash/branches/sql_merge/ecash_cfe/code/ECashUI/Module.php
+END
+Dispatcher.php
+K 25
+svn:wc:ra_dav:version-url
+V 94
+/svn/aalm_current/!svn/ver/1979/ecash/branches/sql_merge/ecash_cfe/code/ECashUI/Dispatcher.php
+END

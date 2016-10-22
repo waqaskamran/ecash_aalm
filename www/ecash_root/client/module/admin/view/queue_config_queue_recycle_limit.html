@@ -1,0 +1,61 @@
+<table width="100%" class="queue_config" height="500">
+	<tr>
+		<th style="background: #CCCCCC; height:19px;">Queue Recycle Limit</th>
+	</tr>
+	<form name="queue_recycle_limit" action='/' method="post">
+	<input type="hidden" name="mode" value="queue_config" />
+	<input type="hidden" name="module" value="admin" />
+	<input type="hidden" name="action" value="update_queue_recycle_limit" />
+	<tr>
+		<td valign="top">%%%queue_recycle_limit_value_list%%%</td>
+	</tr>
+	<tr>
+		<td valign="top">
+			<table border="0">
+				<tr>
+					<td valign="top">
+						<table border="0">
+							<tr>
+								<td class="align_left">&nbsp;<b>Existing Queues</b></td>
+							</tr>
+							<tr>
+								<td>
+									<select name="queue_recycle_limit_rule" id="queue_recycle_limit_rule" size="30" onChange="for ( var i = 0 ; i < this.form.elements['queue_recycle_limit_value'].length ; i++ ) { if ( this.form.elements['queue_recycle_limit_value'].options[i].value == this.form.elements['queue_recycle_limit_' + this.options[this.selectedIndex].value + '_id'].value ) { this.form.elements['queue_recycle_limit_value'].selectedIndex = i; }  }">
+										%%%queue_recycle_limit_list%%%
+									</select>
+								</td>
+							</tr>
+						</table>
+					</td>
+					<td valign="top">
+						<table border="0">
+							<tr>
+								<td class="align_left">&nbsp;<b>Value</b></td>
+							</tr>
+							<tr>
+								<td>
+									<select name="queue_recycle_limit_value" id="queue_recycle_limit_value" >
+										%%%queue_recycle_limit_options%%%
+									</select>
+								</td>
+							</tr>
+						</table>
+					</td>
+					<td valign="top">
+						<table border="0">
+							<tr>
+								<td class="align_left">&nbsp;</td>
+							</tr>
+							<tr>
+								<td>
+									<input type="button" name="commit" value=" Save " onclick="javascript:save();"/>
+								</td>
+							</tr>
+						</table>
+					</td>
+				</tr>
+			</table>
+		</td>
+	</tr>
+	</form>
+</table>

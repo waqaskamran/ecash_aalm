@@ -1,0 +1,136 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+		<title>eCash Config</title>
+		<link rel="stylesheet" type="text/css" href="lib/ext/resources/css/ext-all.css"  />
+		<style type="text/css">
+			
+			body
+			{
+				font-family: Verdana, Geneva, Arial, Helvetica, sans-serif;
+				font-size: .75em;
+			}
+	
+			.add_icon .x-btn-text
+			{
+				background-image: url(images/add.gif);
+			}
+			.add_rule_icon .x-btn-text
+			{
+				background-image: url(images/chart_organisation_add.gif);
+			}
+			.rule_box
+			{
+				margin: 5px 5px 0px 5px;
+			}
+			.rule_box .x-tree
+			{
+				margin: 0px 5px 5px 5px;
+			}
+			.rule_box .x-tree-node-el
+			{
+				background-color: #EBF3FD;
+				border: #C9D5F7 solid 1px;
+			}
+			.rule_panel
+			{
+				border: #98C0F4 solid 1px;
+				padding: 0px 2px 2px 2px;
+				margin-bottom: 10px;
+				background-color: #EBF3FD;
+				
+			}
+			.rule_layout
+			{
+				margin-bottom: 2px;
+				background-color: #EBF3FD;
+				height: 500px;
+				position:relative;
+			}
+			
+			.white_box, .rule_table
+			{
+				background-color: #FFFFFF;
+				border: #C9D5F7 solid 1px;
+				padding: 2px;
+				margin: 2px 0px 0px 0px;
+			}
+			.rule_table
+			{
+				width: 100%;
+			}
+			.rule_table td
+			{
+				font-size: 11px;
+			}
+			.rule_name
+			{
+				width: 300px;
+			}
+			.selection_form_panel
+			{
+				width: 400px;
+			}
+			.view_basic
+			{
+				cursor: pointer;
+			}
+			.light_blue_bg
+			{
+				background-color: #EBF3FD;
+				border: #CFE5FF solid 1px;
+			}
+			.main_layout
+			{
+				position:relative;
+				/*margin-top:60px;*/
+				height: 500px;
+			}
+			.condition_form
+			{
+				display: none;
+			}
+			.action_form
+			{
+				visibility: hidden;
+			}
+			.drop_target
+			{
+				padding: 1px;
+			}
+			.drop_target_over
+			{
+				background-color: #E0ECFC;
+				padding: 2px;
+			}
+		</style>
+	</head>
+	<body>
+		<div id="rule_dialog" style="visibility:hidden;position:absolute;top:0px;">
+			<div class="x-dlg-hd">Business Rule Editor</div>
+			<div class="x-dlg-bd">
+				<div class="x-dlg-tab" title="Current Business Rule Set"></div>
+			</div>
+        </div>
+		<div id="add_rule_dialog" style="visibility:hidden;position:absolute;top:0px;">
+			<div class="x-dlg-bd x-tabs-body"></div>
+        </div>
+		<div id="container" class="main_layout">
+			<div id="north"		class="x-layout-inactive-content"></div>
+			<div id="east"		class="x-layout-inactive-content"></div>
+			<div id="south"		class="x-layout-inactive-content"></div>
+			<div id="west"		class="x-layout-inactive-content"><div id="company_tb"></div><div id="company_view"></div><div id="loan_type_tb"></div><div id="loan_type_view" ></div></div>
+			<div id="center"	class="x-layout-inactive-content"></div>
+		</div>
+		
+
+		<script type="text/javascript" src="lib/ext/adapter/ext/ext-base.js"></script>
+		<script type="text/javascript" src="lib/ext/ext-all-debug.js"></script>
+		<script type="text/javascript" src="config.js"></script>
+		<script type="text/javascript">
+			var c = console;
+			Ext.EventManager.onDocumentReady(TSS.eCash.Config.init, TSS.eCash.Config);
+		</script>
+	</body>
+</html>

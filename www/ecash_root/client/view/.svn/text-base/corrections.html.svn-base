@@ -1,0 +1,32 @@
+<table width='100%' border='0' style='background: #EEEEEE;'>
+    <tr class='valign_top'>
+        <th style='background-color: #FBCD57;'>
+            Second Tier Correction Files
+        </th>
+    </tr>
+    <tr class='valign_top'>
+        <td style='text-align: left;'>
+            %%%search_results%%%
+            %%%not_yet_downloaded%%%
+            <form method="post" action="?mode=corrections&action=corrections_search" style="border: 0px none #000000; margin: 0px; padding: 0px;">
+                <table width="100%">
+                    <tr>
+                        <th align="center">
+                            Search For Old Delta Files
+                        </th>
+                    </tr>
+                    <tr>
+                        <td align="left">
+                            <select name="search_dates[]" mutliple="multiple" size="3">
+                                %%%search_dates%%%
+                            </select>
+                            <br>
+                            <input type="submit" value="Search">
+                        </td>
+                    </tr>
+                </table>
+            </form>
+        </td>
+    </tr>
+</table>
+

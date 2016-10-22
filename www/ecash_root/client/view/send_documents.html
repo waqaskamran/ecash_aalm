@@ -1,0 +1,63 @@
+<div id="layout0group1layer1edit" %%%send_documents_edit_layer%%%>
+	<form method="post" action="/" name="SendDocuments" class="no_padding" id="doc_send_send">
+	<script>
+		var doc_send_send_ot = new sendDocumentList(document.getElementById('doc_send_send'));
+		doc_send_send_ot.setDocumentList('%%%js_all_docs%%%');
+		doc_send_send_ot.setCopiaList('%%%js_copia_docs%%%');
+		doc_send_send_ot.setCondorList('%%%js_condor_docs%%%');
+		doc_send_send_ot.setEmailList('%%%js_email_only_docs%%%');
+		doc_send_send_ot.setFaxList('%%%js_fax_only_docs%%%');
+	</script>
+		<input type="hidden" name="action" value="send_documents" />
+		<table cellpadding=0 cellspacing=0 width="100%">
+			<tr>
+				<td class="border" align="left" valign="top">
+					<table cellpadding=0 cellspacing=0 width="100%" class="%%%mode_class%%%" border="0">
+						<tr class="height">
+							<th colspan="4" class="%%%status_class%%%" style="background: %%%status_background_color%%%;">
+								<span style="float: left;">Send Documents</span><span style="float: right;"><a href="#" onClick="javascript:window.open('/?module=%%%module_name%%%&action=get_application_history&application_id=%%%application_id%%%', 'application_history', 'toolbar=no,location=no,directories=no,status=no,menubar=no,scrollbars=yes,resizable=no,copyhistory=no,width=515,height=420,left=150,top=150,screenX=150,screenY=150');">App. ID %%%application_id%%% %%%status_long%%%</a>&nbsp;%%%react_ind%%%&nbsp;%%%watch_ind%%%&nbsp;%%%fraud_ind%%%</span>
+							</th>
+						</tr>
+						<tr class="height">
+							<th class="search">&nbsp;Name</th>
+							<th class="search"></th>
+							<th class="search" style="text-align: right;"><nobr>Send</nobr></th>
+							<th class="search" style="width: 16px">&nbsp;</th>
+						</tr>
+						<tr>
+							<td colspan="4">
+								<div id="layout0group1layer1editscroll" style="height: 400px;">
+									%%%send_document_list%%%
+								</div>
+							</td>
+						</tr>
+						<tr>
+							<td colspan="4">
+								<table cellpadding="2" cellspacing="1" border="0" width="100%">
+									<tr class="height">
+										<td class="align_left">Email:&nbsp;</td>
+										<td class="align_right">
+											<input type="text" name="customer_email" value="%%%customer_email%%%" size="35" maxlength="100" class="input_text" />
+										</td>
+										<td class="align_right">
+											<input id="send_email" type="submit" name="submit" value="Send Email" class="button" style="width: 70px;" onClick="javascript:return doc_send_send_ot.validateSelected(this);" />
+										</td>
+									</tr>
+									<tr class="height">
+										<td class="align_left">Fax:&nbsp;</td>
+										<td class="align_right">
+											<input type="text" name="phone_fax" value="%%%phone_fax%%%" size="35" class="input_text" />
+										</td>
+										<td class="align_right">
+											<input id="send_fax" type="submit" name="submit" value="Send Fax" class="button" style="width: 70px;" onClick="javascript:return doc_send_send_ot.validateSelected(this);" />
+										</td>
+									</tr>
+								</table>
+							</td>
+						</tr>
+					</table>
+				</td>
+			</tr>
+		</table>
+	</form>
+</div>

@@ -1,0 +1,92 @@
+<html>
+<head>
+<title>Transaction Details - Application ID %%%application_id%%%</title>
+<script type="text/javascript" src="js/transactions.js"></script>
+<script type="text/javascript" src="js/overlib.js"></script>
+<script type="text/javascript">
+	var ol_textcolor = "black";
+	var ol_textfont = "Arial, Helvetica, sans-serif";
+    var ol_offsetx = 20;
+    var ol_offsety = 10;
+    var ol_background = "image/standard/overlib_bg.png";
+    
+	function setHeight()
+	{
+	
+	var docHeight=100;
+	var docWidth=100;
+	 	if (document.documentElement && document.documentElement.scrollHeight)
+		{
+			docWidth = document.scrollWidth;
+			docHeight = document.documentElement.scrollHeight;
+		}
+		if (document.body)
+		{
+			docWidth = document.body.scrollWidth;
+			docHeight = document.body.scrollHeight;
+		}
+	
+	self.resizeTo((docWidth),(docHeight));
+	
+	}
+</script>
+%%%stylesheet%%%
+</head>
+<body class="popup_bg">
+<div id="overDiv" style="position:absolute; visibility:hidden; z-index:1000;"></div>
+<form id="transaction_details_form" name="Transaction Details" method="post" action="/" class="no_padding">
+<input type="hidden" name="mode" id="mode" value="%%%mode_class%%%">
+<input type="hidden" name="action" id="action" value="modify_transaction">
+<input type="hidden" name="specific_action" id="specific_action" value="">
+<input type="hidden" name="application_id" id="application_id" value="%%%application_id%%%">
+<input type="hidden" name="amount_principal" id="amount_principal" value="%%%amount_principal%%%">
+<input type="hidden" name="amount_non_principal" id="amount_non_principal" value="%%%amount_non_principal%%%">
+<input type="hidden" name="name_short" id="name_short" value="%%%name_short%%%">
+<input type="hidden" name="transactional_type" id="transactional_type" value="%%%transactional_type%%%">
+<input type="hidden" name="event_schedule_id" id="event_schedule_id" value="%%%event_schedule_id%%%">
+<input type="hidden" name="transaction_register_id" id="transaction_register_id" value="%%%transaction_register_id%%%">
+<table class="%%%mode_class%%%" id="trans_details">
+ <tr>
+  <td colspan="2" class="header">
+  Details for %%%transactional_type%%%:  %%%transactional_id%%%
+  </td>
+ </tr>
+ %%%descriptive_fields%%%
+ <tr>
+ %%%modify_field%%%
+ </tr>
+<tr>
+<td colspan="2" class="buttons">
+%%%remove_button%%%
+%%%remove_non_ach_button%%%
+</td>
+</tr>
+<tr>
+<td colspan="2" class="buttons">
+%%%ach_return_code_ddb%%% %%%modify_button%%%
+</td>
+</tr>
+<tr>
+<td colspan="2" class="buttons">
+%%%switch_ach_card%%%
+</td>
+</tr>
+<!-- asm 80 -->
+<tr>
+<td colspan="2" class="buttons">
+%%%designate_ach_provider%%%
+</td>
+</tr>
+<tr>
+<td colspan="2" class="buttons">
+<input type="button" class="button2" value="Close" onClick="window.close();">
+</td>
+</tr>
+</table>
+</form>
+</body>
+<script type="text/javascript">
+setHeight();
+
+</script>
+</html>

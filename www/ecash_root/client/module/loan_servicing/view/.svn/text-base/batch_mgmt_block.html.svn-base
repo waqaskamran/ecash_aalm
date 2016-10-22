@@ -1,0 +1,11 @@
+<div id="AppSubMenuDivBatchMgmt" class="level2nav" onClick="javascript: Toggle_Menu('batch_menu', this.id);">Batch Mgmt</div>
+
+<div class="menu_layer" id="batch_menu">
+<input type="hidden" id="closing_time" name="closing_time" value="%%%closing_time%%%">
+<a id="AppSubMenuLinkBatchMgmtSubItemProcessCards" href="/?module=loan_servicing&mode=batch_mgmt&action=review_cards"><div id="AppSubMenuDivBatchMgmtSubItemReviewCards" class="submenu_item">Review Cards</div></a>
+<a id="AppSubMenuLinkBatchMgmtSubItemCloseOut" href="javascript:CloseOutBusinessDay();"><div id="AppSubMenuDivBatchMgmtSubItemCloseOut" class="submenu_item">Close ACH Batch</div></a>
+<a id="AppSubMenuLinkBatchMgmtSubItemReviewBatch" href="/?module=loan_servicing&mode=batch_mgmt&action=review_batch"><div id="AppSubMenuDivBatchMgmtSubItemReviewBatch" class="submenu_item">Review ACH Batch</div></a>
+<a id="AppSubMenuLinkBatchMgmtSubItemBatchHistory" href="/?module=loan_servicing&mode=batch_mgmt&action=batch_history"><div id="AppSubMenuDivBatchMgmtSubItemBatchHistory" class="submenu_item">ACH Batch History</div></a>
+<a id="AppSubMenuLinkBatchMgmtSubItemReturnHistory" href="/?module=loan_servicing&mode=batch_mgmt&action=return_history"><div id="AppSubMenuDivBatchMgmtSubItemReturnHistory" class="submenu_item">Returns History</div></a>
+<a id="AppSubMenuLinkBatchMgmtSubItemUploadReturn" href="/?module=loan_servicing&mode=batch_mgmt&action=upload_return"><div id="AppSubMenuDivBatchMgmtSubItemUploadReturn" class="submenu_item">Upload Returns</div></a>
+</div>

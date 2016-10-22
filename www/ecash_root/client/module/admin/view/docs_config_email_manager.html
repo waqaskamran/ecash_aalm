@@ -1,0 +1,357 @@
+<script type="text/javascript">
+var responses = %%%responses%%%;
+var companies = %%%companies%%%;
+var cIndex;
+
+	function GetRIndex()
+	{
+		company_id = document.getElementById('response_company').options[cIndex].value;
+		for (i = 0; i < responses.length; i++)
+		{
+			if(responses[i]['company_id'] == company_id)
+			{
+				return (i + document.getElementById('er_existing_responses').selectedIndex);
+			}
+		}
+	}
+
+	function DisplayResponse()
+	{
+		//make sure that a response is selected
+		if ( document.getElementById('er_existing_responses').selectedIndex == -1)
+		{
+			document.getElementById('er_existing_responses').selectedIndex = 0;
+		}
+
+		//get the selected index
+		var rIndex = GetRIndex();
+
+		//get the status of the selected response
+		var rStatus = responses[rIndex]['status'];
+
+		//set the 'status' checkbox to reflect the status of the selected response
+		if (rStatus == 'active')
+		{
+			document.getElementById('er_response_status').checked = true;
+		}
+		else
+		{
+			document.getElementById('er_response_status').checked = false;
+		}
+
+		//get the company index for the selected response
+		for (c = 0; c < companies.length; c++)
+		{
+			if (companies[c]['id'] == responses[rIndex]['company_id'])
+			{
+				cIndex = c;
+				break;
+			}
+		}
+
+		//set the company menu
+		document.getElementById('response_company').selectedIndex = cIndex;
+
+		//set the prefix field
+		document.getElementById('response_name_prefix').value = companies[cIndex]['prefix'];
+		document.getElementById('show_response_name_prefix').value = companies[cIndex]['prefix'];
+
+		//load name and text values into fields
+		document.email_responses.response_name.value = responses[rIndex]['name'].substr(companies[cIndex]['prefix'].length+1);
+		document.email_responses.response_text.value = responses[rIndex]['text'];
+
+		//set email_response_id
+		document.email_responses.email_response_id.value = responses[rIndex]['id'];
+	}
+
+	function ShowAddResponse()
+	{
+		SetCompany();
+		document.email_responses.action.value = 'add_response';
+		document.email_responses.action[1].checked = true;
+		document.email_responses.existing_responses.selectedIndex = -1;
+		document.email_responses.existing_responses.disabled = true;
+		document.email_responses.existing_responses.style.color = 'lightgray';
+		document.email_responses.response_company.disabled = false;
+		document.email_responses.response_company.style.color = 'black';
+		document.email_responses.show_response_name_prefix.disabled = true;
+		document.email_responses.show_response_name_prefix.style.color = 'black';
+		document.email_responses.response_name.disabled = false;
+		document.email_responses.response_name.style.color = 'black';
+		document.email_responses.response_text.disabled = false;
+		document.email_responses.response_text.style.color = 'black';
+		document.email_responses.response_status.disabled = false;
+		document.email_responses.response_status.style.color = 'black';
+		document.email_responses.commit.value = ' Add Response ';
+		document.email_responses.response_name.value = '';
+		document.email_responses.response_text.value = '';
+		document.getElementById('er_response_status').checked = true;
+	}
+
+	function ShowModifyResponse()
+	{
+		document.email_responses.action.value = 'modify_response';
+		document.email_responses.action[2].checked = true;
+		document.email_responses.existing_responses.disabled = false;
+		document.email_responses.existing_responses.style.color = 'black';
+		document.email_responses.response_company.disabled = false;
+		document.email_responses.response_company.style.color = 'black';
+		document.email_responses.show_response_name_prefix.disabled = true;
+		document.email_responses.show_response_name_prefix.style.color = 'black';
+		document.email_responses.response_name.disabled = false;
+		document.email_responses.response_name.style.color = 'black';
+		document.email_responses.response_text.disabled = false;
+		document.email_responses.response_text.style.color = 'black';
+		document.email_responses.response_status.disabled = false;
+		document.email_responses.response_status.style.color = 'black';
+		document.email_responses.commit.value = ' Modify Response ';
+		DisplayResponse();
+	}
+
+	function ShowRemoveResponse()
+	{
+		document.email_responses.action.value = 'remove_response';
+		document.email_responses.action[3].checked = true;
+		document.email_responses.existing_responses.disabled = false;
+		document.email_responses.existing_responses.style.color = 'black';
+		document.email_responses.response_company.disabled = true;
+		document.email_responses.response_company.style.color = 'lightgray';
+		document.email_responses.show_response_name_prefix.disabled = true;
+		document.email_responses.show_response_name_prefix.style.color = 'lightgray';
+		document.email_responses.response_name.disabled = true;
+		document.email_responses.response_name.style.color = 'lightgray';
+		document.email_responses.response_text.disabled = true;
+		document.email_responses.response_text.style.color = 'lightgray';
+		document.email_responses.response_status.disabled = true;
+		document.email_responses.response_status.style.color = 'lightgray';
+		document.email_responses.commit.value = ' Remove Response ';
+		DisplayResponse();
+	}
+
+	function ShowPage(last_action)
+	{
+		SetCompany();
+
+		if ('modify_response' == last_action)
+		{
+			ShowModifyResponse();
+		}
+		else if ('remove_response' == last_action)
+		{
+			ShowRemoveResponse();
+		}
+		else
+		{
+			ShowAddResponse();
+		}
+	}
+
+	function get_last_settings()
+	{
+		//ShowPage('%%%last_action%%%');
+		ShowPage('');
+	}
+
+	function emptyFields()
+	{
+		var vName = document.email_responses.response_name.value;
+		var vText = document.email_responses.response_text.value;
+
+		if (vName == '' || vText == '')
+		{
+			return false;
+		}
+
+		return true;
+	}
+
+	function isUniqueName()
+	{
+		var sNum = GetRIndex();
+		var vName = document.email_responses.response_name.value;
+
+		for (var n=0; n < responses.length; n++)
+		{
+			if (companies[cIndex]['prefix'] + " " + vName == responses[n]['name'] && n != sNum)
+			{
+				return false;
+			}
+		}
+
+		return true;
+	}
+
+	function ModifyResponse()
+	{
+		if ( emptyFields() == false)
+		{
+			alert('%%%name_response_required%%%');
+			return false;
+		}
+
+		if ( isUniqueName() == false)
+		{
+			alert(companies[cIndex]['name'] + ' %%%has_response_already%%%');
+			return false;
+		}
+
+		return true;
+	}
+
+	function RemoveResponse()
+	{
+		if( document.getElementById('er_existing_responses').selectedIndex == -1)
+		{
+			alert('%%%select_response_remove%%%');
+			return false;
+		}
+
+		return true;
+	}
+
+	function AddResponse()
+	{
+		if ( emptyFields() == false)
+		{
+			alert('%%%name_response_required%%%');
+			return false;
+		}
+
+		if ( isUniqueName() == false)
+		{
+			alert(companies[cIndex]['name'] + ' %%%has_response_already%%%');
+			return false;
+		}
+
+		return true;
+	}
+
+	function save()
+	{
+		var cAction = document.email_responses.action.value;
+
+		if('modify_response' == cAction)
+		{
+			return ModifyResponse();
+		}
+		else if('remove_response' == cAction)
+		{
+			return RemoveResponse();
+		}
+		else
+		{
+			return AddResponse();
+		}
+
+	}
+
+	function SetCompany()
+	{
+		cIndex = document.getElementById('response_company').selectedIndex;
+		company = companies[cIndex];
+		document.getElementById('show_response_name_prefix').value = company['prefix'];
+		document.email_responses.response_name_prefix.value = company['prefix'];
+
+		menu = document.getElementById('er_existing_responses');
+		menu.length = 0;
+		for (var n=0; n < responses.length; n++)
+		{
+			if (responses[n]['company_id'] == company['id'])
+			{
+				if(responses[n]['status'] == 'active')
+				{
+					menu.options[menu.length] = new Option(responses[n]['name'].substr(0, 24), menu.length);
+				}
+				else
+				{
+					menu.options[menu.length] = new Option('*' + responses[n]['name'].substr(0, 24), menu.length);
+				}
+			}
+		}
+		document.email_responses.response_name.value = '';
+		document.email_responses.response_text.value = '';
+	}
+</script>
+
+<form name="email_responses" action='/' method="post" onsubmit="return save();">
+<input type="hidden" name="mode" value="docs_config" />
+<input type="hidden" name="action" value="add_response" />
+<input type="hidden" name="email_response_id" value="0" />
+<input type="hidden" id="response_name_prefix" name="response_name_prefix" value="" />
+
+<div id="main_contents" class="admin_document_manager">
+	<div class="main_head">Email Responses Manager</div>
+<!-- Start Radio Buttons -->
+	<div>
+		<table width="100%">
+			<tr>
+				<td>
+					<input id="add_response_btn" name="action" value="add_response" type="radio" onClick="ShowPage('add_response');">
+					<label for="add_response_btn">Add Response</label>
+				</td>
+				<td>
+					<input id="mod_response_btn" name="action" value="modify_response" type="radio" onClick="ShowPage('modify_response');">
+					<label for="mod_response_btn">Modify Response</label>
+				</td>
+				<td>
+					<input id="rem_response_btn" name="action" value="remove_response" type="radio" onClick="ShowPage('remove_response');">
+					<label for="rem_response_btn">Remove Response</label>
+				</td>
+			</tr>
+		</table>
+	</div>
+<!-- Stop Radio Buttons -->
+	<div>
+		<table width="100%">
+			<tr>
+				<td style="width: 180px;">
+					<fieldset>
+						<legend>Existing Responses</legend>
+						<select tabindex='3' id="er_existing_responses" name="existing_responses" size="28" style="width:165px" onChange="DisplayResponse();" >
+						</select>
+					</fieldset>
+				</td>
+				<td>
+					<fieldset>
+						<legend>Response Name</legend>
+						<div class="form_group_label">
+							<div>
+								<label for="response_company">Company</label>
+								<select style="width: 50%;" tabindex="2" id="response_company" name="response_company" onchange="SetCompany()">
+									%%%companies_list%%%
+								</select>
+							</div>
+
+							<div>
+								<label for="response_name">Name</label>
+								<input style="width: 10%; vertical-align: top;" id="show_response_name_prefix" name="show_response_name_prefix" type="text" />
+								<textarea style="font-size: 80%; width: 85%; margin: 0px;" rows="1" wrap="soft" tabindex="1" id="response_name" name="response_name" /></textarea>
+							</div>
+						</div>
+					</fieldset>
+
+					<fieldset>
+						<legend>Response Text</legend>
+						<label for="er_response_text">Response:</label><br />
+						<textarea tabindex="3" id="er_response_text" name="response_text" cols="62" rows="6"></textarea>
+					</fieldset>
+
+					<fieldset>
+						<legend>Active Status</legend>
+						<input tabindex="4" id="er_response_status" name="response_status" type="checkbox" value="active" />
+						<label for="er_response_status">Is Active</label>
+					</fieldset>
+
+					<div class="form_buttons">
+						<input tabindex='3' name="commit" type="submit" value=" Add Response " />
+					</div>
+				</td>
+			</tr>
+		</table>
+	</div>
+</div>
+
+</form>
+<script>
+ShowPage('add_response');
+</script>

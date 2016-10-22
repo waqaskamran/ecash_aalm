@@ -1,0 +1,16 @@
+<?xml version="1.0"?>
+<phpunit
+	bootstrap="bootstrap.php">
+	<testsuite name="ECash Vendor API Commercial Implementation">
+		<directory>.</directory>
+	</testsuite>
+	<filter>
+		<blacklist>
+			<directory>/virtualhosts/libolution</directory>
+			<directory>../tests</directory>
+		</blacklist>
+		<whitelist>
+			<directory suffix=".php">../code</directory>
+		</whitelist>
+	</filter>
+</phpunit>

@@ -1,0 +1,65 @@
+<table width="100%" class="queue_config" height="500">
+	<tr>
+		<th style="background: #CCCCCC; height:19px;">Queue Timeouts</th>
+	</tr>
+	<form name="queue_timeout" action='/' method="post">
+	<input type="hidden" name="mode" value="queue_config" />
+	<input type="hidden" name="module" value="admin" />
+	<input type="hidden" name="action" value="update_queue_timeout" />
+	<input type="hidden" name="queue_timeout_save" id="queue_timeout_save" value="yes" />
+	<input type="hidden" name="queue_timeout_backapply" id="queue_timeout_backapply" value="no" />
+	<tr>
+		<td valign="top">%%%queue_timeout_value_list%%%</td>
+	</tr>
+	<tr>
+		<td valign="top">
+			<table border="0">
+				<tr>
+					<td valign="top">
+						<table border="0">
+							<tr>
+								<td class="align_left">&nbsp;<b>Existing Queues</b></td>
+							</tr>
+							<tr>
+								<td>
+
+									<select name="queue_timeout_rule" id="queue_timeout_rule" size="30" onChange="for ( var i = 0 ; i < this.form.elements['queue_timeout_value'].length ; i++ ) { if ( this.form.elements['queue_timeout_value'].options[i].value == this.form.elements['queue_timeout_' + this.options[this.selectedIndex].value + '_id'].value ) { this.form.elements['queue_timeout_value'].selectedIndex = i; return; } this.form.elements['queue_timeout_value'].selectedIndex = 0; }">
+										%%%queue_timeout_list%%%
+									</select>
+								</td>
+							</tr>
+						</table>
+					</td>
+					<td valign="top">
+						<table border="0">
+							<tr>
+								<td class="align_left">&nbsp;<b>Value</b></td>
+							</tr>
+							<tr>
+								<td>
+									<select name="queue_timeout_value" id="queue_timeout_value">
+										%%%queue_timeout_options%%%
+									</select>
+								</td>
+							</tr>
+						</table>
+					</td>
+					<td valign="top">
+						<table border="0">
+							<tr>
+								<td class="align_left">&nbsp;</td>
+							</tr>
+							<tr>
+								<td>
+									<input type="button" value=" Save and Reset Apps" onClick="this.form.elements['queue_timeout_backapply'].value = 'yes'; save();" />
+									<input type="button" value=" Save " onclick="javascript:save();"/>
+								</td>
+							</tr>
+						</table>
+					</td>
+				</tr>
+			</table>
+		</td>
+	</tr>
+	</form>
+</table>

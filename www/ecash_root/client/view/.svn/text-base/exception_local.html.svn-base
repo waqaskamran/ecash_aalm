@@ -1,0 +1,15 @@
+<html>
+<title>Fatal Exception</title>
+<body>
+<table width="600" height="400" bgcolor="Maroon" align="center" cellpadding="3">
+<tr>
+	<td style="color: white; font-weight: bold; text-align: center;">
+	A Fatal exception occurred and has been logged.  Please contact the ecash development team to report this problem.
+
+	<br><br><img src="http://<? echo (0 ==rand(0,1)) ? 'www.mlinks.net/~brianr/Hindenberg.gif' : 'www.interet-general.info/IMG/titanic-2.jpg'; ?>"><br>
+	
+	</td>
+</tr>
+</table>
+</body>
+</html>

@@ -1,0 +1,29 @@
+<html>
+<head>
+<link rel="stylesheet" href="css/style.css">
+<title>Login Lock</title>
+</head>
+<body class="bg" onload="self.focus();">
+  <form id="set_do_not_loan" method="post" action="/" class="no_padding">
+	<table align="center">
+	  <tr>
+		<td><img src="/image/standard/login_lock.png" /> Login Lock</td>
+	  </tr>
+	  <tr>
+		<td>
+			<input type="checkbox" name="login_lock" %%%login_locked_checked%%%/> <label for="login_lock">Application</label>
+		</td>
+	  </tr>
+		<tr><td>&nbsp;</td></tr>
+	  <tr>
+		<td>
+			<input type="submit" name="save" value="Save" />
+			<input type="button" name="cancel" value="Cancel" onclick="window.close();" />
+		</td>
+	  </tr>
+	</table>
+	<input type="hidden" name="application_id" value="%%%application_id%%%">
+	<input type="hidden" name="action" value="set_login_lock">
+  </form>
+</body>
+</html>

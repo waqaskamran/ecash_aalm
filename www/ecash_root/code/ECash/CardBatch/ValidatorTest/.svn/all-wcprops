@@ -1,0 +1,29 @@
+K 25
+svn:wc:ra_dav:version-url
+V 101
+/svn/aalm_current/!svn/ver/1979/ecash/branches/sql_merge/ecash_cfe/code/ECash/CardBatch/ValidatorTest
+END
+DebitCreditTest.php
+K 25
+svn:wc:ra_dav:version-url
+V 121
+/svn/aalm_current/!svn/ver/1979/ecash/branches/sql_merge/ecash_cfe/code/ECash/CardBatch/ValidatorTest/DebitCreditTest.php
+END
+ZeroAmountTest.php
+K 25
+svn:wc:ra_dav:version-url
+V 120
+/svn/aalm_current/!svn/ver/1979/ecash/branches/sql_merge/ecash_cfe/code/ECash/CardBatch/ValidatorTest/ZeroAmountTest.php
+END
+AmountsTest.php
+K 25
+svn:wc:ra_dav:version-url
+V 117
+/svn/aalm_current/!svn/ver/1979/ecash/branches/sql_merge/ecash_cfe/code/ECash/CardBatch/ValidatorTest/AmountsTest.php
+END
+DupTest.php
+K 25
+svn:wc:ra_dav:version-url
+V 113
+/svn/aalm_current/!svn/ver/1979/ecash/branches/sql_merge/ecash_cfe/code/ECash/CardBatch/ValidatorTest/DupTest.php
+END

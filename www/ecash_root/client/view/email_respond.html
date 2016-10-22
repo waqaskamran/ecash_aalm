@@ -1,0 +1,158 @@
+<!-- Begin email_respond -->
+<table cellpadding="0" cellspacing="15" width="100%" style="background: #F1F1F1;" style="overflow: hidden;">
+	<form name="sendemail" action="/" method="post" onsubmit="return SendEmail();">
+	<input type="hidden" name="action" value="send_email_response">
+	<input type="hidden" id="canned_response_count" name="canned_response_count" value="0">
+	<input type="hidden" name="archive_id" value="%%%archive_id%%%">
+	<input type="hidden" name="application_id" value="%%%application_id%%%" />
+	<input type="hidden" name="mode" value="%%%mode%%%" />
+	<tr>
+		<td valign="top" style="text-align: left;">
+			<table border="0" width="400" height="282" cellpadding="0" cellspacing="0" style="border: 2px solid gray;">
+				<tr>
+					<th colspan="2" class="%%%mode_class%%%" style="text-align: left;">&nbsp;Email</th>
+				</tr>
+				<tr>
+					<td>
+						<table width="400" cellpadding="0" cellspacing="5" border="0">
+							<tr>
+								<td width="60" class="align_left">Subject:<br />
+									<input type="text" name="response_subject" value="%%%response_subject%%%" style="border: 1px solid #666666; background: #FFFFFF; width: 390px;"></td>
+							</tr>
+							<tr>
+								<td colspan="2" class="align_left">Message:<br />
+									<textarea id="response_message" name="response_message" style="text-align: left; width: 380px; height: 120px; overflow: auto; border: 1px solid #666666; background: #FFFFFF; padding: 5px; font-family: Arial; font-size: 12px;">%%%response_message%%%</textarea></td>
+							</tr>
+							<tr>
+								<td colspan="2" class="align_left" height="100%">Responses:<br />
+									<div id="selected_response" style="border: 1px solid #cccccc; overflow: auto; width: 380px; height: 95px; padding-top: 5px; padding-left: 5px; padding-bottom: 5px; padding-right: 5px; font-weight: normal; text-align: left;margin-bottom: 5px;"></div>
+								</td>
+							</tr>
+							<tr>
+								<td colspan="2" class="align_left">
+									<div id="response_options" style="width: 380px; height: 33px; text-align: right; font-weight: normal;"></div></td>
+							</tr>
+						</table>
+					</td>
+				</tr>
+			</table>
+		</td>
+		<td valign="top" style="text-align: left;">
+			<table border="0" width="320" height="20" cellpadding="0" cellspacing="0" style="border: 2px solid gray; margin-bottom: 12px;">
+				<tr>
+					<th colspan="2" class="%%%mode_class%%%" style="text-align: left;">&nbsp;Associated Application</th>
+				</tr>
+				<tr>
+					<td height="20" valign="middle" style="text-align: left; padding-left: 4px;">
+						%%%associated_account_link%%%
+					</td>
+					<td height="20" valign="middle" style="text-align: right; padding-right: 4px; padding-top: 4px; padding-bottom: 4px;">
+						<input type="submit" name="button" value="Disassociate" onclick="document.sendemail.action.value = 'disassociate_email'; return ValidateDisassociate();" />
+					</td>
+				</tr>
+			</table>
+			<table border="0" width="320" height="80" cellpadding="0" cellspacing="0" style="border: 2px solid gray; margin-bottom: 12px;">
+				<tr>
+					<th colspan="2" class="%%%mode_class%%%" style="text-align: left;">&nbsp;Original Attachments</th>
+				</tr>
+				<tr>
+					<td height="80" valign="top">
+						<div id="email_attachments" style="overflow: hidden; overflow-y: auto;">
+							<table width="320" border="0">
+								%%%email_attachments%%%
+							</table>
+						</div>
+					</td>
+				</tr>
+			</table>
+			<table border="0" width="320" height="188" cellpadding="0" cellspacing="0" style="border: 2px solid gray;">
+				<tr>
+					<th colspan="2" class="%%%mode_class%%%" style="text-align: left;">&nbsp;Attach Documents</th>
+				</tr>
+				<tr>
+					<td height="199" valign="top">
+						<div id="email_attachments" style="overflow: hidden; overflow-y: auto; height: 199px;">
+							<table width="320" border="0">
+								%%%attach_documents%%%
+							</table>
+						</div>
+					</td>
+				</tr>
+			</table>
+		</td>
+	</tr>
+	<tr>
+		<td colspan="2" style="text-align: right; padding-top: 15px; padding-bottom: 10px; padding-right: 20px;">
+			<input type="submit" name="cancel" value="Cancel" onclick=""/>&nbsp;&nbsp;&nbsp;<input type="submit" name="send_email" value="Send" />
+		</td>
+	</tr>
+	</form>
+</table>
+<script type="text/javascript">
+var responses = %%%response_js_array%%%;
+var response_footer = '%%%email_response_footer%%%';
+// Show response list
+function DisplayResponseList()
+{
+	var lst = '';
+	for (var i = 0; i < responses.length; i++)
+	{
+		if (responses[i]["status"] == 'active')
+		{
+			lst += "<a href=\"#\" onclick=\"DisplayResponse('" + i + "'); return false;\">" + responses[i]["name"].substr(4) + "</a><br />";
+		}
+	}
+	document.getElementById('selected_response').style.background = '';
+	document.getElementById('selected_response').innerHTML = lst;
+	document.getElementById('response_options').innerHTML = '';
+}
+DisplayResponseList();
+
+// Show the selected response
+function DisplayResponse(sIndex)
+{
+	document.getElementById('selected_response').style.background = '#FFFFFF';
+	document.getElementById('selected_response').innerHTML = responses[sIndex]["text"];
+	document.getElementById('response_options').innerHTML = "<input type=\"submit\" name=\"return_to_list\" value=\" Back to List \" onclick=\"DisplayResponseList()\">"
+	                                                      + "&nbsp;<input type=\"submit\" name=\"add_to_message\" value=\" Add to Message \" onclick=\"AddSelectedResponse('" + sIndex + "')\">";
+}
+
+// Insert the text of the selected response into the message
+function AddSelectedResponse(sIndex)
+{
+	var msg =  document.getElementById('response_message');
+	var txt = responses[sIndex]["text"];
+
+	if (msg.selectionStart || msg.selectionStart == '0')
+	{
+		var startPos = msg.selectionStart;
+		var endPos = msg.selectionEnd;
+		msg.value = msg.value.substring(0, startPos) + txt + msg.value.substring(endPos, msg.value.length);
+		//msg.value = msg.value.substring(0, startPos) + msg.value.substring(endPos, msg.value.length) + txt;
+	} 
+	else 
+	{
+		msg.value += txt;
+	}
+
+	document.getElementById('canned_response_count').value++;
+}
+
+function ValidateDisassociate()
+{
+	var answer = confirm('Are you sure that you want to disassociate this application from this email?');
+	if (answer == false)
+	{
+		return false;
+	}
+
+	return true;
+}
+
+function SendEmail()
+{
+	document.getElementById('response_message').value = document.getElementById('response_message').value + "\n\n" + response_footer;
+	return true;
+}
+</script>
+<!-- End email_respond-->

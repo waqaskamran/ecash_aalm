@@ -1,0 +1,100 @@
+<html>
+<head>
+<title>Split Customer Accounts</title>
+<link rel="stylesheet" href="css/style.css">
+<link rel="stylesheet" href="css/transactions.css">
+<script>
+
+	var allSelected = false;
+	var maxCheckBoxValues = %%%max_checkboxes%%%;
+
+</script>
+<script src="js/customer_centric_interface.js"></script>
+</head>
+<h1>Customer SSN Change - Merge / Split</h1>
+The Social Security Number that was requested for the current Applicant matches another account.<br>
+Please verify the account(s) you wish to split from the original customer and merge into the new customer.<br>
+<br>
+The original account that the change was requested on:<br>
+<table>
+<tr>
+<th>Application ID</th>
+<th>Old Social Security Number</th>
+<th>New Social Security Number</th>
+<th>Customer Name</th>
+<th>Employer</th>
+</tr>
+<td>%%%application_id%%%</td>
+<td>%%%old_formatted_ssn%%%</td>
+<td>%%%new_formatted_ssn%%%</td>
+<td>%%%customer_name%%%</td>
+<td>%%%employer_name%%%</td>
+</table>
+<br>
+<form id="customer_ssn_change" method="post" action="/" class="no_padding">
+<input type="hidden" name="action" value="customer_ssn_change">
+<input type="hidden" name="old_customer_id" value="%%%old_customer_id%%%">
+<input type="hidden" name="new_customer_id" value="%%%new_customer_id%%%">
+<table cellpadding="0" cellspacing="0" width="900">
+<tr><td align="left" valign="top">
+<table cellspacing="0" cellpadding="0" width="100%" class="%%%mode_class%%%">
+  <tr class="height"><th colspan="0" style="text-align: left;">&nbsp;The following Application(s) are associated with the same customer.<br> Select the accounts you wish to split from the current customer and merge into the customer below.</th></tr>
+  <tr>
+    <td>
+    <table width="100%" cellpadding="0" cellspacing="0" id="application_list_rows_table">
+    <thead class="fixedHeader">
+     <tr style="padding-top: 2px; border-bottom: 1px solid gray;">
+       <th style="width: 40px; text-align: center; border-right: 1px solid gray;">Select</th>
+       <th style="width: 100px; text-align: center; border-right: 1px solid gray;">Application ID</th>
+       <th style="width: 100px; text-align: center; border-right: 1px solid gray;">SSN</th>
+       <th style="width: 160px; text-align: center; border-right: 1px solid gray;">Name</th>
+       <th style="width: 160px; text-align: center; border-right: 1px solid gray;">Email Address</th>
+       <th style="width: 160px; text-align: center; border-right: 1px solid gray;">Employer</th>
+       <th style="width: 180px; text-align: center;">Status</th>
+     </tr>
+     </thead>
+     <tbody class="scrollContent" style="overflow: auto; height: auto;">
+     %%%old_application_list%%%
+     <tr>
+     	<td colspan="6" align="left" style="text-align: left;"><!-- <input type="button" value="Select All / UnSelect All" onclick="javascript:SelectAllCheckBoxes('app')"> --></td>
+     </tr>
+     </tbody>
+    </table>
+    </td>
+  </tr>
+  <tr><td>&nbsp;</td></tr>
+  <tr class="height"><th colspan="0" style="text-align: left;">&nbsp;<nobr>The selected Application(s) will be merged with the following:</nobr></th></tr>
+  <tr>
+    <td>
+    <table width="100%" cellpadding="0" cellspacing="0" id="application_list_rows_table">
+    <thead class="fixedHeader">
+     <tr style="padding-top: 2px; border-bottom: 1px solid gray;">
+       <th style="width: 40px; text-align: center; border-right: 1px solid gray;"></th>
+       <th style="width: 100px; text-align: center; border-right: 1px solid gray;">Application ID</th>
+       <th style="width: 100px; text-align: center; border-right: 1px solid gray;">SSN</th>
+       <th style="width: 160px; text-align: center; border-right: 1px solid gray;">Name</th>
+       <th style="width: 160px; text-align: center; border-right: 1px solid gray;">Email Address</th>
+       <th style="width: 160px; text-align: center; border-right: 1px solid gray;">Employer</th>
+       <th style="width: 180px; text-align: center;">Status</th>
+     </tr>
+     </thead>
+     <tbody class="scrollContent" style="overflow: auto; height: auto;">
+     %%%new_application_list%%%
+     </tbody>
+    </table>
+    </td>
+  </tr>
+  </tr>
+  <tr><td>&nbsp;</td>
+  </tr>
+  <tr>
+	<td colspan="6" align="left" style="text-align: left;">
+		<input type="button" value="Split/Merge Customer" onclick="javascript:ConfirmMerge();">&nbsp;&nbsp;
+		<input type="button" value="Cancel" onclick="javascript:window.close();">
+	</td>
+  </tr>
+</table>
+</td>
+</tr>
+</table>
+</form>

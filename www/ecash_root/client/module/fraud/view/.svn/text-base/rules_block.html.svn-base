@@ -1,0 +1,5 @@
+<div id="AppSubMenuDivRules" class="level2nav" onClick="javascript: Toggle_Menu('fraud_rules', this.id);">Rules</div>
+
+<div class="menu_layer" id="fraud_rules">
+	%%%fraud_menu%%%
+</div>

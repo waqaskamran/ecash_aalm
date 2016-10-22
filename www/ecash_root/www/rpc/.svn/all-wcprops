@@ -1,0 +1,41 @@
+K 25
+svn:wc:ra_dav:version-url
+V 74
+/svn/aalm_current/!svn/ver/1979/ecash/branches/sql_merge/ecash_cfe/www/rpc
+END
+soap.php
+K 25
+svn:wc:ra_dav:version-url
+V 83
+/svn/aalm_current/!svn/ver/1979/ecash/branches/sql_merge/ecash_cfe/www/rpc/soap.php
+END
+testsoap.php
+K 25
+svn:wc:ra_dav:version-url
+V 87
+/svn/aalm_current/!svn/ver/1979/ecash/branches/sql_merge/ecash_cfe/www/rpc/testsoap.php
+END
+prpc.php
+K 25
+svn:wc:ra_dav:version-url
+V 83
+/svn/aalm_current/!svn/ver/1979/ecash/branches/sql_merge/ecash_cfe/www/rpc/prpc.php
+END
+testCSO.php
+K 25
+svn:wc:ra_dav:version-url
+V 86
+/svn/aalm_current/!svn/ver/1979/ecash/branches/sql_merge/ecash_cfe/www/rpc/testCSO.php
+END
+testprpc.php
+K 25
+svn:wc:ra_dav:version-url
+V 87
+/svn/aalm_current/!svn/ver/1979/ecash/branches/sql_merge/ecash_cfe/www/rpc/testprpc.php
+END
+testCallData.php
+K 25
+svn:wc:ra_dav:version-url
+V 91
+/svn/aalm_current/!svn/ver/1979/ecash/branches/sql_merge/ecash_cfe/www/rpc/testCallData.php
+END

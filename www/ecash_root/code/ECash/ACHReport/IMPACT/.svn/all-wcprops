@@ -1,0 +1,35 @@
+K 25
+svn:wc:ra_dav:version-url
+V 94
+/svn/aalm_current/!svn/ver/1979/ecash/branches/sql_merge/ecash_cfe/code/ECash/ACHReport/IMPACT
+END
+Corrections.php
+K 25
+svn:wc:ra_dav:version-url
+V 110
+/svn/aalm_current/!svn/ver/1979/ecash/branches/sql_merge/ecash_cfe/code/ECash/ACHReport/IMPACT/Corrections.php
+END
+ReturnsCorrectionsParser.php
+K 25
+svn:wc:ra_dav:version-url
+V 123
+/svn/aalm_current/!svn/ver/1979/ecash/branches/sql_merge/ecash_cfe/code/ECash/ACHReport/IMPACT/ReturnsCorrectionsParser.php
+END
+IReturnConfig.php
+K 25
+svn:wc:ra_dav:version-url
+V 112
+/svn/aalm_current/!svn/ver/1979/ecash/branches/sql_merge/ecash_cfe/code/ECash/ACHReport/IMPACT/IReturnConfig.php
+END
+Returns.php
+K 25
+svn:wc:ra_dav:version-url
+V 106
+/svn/aalm_current/!svn/ver/1979/ecash/branches/sql_merge/ecash_cfe/code/ECash/ACHReport/IMPACT/Returns.php
+END
+ICorrectionConfig.php
+K 25
+svn:wc:ra_dav:version-url
+V 116
+/svn/aalm_current/!svn/ver/1979/ecash/branches/sql_merge/ecash_cfe/code/ECash/ACHReport/IMPACT/ICorrectionConfig.php
+END

@@ -1,0 +1,6 @@
+<tr>
+	<td class="note">Note</td>
+	<td class="note"><a href="/?action=cl_display_note&note_id=%%%note_id%%%" target="frm_note_detail">%%%note_date%%%</a></td>
+	<td class="note"><a href="/?action=cl_display_note&note_id=%%%note_id%%%" target="frm_note_detail">%%%note_reference%%%</a></td>
+	<td class="note" colspan="5"><a href="/?action=cl_display_note&note_id=%%%note_id%%%" target="frm_note_detail">%%%note_date_next_action%%%</a></td>
+</tr>

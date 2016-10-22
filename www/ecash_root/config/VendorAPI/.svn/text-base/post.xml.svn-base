@@ -1,0 +1,125 @@
+<?xml version="1.0" encoding="UTF-8"?>                          
+<ruleset>                                                       
+        <node id="post">
+               <expression name="process" type="ECash_CFE_Expression_Variable">
+                        <param>olp_process</param>
+                </expression>
+                <transition when="process.ecashapp_react" to="runEcashReactBlackbox"/>
+                <transition to="runBlackbox"/>              
+        </node>                                                                 
+
+        <node id="runEcashReactBlackbox">
+			<expression type="VendorAPI_CFE_Actions_RecordEvent">
+				<param name="event">visitors</param>
+			</expression>
+			<expression type="VendorAPI_CFE_Actions_RecordEvent">
+				<param name="event">base</param>
+			</expression>
+			<expression type="VendorAPI_CFE_Actions_RecordEvent">
+				<param name="event">income</param>
+			</expression>
+			<expression type="VendorAPI_CFE_Expressions_IfEqual">
+				<param type="ECash_CFE_Expression_Variable">
+					<param>income_direct_deposit</param>
+				</param>
+				<param>yes</param>
+				<param type="VendorAPI_CFE_Actions_RecordEvent">
+					<param name="event">dir_deposit</param>
+				</param>
+				<param type="VendorAPI_CFE_Actions_DoAll">
+					<param type="VendorAPI_CFE_Actions_RecordEvent">
+						<param name="event">nondir_deposit</param>
+					</param>
+					<param type="VendorAPI_CFE_Actions_RecordEvent">
+						<param name="event" type="VendorAPI_CFE_Expressions_Value">nondir_deposit_${company}</param>
+					</param>
+				</param>
+			</expression>
+			<transition to="runBlackbox"/>
+        </node>                                                             
+
+        <node id="saveEcashReact">
+                <expression type="ECash_CFE_Action_AttributeSet">
+                        <param name="name">save_app</param>
+                        <param name="value">1</param>
+                </expression>
+                <expression type="ECash_CFE_Action_AttributeSet">
+                        <param name="name">save_now</param>      
+                        <param name="value">1</param>            
+                </expression>
+        </node>                                                  
+
+        <node id="runBlackbox">
+                <expression name="bb" type="ECash_CFE_Action_AttributeSet">
+                        <param name="name">winner</param>
+                        <param name="value" type="VendorAPI_CFE_Actions_Blackbox" />
+                </expression>
+                <transition when="bb.false" to="denied"/>                        
+                <transition to="bbPassed"/>
+        </node>             
+
+        <node id="denied">
+                <expression type="VendorAPI_CFE_Actions_UpdateStatus"><param>denied::applicant::*root</param></expression>
+                <expression type="ECash_CFE_Action_AttributeSet">
+                        <param name="name">qualified</param>
+                        <param name="value">0</param>
+                </expression>
+                <expression type="ECash_CFE_Action_AttributeSet">
+                        <param name="name">save_app</param>
+                        <param name="value">0</param>
+                </expression>
+                <expression name="process" type="ECash_CFE_Expression_Variable"><param>olp_process</param></expression>
+                <transition when="process.ecashapp_react" to="ecashReactDenied"/>
+        </node>
+
+        <node id="ecashReactDenied">
+ 			<expression type="VendorAPI_CFE_Actions_RecordEvent">
+				<param name="event">fail</param>
+			</expression>
+        	 <transition to="saveEcashReact"/>
+        </node>
+
+        <node id="bbPassed">
+                <expression name="qualify" type="VendorAPI_CFE_Actions_Qualify"/>
+                <transition when="qualify.false" to="denied"/>
+                <transition to="pending"/>
+        </node>
+
+        <node id="pending">
+                <expression type="VendorAPI_CFE_Actions_UpdateStatus">
+                        <param>pending::prospect::*root</param>
+                </expression>
+                <expression type="ECash_CFE_Action_AttributeSet">
+                        <param name="name">save_app</param>
+                        <param name="value">1</param>
+                </expression>
+                <expression name="process" type="ECash_CFE_Expression_Variable">
+                        <param>olp_process</param>
+                </expression>
+                <transition when="process.ecashapp_react" to="ecashReactPending"/>
+                <transition when="process.cs_react" to="hitCsReactStat"/>
+                <transition when="process.email_react" to="hitCsReactStat"/>
+        </node>
+        
+        <node id="ecashReactPending">
+ 			<expression type="VendorAPI_CFE_Actions_RecordEvent">
+				<param name="event">submitlevel1</param>
+			</expression>
+ 			<expression type="VendorAPI_CFE_Actions_RecordEvent">
+				<param name="event">lead_sold</param>
+			</expression>
+ 			<expression type="VendorAPI_CFE_Actions_RecordEvent">
+				<param name="event" type="VendorAPI_CFE_Expressions_Value">company_${company}_sold</param>
+			</expression>
+ 			<expression type="VendorAPI_CFE_Actions_RecordEvent">
+ 				<param name="event" type="VendorAPI_CFE_Expressions_Value">bbreact_${company}</param>
+			</expression>
+        	 <transition to="saveEcashReact"/>
+        </node>
+
+        <node id="hitCsReactStat">
+			<expression type="VendorAPI_CFE_Actions_RecordEvent">
+				<param name="event">react_submit</param>
+			</expression>
+        </node>
+</ruleset>

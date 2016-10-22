@@ -1,0 +1,122 @@
+<link rel="stylesheet" type="text/css" href="css/ext-all.css">
+<script type='text/javascript' src='lib/ext2/ext-base.js'></script>
+<script type='text/javascript' src='lib/ext2/ext-all.js'></script>
+<script type="text/javascript">
+// Must define the source for the blank image
+Ext.BLANK_IMAGE_URL = '/image/s.gif';
+
+Ext.onReady(function(){
+
+	var myData = [
+		%%%id_credit_ui_javascript%%%
+    ];
+
+    // create the data store
+    var store = new Ext.data.SimpleStore({
+        fields: [
+           {name: 'inquiry_id'},
+           {name: 'inquiry_date', type: 'date', dateFormat: 'm-d-Y h:ia'},
+           {name: 'inquiry_type'},
+           {name: 'global_decision'},
+           {name: 'agent'},
+           {name: 'outcome'},
+        ]
+    });
+    store.loadData(myData);
+
+	function getIdvLink(val)
+	{
+		return '<a target="_idvwindow" href="/get_idv_record.php?bureau_inquiry_id=' + val + '">' + val + '</a>';
+	}
+	
+    // create the Grid
+    var grid = new Ext.grid.GridPanel({
+        store: store,
+        columns: [
+            {id:'inquiry', header: "ID", width: 40, sortable: false, renderer: getIdvLink, dataIndex: 'inquiry_id'},
+	        {header: "Inquiry Date", width: 110, sortable: true, renderer: Ext.util.Format.dateRenderer('m-d-Y h:ia'), dataIndex: 'inquiry_date'},
+            {header: "Inquiry Type", width: 90, sortable: true, dataIndex: 'inquiry_type'},
+            {header: "Decision", width: 55, sortable: true, dataIndex: 'global_decision'},
+            {header: "Agent", width: 75, sortable: false, dataIndex: 'agent'},
+            {header: "Outcome", width: 60, sortable: false, dataIndex: 'outcome'},
+        ],
+        stripeRows: true,
+        width:440,
+        scrollable: false,
+        //title:'DataX Inquiries'
+    });
+
+    grid.render('inquiryList');
+
+    grid.getSelectionModel().selectFirstRow();
+    
+    if(myData.length > 2)
+    {
+    	document.getElementById('inquiryListContainer').style.height = '85px';
+    }
+});    
+   
+</script>
+<div id="layout0group0layer1view" %%%idv_view_layer%%%>
+<table cellpadding=0 cellspacing=0 width="100%"><tr><td class="border" align="left" valign="top">
+<table cellpadding=0 cellspacing=0 width="100%" class="%%%mode_class%%%">
+	<tr class="height">
+		<th colspan="2" class="%%%mode_class%%%">&nbsp;<nobr>Identity and Credit Info </nobr></th>
+	</tr>
+	<tr class="height">
+		<td colspan="2" class="align_left">
+			<div id="inquiryListContainer" style="width: 378px; overflow: auto; display: %%%idv_grid_display%%%;">
+			<div class="align_left" id="inquiryList"></div>
+			</div>
+		</td>
+	</tr>
+	<tr class="height">
+		<td class="align_left_alt_bold">&nbsp;Duplicate Bank Acct:</td>
+		<td class="align_right_alt">
+			<a href="/?action=dup_bank_account&cid=%%%company_id%%%&bank_aba=%%%bank_aba%%%&bank_account=%%%bank_account%%%" 
+				target="DupBankAcct" id="AppIdCreditDupBankAcct" style="text-decoration:underline">%%%aba_account_count%%%</a>&nbsp;
+		</td>
+	</tr>
+	<tr class="height">
+		<td class="align_left_bold">&nbsp;Duplicate IP:&nbsp;</td>
+		<td class="align_right">
+			<a href="/?action=dup_ip_address&ip=%%%ip_address_trim%%%&cid=%%%company_id%%%"  
+				id="AppIdCreditDupIp" target="DupIPAddress" style="text-decoration:underline">%%%ip_address_count%%%</a>&nbsp;
+		</td>
+	</tr>
+	<tr class="height">
+		<td class="align_left_alt_bold">&nbsp;IP Address:&nbsp;</td>
+		<td class="align_right_alt">
+			<a href="/?action=dup_ip_address&ip=%%%ip_address_trim%%%&cid=%%%company_id%%%"  
+				id="AppIdCreditIp" target="DupIPAddress" style="text-decoration:underline">%%%ip_address_trim%%%</a>&nbsp;
+		</td>
+	</tr>
+	<tr class="height">
+		<td class="align_left_bold">&nbsp;Loan Increase:&nbsp;</td>
+		<td class="align_right">
+				  %%%idv_increase%%%&nbsp;
+		</td>
+	</tr>
+	%%%fraud_rules%%%
+	<tr class="height">
+		<td colspan="2" class="align_left_alt_red">
+			&nbsp;%%%idv_error%%%
+		</td>
+	</tr>
+	<tr class="height">
+		<td class="align_right" colspan="2">
+			<table border=0 cellpadding=0 cellspacing=0>
+				<tr>
+					<td class="align_left">
+						%%%idv_recheck_all%%%
+					</td>
+					<td class="align_left">
+						%%%idv_recheck_interrupted%%%
+					</td>
+				</tr>
+			</table>
+		</td>
+	</tr>
+</table>
+</td></tr></table>
+</div>

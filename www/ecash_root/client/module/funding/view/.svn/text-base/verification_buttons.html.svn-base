@@ -1,0 +1,42 @@
+<div id="verification_buttons" style="display: none;">
+	<div id="app_attributes">
+		%%%app_attribute_buttons%%%
+	</div>
+	
+	<div id="app_actions">
+		<div class="app_attribute_title">
+			App Actions
+		</div>
+		<div style="float: left;">
+			<div class="app_button">
+				<input id="AppActionFollowUp" type="button" %%%follow_up_disabled%%% name="submit_button" class="button2%%%follow_up_disabled%%%" value="Follow Up" onClick="javascript:OpenDialogSized('/?action=get_followup&type=Verification&application_id=%%%application_id%%%', '400', '300');">
+			</div>
+			<div class="app_button">
+				<input id="AppActionApproveApp" type="button" %%%approve_button_disabled%%% name="submit_button" class="button2%%%approve_button_disabled%%%" value="Approve" onClick="Check_Due_Date('Approve','%%%application_id%%%','%%%customer_email%%%')">
+			</div>
+			<div class="app_button">
+				<input id="AppActionDenyApp" type="button" %%%deny_button_disabled%%% name="submit_button" class="button2%%%deny_button_disabled%%%" value="Deny" onClick="OpenDialogTall('/?action=loan_action&mode=verification&type=Deny&application_id=%%%application_id%%%&customer_email=%%%customer_email%%%');">
+			</div>
+		</div>
+		<div style="float: left;">
+			<div class="app_button">
+				<input id="AppActionWithdrawApp" type="button" %%%withdraw_disabled%%% name="submit_button" class="button2%%%withdraw_disabled%%%" value="Withdraw" onClick="OpenDialogTall('/?action=loan_action&mode=verification&type=Withdraw&application_id=%%%application_id%%%&customer_email=%%%customer_email%%%');">
+			</div>
+			<div class="app_button">
+		<form style="display: inline; margin: 0; padding: 0;" id="re_sign_documents_form" name="re_sign_documents_form" method="post" action="/" >
+		  <input class="button2%%%resig_disabled%%%" type="submit" value="Send e-sig" onclick="return ConfirmESig();" %%%resig_disabled%%%>
+		  <input type="hidden" name="action" value="resig">
+		  <input type="hidden" name="application_id" value="%%%application_id%%%">
+		</form>
+			</div>
+			<div class="app_button">
+				%%%watch_button%%%
+			</div>
+		</div>
+	</div>
+</div>
+
+<div style="clear: both;">
+	<span style="text-align: left; float: left;">%%%back_button_link%%%</span>
+	<span style="text-align: center; float: right; width: 755px;">Controlling Agent: &nbsp; <b>%%%controlling_agent_name%%% </b></span>
+</div>

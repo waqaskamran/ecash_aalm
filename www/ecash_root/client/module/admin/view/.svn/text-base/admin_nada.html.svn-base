@@ -1,0 +1,25 @@
+<div class='nada_import'>
+<table cellspacing='1' cellpadding='3' border='0' width="100%">
+	<tr>
+		<th colspan="2"  style="background: #B4DCAF">NADA Import</th>
+	</tr>
+	<tr>
+	<td>
+	<span class="error">
+	%%%errors%%%
+	</span>
+	<div>
+	%%%results%%%
+	</div>
+	<br>
+	<form name="nada_zip" action='/' method="post" enctype="multipart/form-data">
+	<input type="hidden" name="mode" value="nada_import" />
+	<input type="hidden" name="action" value="import_nada_zip" />
+	<input type="file" name="nada_file" id='nada_file'>
+	<input type="submit" name="submit" value="Upload NADA Zip">
+	</form>
+	</td>
+	
+	</tr>
+</table>
+</div>

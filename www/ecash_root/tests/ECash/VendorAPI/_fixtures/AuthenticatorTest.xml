@@ -1,0 +1,174 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<dataset>
+	<table name="company">
+		<column>date_modified</column>
+		<column>date_created</column>
+		<column>active_status</column>
+		<column>company_id</column>
+		<column>name</column>
+		<column>name_short</column>
+		<column>co_entity_type</column>
+		<column>ecash_process_type</column>
+		<column>property_id</column>
+		<!--<column>is_db_owner</column>-->
+		<row>
+			<value>2008-11-19 09:50:55</value>
+			<value>0000-00-00 00:00:00</value>
+			<value>active</value>
+			<value>1</value>
+			<value>Test Company</value>
+			<value>ttt</value>
+			<value>pseudo</value>
+			<null />
+			<value>0</value>
+			<!--<value>1</value>-->
+		</row>
+	</table>
+	<table name="system">
+		<column>date_modified</column>
+		<column>date_created</column>
+		<column>active_status</column>
+		<column>system_id</column>
+		<column>name</column>
+		<column>name_short</column>
+		<row>
+			<value>2008-11-19 09:44:36</value>
+			<value>2007-02-23 06:53:35</value>
+			<value>active</value>
+			<value>1</value>
+			<value>eCash_RPC</value>
+			<value>eCash_RPC</value>
+		</row>
+	</table>
+	<table name="section">
+		<column>date_modified</column>
+		<column>date_created</column>
+		<column>active_status</column>
+		<column>system_id</column>
+		<column>section_id</column>
+		<column>name</column>
+		<column>description</column>
+		<column>section_parent_id</column>
+		<column>sequence_no</column>
+		<column>level</column>
+		<column>read_only_option</column>
+		<row>
+			<value>2005-06-28 23:17:32</value>
+			<value>2005-06-28 23:17:32</value>
+			<value>active</value>
+			<value>0</value>
+			<value>1</value>
+			<value>*root</value>
+			<value>*Root</value>
+			<value>0</value>
+			<value>1</value>
+			<value>0</value>
+			<value>0</value>
+		</row>
+		<row>
+			<value>2008-11-19 09:49:27</value>
+			<value>2007-02-15 05:49:23</value>
+			<value>active</value>
+			<value>1</value>
+			<value>2</value>
+			<value>vendor_api</value>
+			<value>eCash Vendor Api</value>
+			<value>1</value>
+			<value>5</value>
+			<value>1</value>
+			<value>0</value>
+		</row>
+	</table>
+	<table name="agent">
+		<column>date_modified</column>
+		<column>date_created</column>
+		<column>active_status</column>
+		<column>system_id</column>
+		<column>agent_id</column>
+		<column>name_last</column>
+		<column>name_first</column>
+		<column>name_middle</column>
+		<column>email</column>
+		<column>phone</column>
+		<column>login</column>
+		<column>crypt_password</column>
+		<column>date_expire_account</column>
+		<column>date_expire_password</column>
+		<!-- <column>last_active_time</column>
+		<column>viewing_application_id</column>
+		<column>view_time</column>-->
+		<row>
+			<value>2008-11-19 09:45:39</value>
+			<value>2008-11-19 07:18:35</value>
+			<value>active</value>
+			<value>1</value>
+			<value>1</value>
+			<value>OLP</value>
+			<value>API</value>
+			<null />
+			<null />
+			<null />
+			<value>api_user</value>
+			<value>613190dbc0e4d970d07ce83dc7189a38</value>
+			<null />
+			<null />
+			<!-- <value>0000-00-00 00:00:00</value>
+			<null />
+			<null />-->
+		</row>
+	</table>
+	<table name="access_group">
+		<column>date_modified</column>
+		<column>date_created</column>
+		<column>active_status</column>
+		<column>company_id</column>
+		<column>system_id</column>
+		<column>access_group_id</column>
+		<column>name</column>
+		<row>
+			<value>2008-11-19 09:48:18</value>
+			<value>2008-11-19 07:18:36</value>
+			<value>active</value>
+			<value>1</value>
+			<value>1</value>
+			<value>1</value>
+			<value>Vendor API</value>
+		</row>
+	</table>
+	<table name="agent_access_group">
+		<column>date_modified</column>
+		<column>date_created</column>
+		<column>active_status</column>
+		<column>company_id</column>
+		<column>agent_id</column>
+		<column>access_group_id</column>
+		<row>
+			<value>2008-11-19 07:18:36</value>
+			<value>2008-11-19 07:18:36</value>
+			<value>active</value>
+			<value>2</value>
+			<value>1</value>
+			<value>1</value>
+		</row>
+	</table>
+	<table name="acl">
+		<column>date_modified</column>
+		<column>date_created</column>
+		<column>active_status</column>
+		<column>company_id</column>
+		<column>access_group_id</column>
+		<column>section_id</column>
+		<column>acl_mask</column>
+		<column>read_only</column>
+		<row>
+			<value>2008-11-19 09:48:48</value>
+			<value>2008-11-19 07:18:36</value>
+			<value>active</value>
+			<value>1</value>
+			<value>1</value>
+			<value>2</value>
+			<null />
+			<value>0</value>
+		</row>
+	</table>
+</dataset>

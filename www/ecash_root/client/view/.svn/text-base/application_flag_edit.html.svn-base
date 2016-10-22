@@ -1,0 +1,122 @@
+<!-- Begin Application Flag Edit -->
+<script type="text/javascript">
+	function CustomFlag()
+	{
+		if(document.getElementById('flag_type').value == "**custom**")
+		{
+			document.getElementById('custom_flag_name_row').style.display = "table-row";
+			document.getElementById('custom_flag_description_row').style.display = "table-row";
+		}
+		else
+		{
+			document.getElementById('custom_flag_name_row').style.display = "none";
+			document.getElementById('custom_flag_description_row').style.display = "none";
+			document.getElementById('custom_flag_name').value = '';
+			document.getElementById('custom_flag_description').value = '';
+		}
+		
+		
+	}
+
+
+</script>
+
+
+<div id="layout0group2layer2edit" %%%application_flag_edit_edit_layer%%%>
+	<form method="post" action="/" name="application_status_new" class="no_padding">
+	<input type="hidden" name="action" value="add_application_flag" />
+	<input type="hidden" name="application_id" value="%%%application_id%%%" />
+	<table cellpadding=0 cellspacing=0 width="100%">
+		<tr>
+			<td class="border" align="left" valign="top">
+				<table cellpadding=0 cellspacing=0 width="100%" class="%%%mode_class%%%" border="0">
+					<tr class="height">
+						<th colspan="2" class="%%%mode_class%%%" style="padding-left: 4px;">Add New Flag</th>
+					</tr>
+					<tr>
+						<td class="align_left_alt_bold" style="padding-left: 4px;">Flag:</td>
+						<td class="align_left_alt" style="padding-right: 4px;">%%%application_flag_list%%%</td>
+					</tr>
+					<div >
+					<tr id="custom_flag_name_row" style="display:none;">
+						<td class="align_left_alt_bold" style="padding-left: 4px;">Short Name:</td>
+						<td class="align_left_alt" style="padding-right: 4px;">
+							<input name="custom_flag_name" id="custom_flag_name" type="text" maxlength="20" />									
+						</td>
+					</tr>
+					<tr id="custom_flag_description_row" style="display:none;">
+						<td class="align_left_alt_bold" style="padding-left: 4px;">Description</td>
+						<td class="align_left_alt" style="padding-right: 4px;">
+							<input name="custom_flag_description" id="custom_flag_description" type="text" maxlength="60" />
+ 						</td>
+					</tr>
+					</div>
+					<tr>
+						<td class="align_left_bold" style="padding-left: 4px;" colspan="2"></td>
+					</tr>
+					<tr>
+						<td class="align_left"> </td>
+						<td class="align_right"><input type="submit" value="Add Flag" class="button"  /></td>
+					</tr>
+				</table>
+			</td>
+		</tr>
+	</table>
+	</form>
+</div>
+
+
+
+
+
+
+
+
+
+
+<div id="layout0group2layer2view" %%%application_flag_edit_view_layer%%%>
+	<form method="post" action="/" name="application_status" class="no_padding">
+	<input type="hidden" name="action" value="remove_application_flag" />
+	<input type="hidden" name="application_id" value="%%%application_id%%%" />
+	<input type="hidden" id="flag_id" name="flag_id" value='' />
+	<input type="hidden" id="application_flag_type" name="flag_type" value="" />
+	<table cellpadding=0 cellspacing=0 width="100%">
+		<tr>
+			<td class="border" align="left" valign="top">
+				<table cellpadding=0 cellspacing=0 width="100%" class="%%%mode_class%%%" border="0">
+					<tr class="height">
+						<th colspan="2" class="%%%mode_class%%%" style="padding-left: 4px;">Show Flag Details</th>
+					</tr>
+					<tr>
+						<td class="align_left_alt_bold" style="padding-left: 4px;">Flag Name:</td>
+						<td class="align_left_alt" id="name_short" style="padding-right: 4px; overflow:hidden;">Flag Name</td>
+					</tr>
+					<tr>
+						<td class="align_left_bold" style="padding-left: 4px;">Description:</td>
+						<td class="align_left" id="name" style="padding-right: 4px;">description</td>
+					</tr>
+					<tr>
+						<td class="align_left_alt_bold" style="padding-left: 4px;">Agent Name:</td>
+						<td class="align_left_alt" id="agent" style="padding-right: 4px;">agent name</td>
+					</tr>
+					<tr>
+						<td class="align_left_bold" style="padding-left: 4px;">Date</td>
+						<td class="align_left" id="date" style="padding-right: 4px;">date</td>
+					</tr>
+					<tr>
+						<td class="align_left"> <input type="button" value="New" class="button" onclick="SetDisplay(0,2,2,'edit',null);"  /></td>
+						<td class="align_right"><input type="submit" value="REMOVE" class="button"  /></td>
+					</tr>
+				</table>
+				
+
+			</td>
+		</tr>
+	</table>
+	</form>
+</div>
+
+
+
+
+<!-- End Application Flag Edit -->

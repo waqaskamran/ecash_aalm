@@ -1,0 +1,29 @@
+K 25
+svn:wc:ra_dav:version-url
+V 93
+/svn/aalm_current/!svn/ver/1979/ecash/branches/sql_merge/ecash_cfe/sql/updates/RELEASE_3.5.23
+END
+200708090732.sql
+K 25
+svn:wc:ra_dav:version-url
+V 110
+/svn/aalm_current/!svn/ver/1979/ecash/branches/sql_merge/ecash_cfe/sql/updates/RELEASE_3.5.23/200708090732.sql
+END
+200708091543-mantis_10114.sql
+K 25
+svn:wc:ra_dav:version-url
+V 123
+/svn/aalm_current/!svn/ver/1979/ecash/branches/sql_merge/ecash_cfe/sql/updates/RELEASE_3.5.23/200708091543-mantis_10114.sql
+END
+200708081116-mantis_10472.sql
+K 25
+svn:wc:ra_dav:version-url
+V 123
+/svn/aalm_current/!svn/ver/1979/ecash/branches/sql_merge/ecash_cfe/sql/updates/RELEASE_3.5.23/200708081116-mantis_10472.sql
+END
+200708091323-agean-disable_statuses.sql
+K 25
+svn:wc:ra_dav:version-url
+V 133
+/svn/aalm_current/!svn/ver/1979/ecash/branches/sql_merge/ecash_cfe/sql/updates/RELEASE_3.5.23/200708091323-agean-disable_statuses.sql
+END

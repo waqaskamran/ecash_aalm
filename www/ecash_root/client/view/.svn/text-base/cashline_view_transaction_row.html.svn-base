@@ -1,0 +1,10 @@
+<tr>
+	<td class="trans">Trans</td>
+	<td class="trans">%%%transaction_date%%%</td>
+	<td class="trans">%%%transaction_type%%%</td>
+	<td class="trans">%%%transaction_amount%%%</td>
+	<td class="trans">%%%transaction_paid%%%</td>
+	<td class="trans">%%%transaction_date_paid%%%</td>
+	<td class="trans">%%%transaction_balance%%%</td>
+	<td class="trans">%%%transaction_due_date%%%</td>
+</tr>

@@ -1,0 +1,23 @@
+CREATE TABLE IF NOT EXISTS `ach` (
+  `date_modified` timestamp NOT NULL default CURRENT_TIMESTAMP COMMENT "CONVENIENCE",
+  `date_created` timestamp NOT NULL default '0000-00-00 00:00:00' COMMENT "CONVENIENCE",
+  `company_id` int(10) unsigned NOT NULL default '0' COMMENT "CONVENIENCE",
+  `application_id` int(10) unsigned NOT NULL default '0' COMMENT "FOREIGN KEY",
+  `ach_id` int(10) unsigned NOT NULL COMMENT "PRIMARY KEY",
+  `ach_batch_id` int(10) unsigned NOT NULL default '0' COMMENT "FOREIGN KEY",
+  `ach_report_id` int(10) unsigned default NULL COMMENT "FOREIGN KEY",
+  `origin_group_id` int(11) NOT NULL COMMENT "Pulled from event_schedule?",
+  `ach_date` date NOT NULL default '0000-00-00' COMMENT "Date considered effective",
+  `amount` decimal(7,2) NOT NULL default '0.00' COMMENT "Exact unbroken raw amount",
+  `ach_type` enum('debit','credit') NOT NULL default 'debit' COMMENT "Direction the money is going",
+  `bank_aba` varchar(9) NOT NULL default '' COMMENT "Foreign account info",
+  `bank_account` varchar(17) NOT NULL default '' COMMENT "Foreign account info",
+  `bank_account_type` enum('checking','savings') NOT NULL default 'checking' COMMENT "Foreign account info",
+  `ach_status` enum('created','batched','returned','processed') NOT NULL default 'created' COMMENT "Self explanatory",
+  `ach_return_code_id` int(10) unsigned default NULL COMMENT "FOREIGN KEY: NULL if not from a return",
+  `ach_trace_number` varchar(15) NOT NULL default '' COMMENT "Externally provided meta-data",
+  PRIMARY KEY  (`ach_id`),
+  KEY `idx_ach_app_dt` (`application_id`,`ach_date`,`ach_id`),
+  KEY `idx_ach_aba_account_co_dt` (`bank_aba`,`bank_account`,`company_id`,`ach_date`),
+  KEY `idx_ach_batchid_origin_grp` (`ach_batch_id`,`origin_group_id`)
+) ENGINE=InnoDb COMMENT="Stores individual lines pulled from an ACH batch";

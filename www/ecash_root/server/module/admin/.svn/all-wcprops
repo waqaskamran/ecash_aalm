@@ -1,0 +1,167 @@
+K 25
+svn:wc:ra_dav:version-url
+V 86
+/svn/aalm_current/!svn/ver/4861/ecash/branches/sql_merge/ecash_cfe/server/module/admin
+END
+module.class.php
+K 25
+svn:wc:ra_dav:version-url
+V 103
+/svn/aalm_current/!svn/ver/3864/ecash/branches/sql_merge/ecash_cfe/server/module/admin/module.class.php
+END
+intercept_card.class.php
+K 25
+svn:wc:ra_dav:version-url
+V 111
+/svn/aalm_current/!svn/ver/1979/ecash/branches/sql_merge/ecash_cfe/server/module/admin/intercept_card.class.php
+END
+blank.class.php
+K 25
+svn:wc:ra_dav:version-url
+V 102
+/svn/aalm_current/!svn/ver/1979/ecash/branches/sql_merge/ecash_cfe/server/module/admin/blank.class.php
+END
+ach_providers.class.php
+K 25
+svn:wc:ra_dav:version-url
+V 110
+/svn/aalm_current/!svn/ver/3697/ecash/branches/sql_merge/ecash_cfe/server/module/admin/ach_providers.class.php
+END
+dda.class.php
+K 25
+svn:wc:ra_dav:version-url
+V 100
+/svn/aalm_current/!svn/ver/1979/ecash/branches/sql_merge/ecash_cfe/server/module/admin/dda.class.php
+END
+rules.class.php
+K 25
+svn:wc:ra_dav:version-url
+V 102
+/svn/aalm_current/!svn/ver/1979/ecash/branches/sql_merge/ecash_cfe/server/module/admin/rules.class.php
+END
+underwriting_rules.class.php
+K 25
+svn:wc:ra_dav:version-url
+V 115
+/svn/aalm_current/!svn/ver/2741/ecash/branches/sql_merge/ecash_cfe/server/module/admin/underwriting_rules.class.php
+END
+nada_import.class.php
+K 25
+svn:wc:ra_dav:version-url
+V 108
+/svn/aalm_current/!svn/ver/1979/ecash/branches/sql_merge/ecash_cfe/server/module/admin/nada_import.class.php
+END
+flag_types.class.php
+K 25
+svn:wc:ra_dav:version-url
+V 107
+/svn/aalm_current/!svn/ver/1979/ecash/branches/sql_merge/ecash_cfe/server/module/admin/flag_types.class.php
+END
+tags.class.php
+K 25
+svn:wc:ra_dav:version-url
+V 101
+/svn/aalm_current/!svn/ver/1979/ecash/branches/sql_merge/ecash_cfe/server/module/admin/tags.class.php
+END
+payment_types.class.php
+K 25
+svn:wc:ra_dav:version-url
+V 110
+/svn/aalm_current/!svn/ver/1979/ecash/branches/sql_merge/ecash_cfe/server/module/admin/payment_types.class.php
+END
+privs.class.php
+K 25
+svn:wc:ra_dav:version-url
+V 102
+/svn/aalm_current/!svn/ver/1979/ecash/branches/sql_merge/ecash_cfe/server/module/admin/privs.class.php
+END
+suppression_rules.class.php
+K 25
+svn:wc:ra_dav:version-url
+V 114
+/svn/aalm_current/!svn/ver/2741/ecash/branches/sql_merge/ecash_cfe/server/module/admin/suppression_rules.class.php
+END
+dda_schedule.class.php
+K 25
+svn:wc:ra_dav:version-url
+V 109
+/svn/aalm_current/!svn/ver/1979/ecash/branches/sql_merge/ecash_cfe/server/module/admin/dda_schedule.class.php
+END
+RegExpTranslator.class.php
+K 25
+svn:wc:ra_dav:version-url
+V 113
+/svn/aalm_current/!svn/ver/4488/ecash/branches/sql_merge/ecash_cfe/server/module/admin/RegExpTranslator.class.php
+END
+transaction_types.class.php
+K 25
+svn:wc:ra_dav:version-url
+V 114
+/svn/aalm_current/!svn/ver/1979/ecash/branches/sql_merge/ecash_cfe/server/module/admin/transaction_types.class.php
+END
+queue_config.class.php
+K 25
+svn:wc:ra_dav:version-url
+V 109
+/svn/aalm_current/!svn/ver/1979/ecash/branches/sql_merge/ecash_cfe/server/module/admin/queue_config.class.php
+END
+dda_adjustments.class.php
+K 25
+svn:wc:ra_dav:version-url
+V 112
+/svn/aalm_current/!svn/ver/1979/ecash/branches/sql_merge/ecash_cfe/server/module/admin/dda_adjustments.class.php
+END
+global_campaign_rules.class.php
+K 25
+svn:wc:ra_dav:version-url
+V 118
+/svn/aalm_current/!svn/ver/4489/ecash/branches/sql_merge/ecash_cfe/server/module/admin/global_campaign_rules.class.php
+END
+dda_application.class.php
+K 25
+svn:wc:ra_dav:version-url
+V 112
+/svn/aalm_current/!svn/ver/4861/ecash/branches/sql_merge/ecash_cfe/server/module/admin/dda_application.class.php
+END
+holidays.class.php
+K 25
+svn:wc:ra_dav:version-url
+V 105
+/svn/aalm_current/!svn/ver/1979/ecash/branches/sql_merge/ecash_cfe/server/module/admin/holidays.class.php
+END
+docs_config.class.php
+K 25
+svn:wc:ra_dav:version-url
+V 108
+/svn/aalm_current/!svn/ver/1979/ecash/branches/sql_merge/ecash_cfe/server/module/admin/docs_config.class.php
+END
+groups.class.php
+K 25
+svn:wc:ra_dav:version-url
+V 103
+/svn/aalm_current/!svn/ver/1979/ecash/branches/sql_merge/ecash_cfe/server/module/admin/groups.class.php
+END
+dda_queues.class.php
+K 25
+svn:wc:ra_dav:version-url
+V 107
+/svn/aalm_current/!svn/ver/1979/ecash/branches/sql_merge/ecash_cfe/server/module/admin/dda_queues.class.php
+END
+dda_controlling_agent.class.php
+K 25
+svn:wc:ra_dav:version-url
+V 118
+/svn/aalm_current/!svn/ver/1979/ecash/branches/sql_merge/ecash_cfe/server/module/admin/dda_controlling_agent.class.php
+END
+dda_reaffiliate.class.php
+K 25
+svn:wc:ra_dav:version-url
+V 112
+/svn/aalm_current/!svn/ver/1979/ecash/branches/sql_merge/ecash_cfe/server/module/admin/dda_reaffiliate.class.php
+END
+profiles.class.php
+K 25
+svn:wc:ra_dav:version-url
+V 105
+/svn/aalm_current/!svn/ver/1979/ecash/branches/sql_merge/ecash_cfe/server/module/admin/profiles.class.php
+END

@@ -1,0 +1,71 @@
+			<link rel="stylesheet" type="text/css" href="css/tabs.css" />
+			<link rel="stylesheet" type="text/css" href="css/basic-dialog.css" />
+			<link rel="stylesheet" type="text/css" href="css/tree.css" />
+			<link rel="stylesheet" type="text/css" href="css/reports.css" />
+			<link rel="stylesheet" type="text/css" href="css/yui-ext.css" />
+			<script src="js/yui/utilities/utilities.js" ></script>
+			<script src="js/lib/yui-ext.js"></script>
+<script>
+
+var viewReportDetails = function()
+{
+    var dialog, showBtn;
+    
+    return {
+        init : function()
+        {
+             showBtn = getEl('show-dialog-btn');
+             showBtn.on('click', this.showDialog, this, true);
+        },
+        
+        showDialog : function(){
+            if(!dialog)
+            {
+                dialog = new YAHOO.ext.BasicDialog("queue-details-dlg", { 
+		        	modal:false,
+		        	autoTabs:false,
+		        	width:448,
+		        	height:500,
+		        	shadow:'frame',
+		        	minWidth:438,
+		        	minHeight:480,
+		        	proxyDrag:true,
+
+		        	autoScroll:true,
+		        	constraintoviewport: true
+					});
+                dialog.addKeyListener(27, dialog.hide, dialog);
+            }
+            dialog.show(showBtn.dom);
+        }
+    };
+}();
+
+
+YAHOO.ext.EventManager.onDocumentReady(viewReportDetails.init, viewReportDetails, true);
+
+
+
+
+		
+		
+	function LoadHelpScreen(title,details)
+			{
+				document.getElementById('report_detail_title').innerHTML = title;
+				document.getElementById('report_detail_html').innerHTML = details;
+				document.getElementById('show-dialog-btn').click();
+			}
+		
+</script>
+	<input type="button" id="show-dialog-btn" value="ReportDetails" style="width:0px;height:0px;position:absolute;top:0;left:0;visibility:hidden;"/>
+  <div id="queue-details-dlg" style="visibility:hidden;position:absolute;top:0px;">
+    	<div class="ydlg-hd" id="report_detail_title"></div>
+    	<div class="ydlg-bd">	        
+	        <div class="ydlg-tab" title="Details">	            
+	            <div class="inner-tab" style="top:20px;left:4px;right:4px;position:absolute;text-align:center;overflow:auto;height:480px;width:430px;" id="report_detail_html">
+	            </div>
+	        </div>
+        </div>
+    </div>	
+
+<center>I IZ A MENU!!!!!!!!1!!!!</center><hr>

@@ -1,0 +1,73 @@
+<html>
+<head>
+<link rel="stylesheet" href="css/transactions.css">
+%%%serverdate%%%
+<script type="text/javascript" src="js/transactions.js"></script>
+<script type="text/javascript" src="js/json.js"></script>
+<style>
+body 
+{ 
+	font-family:arial, sans-serif; 
+	background-color: gray;
+}
+form.no_padding { padding: 0px; }
+
+#transtable
+{
+	background-color: white;	
+	border: 1px solid;
+	height: 283px;
+}
+
+#transtable thead
+{
+	background-color: lightsteelblue;	
+	font-weight: bold;
+}
+
+#transtable thead td
+{
+	border: 1px solid;
+}
+
+td { text-align: center; }
+.left { text-align: left; }
+.right { text-align: right; }
+</style>
+</head>
+<body %%%onload%%%>
+<form id="%%%action_type%%%_form" name="%%%action_name%%%" method="post" action="/" class="no_padding">
+<input type="hidden" name="application_id" id="application_id" value="%%%application_id%%%" />
+<input type="hidden" name="payment_type" value="%%%action_type%%%" />
+<input type="hidden" name="application_id" id="application_id" value="%%%application_id%%%">
+<input type="hidden" name="action" id="action" value="%%%action_type%%%">
+<input type="hidden" name="schedule_effect" id="schedule_effect" value="shorten">
+<input type="hidden" name="adjustment_target" value="fees">
+<input type="hidden" name="action_type" id="action_type" value="save">
+
+<table width="100%" cellpadding="0" cellspacing="0" align="center" id="transtable">
+  <thead>
+	<tr>
+		<td colspan="3">Eligible</td>
+	</tr>
+  </head>
+  <tbody>
+	  <tr>
+	    <td colspan="3"><p><b>This application is eligible to be Renewed at this time.</p></b></td>
+	  </tr>
+	  <tr>
+	    <td colspan="3">&nbsp;</td>
+	  </tr>
+	  <tr>
+	    <td colspan="3"><p>Click the Send Request button to send the Renewal Request documents or click the Cancel button to cancel.</p></td>
+	  </tr>
+	  <tr>
+	    <td>&nbsp;</td>
+	    <td><input type="button" value="Cancel" onClick="window.close();"></td>
+	    <td><input type="button" id="savebutton" value="Send Request" onClick="document.forms[0].submit()"></td>
+	  </tr>
+  </tbody>
+</table>
+</form>
+</body>
+</html>

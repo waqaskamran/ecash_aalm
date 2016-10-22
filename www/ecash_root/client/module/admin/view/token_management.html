@@ -1,0 +1,122 @@
+<table width="100%" class=rules border=1 >
+	<tr><th colspan="2" style="background: #B4DCAF">Token Management</th></tr>
+	<tr>
+		
+		<td valign=top>
+			<table width=100%>
+				<tr>
+					<td valign="top" style="font-size:16pt">1.
+					<td align="center">
+						<table align=center>
+							<tr>
+								<td>
+									<table border=1>
+										<th>Company
+										<tr>
+											<td><select name=company id=company onFocus="this.oldIndex=this.selectedIndex" onchange="if(!getLoanTypes(this.options[this.selectedIndex].value)) this.selectedIndex=this.oldIndex;" style="width:150px;"><option value=0>(Global)</option></select>
+									</table>
+							<tr>
+								<td>
+									<div id=loantypediv name=loantypediv style="display:none">
+										<table border=1>
+												<th>Loan Type
+												<tr>
+													<td><select name=loan_type id=loan_type onFocus="this.oldIndex=this.selectedIndex" onchange="if(!getTokens()) this.selectedIndex=this.oldIndex;" style="width:150px;"><option value=0>Company Specific</option></select>
+										</table>
+									</div>
+						</table>
+			</table>
+		<td>
+			<table align=center width=100%>
+				<tr>
+					<td valign="top" align="left" style="font-size:16pt">2.
+					<td>
+						<table align=center border=1>
+							<th>Tokens
+							<tr>
+								<td><div id=changemessage style='display:none;'> * changes have been made and not saved</div>
+							<tr>
+								<td><select name=tokenlist id=tokenlist onchange="loadtoken()" size=10 style="width:250px"></select>
+						</table>
+					<td>
+						<table>
+							<tr>
+								<td>Date Created:
+							<tr>
+								<td><div id=date_created name=date_created></div>
+							<tr>
+								<td>Date Modified
+							<tr>
+								<td><div id=date_modified name=date_modified></div>
+						</table>
+			</table>
+	 <tr>
+		<td>
+		<td>
+
+	 			<tr>
+		<td><div id=tokentypediv name=tokentypediv style="display:none">
+			<table align=center width=100%>
+				<tr>
+					<td valign="top" style="font-size:16pt">3.
+					<td> 
+						<table align=center border=1>
+							<th>Token Type
+							<tr>
+								<td><select name=tokentype id=tokentype onchange="switchtype(this.options[this.selectedIndex].value);" size=3 style="width:250px"><option value=static>Static</option><option value=application>Application</option><option value=business_rule>Business Rule</option></select>
+						</table>
+			</table>
+		</div>
+	 	<td ><div id=static name=static style="display:none" align=center>
+			<table align=center width=100%>
+				<tr>
+					<td valign="top" style="font-size:16pt">4.<td>
+			<table border=1>
+				<th colspan=2>Static
+				<tr >
+					<td >Value:
+					<td><input type=text id=value name=value onkeyup="setValue();">
+			</table>
+			</table>
+		</div>
+	 	<div id=application name=application style="display:none" align=center>
+			<table align=center width=100% >
+				<tr>
+					<td valign="top" style="font-size:16pt">4.<td>
+			<table border=1>
+				<th colspan=2>Application Column
+				<tr >
+					<td >Column:
+					<td><select id=columnname name=columnname style="width:150px;" onchange="setColumnName()"></select>
+			</table>
+			</table>
+		</div>
+	 	<div id=business_rule name=business_rule style="display:none" align=center>
+			<table align=center width=100%>
+				<tr>
+					<td valign="top" style="font-size:16pt">4.<td>
+			<table border=1>
+				<th colspan=2>Business Rule
+				<tr >
+					<td >Component:
+					<td><select id=component name=component style="width:150px;" onchange="setComponent()"></select>
+				<tr>
+					<td>ComponentParm:
+					<td><select id=componentparm name=componentparm style="width:150px;" onchange="setParm();"></select>
+			</table>
+			</table>
+	 	</div>
+	 </tr>
+<tr><td colspan=2>
+			<table align=center>
+				<tr>
+					<td><input type=button id=addtoken name=addtoken value=Add onclick="addToken()">
+					<td><input type=button value=Save id=updatetoken name=updatetoken onclick="updateToken()" style="display:none">
+					<td><input type=button value=Cancel id=reverttoken name=reverttoken onclick="revertToken()" style="display:none"><td><input type=button value=Delete id=deletetoken name=deletetoken onclick="deleteToken()" style="display:none">
+			</table>
+</table>
+
+<script>
+token_ini();
+
+</script>

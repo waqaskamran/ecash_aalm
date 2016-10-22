@@ -1,0 +1,155 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<title>Document Details</title>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<script type="text/javascript">
+
+		function IDCheck(strString)
+		   //  check for valid numeric strings
+		   {
+		   var strValidChars = '0123456789';
+		   var strChar;
+		   var blnResult = true;
+
+		   if (strString.length == 0) return false;
+
+		   //  test strString consists of valid characters listed above
+		   for (i = 0; i < strString.length && blnResult == true; i++)
+		      {
+		      strChar = strString.charAt(i);
+		      if (strValidChars.indexOf(strChar) == -1)
+		         {
+		         blnResult = false;
+		         }
+		      }
+		   return blnResult;
+		   }
+
+</script>
+<style type="text/css">
+body
+{
+ margin: 5px;
+ background: #ddd;
+ font-family: Sans-Serif;
+}
+span.title
+{
+	text-align: left;
+	font-size: .9em;
+	position:relative;
+	top: 2px;
+	border: 0px;
+	background: none;
+	padding: 0px;
+	color:black;
+	font-weight: bold;
+}
+input.button2autosize
+{
+	background-color: whitesmoke;
+	color: black;
+	height: 20px;
+	text-align: center;
+	border-width: 1px 2px 2px 1px;
+	border-style: solid;
+	border-color: #aaa;
+	cursor:pointer;
+}
+div.history_row div, div.title_row div
+{
+	float: left;
+	padding: 3px;
+}
+div.title_row div
+{
+	font-weight: bold;
+	font-size: 11px;
+	margin-bottom: -5px;
+}
+div.history_row
+{
+	clear: both;
+	border-style: solid;
+	border-width: 0px 0px 1px 0px;
+	border-color: #aaa;
+	font-size: 12px;
+}
+#dispatch_history, #document_modification, #document_information
+{
+	border: 1px solid #aaa;
+	width: 500px;
+	background: #fff;
+}
+#dispatch_history
+{
+	max-height: 170px;
+	overflow: auto;
+}
+#document_modification div.row
+{
+	width: 496px;
+	padding: 2px;
+	clear: both;
+	border-width: 0px 0px 1px 0px;
+	border-style: solid;
+	border-color: #aaa;
+	float: left;
+	background: #fff;
+}
+div.title
+{
+	font-size: 15px;
+	font-weight: bold;
+	background-color: #eee;
+	padding: 5px;
+}
+</style>
+</head>
+<body onload="self.focus()">
+<form id="modify_document" method="post" action="/" class="no_padding">
+<input name="application_id" value="%%%application_id%%%" type="hidden" />
+
+<input type="hidden" name="previous_module" id="previous_module" value="%%%previous_module%%%" />
+<input name="document_id" id="document_id" value="%%%document_id%%%" type="hidden" />
+<input name="archive_id" id="archive_id" value="%%%archive_id%%%" type="hidden" />
+<input name="action" id="action" value="modify_document" type="hidden" />
+<input name="submit_button" id="submit_button" value="" type="hidden" />
+<div id="document_information">
+<div class="title">Document Information</div>
+<div class="history_row" style="padding: 3px;"><b>Document Name: </b>%%%description%%%</div>
+<div class="history_row" style="padding: 3px;"><b>Application ID: </b>%%%application_id%%%</div>
+<div style="clear: both;"></div>
+</div><br/>
+<div id="document_modification" style="%%%modify_document_display%%%">
+<div class="title">Modify Document</div>
+<div class="row">
+	<span class="title">Archive ID:</span><br/>
+	<input type="text" name="new_archive_id" value="%%%archive_id%%%" /> 
+	<input type="button" class="button2autosize" value="Change Archive ID" 
+			onClick="if (IDCheck(document.forms['modify_document'].new_archive_id.value)) { document.forms['modify_document'].archive_id.value = document.forms['modify_document'].new_archive_id.value; document.forms['modify_document'].submit(); }" /> 
+	<input type="button" class="button2autosize" value="Remove from Archive"
+			onClick="document.forms['modify_document'].action.value = 'delete_document'; document.forms['modify_document'].submit(); " />  
+</div>
+<div class="row">
+		<span class="title">Destination:</span><br/>
+		<input type="text" name="destination" value=""/>
+				<input type="button" class="button2autosize" value="Re-send As Email"
+			onClick="document.forms['modify_document'].action.value = 'resend_email'; document.forms['modify_document'].submit();"/>
+		<input type="button" class="button2autosize" value="Re-send As Fax"
+			onClick="document.forms['modify_document'].action.value = 'resend_fax'; document.forms['modify_document'].submit();"/>
+</div>
+<div class="row">
+	<div style="float: right;padding: 5px;"><input type="button" class="button2autosize" value="Cancel" onClick="window.close();" /></div>
+</div>
+<div style="clear: both;"></div>
+</div>
+</form><br/>
+<div id="dispatch_history">
+<div class="title">Document Dispatch History</div>
+%%%dispatch_history%%%
+<div style="clear: both;"></div>
+</div>
+</body>
+</html>

@@ -1,0 +1,17 @@
+<!-- Begin collections_menu.html -->
+%%%JAVASCRIPT%%%
+<div id="section_nav">
+	%%%internal_button%%%
+	%%%external_button%%%
+	%%%corrections_button%%%
+	%%%quick_checks_button%%%
+	%%%collections_help_button%%%
+	%%%search_box_form%%%
+</div>
+<div class="clearer"></div>
+<div id="queue_bar">
+	%%%queue_buttons%%%
+<div class="clearer"></div>
+</div>
+<div class="clearer"></div>
+<!-- End collections_menu.html -->

@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<validators>
+	<validator
+		name="LoadBy"
+		class="DB_Models_ContainerLoadByValidator_1"
+	/>
+</validators>

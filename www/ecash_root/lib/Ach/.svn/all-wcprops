@@ -1,0 +1,173 @@
+K 25
+svn:wc:ra_dav:version-url
+V 74
+/svn/aalm_current/!svn/ver/5039/ecash/branches/sql_merge/ecash_cfe/lib/Ach
+END
+ach_batch_teledraft.class.php
+K 25
+svn:wc:ra_dav:version-url
+V 104
+/svn/aalm_current/!svn/ver/1979/ecash/branches/sql_merge/ecash_cfe/lib/Ach/ach_batch_teledraft.class.php
+END
+ach_return_impact.class.php
+K 25
+svn:wc:ra_dav:version-url
+V 102
+/svn/aalm_current/!svn/ver/1979/ecash/branches/sql_merge/ecash_cfe/lib/Ach/ach_return_impact.class.php
+END
+ach_batch_impact.class.php
+K 25
+svn:wc:ra_dav:version-url
+V 101
+/svn/aalm_current/!svn/ver/1979/ecash/branches/sql_merge/ecash_cfe/lib/Ach/ach_batch_impact.class.php
+END
+ach_return.class.php
+K 25
+svn:wc:ra_dav:version-url
+V 95
+/svn/aalm_current/!svn/ver/5039/ecash/branches/sql_merge/ecash_cfe/lib/Ach/ach_return.class.php
+END
+ach.class.php
+K 25
+svn:wc:ra_dav:version-url
+V 88
+/svn/aalm_current/!svn/ver/4821/ecash/branches/sql_merge/ecash_cfe/lib/Ach/ach.class.php
+END
+ach_batch.class.php
+K 25
+svn:wc:ra_dav:version-url
+V 94
+/svn/aalm_current/!svn/ver/5028/ecash/branches/sql_merge/ecash_cfe/lib/Ach/ach_batch.class.php
+END
+ach_return_usbank.class.php
+K 25
+svn:wc:ra_dav:version-url
+V 102
+/svn/aalm_current/!svn/ver/1979/ecash/branches/sql_merge/ecash_cfe/lib/Ach/ach_return_usbank.class.php
+END
+ach_return_epp.class.php
+K 25
+svn:wc:ra_dav:version-url
+V 99
+/svn/aalm_current/!svn/ver/1979/ecash/branches/sql_merge/ecash_cfe/lib/Ach/ach_return_epp.class.php
+END
+ach_batch_usbank.class.php
+K 25
+svn:wc:ra_dav:version-url
+V 101
+/svn/aalm_current/!svn/ver/1979/ecash/branches/sql_merge/ecash_cfe/lib/Ach/ach_batch_usbank.class.php
+END
+ach_return_purepay.class.php
+K 25
+svn:wc:ra_dav:version-url
+V 103
+/svn/aalm_current/!svn/ver/1979/ecash/branches/sql_merge/ecash_cfe/lib/Ach/ach_return_purepay.class.php
+END
+ach_batch_epp.class.php
+K 25
+svn:wc:ra_dav:version-url
+V 98
+/svn/aalm_current/!svn/ver/1979/ecash/branches/sql_merge/ecash_cfe/lib/Ach/ach_batch_epp.class.php
+END
+ach_batch_purepay.class.php
+K 25
+svn:wc:ra_dav:version-url
+V 102
+/svn/aalm_current/!svn/ver/1979/ecash/branches/sql_merge/ecash_cfe/lib/Ach/ach_batch_purepay.class.php
+END
+ach_return_ofs.class.php
+K 25
+svn:wc:ra_dav:version-url
+V 99
+/svn/aalm_current/!svn/ver/4510/ecash/branches/sql_merge/ecash_cfe/lib/Ach/ach_return_ofs.class.php
+END
+ach_return_viking.class.php
+K 25
+svn:wc:ra_dav:version-url
+V 102
+/svn/aalm_current/!svn/ver/5033/ecash/branches/sql_merge/ecash_cfe/lib/Ach/ach_return_viking.class.php
+END
+ach_batch_viking.class.php
+K 25
+svn:wc:ra_dav:version-url
+V 101
+/svn/aalm_current/!svn/ver/5028/ecash/branches/sql_merge/ecash_cfe/lib/Ach/ach_batch_viking.class.php
+END
+ach_return_regal.class.php
+K 25
+svn:wc:ra_dav:version-url
+V 101
+/svn/aalm_current/!svn/ver/1979/ecash/branches/sql_merge/ecash_cfe/lib/Ach/ach_return_regal.class.php
+END
+ach_batch_regal.class.php
+K 25
+svn:wc:ra_dav:version-url
+V 100
+/svn/aalm_current/!svn/ver/4945/ecash/branches/sql_merge/ecash_cfe/lib/Ach/ach_batch_regal.class.php
+END
+ach_return_intercept.class.php
+K 25
+svn:wc:ra_dav:version-url
+V 105
+/svn/aalm_current/!svn/ver/1979/ecash/branches/sql_merge/ecash_cfe/lib/Ach/ach_return_intercept.class.php
+END
+ach_batch_intercept.class.php
+K 25
+svn:wc:ra_dav:version-url
+V 104
+/svn/aalm_current/!svn/ver/1979/ecash/branches/sql_merge/ecash_cfe/lib/Ach/ach_batch_intercept.class.php
+END
+ach_utils.class.php
+K 25
+svn:wc:ra_dav:version-url
+V 94
+/svn/aalm_current/!svn/ver/1979/ecash/branches/sql_merge/ecash_cfe/lib/Ach/ach_utils.class.php
+END
+ach_return_interface.iface.php
+K 25
+svn:wc:ra_dav:version-url
+V 105
+/svn/aalm_current/!svn/ver/1979/ecash/branches/sql_merge/ecash_cfe/lib/Ach/ach_return_interface.iface.php
+END
+ach_return_lst.class.php
+K 25
+svn:wc:ra_dav:version-url
+V 99
+/svn/aalm_current/!svn/ver/1979/ecash/branches/sql_merge/ecash_cfe/lib/Ach/ach_return_lst.class.php
+END
+ach_batch_geneva_roth.class.php
+K 25
+svn:wc:ra_dav:version-url
+V 106
+/svn/aalm_current/!svn/ver/1979/ecash/branches/sql_merge/ecash_cfe/lib/Ach/ach_batch_geneva_roth.class.php
+END
+ach_batch_lst.class.php
+K 25
+svn:wc:ra_dav:version-url
+V 98
+/svn/aalm_current/!svn/ver/1979/ecash/branches/sql_merge/ecash_cfe/lib/Ach/ach_batch_lst.class.php
+END
+ach_batch_interface.iface.php
+K 25
+svn:wc:ra_dav:version-url
+V 104
+/svn/aalm_current/!svn/ver/2959/ecash/branches/sql_merge/ecash_cfe/lib/Ach/ach_batch_interface.iface.php
+END
+ach_return_advantageach.class.php
+K 25
+svn:wc:ra_dav:version-url
+V 108
+/svn/aalm_current/!svn/ver/1979/ecash/branches/sql_merge/ecash_cfe/lib/Ach/ach_return_advantageach.class.php
+END
+ach_batch_advantageach.class.php
+K 25
+svn:wc:ra_dav:version-url
+V 107
+/svn/aalm_current/!svn/ver/1979/ecash/branches/sql_merge/ecash_cfe/lib/Ach/ach_batch_advantageach.class.php
+END
+ach_return_teledraft.class.php
+K 25
+svn:wc:ra_dav:version-url
+V 105
+/svn/aalm_current/!svn/ver/1979/ecash/branches/sql_merge/ecash_cfe/lib/Ach/ach_return_teledraft.class.php
+END

@@ -1,0 +1,41 @@
+<div id="layout0group0layer4view" %%%documents_view_layer%%%>
+	<table cellpadding=0 cellspacing=0 width="100%">
+		<tr>
+			<td class="border" align="left" valign="top">
+				<table cellpadding=0 cellspacing=0 width="100%" class="%%%mode_class%%%">
+					<tr class="height">
+						<th colspan="3" class="%%%mode_class%%%">&nbsp;<nobr>Documents</nobr></th>
+						<th colspan="2" class="%%%mode_class%%%">
+							%%%reprint_docs_title%%%&nbsp;
+							&nbsp;
+						</th>
+					</tr>
+						<!--
+					<tr class="height">
+	 						<th class="search" width="38%">&nbsp;Name</th>
+	 						<th class="search" width="7%">S/R/<span style="color: #DD0000;">F</span></th>
+	 						<th class="search" width="12%">&nbsp;Mthd</th>
+	 						<th class="search" width="13%">&nbsp;Agent</th>
+	 						<th class="search" width="30%">&nbsp;Date/Time</th>
+					</tr>
+					-->
+					<tr>
+						<td colspan="5">
+							<div id="group0layer4viewscroll" style="height: 215px;overflow:auto" ><!--  overflow:auto -->
+								%%%documents%%%
+							</div>
+						</td>
+					</tr>
+				</table>
+			</td>
+		</tr>
+	</table>
+</div>
+<form id="modify_document" method="post" action="/" class="no_padding">
+<input type="hidden" name="application_id" value="%%%application_id%%%">
+<input type="hidden" name="mode" value="%%%current_mode%%%">
+<input type="hidden" name="document_id" id="document_id" value="">
+<input type="hidden" name="archive_id" id="archive_id" value="">
+<input type="hidden" name="action" id="action" value="modify_document">
+<input type="hidden" name="submit_button" id="submit_button" value="">
+</form>

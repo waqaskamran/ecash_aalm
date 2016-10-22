@@ -1,0 +1,1083 @@
+<script language="javascript">
+
+//some globals
+var rule_type = "%%%fraud_mode%%%";
+var default_new_date = "%%%default_rule_date_value%%%";
+var prop_id = "%%%prop_id%%%";
+var file_size = "%%%prop_file_size%%%";
+var confirmed = "%%%confirmed%%%";
+var confirm_button = %%%confirm_button%%%;
+//for building the column dropdown
+var selected_columns = new Array();
+//for filters
+var filter_active = "%%%filter_active%%%";
+var filter_confirmed = "%%%filter_confirmed%%%";
+var filter_completed = "%%%filter_completed%%%";
+
+var state_array = {
+			"AL":"Alabama",
+			"AK":"Alaska",
+			"AZ":"Arizona",
+			"AR":"Arkansas",
+			"CA":"California",
+			"CO":"Colorado",
+			"CT":"Connecticut",
+			"DE":"Delaware",
+			"DC":"District of Columbia",
+			"FL":"Florida",
+			"GA":"Georgia",
+			"HI":"Hawaii",
+			"ID":"Idaho",
+			"IL":"Illinois",
+			"IN":"Indiana",
+			"IA":"Iowa",
+			"KS":"Kansas",
+			"KY":"Kentucky",
+			"LA":"Louisiana",
+			"ME":"Maine",
+			"MD":"Maryland",
+			"MA":"Massachusetts",
+			"MI":"Michigan",
+			"MN":"Minnesota",
+			"MS":"Mississippi",
+			"MO":"Missouri",
+			"MT":"Montana",
+			"NE":"Nebraska",
+			"NV":"Nevada",
+			"NH":"New Hampshire",
+			"NJ":"New Jersey",
+			"NM":"New Mexico",
+			"NY":"New York",
+			"NC":"North Carolina",
+			"ND":"North Dakota",
+			"OH":"Ohio",
+			"OK":"Oklahoma",
+			"OR":"Oregon",
+			"PA":"Pennsylvania",
+			"PR":"Puerto Rico",
+			"RI":"Rhode Island",
+			"SC":"South Carolina",
+			"SD":"South Dakota",
+			"TN":"Tennessee",
+			"TX":"Texas",
+			"UT":"Utah",
+			"VT":"Vermont",
+			"VI":"Virgin Islands",
+			"VA":"Virginia",
+			"WA":"Washington",
+			"WV":"West Virginia",
+			"WI":"Wisconsin",
+			"WY":"Wyoming",
+
+			"AA":"Armed Forces America",
+			"AE":"Armed Forces Other Areas",
+			"AS":"American Samoa",
+			"AP":"Armed Forces Pacific",
+			"GU":"Guam",
+			"MH":"Marshall Islands",
+			"FM":"Micronesia",
+			"MP":"Norther Mariana Islands",
+			"PW":"Palau",
+			
+			"AB":"Alberta",
+			"BC":"British Columbia",
+			"MB":"Manitoba",
+			"NB":"New Brunswick",
+			"NF":"Newfoundland",
+			"NT":"Northwest Territories",
+			"NS":"Nova Scotia",
+			"NU":"Nunavut",
+			"ON":"Ontario",
+			"PE":"Prince Edward Island",
+			"QC":"Quebec",
+			"SK":"Saskatchewan",
+			"YT":"Yukon"
+};
+
+var rule_validation_array = {
+'name_first' : Array(/^[a-zA-Z '\'']{2,30}$/,' Alpha with spaces'),
+'name_middle' : Array(/^[a-zA-Z '\'']{2,30}$/,' Alpha with spaces'),
+'name_last' : Array(/^[a-zA-Z '\'']{2,30}$/,' Alpha with spaces'),
+'ssn' : Array(/^[0-9X]{3,3}-{0,1}[0-9X]{2,2}-{0,1}[0-9]{4,4}$/,' XXX-XX-XXXX'),
+'street': Array(/^[0-9a-zA-Z -]+$/,' Alpha Numeric with spaces'),
+'city':  Array(/^[a-zA-Z ]+$/,'Alpha with spaces'),
+'county':  Array(/^[a-zA-Z ]+$/,'Alpha with spaces'),
+'zip_code':  Array(/^[0-9]{5,5}-{0,1}([0-9]{4,4}){0,1}$/,' XXXXX-XXXX'),
+'email':  Array(/^([a-zA-Z0-9_\.\-])+\@(([a-zA-Z0-9\-])+\.)+([a-zA-Z0-9]{2,4})+$/, ' Alpah Numeric with spaces and .@-'),
+'state':  Array(/^[a-zA-Z]{2,2}$/,' two character abbreviation'),
+'phone_home' : Array(/^\({0,1}[0-9]{3,3}\){0,1} {0,1}[0-9]{3,3}-{0,1}[0-9]{4,4}$/,' (XXX) XXX-XXXX'),
+'phone_cell' : Array(/^\({0,1}[0-9]{3,3}\){0,1} {0,1}[0-9]{3,3}-{0,1}[0-9]{4,4}$/,' (XXX) XXX-XXXX'),
+'phone_work': Array(/^\({0,1}[0-9]{3,3}\){0,1} {0,1}[0-9]{3,3}-{0,1}[0-9]{4,4}$/,' (XXX) XXX-XXXX'),
+'phone_fax': Array(/^\({0,1}[0-9]{3,3}\){0,1} {0,1}[0-9]{3,3}-{0,1}[0-9]{4,4}$/,' (XXX) XXX-XXXX'),
+'bank_account':  Array(/^([0-9]{2,30})$/,' Numeric atleast 2 numbers'),
+'bank_name':  Array(/^[a-zA-Z0-9 \,.-]{2,30}$/, ' Alpha Numeric with spaces and ,.-'),
+'employer_name' : Array(/^[a-zA-Z0-9 .-]{2,30}$/,'Alpha Numeric with spaces and .-'),
+'job_title':  Array(/^[a-zA-Z0-9 .-]{2,30}$/,'Alpha Numeric with spaces and .-')
+
+};
+
+function clearSelection()
+{
+	var actives = document.getElementsByName('active');
+	for(var i = 0; i < actives.length; i++)
+	{
+		if(actives[i].value == filter_active && typeof actives[i].value == typeof filter_active) actives[i].checked = true;
+		else actives[i].checked = false;
+	}
+	var confirms = document.getElementsByName('confirmed');
+	for(var i = 0; i < confirms.length; i++)
+	{
+		if(confirms[i].value == filter_confirmed && typeof confirms[i].value == typeof filter_confirmed) confirms[i].checked = true;
+		else confirms[i].checked = false;
+	}
+}
+
+function initRuleform(rule_action)
+{
+	//alert(rule_action);
+	//show stuff if requested by the back-end
+	if(rule_action == 'view_rule')
+	{
+		showViewRule();
+	}
+	else if(rule_action == 'show_results') 
+	{
+		showResults();
+	}
+	else if(rule_action == 'preview_results') 
+	{
+		//disable the list & add button
+		var list = document.getElementById('rules_list');	
+		list.disabled = true;
+		var add_rule_btn = document.getElementById('add_rule_btn');
+		add_rule_btn.disabled = true;
+		showResults();		
+	}
+
+	var new_prop_btn = document.getElementById('new_prop_btn');
+	if(prop_id == parseInt(prop_id))
+	{
+		new_prop_btn.value = 'View Prop. #' + prop_id;
+	}
+
+	//hide the confirm button & new proposition for high-risk rules
+	var confirm_btn = document.getElementById('conf_rule_btn');
+	var confirm_label = document.getElementById('confirm_value');
+	var confirm_value = document.getElementById('confirm_label');
+
+	if(confirm_button == 0)
+		confirm_btn.style.visibility = 'hidden';
+
+	if(rule_type != 'fraud_rules')
+	{
+		confirm_btn.style.visibility = 'hidden';
+		new_prop_btn.style.visibility = 'hidden';
+		confirm_label.style.visibility = 'hidden';
+		confirm_value.style.visibility = 'hidden';
+	}
+}
+
+function disableConfirm(disable)
+{
+	var confirm_btn = document.getElementById('conf_rule_btn');
+	confirm_btn.disabled = disable;
+}
+
+function showResults()
+{
+	//hide the rule info
+	var rule_info = document.getElementById('rule_info');
+	rule_info.style.visibility = 'hidden';
+
+	//enable the rule div
+	query_div = getRefToDivNest('rule_rows');
+	query_div.style.visibility = 'visible';
+	query_div.innerHTML = '<center>%%%affected_results%%%</center>';
+}
+
+function showViewRule()
+{
+	//set the text fields uneditable, insure the other are enabled11
+	var rule_name = document.getElementById('rule_name');
+	var rule_notes = document.getElementById('rule_notes');
+	var exp_date = document.getElementById('exp_date');
+	var active_status = document.getElementById('active_status');
+	exp_date.disabled = false;
+	active_status.disabled = false;	
+	rule_name.disabled = true;
+	rule_notes.disabled = true;	
+
+	//enable the add, confirm, & new proposition buttons
+	var add_rule_btn = document.getElementById('add_rule_btn');
+	add_rule_btn.disabled = false;
+	disableConfirm(false);
+	var new_prop_btn = document.getElementById('new_prop_btn');
+	new_prop_btn.disabled = false;
+
+	//hide proposition buttons
+	query_div = getRefToDivNest('save_prop');
+	query_div.style.visibility = 'hidden';
+	query_div = getRefToDivNest('cancel_prop');
+	query_div.style.visibility = 'hidden';	
+
+	//hide the prop div and show the rules inner div
+	var rule_rows = document.getElementById('rule_rows');
+	rule_rows.style.visibility = 'visible';
+	var proposition = document.getElementById('proposition');
+	proposition.style.visibility = 'hidden';
+	
+	//enable the rule div
+	query_div = getRefToDivNest('rule_div');
+	query_div.style.visibility = 'visible';
+	document.getElementById('rule_rows').innerHTML = '<table>%%%condition_view%%%</table>';
+	query_div = getRefToDivNest('edit_rules');
+	query_div.style.visibility = 'visible';	
+}
+
+function getRefToDivNest( divID, oDoc ) {
+	if( !oDoc ) { oDoc = document; }
+	if( document.layers ) {
+		if( oDoc.layers[divID] ) { return oDoc.layers[divID]; } else {
+			for( var x = 0, y; !y && x < oDoc.layers.length; x++ ) {
+				y = getRefToDivNest(divID,oDoc.layers[x].document); }
+			return y; } }
+	if( document.getElementById ) { return document.getElementById(divID); }
+	if( document.all ) { return document.all[divID]; }
+	return document[divID];
+}
+	
+function newProposition()
+{
+	//if the button says close, close instead
+	var new_prop_btn = document.getElementById('new_prop_btn');
+	if(new_prop_btn.value.indexOf('Close') == 0)
+	{
+		new_prop_btn.value = 'View Prop. #' + prop_id;		
+		return ClearProp();
+	}
+
+	//
+	if(prop_id == parseInt(prop_id))
+	{
+		new_prop_btn.value = 'Close Prop. #' + prop_id;
+	}
+
+	//disable the confirm button (so they don't try to do two things at once)
+	disableConfirm(true);
+	//disable the add button
+	var add_rule_btn = document.getElementById('add_rule_btn');
+	add_rule_btn.disabled = true;
+
+	//still show but disable rule info
+	var rule_name = document.getElementById('rule_name');
+	var rule_notes = document.getElementById('rule_notes');
+	var exp_date = document.getElementById('exp_date');
+	var active_status = document.getElementById('active_status');
+	rule_name.disabled = true;
+	rule_notes.disabled = true;	
+	exp_date.disabled = true;
+	active_status.disabled = true;	
+
+	//hide the rules div and show the propositions div
+	var rule_rows = document.getElementById('rule_rows');
+	rule_rows.style.visibility = 'hidden';
+	var proposition = document.getElementById('proposition');
+	proposition.style.visibility = 'visible';
+
+	//hide the other buttons
+	query_div = getRefToDivNest('save_rules');
+	query_div.style.visibility = 'hidden';
+	query_div = getRefToDivNest('cancel_rules');
+	query_div.style.visibility = 'hidden';	
+	query_div = getRefToDivNest('edit_rules');
+	query_div.style.visibility = 'hidden';	
+	//show our buttons
+	query_div = getRefToDivNest('save_prop');
+	query_div.style.visibility = 'visible';
+	query_div = getRefToDivNest('cancel_prop');
+	query_div.style.visibility = 'visible';	
+}
+
+function ClearProp()
+{
+	//put us back in 'view rule' mode
+	showViewRule();
+}
+
+function SaveNewProp()
+{
+	var frm = document.getElementById('rule_info');	
+	var action = document.getElementById('action');
+	action.value = 'save_prop';
+	frm.submit();	
+
+}
+
+function addRule()
+{
+	//reset this to an empty array
+	selected_columns = new Array();
+
+	//deselect and disable
+	var list = document.getElementById('rules_list');	
+	list.selectedIndex = -1;
+	list.disabled = true;
+
+	//insure fields are enabled (disabled for edit)
+	disableConfirm(true);
+	var new_prop_btn = document.getElementById('new_prop_btn');
+	var rule_name = document.getElementById('rule_name');
+	var rule_notes = document.getElementById('rule_notes');
+	new_prop_btn.disabled = true;
+	rule_name.disabled = false;
+	rule_notes.disabled = false;	
+
+	var created_value = document.getElementById('created_value');
+	var modified_value = document.getElementById('modified_value');
+	var calendar = document.getElementById('calendar');
+
+	created_value.style.visibility = 'hidden';
+	modified_value.style.visibility = 'hidden';
+	calendar.style.visibility = 'hidden';
+
+	//set the new prop button back to it's original text
+	new_prop_btn.value = 'New Proposition';
+
+	var active_status = document.getElementById('active_status');
+	active_status.checked = false;
+	
+	init();
+	//hide some things
+	query_div = getRefToDivNest('proposition');
+	query_div.style.visibility = 'hidden';
+	query_div = getRefToDivNest('edit_rules');
+	query_div.style.visibility = 'hidden';	
+
+	//show some things
+	query_div = getRefToDivNest('rule_div');
+	query_div.style.visibility = 'visible';
+	query_div = getRefToDivNest('save_rules');
+	query_div.style.visibility = 'visible';
+	query_div = getRefToDivNest('cancel_rules');
+	query_div.style.visibility = 'visible';	
+
+	var exp_date = document.getElementById('exp_date');
+	exp_date.value = default_new_date;
+	
+}
+
+function viewRule()
+{
+	var frm = document.getElementById('rule_info');	
+	var list = document.getElementById('rules_list');
+	var idx = list.selectedIndex;
+	var rule_id = list.options[idx].value;
+
+	var rule_id_hidden = document.getElementById('fraud_rule_to_load');
+	rule_id_hidden.value = rule_id;	
+	addHiddenInputField(frm,'frm_rule_action','view_rule');
+	var action = document.getElementById('action');
+	showProcessing('load');
+	action.value = 'load_rule';
+	frm.submit();
+}
+
+function confirmRule()
+{
+	var rule_name = document.getElementById('rule_name').value;
+	var confirm_action = "%%%confirm_text%%%";
+	if(confirm(confirm_action + ' rule: ' + rule_name + '?')) 
+	{ 
+ 		// do things if OK
+		var action = document.getElementById('action');
+		action.value = confirm_action.toLowerCase();
+		showProcessing();
+		var frm = document.getElementById('rule_info');
+		frm.submit();
+	}	
+}
+
+function ClearRule()
+{
+	var list = document.getElementById('rules_list');	
+	list.selectedIndex = -1;
+	list.disabled = false;
+	
+	init(true);
+	query_div = getRefToDivNest('rule_div');
+	query_div.style.visibility = 'hidden';
+	query_div = getRefToDivNest('save_rules');
+	query_div.style.visibility = 'hidden';
+	query_div = getRefToDivNest('cancel_rules');
+	query_div.style.visibility = 'hidden';	
+	query_div = getRefToDivNest('edit_rules');
+	query_div.style.visibility = 'hidden';		
+}
+
+function showProcessing(mode)
+{
+	//hide other inner divs
+	query_div = getRefToDivNest('rule_rows');
+	query_div.style.visibility = 'hidden';
+	query_div = getRefToDivNest('rule_div');
+	query_div.style.visibility = 'hidden';
+
+	//disable selection on the list when we're not loading a rule
+	if(!mode)
+	{
+		var list = document.getElementById('rules_list');	
+		list.disabled = true;
+	}
+
+	//disable all buttons
+	var add_rule_btn = document.getElementById('add_rule_btn');
+	add_rule_btn.disabled = true;
+	var confirm_btn = document.getElementById('conf_rule_btn');
+	confirm_btn.disabled = true;	
+	var new_prop_btn = document.getElementById('new_prop_btn');
+	new_prop_btn.disabled = true;	
+	var save_rules_btn = document.getElementById('save_rules');
+	save_rules_btn.disabled = true;	
+	var cancel_rules_btn = document.getElementById('cancel_rules');
+	cancel_rules_btn.disabled = true;	
+	var edit_rules_btn = document.getElementById('edit_rules');
+	edit_rules_btn.disabled = true;	
+
+
+	var processing = document.getElementById('processing');
+	var label = '';
+
+	if(mode == 'load')
+		label += 'Loading rule';
+	else if(mode == 'cancel')
+		label += 'Canceling action';
+	else //show processing
+		label += 'Checking applications against rule';
+
+	processing.innerHTML = label + '...<br>' + processing.innerHTML;
+
+	//show the processing div
+	processing.style.visibility = 'visible';
+
+}
+
+//Uses to Save an exisitng Rule
+function SaveExistingRule()
+{
+	var frm = document.getElementById('rule_info');	
+	var list = document.getElementById('rules_list');
+	var idx = list.selectedIndex;
+	var rule_id = list.options[idx].value;
+
+	var rule_id_hidden = document.getElementById('fraud_rule_id');
+	rule_id_hidden.value = rule_id;	
+	showProcessing();
+	var action = document.getElementById('action');
+	action.value = 'save';
+	frm.submit();	
+	
+	
+}
+
+// Use to Save a New Rule
+function SaveNewRule()
+{
+	var frm = document.getElementById('rule_info');
+	// Field Valadation -- only name and one field is required
+
+	var name_value = document.getElementById('rule_name').value;
+	if(!name_value)
+	{
+		alert('Name is required');
+		return false;
+	}
+
+	var notes_value = document.getElementById('rule_notes').value;
+	if(!notes_value)
+	{
+		alert('Reason is required');
+		return false;
+	}
+	
+	for(var i=0; i<document.getElementById('rule_count').value; i++)
+	{
+		if(document.getElementById('rule_value['+ i +']'))
+		 document.getElementById('rule_value['+ i +']').style.borderColor='black';
+	}
+	
+	for(var i=0; i<document.getElementById('rule_count').value; i++)
+	{
+		value_expersion = rule_validation_array[document.getElementById('rule_fields['+ i +']').value][0];
+		regex = new RegExp(value_expersion);
+		if (!(document.getElementById('rule_value['+ i +']').value.match(regex)))
+		{
+		  document.getElementById('rule_value['+ i +']').style.borderColor='red';
+		  alert(document.getElementById('rule_fields['+ i +']').options[document.getElementById('rule_fields['+ i +']').selectedIndex].text + ' value is not correct format Format is \n' + rule_validation_array[document.getElementById('rule_fields['+ i +']').value][1]);
+		  document.getElementById('rule_value['+ i +']').focus();
+		  return false;
+		}
+		else if (document.getElementById('rule_fields['+ i +']').value == 'state' && !state_array[document.getElementById('rule_value['+ i +']').value.toUpperCase()])
+		{
+			document.getElementById('rule_value['+ i +']').style.borderColor='red';
+			alert('Invalid State Abbreviation');
+			document.getElementById('rule_value['+ i +']').focus();
+			return false;
+		}
+		
+	
+	}
+	
+	for(var i=0; i<document.getElementById('rule_count').value; i++)
+	{
+		addHiddenInputField(frm,'rule_field_set['+ i +']',document.getElementById('rule_fields['+ i +']').value);
+		addHiddenInputField(frm,'rule_compares_set['+ i +']',document.getElementById('rule_compares['+ i +']').value);
+		var rule_value = document.getElementById('rule_value['+ i +']').value;
+		addHiddenInputField(frm,'rule_value_set['+ i +']',rule_value);
+		if(!rule_value)
+		{
+			alert('All conditions must include values');
+			return false;
+		}
+	}
+
+	showProcessing();
+	var action = document.getElementById('action');
+	action.value = 'save';
+	frm.submit();
+}
+
+function savePreview()
+{
+	var frm = document.getElementById('rule_info');
+	showProcessing();
+	var action = document.getElementById('action');
+	if(%%%preview_confirm%%%)
+		action.value = 'confirm_preview';
+	else if (%%%preview_unconfirm%%%)
+		action.value = 'unconfirm_preview';
+	else
+		action.value = 'save_preview';
+	frm.submit();
+}
+
+function cancelPreview()
+{
+	var action = document.getElementById('action');
+	action.value = 'cancel_preview';
+	var frm = document.getElementById('rule_info');
+	showProcessing('cancel');
+	frm.submit();
+}
+
+function createHtmlAttribute(name, value) 
+{
+   var attribute = document.createAttribute(name);
+   attribute.nodeValue = value;
+   return attribute;
+}
+
+function addHiddenInputField(formElement, fieldName, fieldValue) 
+{
+   var inputElement = document.createElement('input');
+   inputElement.setAttributeNode(createHtmlAttribute('type', 'hidden'));
+   inputElement.setAttributeNode(createHtmlAttribute('name', fieldName));
+   inputElement.setAttributeNode(createHtmlAttribute('value', fieldValue));
+   formElement.appendChild(inputElement);
+   return;
+}
+
+
+function init(clear)
+{
+	clearField('rule_notes');
+	clearField('rule_name');
+	clearField('exp_date');
+	var rule_rows		= '';
+
+	if(!clear)
+	{
+		rule_rows 		= rule_rows + "<LABEL for='rule_label_field' STYLE='position:relative; left:0px'>Field</LABEL>";
+		rule_rows 		= rule_rows + "<LABEL for='rule_label_compare' STYLE='position:relative; left:100px'>Comparison</LABEL>";
+		rule_rows 		= rule_rows + "<LABEL for='rule_label_value' STYLE='position:relative; left:150px'>Value</LABEL>";
+		rule_rows 		= rule_rows + "<LABEL for='rule_label_action' STYLE='position:relative; left:260px'>Action</LABEL>";
+		rule_rows 		= rule_rows + '<br>';
+	}
+
+	document.getElementById('rule_rows').innerHTML = rule_rows;
+
+	if(!clear)
+		formAddLineitem(0);
+}
+
+function columnSelected(num)
+{
+	/* don't do any of this yet
+	alert('drop #' + num + ' changed');
+	var changed_dropdown = document.getElementById('rule_fields['+num+']');
+	var idx = changed_dropdown.selectedIndex;
+	var column_name = changed_dropdown.options[idx].value;
+
+	//these stupid indexes are off by one for whatever reason
+	var drop = document.getElementById('rule_fields[1]');
+	var count = 1;
+	num++;
+	while(drop)
+	{
+		//skip the one that changed
+		if(count != num)
+		{
+			alert('checking dropdown #' + count);
+  			for (i=0;i<drop.length;i++)
+    		{
+				if(drop.options[i].value == column_name)
+				{
+		    		alert(drop.options[i].text);
+					drop.remove(i);
+				}
+    		}	
+		}
+		drop = document.getElementById('rule_fields['+count+']');		
+		count++;
+	}
+	//alert('removing: ' + column_name);
+	*/
+}
+
+function formGenFields(itemnum)
+{
+	var style_set = 'position:relative; left:0px;';
+	var selfield = "<select style='width:120px;' name='rule_fields["+itemnum+"]' id='rule_fields["+itemnum+"]' STYLE='"+style_set+"' onChange='javascript:columnSelected("+ itemnum+");'>\n";
+	var selfield = selfield + "%%%select_compares%%%";
+	var selfield = selfield + "</select>\n";
+	return selfield;
+}
+
+function formGenCompares(itemnum)
+{
+	var style_set = 'position:relative; left:15px;';
+	var selfield = "<select name='rule_compares["+itemnum+"]' id='rule_compares["+itemnum+"]' STYLE='"+style_set+"'>\n";
+	var selfield = selfield + "%%%select_fields%%%";
+	var selfield = selfield + "</select>\n";
+	return selfield;
+}
+
+function formGenValue(itemnum)
+{
+	var style_set = 'position:relative; left:50px;';
+	return "<input type='text' name='rule_value["+itemnum+"]' id='rule_value["+itemnum+"]' STYLE='"+style_set+"'>";
+}
+
+function formAddLineitem(itemnum)
+{
+	var new_row 	= ''
+	var style_set = 'position:relative; left:70px;';
+	var new_row 	= ''
+	var arch_field 	= Array();
+	var arch_comp 	= Array();
+	var arch_value 	= Array();
+
+	//add the existing row(s) to the arch arrays
+	for(var i=0; i<itemnum; i++)
+	{
+		//disable the previous select box(es)
+		var rule_field = document.getElementById('rule_fields['+ i +']');
+		rule_field.disabled = true;
+		selected_columns[i] = rule_field.value;
+		arch_field[i] 	= rule_field.value;
+		arch_comp[i] 	= document.getElementById('rule_compares['+ i +']').value;
+		arch_value[i] 	= document.getElementById('rule_value['+ i +']').value;
+	}
+	if (!document.getElementById('rule_value['+ itemnum +']'))
+	{
+		//generate fields for this row
+		new_row 		= new_row + formGenFields(itemnum);
+		new_row 		= new_row + formGenCompares(itemnum);
+		new_row 		= new_row + formGenValue(itemnum);	
+	}
+	else
+	{
+		var rule_field = document.getElementById('rule_fields['+ (itemnum) +']');
+		rule_field.style.visibility = 'visible';
+		
+		rule_field.innerHTML = "%%%select_compares%%%";
+
+		var rule_compare= document.getElementById('rule_compares['+ (itemnum) +']');
+		rule_compare.style.visibility = 'visible';
+		
+
+	
+		var rule_value = document.getElementById('rule_value['+ (itemnum) +']');
+		rule_value.style.visibility = 'visible';
+		
+
+	}
+	//remove the add button for the old row
+	removeAddButton(itemnum);
+	removeRemoveButton(itemnum);
+	//add a button for the next
+	itemnum++;
+	if(!document.getElementById('rule_add['+ itemnum +']'))
+	{
+		if(itemnum > 1)
+		{
+			new_row	= new_row + "<input type=button name='rule_add["+itemnum+"]' id='rule_add["+itemnum+"]' value='Add Another' style='"+style_set+"' onClick='formAddLineitem("+itemnum+");'><input type=button name='rule_remove["+(itemnum)+"]' id='rule_remove["+(itemnum)+"]' value='Remove' style='"+style_set+"' onClick='formRemoveLineitem("+(itemnum)+");'>";
+		}
+		else
+		{
+			new_row	= new_row + "<input type=button name='rule_add["+itemnum+"]' id='rule_add["+itemnum+"]' value='Add Another' style='"+style_set+"' onClick='formAddLineitem("+itemnum+");'>";
+	
+		}
+		new_row 		= new_row + '<br>';
+
+	}
+	else
+	{
+			var opt = 'rule_add['+ (itemnum) +']';
+			var btndiv = document.getElementById(opt);
+			btndiv.style.visibility = 'visible';
+			
+			opt	= 'rule_remove['+ (itemnum) +']';
+			btndiv = document.getElementById(opt);
+			btndiv.style.visibility = 'visible';
+		
+	}
+	//add the new stuff to the page
+	var rule_rows 	= document.getElementById('rule_rows').innerHTML;
+	document.getElementById('rule_rows').innerHTML = rule_rows + new_row;
+
+	//remove already selected items from the fields dropdown
+	removeAlreadySelected(itemnum - 1);
+	
+	//get the current rule_field
+	var rule_field = document.getElementById('rule_fields['+ (itemnum - 1) +']');
+	if(rule_field.length <= 1)
+	{
+		//alert('removing add button' + (itemnum));
+		//remove the add button for the last row (when all options have been selected)
+		removeAddButton(itemnum);
+	}
+
+
+	//set the values on the fields
+	for(var i=0; i<itemnum; i++)
+	{
+		document.getElementById('rule_fields['+ i +']').value = arch_field[i];
+		document.getElementById('rule_compares['+ i +']').value = arch_comp[i];
+		document.getElementById('rule_value['+ i +']').value = arch_value[i] ? arch_value[i] : '';
+	}
+	document.getElementById('rule_count').value++;
+	setTimeout('rule_rows.scrollTop = rule_rows.scrollHeight',1);	
+}
+
+function removeAlreadySelected(k)
+{
+	var rule_field = document.getElementById('rule_fields['+ k +']');
+	for(var i = 0; i < rule_field.length; i++)
+	{
+		for(var j = 0; j < document.getElementById('rule_count').value; j++)
+		{
+			if(rule_field.options[i] && (rule_field.options[i].value == selected_columns[j]))
+			{
+				rule_field.remove(i);
+			}
+		}
+	}
+}
+
+function clearField(fname)
+{
+	var btndiv = document.getElementById(fname);
+	btndiv.value = '';
+}
+
+function removeAddButton(itemnum)
+{
+	if(itemnum >= 0)
+	{
+		for(i=0; i<itemnum; i++)
+		{
+			var opt			= 'rule_add['+ (i+1) +']';
+			//alert('removing: ' + opt);
+			var btndiv = document.getElementById(opt);
+			btndiv.value = 'And';
+			btndiv.style.setProperty('font-weight','bold','important');
+			btndiv.disabled = true;
+			//btndiv.style.visibility = 'hidden';
+		}
+	}
+}
+function removeRemoveButton(itemnum)
+{
+	if(itemnum > 1)
+	{
+		for(i=1; i<itemnum; i++)
+		{
+			var opt			= 'rule_remove['+ (i+1) +']';
+			var btndiv = document.getElementById(opt);
+			btndiv.style.visibility = 'hidden';
+		}
+	}
+}
+function formRemoveLineitem(itemnum)
+{
+	var opt			= 'rule_remove['+ (itemnum) +']';
+	var btndiv = document.getElementById(opt);
+	btndiv.style.visibility = 'hidden';
+	
+	if(itemnum>2)
+	{
+		opt			= 'rule_remove['+ (itemnum-1) +']';
+		btndiv = document.getElementById(opt);
+		btndiv.style.visibility = 'visible';
+	}
+	
+	opt   = 'rule_add['+ (itemnum) +']';
+	btndiv = document.getElementById(opt);
+	btndiv.style.visibility = 'hidden';
+	
+	
+	opt	= 'rule_add['+ (itemnum-1) +']';
+	btndiv = document.getElementById(opt);
+	btndiv.value = 'Add Another';
+	btndiv.style.setProperty('font-weight','normal','important');
+	btndiv.disabled = false;
+	
+	var rule_field = document.getElementById('rule_fields['+ (itemnum-1) +']');
+	rule_field.style.visibility = 'hidden';
+		
+	 rule_field = document.getElementById('rule_fields['+ (itemnum-2) +']');
+	 rule_field.disabled = false;
+
+	var rule_compare = document.getElementById('rule_compares['+ (itemnum-1) +']');
+	rule_compare.style.visibility = 'hidden';
+		
+	rule_compare = document.getElementById('rule_compares['+ (itemnum-2) +']');
+	rule_compare.disabled = false;
+	
+	var rule_value = document.getElementById('rule_value['+ (itemnum-1) +']');
+	rule_value.style.visibility = 'hidden';
+		
+	rule_value = document.getElementById('rule_value['+ (itemnum-2) +']');
+	rule_value.disabled = false;
+		
+		
+	document.getElementById('rule_count').value = document.getElementById('rule_count').value-1;
+}
+function showFilter()
+{
+	var filter = document.getElementById('filter');
+	//alert(filter.style.visibility);
+	if(filter.style.visibility == 'hidden')
+	{
+		filter.style.visibility = 'visible';	
+	}
+	else
+	{
+		filter.style.visibility = 'hidden';	
+	}
+}
+
+function selectHand(cal, date) { 
+	cal.sel.value = date;
+	cal.callCloseHandler();
+}
+
+function RuleCalendar(target, x, y)
+{
+	var el = document.getElementById(target);
+
+	if (calendar != null)
+	{
+		calendar.onSelected = selectHand;
+		calendar.hide();
+		calendar.parseDate(el.value);
+	}
+	else
+	{
+		//set todays date and a limit for selection
+		var today = new Date();
+		var limit = new Date();
+		limit.setDate(today.getDate()+%%%rule_extension_limit%%%)
+		
+		var calendar = new Calendar(true, null, selectHand, closeHandler);
+		//only allow selection up to X days in the future
+		calendar.checkDisabled = function (date) 
+		{
+			if(date > limit || date < today)
+				return true;
+			return false;
+		};
+
+		calendar.setRange(today.getFullYear(), limit.getFullYear());
+		calendar.create();
+		calendar.parseDate(el.value);
+	}
+
+	calendar.frmTarget = target;
+	calendar.sel = el;
+	//calendar.pt_dropdown = pt_dropdown;
+
+	// Don't show *at* the element, b/c the position might be jacked.
+	// Show at the cursor location
+	calendar.showAt(x, y);
+
+	// Need this to hide the calendar
+	Calendar.addEvent(document, 'mousedown', checkCalendar);
+
+	return false;
+}
+		
+</script>
+<table width="100%" class="groups" height="500">
+	<tr><th>%%%rule_title%%%</th></tr>
+<!-- Start Radio Buttons -->
+	<tr>
+		<td class="tiny_space">&nbsp;</td>
+	</tr>
+	<tr>
+		<td>
+			<table width="100%">
+				<tr>
+					<td>
+						<input id="add_rule_btn" name="agent_action" type="button" value="Add Rule" onClick="javascript:addRule();">
+					</td>
+					<td>
+						<form name="rule_info" id="rule_info" action='/' method="post" enctype="multipart/form-data"><input name="action" type="hidden" id="form_action" value="save">
+						<input type="hidden" name="action" value="show_fraud_rules" id="action">
+						<input type="hidden" name="fraud_rule_id" id="fraud_rule_to_load" value="%%%fraud_rule_id_loaded%%%">
+					</td>
+					<td>
+						<input id="conf_rule_btn" name="agent_action" type="button" value="%%%confirm_text%%% Rule"  onClick="javascript:confirmRule();" DISABLED>
+					</td>
+					<td>
+						<input id="new_prop_btn" name="agent_action" type="button" value="New Proposition"  onClick="javascript:newProposition();" DISABLED>
+					</td>
+				</tr>
+			</table>
+		</td>
+	</tr>
+<!-- Stop Radio Buttons -->
+	<tr>
+		<td>
+			<table width="100%">
+				<tr>
+					<td>						
+						<table height="380px" width="180px">
+							<tr>
+								<td class="align_left">&nbsp;<b>%%%rule_title%%%</b>&nbsp;<a href="#" onClick="javascript:showFilter();">Filter&nbsp;(%%%filter_label%%%)</a></td>
+							</tr>
+							<tr>
+								<td class="border_one">
+									<div id="filter" class="fraud_rules" style="position: absolute; width: 250px; height: 75px; border: 1px solid black; visibility: hidden;background-color:white;">
+									<table>
+									%%%filter_rows%%%
+									<tr><td colspan="6"><input type="submit" value="Apply Filter">&nbsp;<input type="button" value="Cancel" onClick="javascript:clearSelection(); javascript:showFilter();"></td></tr>
+									</table>
+									</div>
+									<select name="rule_id" id="rules_list" size="28" style="width:165px" onChange="javascript:viewRule();" >
+										%%%rule_select_list%%%
+									</select>
+								</td>
+							</tr>
+							<tr>
+								<td class="border_one">
+								<div id="legend" style="text-align: left;">%%%legend_html%%%</div>
+								</td>								
+							</tr>
+						</table>
+					</td>
+					<td valign="top">
+						<div id="rule_div" style="visibility:hidden;">
+						<table width="582px" height="405px" border=1>
+							<tr>
+							<td valign="top">
+								<div id="rule_info">
+								<table width="100%">
+								<tr>
+									<td class="align_left">Rule Name:</td>
+									<td class="align_left"><input type="text" name="rule_name" id="rule_name" value="%%%rule_name_value%%%"></td>
+									<td class="align_left" rowspan="2" valign="top" align="right">Reason for Rule:</td>
+									<td class="align_left" rowspan="2" colspan="2" align="left"><textarea name="rule_notes" id="rule_notes" cols="25">%%%rule_notes_value%%%</textarea></td>
+								</tr>
+								<tr>
+									<td class="align_left">Expiration Date:</td>
+									<td class="align_left"><div style="float: left;"><input type="text" name="exp_date" id="exp_date" value="%%%rule_date_value%%%" style="width: 55px" readonly></div><div id="calendar">&nbsp;(<a href="#" onClick="RuleCalendar('exp_date', event.clientX, event.clientY);">select</a>)</div></td>
+								</tr>
+								<tr>
+									<td class="align_left">Status:</td>
+									<td class="align_left" colspan="2"><input type="checkbox" id="active_status" name="active_status"%%%active_checked%%%>&nbsp;Active (pull apps from queues)</td>
+									<td class="align_left"><div id="confirm_label">Confirmed:</div></td>
+									<td class="align_left"><div id="confirm_value">%%%confirmed%%%</div></td>
+								</tr>
+								<tr>
+									<td class="align_left">Created by:</td>
+									<td class="align_left" colspan="3"><div id="created_value">%%%created_agent%%%</div></td>
+								</tr>
+								<tr>
+									<td class="align_left">Modified by:</td>
+									<td class="align_left" colspan="3"><div id="modified_value">%%%modified_agent%%%</div></td>
+								</tr>
+								</table>							
+								</div>
+							</td>
+							</tr>
+							<tr valign="top">
+							<td valign="top" align="left" height="100%">
+							<div style="position: relative; HEIGHT:325px; WIDTH:100%; OVERFLOW:auto;">
+								<div style="position: absolute; text-align: left; WIDTH:100%;" id="rule_rows"></div>
+								<div style="position: absolute; text-align: center; WIDTH:100%; visibility: hidden;" id="processing">
+								<img src="/image/standard/processing.gif">
+								</div>
+								<div style="position: absolute; text-align: left; WIDTH:100%; visibility: hidden;" id="proposition">
+								<table>
+									<tr><td class="align_left">Proposition&nbsp;#:</td><td><input type="text" name="proposition_num" value="%%%prop_id%%%" style="background: lightgray;" disabled></td><td width="100%">&nbsp;</td></tr>
+									<tr><td class="align_left">Requester:</td><td><input type="text" name="agent" value="%%%prop_agent%%%" style="background: lightgray;" disabled></td><td></td></tr>
+									<tr><td class="align_left">Date Sent:</td><td><input type="text" name="date_created" value="%%%prop_date_created%%%" style="background: lightgray;" disabled></td><td></td></tr>
+									<tr><td class="align_left" colspan="3"><b>Issue or Question:</b></td></tr>
+									<tr><td class="align_left" colspan="3"><textarea rows="1" cols="50" name="question">%%%prop_question%%%</textarea></td></tr>
+									<tr><td class="align_left" colspan="3"><b>Description: </b>patterns, reasons and/or research done.</td></tr>
+									<tr><td class="align_left" colspan="3"><textarea rows="2" cols="50" name="description">%%%prop_description%%%</textarea></td></tr>
+									<tr><td class="align_left" colspan="3"><b>Quantify: </b>specific numbers to backup the proposition.</td></tr>
+									<tr><td class="align_left" colspan="3"><textarea rows="2" cols="50" name="quantify">%%%prop_quantify%%%</textarea></td></tr>
+									<tr><td class="align_left">Attachment:</td>
+										<td>
+											<input type="hidden" name="MAX_FILE_SIZE" value="16000000">
+											<input name="prop_file" type="file" id="prop_file"> 
+										</td><td><a href="/download.php?table=fraud_proposition&data_column=attachment&id_column=fraud_proposition_id&id_value=%%%prop_id%%%&file_name=%%%prop_file_name%%%&file_size=%%%prop_file_size%%%&file_type=%%%prop_file_type%%%">%%%prop_file_name%%%</a></td>
+									</tr>
+									
+								</table>
+								</div>
+							</div>
+							</td>
+							</tr>
+						</table>
+						<div style="position: relative; height: 25px;">
+
+						<!-- Save New Rule -->
+						<input type=button name=save_rules id=save_rules value="Save" onClick="SaveNewRule()" style="position: absolute;  left: 200px; visibility:hidden">
+						<input type=button name=cancel_rules id=cancel_rules value="Cancel" onClick="ClearRule()" style="position: absolute; left: 300px; visibility:hidden">
+
+						<!-- Save New Proposition -->
+						<input type=button name="save_prop" id="save_prop" value="Save" onClick="SaveNewProp()" style="position: absolute;  left: 200px; visibility:hidden">
+						<input type=button name="cancel_prop" id="cancel_prop" value="Cancel" onClick="ClearProp()" style="position: absolute; left: 300px; visibility:hidden">
+
+						<!-- Save Existing Rule -->
+						<input type=button name=edit_rules id=edit_rules value="Save" onClick="SaveExistingRule()" style="position: absolute; visibility:hidden">
+
+						</div>
+						</div>
+					</td>						
+				</tr>						
+			</table>
+		</td>
+	</tr>
+	<input name="fraud_rule_id" id="fraud_rule_id" type="hidden" value="%%%fraud_rule_id_loaded%%%">
+	<input type="hidden" name="rule_count" id="rule_count" value="">
+	</form>
+</table>
+<script language="javascript">
+initRuleform("%%%frm_rule_action%%%");
+//set this global for the setTimeout callback
+var rule_rows = document.getElementById("rule_rows");
+</script>

@@ -1,0 +1,26 @@
+<html>
+<head>
+<title>Duplicate IP Addresses</title>
+</head>
+<body onload="self.focus();">
+		
+<h3>Applications with IP Address %%%ip_address%%%</h3>
+	 <br>
+      <table width='100%' border='1' cellspacing='0' cellpadding='2' bgcolor='#F7F7F7'>
+		<tr bgcolor='#CCCCCC'>
+		<th>SSN</th>
+		<th>AppID</th>
+		<th>Name</th>
+		<th>Address</th>
+		<th>City</th>
+		<th>State</th>
+		<th>Date</th>
+		<th>Status</th>
+		</tr>
+		%%%info_table%%%
+	</table>
+
+	<br>%%%summary%%%
+
+</body>
+</html>

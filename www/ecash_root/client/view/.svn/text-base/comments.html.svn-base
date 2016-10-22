@@ -1,0 +1,35 @@
+<div id="layout0group2layer0view" %%%comments_view_layer%%%>
+	<form id="add_comment" method="post" action="/" class="no_padding">
+		<input type="hidden" name="application_id" value="%%%application_id%%%">
+		<input type="hidden" id="new_comment" name="comment" value="">
+		<input type="hidden" name="action" value="add_comment">
+		<table cellpadding=0 cellspacing=0 width="100%">
+			<tr>
+				<td class="border" align="left" valign="top">
+					<table cellpadding=0 cellspacing=0 width="100%" class="%%%mode_class%%%" border="0">
+						<tr class="height">
+							<th colspan="3" class="%%%mode_class%%%" >&nbsp;<nobr>Comments</nobr></th>
+							<th class="%%%mode_class%%%" style="text-align: right">
+								<input type="button" value="Add" id="AppInfoAddComment" class="button" onClick="javascript: OpenDialogTall('/comment_add.php?application_id=%%%application_id%%%');">
+							</th>
+						</tr>
+						<tr class="height">
+							<th class="search" style="width:180px">&nbsp;Text</th>
+							<th class="search" style="width:70px">Agent</th>
+							<th class="search" style="width:36px">Date/Time</th>
+							<th class="search" >Resolved?</th>
+						</tr>
+						<tr>
+							<td colspan="4">
+								<div style="height: 132px;overflow:auto"> %%%comments%%% </div>
+							</td>
+						</tr>
+					</table>
+					<table cellpadding=0 cellspacing=0 width="100%" class="%%%mode_class%%%" border="0">
+					%%%dnl_info_line%%%
+					</table>
+				</td>
+			</tr>
+		</table>
+	</form>
+</div>

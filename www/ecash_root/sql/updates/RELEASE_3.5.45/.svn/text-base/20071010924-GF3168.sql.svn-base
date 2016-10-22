@@ -1,0 +1,10 @@
+insert into loan_actions (name_short,description,status) values ('HOME_PHONE_INVALID','Home phone number is invalid (may be a work phone).','ACTIVE');
+insert into loan_actions (name_short,description,status) values ('SSN_AFTER_2ND_BDAY','SSN issued after second birthday.','ACTIVE');
+insert into loan_actions (name_short,description,status) values ('SSN_AFTER_18TH_BDAY','SSN issued after 18th birthday.','ACTIVE');
+insert into loan_actions (name_short,description,status) values ('NON_PPS','Bank account is a credit union or savings account.','ACTIVE');
+insert into loan_actions (name_short,description,status) values ('DPB_RECENT_INQUIRIES','Number of inquiries in last 60 days between 1 and 10.','ACTIVE');
+insert into loan_actions (name_short,description,status) values ('DPB_OLD_CHARGEOFFS','At least 1 chargeoff greater than 540 days','ACTIVE');
+insert into loan_actions (name_short,description,status) values ('RUN_VERITRAC','Lacking information needed for underwriting process.','ACTIVE');
+insert into loan_actions (name_short,description,status) values ('NON_JOB_INCOME','Income type not from job.','ACTIVE');
+insert into loan_actions (name_short,description,status) values ('DPB_LAST_NAME_MISMATCH','Mismatch on last name from DPB.','ACTIVE');
+insert into loan_actions (name_short,description,status) values ('DPB_RECENT_INQUIRY','Number of inquiries in last 60 days <= 1','ACTIVE');

@@ -1,0 +1,92 @@
+<html>
+<head>
+<title>Cashline History</title>
+
+<style type='text/css'>
+
+th
+{
+  text-align: center;
+  font-family: Arial, Verdana, Helvetica, Sans-Serif;
+  font-size: 9pt;
+  background-color: lightsteelblue;
+}
+
+th.trans
+{ 
+  text-align: left;
+  font-family: Arial, Verdana, Helvetica, Sans-Serif;
+  font-size: 9pt;
+  background-color: #eeeeff;
+}
+
+th.note
+{
+  text-align: left;
+  font-family: Arial, Verdana, Helvetica, Sans-Serif;
+  font-size: 9pt;
+  background-color: #ffeeee;
+}
+
+td.trans
+{ 
+  text-align: left;
+  font-family: Arial, Verdana, Helvetica, Sans-Serif;
+  font-size: 9pt;
+  background-color: #eeeeff;
+}
+
+td.note
+{
+  text-align: left;
+  font-family: Arial, Verdana, Helvetica, Sans-Serif;
+  font-size: 9pt;
+  background-color: #ffeeee;
+}
+
+a:link, a:visited, a:hover, a:active { color: darkblue; }
+
+
+</style>
+</head>
+<body onLoad="self.Focus();">
+<div id="mainList" style="position: absolute; height: 475px; width: 480px; top: 5px; left: 5px; overflow: auto;">
+<table width="100%">
+<tr>
+<th colspan="15">
+%%%viewmode_title%%%
+</th>
+</tr>
+<tr>
+	<th class="trans">Trans</th>
+	<th class="trans">Date</th>
+	<th class="trans">Type</th>
+	<th class="trans">Amount</th>
+	<th class="trans">Paid</th>
+	<th class="trans">Date Paid</th>
+	<th class="trans">Balance</th>
+	<th class="trans">Due Date</th>
+</tr>
+<tr>
+	<th class="note">Note</th>
+	<th class="note">Date</th>
+	<th class="note">Reference</th>
+	<th class="note" colspan="5">Next Action Date</th>
+</tr>
+<tr>
+<td colspan="15" align="center">
+<hr style="height: 1px; color: black; border: 0px; background-color: black; margin: 0px;">
+</td>
+</tr>
+
+%%%rows%%%
+
+</table>
+</div>
+<div id="detailSlot" style="position: absolute; height: 300px; width: 240px; top: 5px; left: 500px; overflow: auto;">
+		<iframe name="frm_note_detail" width="230" height="280" style="border: 2px solid lightgray;">
+				
+		</iframe>
+</div>
+</body>
+</html>

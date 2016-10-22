@@ -1,0 +1,10 @@
+<div id="next_payment_adjustment_buttons" style="display: none;">
+<table width="95%" border="0">
+<tr>
+<td><input type="button" name="submit_button" value="Clear" class="button2"
+           onClick="ClearPayments('next_payment_adjustment');"></td>
+<td><input type="button" name="submit_button" value="Save" class="button2"
+           onClick="save_next_adjustment(document.getElementById('application_id').value, document.getElementById('company_id').value, this);" style="position:relative;left:80px;"></td>
+</tr>
+</table>
+</div>

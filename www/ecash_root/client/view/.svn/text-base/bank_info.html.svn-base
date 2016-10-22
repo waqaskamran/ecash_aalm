@@ -1,0 +1,228 @@
+<!-- client/view/bank_info.html -->
+<script type="text/javascript">
+// This is so javascript can do checks similar to the SaveBankInfo
+var income_direct_deposit = '%%%income_direct_deposit%%%';
+// This signifies whether any direct deposit change requires resigning of the docs (whether to display the message)
+var dd_requires_resign    = %%%dd_requires_resign%%%;
+var status = '%%%status%%%';
+var level1 = '%%%level1%%%';
+//var bank_aba_old = '%%%bank_aba%%%';
+//var bank_account_old = '%%%bank_account%%%';
+//var bank_account_type_old = '%%%bank_account_type%%%';
+
+function confirm_direct_deposit_change()
+{
+	var bank_info_form         = document.getElementsByName('bank_info');
+	var new_income_direct_deposit = bank_info_form[0].income_direct_deposit[bank_info_form[0].income_direct_deposit.selectedIndex].value.toLowerCase();
+	
+	//var bank_aba_new = bank_info_form[0].bank_aba.value;
+	//var bank_account_new = bank_info_form[0].bank_account.value;
+	//var bank_account_type_new = bank_info_form[0].bank_account_type[bank_info_form[0].bank_account_type.selectedIndex].value;
+	//alert(bank_account_type_old + bank_account_type_new);	
+	if (status != 'in_process'
+		&&
+		(app_status == 'approved'
+			|| level1 == 'underwriting'
+			|| level1 == 'verification'
+		)
+		/*
+        	&& dd_requires_resign == true
+		&& 
+		(
+			income_direct_deposit.toLowerCase() != new_income_direct_deposit
+			|| bank_aba_old != bank_aba_new
+			|| bank_account_old != bank_account_new
+			//|| toLowerCase(bank_account_type_old) != toLowerCase(bank_account_type_new)
+		)
+		*/
+	)
+	{
+        	return WarnESig();
+	}
+
+	return true;
+}
+
+function validate_bank_info()
+{
+	
+	var focusobj = null;
+	var isvalid = validate_fields(personal_bank_array,'std_text','error_text');
+	
+	if (document.getElementById('EditAppInfoCustFirstName').value.trim().length < 2 || document.getElementById('EditAppInfoCustLastName').value.trim().length < 2)
+	{
+		document.getElementById('bank_name_span').className = 'error_text';	
+		isvalid = false;
+		
+		if (focusobj)
+		{
+			
+		}
+		else
+		{
+			if (document.getElementById('EditAppInfoCustFirstName').value.trim().length < 2)
+				focusobj = document.getElementById("EditAppInfoCustFirstName");
+			else
+				focusobj = document.getElementById("EditAppInfoCustLastName");
+		}	
+		
+	}
+
+	//#GF 18165 - This was overriding the other failures [NT]
+	if (isvalid == true)
+	{
+		isvalid = confirm_direct_deposit_change();
+	}
+		
+	if(focusobj)
+	{
+		focusobj.focus();
+	}
+	return isvalid;	
+	
+}
+
+var personal_bank_array = {
+'EditAppInfoCustBankAba':  /^([0-9]{9,9}){0,1}$/,
+'EditAppInfoCustBankAcctNum':  /^([0-9]{2,30}){0,1}$/,
+'EditAppInfoCustBankName':  /^[a-zA-Z0-9 \,.&-]{2,32}$/,
+'EditAppInfoCustActualBankName':  /^(\d\d[/]\d\d[/]\d\d\d\d){0,1}$/
+};
+
+
+</script>
+
+<div id="layout0group3layer0view" %%%bank_info_view_layer%%%>
+	<table cellpadding=0 cellspacing=0 width="100%">
+		<tr>
+			<td class="border" align="left" valign="top">
+				<table cellpadding=0 cellspacing=0 width="100%" class="%%%mode_class%%%" border=0>
+					<tr class="height">
+						<th class="%%%mode_class%%%" width="35%" style="text-align:left;"><nobr>&nbsp;Bank Info</nobr></th>
+						<th class="%%%mode_class%%%" width="5%">&nbsp;</th>
+						<th class="%%%mode_class%%%" width="65%" colspan="2" style="text-align:right;"></th>
+					</tr>
+					<tr class="height">
+						<td class="align_left_alt_bold" width="35%">&nbsp;ABA #:&nbsp;</td>
+						<td class="align_left_alt" width="5%">&nbsp;</td>
+						<td class="align_left_alt" width="65%" colspan="2" id="AppInfoCustBankAba">%%%bank_aba_trim%%%</td>
+					</tr>
+					<tr class="height">
+						<td class="align_left_bold" width="35%">&nbsp;Account #:&nbsp;</td>
+						<td class="align_left" width="5%">%%%contact_bank_account%%%</td>
+						<td class="align_left" width="65%" colspan="2" id="AppInfoCustBankAcctNum">%%%bank_account_trim%%% </td>
+					</tr>
+					<tr class="height">
+						<td class="align_left_alt_bold" width="35%">&nbsp;Account Type:&nbsp;</td>
+						<td class="align_left_alt" width="5%">&nbsp;</td>
+						<td class="align_left_alt" colspan="2">
+							<div style="float:left;" id="AppInfoCustBankAcctType">%%%bank_account_type_trim%%%</div>
+							<div style="float:left;margin-left:10px;"><b>Direct Deposit:</b>&nbsp;<span id="AppInfoCustDirectDep">%%%income_direct_deposit_trim%%%</span></div>
+						</td>
+					</tr>
+					<tr class="height">
+						<td class="align_left_bold" width="30%">&nbsp;Bank Name:&nbsp;</td>
+						<td class="align_left" width="5%">%%%contact_bank_name%%%</td>
+						<td class="align_left" width="65%" colspan="2" id="AppInfoCustBankName">%%%bank_name_trim%%%</td>
+					</tr>
+					<tr class="height">
+						<td class="align_left_alt_bold" width="35%" style="white-space: nowrap">&nbsp;Actual Bank Name:&nbsp;</td>
+						<td class="align_left_alt" width="5%">&nbsp;</td>
+						<td class="align_left_alt" width="65%" style="white-space: nowrap" colspan="2" id="AppInfoCustActualBankName">%%%actual_bank%%%</td>
+					</tr>
+					<tr class="height">
+						<td class="align_left_bold" width="35%">&nbsp;Bank Phone:&nbsp;</td>
+						<td class="align_left" width="5%">&nbsp;</td>
+						<td class="align_left" width="65%" colspan="2" id="AppInfoCustBankPhone">%%%bank_phone%%%</td>
+					</tr>
+					<tr class="height">
+						<td class="align_left_alt_bold" width="35%">&nbsp;Banking Since:&nbsp;</td>
+						<td class="align_left_alt" width="5%">&nbsp;</td>
+						<td class="align_left_alt" width="65%" colspan="2" id="AppInfoCustBankingStartDate">%%%banking_start_date%%% <span class="subtext">(%%%banking_duration%%%)</span></td>
+					</tr>
+					<tr>
+						<td colspan="3" class="align_right_alt">
+							%%%edit_bank_info_link%%%
+						</td>
+					</tr>
+				</table>
+			</td>
+		</tr>
+	</table>
+
+</div>
+
+<div id="layout0group3layer0edit" %%%bank_info_edit_layer%%%>
+	<form method="post" action="/" name="bank_info" class="no_padding" id="EditBankInfoForm">
+	<input type="hidden" name="application_id" value="%%%application_id%%%" />
+		<table cellpadding=0 cellspacing=0 width="100%">
+			<tr>
+				<td class="border" align="left" valign="top">
+					<table cellpadding=0 cellspacing=0 width="100%" class="%%%mode_class%%%">
+						<tr class="height">
+							<th class="%%%mode_class%%%" width="35%" style="text-align:left;"><nobr>&nbsp;Bank Info</nobr></th>
+							<th class="%%%mode_class%%%" width="5%">&nbsp;</th>
+							<th class="%%%mode_class%%%" width="65%" colspan="2" style="text-align:right;"></th>
+						</tr>
+						<tr class="height">
+							<td class="align_left_alt_bold" width="30%"><span id="bank_aba_span" class="%%%bank_aba_color%%%">%%%bank_aba_overlink%%%&nbsp;ABA #%%%bank_aba_endlink%%%</span>:&nbsp;</td>
+							<td class="align_left_alt" width="5%">&nbsp;</td>
+							<td class="align_left_alt" width="65%">
+								%%%bank_aba_edit_field%%%
+							</td>
+						</tr>
+						<tr class="height">
+							<td class="align_left_bold" width="30%"><span id="bank_account_span" class="%%%bank_account_color%%%">%%%bank_account_overlink%%%&nbsp;Account #%%%bank_account_endlink%%%</span>:&nbsp;</td>
+							<td class="align_left" width="5%">%%%contact_bank_account%%%</td>
+							<td class="align_left" width="65%">
+								%%%bank_account_edit_field%%%
+							</td>
+						</tr>
+						<tr class="height">
+							<td colspan=3 class="align_left_alt">
+								<span class="align_left_alt_bold" style="float: left;margin-left:5px;">Account Type:</span>	
+								<span class="align_left_alt" style="float: left;margin-left:5px;" id="EditAppInfoCustBankAcctType">%%%bank_account_type_drop%%%</span>
+								<span class="align_left_alt_bold" style="float: left; margin-left:5px;">Direct Deposit:</span>
+								<span class="align_left_alt" style="float: left;margin-left:5px;" id="EditAppInfoCustDirectDep">%%%income_direct_deposit_drop%%%</span>
+							</td>
+						</tr>						
+						<tr class="height">
+							<td class="align_left_bold" width="30%"><span id="bank_name_span" class="%%%bank_name_color%%%">%%%bank_name_overlink%%%&nbsp;Bank Name%%%bank_name_endlink%%%</span>:&nbsp;</td>
+							<td class="align_left" width="5%">%%%contact_bank_name%%%</td>
+							<td class="align_left" width="65%">
+								%%%bank_name_edit_field%%%
+							</td>
+						</tr>
+							<tr class="height">
+							<td class="align_left_alt_bold" width="30%" style="white-space: nowrap">&nbsp;Actual Bank Name:&nbsp;</td>
+							<td class="align_left_alt" width="5%">&nbsp;</td>
+							<td class="align_left_alt" width="65%" style="white-space: nowrap" id="EditAppInfoCustActualBankName">%%%actual_bank%%%</td>
+						</tr>
+						<tr class="height">
+							<td class="align_left_bold" width="30%">&nbsp;Bank Phone:&nbsp;</td>
+							<td class="align_left" width="5%">&nbsp;</td>
+							<td class="align_left" width="65%" id="EditAppInfoCustBankPhone">%%%bank_phone%%%</td>
+						</tr>
+						<tr class="height">
+							<td class="align_left_alt_bold" width="30%" ><span id="banking_start_date_span" class="%%%banking_start_date_color%%%">%%%banking_start_date_overlink%%%&nbsp;Banking Since%%%banking_start_date_endlink%%%</span>:&nbsp;</td>
+							<td class="align_left_alt" width="5%">&nbsp;</td>
+							<td class="align_left_alt" width="70%"><a href="#" onclick="PopCalendar4('EditAppInfoCustBankingStartDate', event, '', true);">select</a>&nbsp;<input type="text" id="EditAppInfoCustBankingStartDate" size = "10" name="EditAppInfoCustBankingStartDate" value="%%%banking_start_date%%%" maxlength="10" onblur = "return strip_all_but(this,keybDate,((window.event)?window.event:event));" onkeypress="return editKeyBoard(this,keybDate,((window.event)?window.event:event));" onkeyup="mask(this.value,this,'2,5',Array('/','/'),((window.event)?window.event:event));" readonly>MM/DD/YYYY</td>
+						</tr>
+						<tr class="height">
+							<td colspan="3" class="align_right_alt">
+								<input type="hidden" name="action" value="save_bank_info" id="EditBankInfoAction"/>
+								<nobr><input type="submit" value="Save Changes" id="EditBankInfoSave" class="button" onClick="return validate_bank_info();"/>
+								<input type="reset" value="Cancel" id="EditBankInfoCancel" class="button" onClick="reset_fields(personal_bank_array,'std_text');SetDisplay(0,3,0,'view', '%%%mode_class%%%_buttons');"></nobr>
+							</td>
+						</tr>
+					</table>
+				</td>
+			</tr>
+		</table>
+	</form>
+	<form id="bank_change_review" method="post" action="/" class="no_padding">
+		<input type="hidden" name="application_id" value="%%%application_id%%%">
+		<input type="hidden" id="reason_comment" name="reason_comment" value="">
+		<input type="hidden" name="action" value="to_action_queue">
+	</form>
+</div>

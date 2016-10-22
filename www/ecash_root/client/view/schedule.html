@@ -1,0 +1,49 @@
+<!-- Begin schedule layer -->
+<div id="layout1group1layer0view" %%%schedule_view_layer%%%>
+<form method="post" action="/" name="schedule_form" id="schedule_form" class="no_padding">
+<input type="hidden" name="action" value="shift_schedule">
+<input type="hidden" id="application_id"  name="application_id" value="%%%application_id%%%">
+<input type="hidden" id="company_id"  name="company_id" value="%%%company_id%%%">
+<table cellpadding="0" cellspacing="0" width="100%">
+<tr><td align="left" valign="top">
+<table cellspacing="0" cellpadding="0" width="100%" class="%%%mode_class%%%">
+  <tr class="height"><th colspan="0" class="%%%mode_class%%%">&nbsp;<nobr>Transaction History</nobr></th></tr>
+  <tr>
+    <td style="text-align: left;">
+      <input type="checkbox" id="view_projected_payments" name="view_projected_payments" CHECKED
+      onChange="ToggleScheduled(this); this.blur();">
+      &nbsp;View All Transactions
+    </td>
+  </tr>
+  <tr>
+    <td>
+    <table width="100%" cellpadding="2" cellspacing="0"  id="schedule_rows_table">
+    <thead class="fixedHeader">
+     <tr class="height">
+       <th class="%%%mode_class%%%" style="text-align: center;">Action Date</th>
+       <th class="%%%mode_class%%%" style="text-align: center;">Description</th>
+       <th class="%%%mode_class%%%" style="text-align: center;">State</th>
+       <th class="%%%mode_class%%%" style="text-align: center;">Debit ($)</th>
+       <th class="%%%mode_class%%%" style="text-align: center;">Credit ($)</th>
+       <th class="%%%mode_class%%%" style="text-align: center;">Balance ($)</th>
+       <th class="%%%mode_class%%%" style="text-align: center;">Due Date</th>
+       <th class="%%%mode_class%%%" style="text-align: center;">GP</th>
+     </tr>
+     </thead>
+     <tbody class="scrollContent">
+     %%%schedule_rows%%%
+     </tbody>
+    </table>
+    </td>
+  </tr>
+</table>
+</td>
+</tr>
+</table>
+</form>
+</div>
+<script type="text/javascript">
+ToggleScheduled(document.getElementById('view_projected_payments'));
+
+</script>
+<!-- End schedule layer -->

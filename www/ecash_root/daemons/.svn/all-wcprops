@@ -1,0 +1,23 @@
+K 25
+svn:wc:ra_dav:version-url
+V 74
+/svn/aalm_current/!svn/ver/1979/ecash/branches/sql_merge/ecash_cfe/daemons
+END
+script_engine.php
+K 25
+svn:wc:ra_dav:version-url
+V 92
+/svn/aalm_current/!svn/ver/1979/ecash/branches/sql_merge/ecash_cfe/daemons/script_engine.php
+END
+run_daemon.php
+K 25
+svn:wc:ra_dav:version-url
+V 89
+/svn/aalm_current/!svn/ver/1979/ecash/branches/sql_merge/ecash_cfe/daemons/run_daemon.php
+END
+asterisk_event_reader.php
+K 25
+svn:wc:ra_dav:version-url
+V 100
+/svn/aalm_current/!svn/ver/1979/ecash/branches/sql_merge/ecash_cfe/daemons/asterisk_event_reader.php
+END

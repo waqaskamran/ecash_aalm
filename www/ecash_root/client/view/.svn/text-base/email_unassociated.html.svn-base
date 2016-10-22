@@ -1,0 +1,145 @@
+<!-- Begin email_unassociated -->
+<table cellpadding="0" cellspacing="15" width="100%" style="background: #F1F1F1;" style="overflow: hidden;">
+	<tr>
+		<td colspan="2" style="text-align: center;">
+			<div id="email_body" style="width: 95%; border: 1px solid #666666; background: #FF6666; font-weight: bold; padding-left: 15px; padding-right: 15px;">This e-mail has not been associated with an application.</div></td>
+	</tr>
+	<tr>
+		<form name="actions" action="/" method="post">
+		<input type="hidden" name="queue" value="%%%queue%%%" />
+		<input type="hidden" name="action" value="remove_from_email_queue" />
+		<input type="hidden" name="mode" value="%%%mode%%%" />
+		<input type="hidden" name="archive_id" value="%%%archive_id%%%" />
+		<input type="hidden" name="other_queue" value="manager" />
+		<td rowspan="3" valign="top" style="text-align: left;">
+			<table border="0" width="400" height="315" cellpadding="0" cellspacing="0" style="border: 2px solid gray;">
+				<tr>
+					<th colspan="2" class="%%%mode_class%%%" style="text-align: left;">&nbsp;Email</th>
+				</tr>
+				<tr>
+					<td>
+						<table width="400" cellpadding="0" cellspacing="5" border="0">
+							<tr>
+								<td width="60" class="align_left" style="font-weight: bold;">Received:</td>
+								<td style="text-align: left;">%%%email_received%%%</td>
+							</tr>
+							<tr>
+								<td width="60" class="align_left" style="font-weight: bold;">From:</td>
+								<td style="text-align: left;">%%%email_from%%%</td>
+							</tr>
+							<tr>
+								<td width="60" class="align_left" style="font-weight: bold;">Subject:</td>
+								<td style="text-align: left;">%%%email_subject%%%</td>
+							</tr>
+							<tr>
+								<td colspan="2" height="100%">
+									<textarea id="email_message" style="text-align: left; width: 380px; height: 233px; overflow: auto; border: 1px solid #666666; background: #FFFFFF; padding: 5px; font-family: Arial; font-size: 12px;" readonly>%%%email_message%%%</textarea></td>
+							</tr>
+						</table>
+					</td>
+				</tr>
+			</table>
+			<table width="400" cellpadding="0" cellspacing="0" border="0">
+				<tr>
+					<td style="text-align: right; padding-top: 15px;">
+						<input type="submit" name="submit" value="Discard without Responding">&nbsp;
+						<!-- <input type="submit" name="submit" value="Send to Manager" onclick="document.actions.action.value = 'send_to_other_queue';"> -->
+					</td> 
+				</tr>
+			</table>
+		</td>
+		</form>
+		<td valign="top" style="text-align: left;">
+			<table border="0" width="320" height="90" cellpadding="0" cellspacing="0" style="border: 2px solid gray;">
+				<tr>
+					<th class="%%%mode_class%%%" style="text-align: left;">&nbsp;Attachments</th>
+				</tr>
+				<tr>
+					<td height="80" valign="top">
+						<div id="email_attachments" style="overflow: hidden; overflow-y: auto; height: 80px;">
+							<table width="320" border="0">
+								%%%email_attachments%%%
+							</table>
+						</div>
+					</td>
+				</tr>
+			</table>
+		</td>
+	</tr>
+	<tr>
+		<td colspan="2" valign="top" style="text-align: left;">
+			<table border="0" width="320" height="90" cellpadding="0" cellspacing="0" style="border: 2px solid gray;">
+				<tr>
+					<th class="%%%mode_class%%%" style="text-align: left;">&nbsp;Suggestions</th>
+				</tr>
+				<tr>
+					<td height="80" valign="top" style="text-align: left; padding-top: 3px;">
+						<span style="font-size: 11px;">&nbsp;%%%msg_click_label%%%</span>
+						<div id="account_suggestions" style="overflow: hidden; overflow-y: auto; height: 70px;">
+							<table width="320" border="0">
+								%%%suggested_applications%%%
+							</table>
+						</div>
+					</td>
+				</tr>
+			</table>
+		</td>
+	</tr>
+	<form action="/" method="post">
+	<input type="hidden" name="action" value="email_queue_quick_search" />
+	<input type="hidden" name="queue" value="%%%queue%%%" />
+	<input type="hidden" name="module" value="%%%module%%%" />
+	<input type="hidden" name="mode" value="%%%mode%%%" />
+	<input type="hidden" name="archive_id" value="%%%archive_id%%%" />
+	<tr>
+		<td colspan="2" valign="top" style="text-align: left;">
+			<table border="0" width="320" height="90" cellpadding="0" cellspacing="0" style="border: 2px solid gray;">
+				<tr>
+					<th class="%%%mode_class%%%" style="text-align: left;">&nbsp;Quick Search</th>
+				</tr>
+				<tr>
+					<td height="100" valign="top" style="text-align: center; padding-top: 3px;">
+						<table border="0" cellpadding="3" cellspacing="0">
+							<tr>
+								<td colspan="2" style="text-align: right;">
+									<table border="0" cellpadding="0" cellspacing="0">
+										<tr>
+											<td class="align_left" valign="bottom" style="font-size: 11px; padding-right: 2px;">Criteria Type:<br />%%%criteria_type_1_drop%%%</td>
+											<td class="align_left" valign="bottom" style="font-size: 11px; padding-right: 2px;">%%%search_deliminator_1_drop%%%</td>
+											<td class="align_left" valign="bottom" style="font-size: 11px;">Search Criteria:<br /><input id="search_criteria_1" type="text" name="search_criteria_1" value="%%%search_criteria_1%%%" style="width: 105px;" /></td>
+										</tr>
+									</table>
+								</td>
+							</tr>
+							<tr>
+								<td style="font-size: 11px; text-align: left;">
+									%%%quick_search_message%%% Click on an account to associate:
+								</td>
+								<td width="60" valign="top" style="text-align: right;">
+									<input type="submit" name="search" value="Search" onClick="return verifySearchCriteriaFormat();" />
+								</td>
+							</tr>
+						</table>
+						<div id="account_suggestions" style="overflow: hidden; overflow-y: auto; height: 68px;">
+							<table width="320" border="0">
+								%%%quick_search_results%%%
+							</table>
+						</div>
+					</td>
+				</tr>
+			</table>
+		</td>
+	</tr>
+	</form>
+<!--	<form action="/" method="post" onsubmit="return false;">
+	<tr>
+		<td colspan="2" style="text-align: right; padding-top: 15px; padding-bottom: 10px; padding-right: 20px;">
+			<input type="submit" name="associate" value="Get Next Email" />
+		</td>
+	</tr>
+	</form> -->
+</table>
+<script type="text/javascript">
+	%%%alert_message%%%
+</script>
+<!-- End email_unassociated-->

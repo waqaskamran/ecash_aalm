@@ -1,0 +1,247 @@
+<html>
+<script type="text/javascript">
+
+// View/Edit toggle
+
+	function editVals()
+	{
+		document.getElementById('div_line1_printer_name').innerHTML = '<input type="text" id="tb_line1_printer_name" name="line1_printer_name" value="%%%line1_printer_name%%%" />';
+		document.getElementById('div_line1_queue_name').innerHTML = '<select id="tb_line1_queue_name" name="line1_queue_name">%%%line1_queue_options%%%</select>';
+		document.getElementById('div_line1_printer_host').innerHTML = '<select id="tb_line1_printer_host" name="line1_printer_host">%%%line1_printer_options%%%</select>';
+
+		document.getElementById('div_line2_printer_name').innerHTML = '<input type="text" id="tb_line2_printer_name" name="line2_printer_name" value="%%%line2_printer_name%%%" />';
+		document.getElementById('div_line2_queue_name').innerHTML = '<select id="tb_line2_queue_name"name="line2_queue_name">%%%line2_queue_options%%%</select>';
+		document.getElementById('div_line2_printer_host').innerHTML = '<select id="tb_line2_printer_host" name="line2_printer_host">%%%line2_printer_options%%%</select>';
+
+		document.getElementById('div_line3_printer_name').innerHTML = '<input type="text" id="tb_line3_printer_name" name="line3_printer_name" value="%%%line3_printer_name%%%" />';
+		document.getElementById('div_line3_queue_name').innerHTML = '<select id="tb_line3_queue_name" name="line3_queue_name">%%%line3_queue_options%%%</select>';
+		document.getElementById('div_line3_printer_host').innerHTML = '<select id="tb_line3_printer_host" name="line3_printer_host">%%%line3_printer_options%%%</select>';
+
+		document.getElementById('div_line4_printer_name').innerHTML = '<input type="text" id="tb_line4_printer_name" name="line4_printer_name" value="%%%line4_printer_name%%%" />';
+		document.getElementById('div_line4_queue_name').innerHTML = '<select id="tb_line4_queue_name" name="line4_queue_name">%%%line4_queue_options%%%</select>';
+		document.getElementById('div_line4_printer_host').innerHTML = '<select id="tb_line4_printer_host" name="line4_printer_host">%%%line4_printer_options%%%</select>';
+
+		document.getElementById('submit_link').innerHTML = '<input type="submit" name="submit" value=" Save " /> <input type="button" name="cancel" value=" Cancel " onClick="viewVals();" />';
+	}
+
+	function viewVals()
+	{
+		document.getElementById('div_line1_printer_name').innerHTML = '%%%line1_printer_name%%%';
+		document.getElementById('div_line1_queue_name').innerHTML = '%%%line1_queue_name%%%';
+		document.getElementById('div_line1_printer_host').innerHTML = '%%%line1_printer_host%%%';
+
+		document.getElementById('div_line2_printer_name').innerHTML = '%%%line2_printer_name%%%';
+		document.getElementById('div_line2_queue_name').innerHTML = '%%%line2_queue_name%%%';
+		document.getElementById('div_line2_printer_host').innerHTML = '%%%line2_printer_host%%%';
+
+		document.getElementById('div_line3_printer_name').innerHTML = '%%%line3_printer_name%%%';
+		document.getElementById('div_line3_queue_name').innerHTML = '%%%line3_queue_name%%%';
+		document.getElementById('div_line3_printer_host').innerHTML = '%%%line3_printer_host%%%';
+
+		document.getElementById('div_line4_printer_name').innerHTML = '%%%line4_printer_name%%%';
+		document.getElementById('div_line4_queue_name').innerHTML = '%%%line4_queue_name%%%';
+		document.getElementById('div_line4_printer_host').innerHTML = '%%%line4_printer_host%%%';
+
+		document.getElementById('submit_link').innerHTML = '<a href="#" onClick="editVals();">Edit Printing Queue</a>';
+	}
+
+// Form validation
+
+	function PQFormValidation()
+	{
+		var lName;
+
+		var iNames = new Array();
+		iNames[1] = '%%%line1_printer_name%%%';
+		iNames[2] = '%%%line2_printer_name%%%';
+		iNames[3] = '%%%line3_printer_name%%%';
+		iNames[4] = '%%%line4_printer_name%%%';
+
+		for (var iNum = 1; iNum <= 4; iNum++) 
+		{
+			lName = document.getElementById('tb_line' + iNum + '_printer_name').value;
+			if(lName == '' && iNames[iNum] != '') 
+			{
+				var ans=confirm("Do you really want to delete '" + iNames[iNum] + "' ?");
+				if(ans==false) 
+				{
+					return false;
+				} 
+				else
+				{
+					document.getElementById('tb_line' + iNum + '_queue_name').value = '';
+					document.getElementById('tb_line' + iNum + '_printer_host').value = '';
+				}
+			}
+		}
+
+		return true;
+	}
+
+	function RIFormValidation()
+	{
+		var iFrom;
+		var iTo;
+
+		var iLast = new Array();
+		iLast[1] = '%%%line1_last_archive_id%%%';
+		iLast[2] = '%%%line2_last_archive_id%%%';
+		iLast[3] = '%%%line3_last_archive_id%%%';
+		iLast[4] = '%%%line4_last_archive_id%%%';
+
+		iFrom = document.getElementById('reprint_from').value;
+		iTo = document.getElementById('reprint_to').value;
+		iNum = document.getElementById('dd_reprint_by_id_line').value;
+
+		if(iFrom > iTo) 
+		{
+			alert("Please specify a 'To' Archive ID that is higher than the 'From' Archive ID.");
+			return false;
+		}
+		if(iFrom == '' && iTo != '') 
+		{
+			alert("Please specify an Archive ID to reprint 'From'.");
+			return false;
+		}
+
+		return true;
+	}
+
+	function RDFormValidation()
+	{
+		return true;
+	}
+
+// Misc
+
+	function UpdateLastArchiveId()
+	{
+		var iLast = new Array();
+		iLast[1] = '%%%line1_last_archive_id%%%';
+		iLast[2] = '%%%line2_last_archive_id%%%';
+		iLast[3] = '%%%line3_last_archive_id%%%';
+		iLast[4] = '%%%line4_last_archive_id%%%';
+
+		var aLine = document.getElementById('dd_reprint_by_id_line').value;
+		document.getElementById('div_last_archive_id').innerHTML = iLast[aLine];
+	}
+	
+</script>
+<table width="100%" class="queue_config" height="500">
+	<tr>
+		<th style="background: #ebaeae; height:19px;">Document Printing Manager</th>
+	</tr>
+	<tr>
+		<td>
+
+		<table width="100%" border="0" cols="1">
+		<tr>
+			<td class="align_left">&nbsp;<b>Printing Queue</b></td>
+		</tr>
+		<tr>
+			<td width="100%" align="center" valign="top" class="border_one">
+				<form id="update_printing_queue" name="update_printing_queue" action='/' method="post" onsubmit="return PQFormValidation();">
+				<input type="hidden" name="mode" value="docs_config" />
+				<input type="hidden" name="action" value="update_printing_queue" />
+				<table border="0" cols="4">
+							<tr>
+								<td width="50">&nbsp;</td>
+								<td width="150" style="font-weight: normal; text-align: center;">Name</td>
+								<td width="130" style="font-weight: normal; text-align: center;">Queue Name</td>
+								<td width="130" style="font-weight: normal; text-align: center;">Printer Name</td>
+							</tr>
+							<tr>
+								<td style="font-weight: normal;">Line 1</td>
+								<td style="text-align: left; white-space: nowrap; font-size: 11px;"><div id="div_line1_printer_name">%%%line1_printer_name%%%</div></td>
+								<td><div id="div_line1_queue_name" style="font-size: 11px;">%%%line1_queue_name%%%</div></td>
+								<td style="white-space: nowrap; font-size: 11px;"><div id="div_line1_printer_host">%%%line1_printer_host%%%</div></td>
+							</tr>
+							<tr>
+								<td style="font-weight: normal;">Line 2</td>
+								<td style="text-align: left; white-space: nowrap; font-size: 11px;"><div id="div_line2_printer_name">%%%line2_printer_name%%%</div></td>
+								<td><div id="div_line2_queue_name" style="font-size: 11px;">%%%line2_queue_name%%%</div></td>
+								<td style="white-space: nowrap; font-size: 11px;"><div id="div_line2_printer_host">%%%line2_printer_host%%%</div></td>
+							</tr>
+							<tr>
+								<td style="font-weight: normal;">Line 3</td>
+								<td style="text-align: left; white-space: nowrap; font-size: 11px;"><div id="div_line3_printer_name">%%%line3_printer_name%%%</div></td>
+								<td><div id="div_line3_queue_name" style="font-size: 11px;">%%%line3_queue_name%%%</div></td>
+								<td style="white-space: nowrap; font-size: 11px;"><div id="div_line3_printer_host">%%%line3_printer_host%%%</div></td>
+							</tr>
+							<tr>
+								<td style="font-weight: normal;">Line 4</td>
+								<td style="text-align: left; white-space: nowrap; font-size: 11px;"><div id="div_line4_printer_name">%%%line4_printer_name%%%</div></td>
+								<td><div id="div_line4_queue_name" style="font-size: 11px;">%%%line4_queue_name%%%</div></td>
+								<td style="white-space: nowrap; font-size: 11px;"><div id="div_line4_printer_host">%%%line4_printer_host%%%</div></td>
+							</tr>
+							<tr>
+								<td colspan="4" style="text-align: right; padding: 10 0 10 0px;">
+                                                                 <div id="submit_link"><a href="#" onClick="editVals();">Edit Printing Queue</a></div></td>
+							</tr>
+						</table>
+				</form>	
+			</td>
+		<tr>
+		</tr>
+		<tr>
+			<td class="align_left"><br />&nbsp;<b>Reprint Documents By ID</b></td>
+		</tr>
+		<tr>
+			<td width="100%" align="center" valign="top" class="border_one">
+				<form id="reprint_documents" name="reprint_documents" action='/' method="post" onsubmit="return RIFormValidation();">
+				<input type="hidden" name="mode" value="docs_config" />
+				<input type="hidden" name="action" value="reprint_documents_by_id" />
+				<table border="0" cols="5">
+					<tr>
+						<td width="220" valign="top" style="text-align: left; font-weight: normal;">Reprint To:<br />
+							<select id="dd_reprint_by_id_printer" name="reprint_printer" onchange="UpdateLastArchiveId()">
+								<option> Select a printer</option>
+								%%%printer_list%%%
+							</select></td>
+						<td width="100" valign="top" style="text-align: left; font-weight: normal;">From ID :<br />
+							<input type="text" id="reprint_from" name="reprint_from"  size="8"></td> 
+                                                <td width="100" valign="top" style="text-align: left; font-weight: normal;">To ID :<br />
+							<input type="text" id="reprint_to" name="reprint_to"  size="8"></td>
+						<td width="90"><input type="submit" name="submit" value=" Reprint " /></td>
+					</tr>
+				</table>
+				</form>	
+			</td>
+		</tr>
+		<tr>
+			<td class="align_left"><br />&nbsp;<b>Reprint Documents By Date</b></td>
+		</tr>
+		<tr>
+			<td width="100%" align="center" valign="top" class="border_one">
+				<form id="reprint_documents" name="reprint_documents" action='/' method="post" onsubmit="return RDFormValidation();">
+				<input type="hidden" name="mode" value="docs_config" />
+				<input type="hidden" name="action" value="reprint_documents_by_date" />
+				<table border="0" cols="4">
+					<tr>
+						<td width="220" valign="top" style="text-align: left; font-weight: normal;">Reprint Queue :<br />
+							<select id="dd_reprint_by_date_queue" name="reprint_queue">
+								%%%queue_list%%%
+							</select></td>
+						<td width="170" valign="top" style="text-align: left; font-weight: normal; white-space: nowrap;">From Date/Time :<br />
+							%%%from_date%%%<br />
+							<select id="start_time" name="start_time" style="text-align: right;">
+								%%%dd_start_time%%%
+							</select> 
+						</td> 
+						<td width="170" valign="top" style="text-align: left; font-weight: normal; white-space: nowrap;">To Date/Time :<br />
+							%%%to_date%%%<br /> 
+							<select id="end_time" name="end_time" style="text-align: right;">
+								%%%dd_end_time%%%
+							</select> 
+						</td>
+						<td width="80" style="text-align: right;"><input type="submit" name="submit" value=" Reprint " /></td>
+					</tr>
+				</table>
+				</form>	
+			</td>
+		</tr>
+	</table>
+
+		</td>
+	</tr>
+</table>

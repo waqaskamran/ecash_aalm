@@ -1,0 +1,210 @@
+<table width="100%" class="rules" height="500">
+	<tr><th width="100%" style="background: #B4DCAF">Suppression Rules</th></tr>
+	<tr>
+		<td class="align_left" >
+			%%%rule_error%%%
+		</td>
+	</tr>
+	<tr>
+		<td >
+		</td>
+	</tr>
+	<tr height="100%">
+		<td width="100%" valign="top" align="left">
+			
+			<table >
+				
+				<tr>
+					<th >
+						<b>Suppression Rules</b>
+					</th>
+				</tr>
+				<tr>
+					<td class="align_left" valign="top">
+						<table>
+							<tr>
+								<th class="ci_suppress_col" >
+									Suppression Lists
+								</th>
+								<th class="ci_revision_col" >
+									Rev
+								</th>
+								<th class="ci_type_col" >
+									Type
+								</th>
+								<th class="ci_desc_col" >
+									Description
+								</th>
+								<th class="ci_fields_col" >
+									Fields Tested
+								</th>
+								<th class="ci_action_col" >
+									Loan Action
+								</th>
+								<th class="ci_edit_col" >
+								</th>
+							</tr>
+							%%%sup_list_set%%%
+						</table>
+					</td>
+				</tr>
+				<tr>
+					<td >
+					</td>
+				</tr>
+			</table>
+			
+		</td>
+	</tr>
+</table>
+<br/>
+<div id="suppression_list_values_dialog" style="display: none">
+	<div class='edit_dialog'>
+		<div >Values for: <strong><span id="suppression_label_1"></span></strong>
+		<div >
+			<form name="suppression_list_values" method="post" action="">
+				<input id="suppression_list_values_action" name="action" type="hidden" value="display_suppression_rules">
+				<input id="value_id" name="value_id" type="hidden" value="0">
+				<input id="list_id" name="list_id" type="hidden" value="0">
+				<input id="revision_id" name="revision_id" type="hidden" value="0">
+				<table id="suppression_list_values_table" align="center" border="0px" cellpadding="0px" cellspacing="0px" width="100%">
+				</table>
+			</form>
+		</div>
+		<div >Values for: <strong><span id="suppression_label_2"></span></strong>
+	</div>
+</div>
+<a href="#" id="bottom"></a>
+
+
+<script type='text/javascript'>
+
+var sup_lists = %%%sup_lists%%%;
+var sup_lists_id = %%%sup_lists_id%%%;
+var sup_rev_vals = %%%sup_rev_vals%%%;
+var sup_vals = %%%sup_vals%%%;
+
+
+function Hide_Div(target){
+	document.getElementById(target).style.display = 'none';
+}
+
+function Hide_All(){
+	Hide_Div('suppression_list_values_dialog');
+}
+
+function Show_Div(target){
+	Hide_All();
+	document.getElementById(target).style.display = 'block';
+	location.hash = "bottom";
+}
+
+var values_table = document.getElementById('suppression_list_values_table');
+
+%%%rules_javascript%%%
+
+function edit_suppression_list(list_id,revision_id)
+{
+	document.getElementById('list_id').value = list_id;
+	document.getElementById('revision_id').value = revision_id;
+
+	var nrList = sup_lists_id.length;
+	for(var i=0;i<nrList;i++){
+		if (sup_lists_id[i].id == list_id) {
+			document.getElementById('suppression_label_1').innerHTML = sup_lists_id[i].name;
+			document.getElementById('suppression_label_2').innerHTML = sup_lists_id[i].name;
+		}
+	}
+	var tab = document.getElementById('suppression_list_values_table');
+	while (tab.firstChild)
+	{
+		tab.removeChild(tab.firstChild);
+	}
+	var tbo=document.createElement('tbody');
+	var row, cell, bttn, inpt;
+
+	Show_Div('suppression_list_values_dialog');
+
+	row=document.createElement('tr');
+	cell=document.createElement('th');
+	cell.appendChild(document.createTextNode('Value:'))
+	row.appendChild(cell);
+	cell=document.createElement('th');
+	bttn = document.createElement('button');
+	bttn.setAttribute('type','submit');
+	bttn.setAttribute('name','cancel');
+	bttn.setAttribute('id','cancel_button');
+	bttn.setAttribute('action','display_suppression_rules');
+	bttn.value ='Cancel';
+	bttn.innerHTML ='Cancel';
+	bttn.onclick = "javascript:document.getElementById('suppression_list_values_action').value='display_suppression_rules';";
+	cell.appendChild(bttn);
+	row.appendChild(cell);
+	tbo.appendChild(row);
+
+	var nrRows = sup_rev_vals.length;
+	for(var i=0;i<nrRows;i++){
+		if (sup_rev_vals[i].list_id == list_id) {
+			//code
+			row=document.createElement('tr');
+			cell=document.createElement('td');
+			cell.appendChild(document.createTextNode(sup_rev_vals[i].value))
+			row.appendChild(cell);
+			
+			cell=document.createElement('td');
+			bttn = document.createElement('button');
+			bttn.setAttribute('type','submit');
+			bttn.setAttribute('name','remove_suppression_list');
+			bttn.setAttribute('id','remove_'+i+'_button');
+			bttn.setAttribute('action','remove_suppression_rule');
+			bttn.value = 'Remove';
+			bttn.innerHTML = 'Remove';
+			bttn.onclick = "if(confirm('Permanently delete "+sup_rev_vals[i].value+"!')){javascript:document.getElementById('value_id').value="+sup_rev_vals[i].value_id+";document.getElementById('suppression_list_values_action').value='remove_suppression_rule'}";
+			cell.appendChild(bttn);
+			row.appendChild(cell);
+			tbo.appendChild(row);
+			
+			document.getElementById("list_id").value=sup_rev_vals[i].list_id;
+			document.getElementById("revision_id").value=sup_rev_vals[i].revision_id;
+		}
+	}
+
+	row=document.createElement('tr');
+	cell=document.createElement('td');
+	inpt = document.createElement('input');
+	inpt.setAttribute('type','text');
+	inpt.setAttribute('name','value_added');
+	inpt.setAttribute('id','value_added');
+	inpt.onChange = '';
+	cell.appendChild(inpt);
+	row.appendChild(cell);
+	cell=document.createElement('td');
+	bttn = document.createElement('button');
+	bttn.setAttribute('type','submit');
+	bttn.setAttribute('name','add_value');
+	bttn.setAttribute('id','add_button');
+	bttn.setAttribute('action','add_suppression_rule');
+	bttn.value = 'Add';
+	bttn.innerHTML= 'Add';
+	bttn.onclick = "javascript:document.getElementById('suppression_list_values_action').value='add_suppression_rule';";
+	cell.appendChild(bttn);
+	row.appendChild(cell);
+	tbo.appendChild(row);
+	
+	tab.appendChild(tbo);
+	
+	bttn = document.getElementById("cancel_button");
+	bttn.setAttribute( "onClick", "document.getElementById('suppression_list_values_action').value='display_suppression_rules';");
+	bttn = document.getElementById("add_button");
+	bttn.setAttribute( "onClick", "document.getElementById('suppression_list_values_action').value='add_suppression_rule';");
+	for(var i=0;i<nrRows;i++){
+		if (sup_rev_vals[i].list_id == list_id) {
+			bttn = document.getElementById('remove_'+i+'_button');
+			bttn.setAttribute( "onClick", "document.getElementById('value_id').value="+sup_rev_vals[i].value_id+";document.getElementById('suppression_list_values_action').value='remove_suppression_rule';");
+		}
+	}
+
+}
+
+
+</script>

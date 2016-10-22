@@ -1,0 +1,257 @@
+<!-- Begin email_associated -->
+<script type="text/javascript">
+	function Send_To_Other_Queue(which_queue)
+	{
+		alert('Email was sent to ' + which_queue);
+	}
+
+	function CheckValue(e)
+	{
+		var value = e.options[e.selectedIndex].value;
+		if (value == 'DATE')
+		{
+			document.getElementById("date_span").style.visibility = "visible";
+		}
+		else
+		{
+			document.getElementById("date_span").style.visibility = "hidden";
+		}
+	}
+
+	function ValidateFollowup()
+	{
+		if (document.getElementById("action").value == 'schedule_followup')
+		{
+			var comment  = document.getElementById("follow_up_comment").value;
+			if (comment == '')
+			{
+				alert('Please add a comment to this Follow Up.');
+				return false;
+			}
+
+			var e        = document.getElementById("interval");
+			var interval = e.options[e.selectedIndex].value;
+			var date     = document.getElementById("follow_up_date").value;
+			if (interval == 'DATE' && date == '')
+			{
+				alert('Please select a Follow Up time or date.');
+				return false;
+			}
+
+			if (interval == 'DATE')
+			{
+				document.getElementById("follow_up_time").value = date;
+			}
+			else
+			{
+				document.getElementById("follow_up_time").value = interval;
+			}
+		}
+		return true;
+	}
+
+	function ValidateDisassociate()
+	{
+		var answer = confirm('Are you sure that you want to disassociate this application from this email?');
+		if (answer == false)
+		{
+			return false;
+		}
+
+		return true;
+	}
+</script>
+<table cellpadding="0" cellspacing="15" width="100%" style="background: #F1F1F1;" style="overflow: hidden;">
+	<tr>
+		<td valign="top" style="text-align: left;">
+			<table border="0" width="400" height="282" cellpadding="0" cellspacing="0" style="border: 2px solid gray;">
+				<tr>
+					<th colspan="2" class="%%%mode_class%%%" style="text-align: left;">&nbsp;Email</th>
+				</tr>
+				<tr>
+					<td>
+						<table width="400" cellpadding="0" cellspacing="5" border="0">
+							<tr>
+								<td width="60" class="align_left" style="font-weight: bold;">Received:</td>
+								<td style="text-align: left;">%%%email_received%%%</td>
+							</tr>
+							<tr>
+								<td width="60" class="align_left" style="font-weight: bold;">From:</td>
+								<td style="text-align: left;">%%%email_from%%%</td>
+							</tr>
+							<tr>
+								<td width="60" class="align_left" style="font-weight: bold;">Subject:</td>
+								<td style="text-align: left;">%%%email_subject%%%</td>
+							</tr>
+							<tr>
+								<td colspan="2" height="100%">
+									<textarea id="email_message" style="text-align: left; width: 380px; height: 200px; overflow: auto; border: 1px solid #666666; background: #FFFFFF; padding: 5px; font-family: Arial; font-size: 12px;" readonly>%%%email_message%%%</textarea></td>
+							</tr>
+						</table>
+					</td>
+				</tr>
+			</table>
+		</td>
+		<td valign="top" style="text-align: left;">
+			<table border="0" width="320" height="20" cellpadding="0" cellspacing="0" style="border: 2px solid gray; margin-bottom: 12px;">
+				<tr>
+					<th colspan="2" class="%%%mode_class%%%" style="text-align: left;">&nbsp;Associated Application</th>
+				</tr>
+				<form name="diassociate" action="/" method="post" onsubmit="return ValidateDisassociate();">
+				<input type="hidden" name="queue" value="%%%queue%%%" />
+				<input type="hidden" name="archive_id" value="%%%archive_id%%%" />
+				<input type="hidden" name="application_id" value="%%%application_id%%%" />
+				<input type="hidden" name="other_queue" value="%%%other_queue%%%" />
+				<input type="hidden" name="mode" value="%%%mode%%%" />
+				<input type="hidden" name="action" value="disassociate_email" />
+				<tr>
+					<td height="20" valign="middle" style="text-align: left; padding-left: 4px;">
+						%%%associated_account_link%%%
+					</td>
+					<td height="20" valign="middle" style="text-align: right; padding-right: 4px; padding-top: 4px; padding-bottom: 4px;">
+						<input type="submit" name="button" value="Disassociate" />
+					</td>
+				</tr>
+				</form>
+			</table>
+			<table border="0" width="320" height="226" cellpadding="0" cellspacing="0" style="border: 2px solid gray;">
+				<tr>
+					<th class="%%%mode_class%%%" style="text-align: left;">&nbsp;Attachments</th>
+				</tr>
+				<tr>
+					<td height="226" valign="top">
+						<div id="email_attachments" style="overflow: hidden; overflow-y: auto; height: 226px;">
+							<table width="320" border="0">
+								%%%email_attachments%%%
+							</table>
+						</div>
+					</td>
+				</tr>
+			</table>
+		</td>
+	</tr>
+	<form name="actions" action="/" method="post" onsubmit="return ValidateFollowup();">
+	<input type="hidden" name="queue" value="%%%queue%%%" />
+	<input type="hidden" name="archive_id" value="%%%archive_id%%%" />
+	<input type="hidden" name="application_id" value="%%%application_id%%%" />
+	<input type="hidden" name="other_queue" value="%%%other_queue%%%" />
+	<input type="hidden" name="mode" value="%%%mode%%%" />
+	<input type="hidden" id="action" name="action" value="respond_to_email" />
+	<input type="hidden" id="follow_up_time" name="follow_up_time" value="" />
+	<input type="hidden" id="transfer_action" name="transfer_action" value="" />
+	<tr>
+		<td valign="top" style="text-align: left;">
+			<table border="0" width="406" cellpadding="0" cellspacing="0" style="border: 2px solid gray; margin-bottom: 12px;">
+				<tr>
+					<th class="%%%mode_class%%%" style="text-align: left;">&nbsp;Email Actions</th>
+				</tr>
+				<tr>
+					<td style="text-align: center; padding: 5px;">
+						<table width="100%" border="0">
+							<tr>
+								<td valign="middle"><input type="submit" name="button" value="Respond" onclick="document.actions.action.value = 'respond_to_email';" /></td>
+								<td valign="middle"><input type="submit" name="button" value="Attach Without Responding" onclick="document.actions.action.value = 'file_without_responding';" /></td>
+								<td valign="middle"><input type="submit" name="button" value="%%%display_other_queue%%%" onclick="Send_To_Other_Queue('%%%display_other_queue%%%'); document.actions.action.value = 'send_to_other_queue';" /></td>
+								<!-- <td valign="middle"><input type="submit" name="button" value="%%%queue_button_label%%%" onclick="document.actions.other_queue.value = '%%%queue_button_action%%%'; document.actions.action.value = 'send_to_other_queue';" /></td> -->
+							</tr>
+						</table>
+					</td>
+				</tr>
+			</table>
+			<div id="transfer_actions_panel" style="visibility: visible;">
+				<table border="0" width="406" cellpadding="0" cellspacing="0" style="border: 2px solid gray;">
+					<tr>
+						<th class="%%%mode_class%%%" style="text-align: left;">&nbsp;Transfer Actions</th>
+					</tr>
+					<tr>
+						<td style="text-align: center; padding: 5px;">
+							<table width="100%" border="0">
+								<tr>
+									<td valign="middle"><input type="submit" name="button" value="React" onclick="document.actions.action.value = 'transfer_action'; document.actions.transfer_action.value = 'react';" /></td>
+									<!-- Removed per Mantis 11683 - BR
+									<td valign="middle"><input type="submit" name="button" value="New Loan" onclick="document.actions.action.value = 'transfer_action'; document.actions.transfer_action.value = 'new_loan';" /></td>
+									-->
+									<td valign="middle"><input type="submit" name="button" value="Paydown" onclick="document.actions.action.value = 'transfer_action'; document.actions.transfer_action.value = 'pay_down';" /></td>
+									<td valign="middle"><input type="submit" name="button" value="Payout" onclick="document.actions.action.value = 'transfer_action'; document.actions.transfer_action.value = 'pay_out';" /></td>
+								</tr>
+							</table>
+						</td>
+					</tr>
+				</table>
+			</div>
+		</td>
+		<td valign="top" style="text-align: left;">
+			<table border="0" width="320" height="117" cellpadding="0" cellspacing="0" style="border: 2px solid gray;">
+				<tr>
+					<th class="%%%mode_class%%%" style="text-align: left;">&nbsp;Follow Up</th>
+				</tr>
+				<tr>
+					<td style="text-align: center; padding: 5px;">
+						<table width="100%" border="0">
+							<tr>
+								<td valign="middle" style="text-align: right;">
+									<div style="border: 1px solid gray; padding: 3px; text-align: right;">
+									<table border="0" cellpadding="0" cellspacing="3">
+										<tr>
+											<td class="align_left" style="font-size: 11px;">Follow up:</td>
+											<td class="align_left">
+									        	<select name="interval" id="interval" onchange="CheckValue(this);">
+                                    			<option value="DATE" selected>&lt;date&gt;</option>
+		                            			<option value="+5 minutes">5 Minutes</option>
+		                            			<option value="+30 minutes">30 minutes</option>
+		                            			<option value="+1 hour">1 Hour</option>
+		                            			<option value="+2 hour">2 Hours</option>
+		                                   		<option value="+4 hour">4 Hours</option>
+		                                     	<option value="+24 hour">24 Hours</option></select>
+											</td>
+											<td style="text-align: right;">
+                                     			<span id="date_span" style="visibility: visible;">
+                               					<a href="#" onClick="PopCalendar3('follow_up_date', event, null, false);">(select)</a>&nbsp;
+                                 				<input type="text" id="follow_up_date" name="follow_up_date" style="width: 86px;" value="" readonly></span>
+											</td>
+										</tr>
+										<tr>
+											<td class="align_left" style="font-size: 11px;">Comment:</td>
+											<td colspan="2" class="align_left">
+												<input type="text" id="follow_up_comment" name="follow_up_comment" size="40" />
+											</td>
+										</tr>
+										<tr>
+											<td colspan="3" style="text-align: right;">
+                               					<input type="submit" name="button" value="Schedule Follow Up" onclick="document.actions.action.value = 'schedule_followup';" />
+											</td>
+										</tr>
+									</table>
+                                    </div>
+								</td>
+							</tr>
+						</table>
+					</td>
+				</tr>
+			</table>
+		</td>
+	</tr>
+	</form>
+<!--	<form action="/" method="post" onsubmit="return false;">
+	<tr>
+		<td colspan="2" style="text-align: right; padding-top: 15px; padding-bottom: 10px; padding-right: 20px;">
+			<input type="submit" name="associate" value="Get Next Email" />
+		</td>
+	</tr>
+	</form> -->
+</table>
+<script type="text/javascript">
+
+	function DisplayTransferActions()
+	{
+		var mod = '%%%module%%%';
+		if (mod == 'collections')
+		{
+			document.getElementById("transfer_actions_panel").style.visibility = 'hidden';
+		}
+	}
+	DisplayTransferActions();
+
+	%%%alert_message%%%
+</script>
+<!-- End email_associated-->

@@ -1,0 +1,59 @@
+K 25
+svn:wc:ra_dav:version-url
+V 87
+/svn/aalm_current/!svn/ver/4584/ecash/branches/sql_merge/ecash_cfe/code/ECash/VendorAPI
+END
+Authenticator.php
+K 25
+svn:wc:ra_dav:version-url
+V 105
+/svn/aalm_current/!svn/ver/1979/ecash/branches/sql_merge/ecash_cfe/code/ECash/VendorAPI/Authenticator.php
+END
+Qualify.php
+K 25
+svn:wc:ra_dav:version-url
+V 99
+/svn/aalm_current/!svn/ver/3104/ecash/branches/sql_merge/ecash_cfe/code/ECash/VendorAPI/Qualify.php
+END
+ApplicationFactory.php
+K 25
+svn:wc:ra_dav:version-url
+V 110
+/svn/aalm_current/!svn/ver/1979/ecash/branches/sql_merge/ecash_cfe/code/ECash/VendorAPI/ApplicationFactory.php
+END
+Driver.php
+K 25
+svn:wc:ra_dav:version-url
+V 98
+/svn/aalm_current/!svn/ver/1979/ecash/branches/sql_merge/ecash_cfe/code/ECash/VendorAPI/Driver.php
+END
+TokenProvider.php
+K 25
+svn:wc:ra_dav:version-url
+V 105
+/svn/aalm_current/!svn/ver/1979/ecash/branches/sql_merge/ecash_cfe/code/ECash/VendorAPI/TokenProvider.php
+END
+Document.php
+K 25
+svn:wc:ra_dav:version-url
+V 100
+/svn/aalm_current/!svn/ver/1979/ecash/branches/sql_merge/ecash_cfe/code/ECash/VendorAPI/Document.php
+END
+Application.php
+K 25
+svn:wc:ra_dav:version-url
+V 103
+/svn/aalm_current/!svn/ver/4584/ecash/branches/sql_merge/ecash_cfe/code/ECash/VendorAPI/Application.php
+END
+BureauInquiry.php
+K 25
+svn:wc:ra_dav:version-url
+V 105
+/svn/aalm_current/!svn/ver/1979/ecash/branches/sql_merge/ecash_cfe/code/ECash/VendorAPI/BureauInquiry.php
+END
+Loader.php
+K 25
+svn:wc:ra_dav:version-url
+V 98
+/svn/aalm_current/!svn/ver/1979/ecash/branches/sql_merge/ecash_cfe/code/ECash/VendorAPI/Loader.php
+END

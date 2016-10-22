@@ -1,0 +1,63 @@
+## This .htaccess file helps direct requests to the appropriate
+## files and directories.  The top piece here will attempt to 
+## detect the environment and set some defaults.  A place to 
+## create overrides in further below.
+##
+## For this to work, you will need to create a symbolic link
+## to your eCash module as ecash_root within this directory.
+## e.g.: ln -s /virtualhosts/ecash3.0 ecash_root
+
+DirectoryIndex index.php
+
+RewriteEngine On
+
+RewriteBase /
+
+# these rules will definitely need some massaging...
+
+RewriteCond %{HTTP_HOST} 199.38.223.185
+RewriteRule (.*) - [env=ECASH_EXEC_MODE:Live,skip=3]
+
+#set the exec mode [Live]
+RewriteCond %{HTTP_HOST} live\..*$ [nocase]
+RewriteRule (.*) - [env=ECASH_EXEC_MODE:Live,skip=2]
+
+#set the exec mode [RC]
+RewriteCond %{HTTP_HOST} rc\..*$ [nocase]
+RewriteRule (.*) - [env=ECASH_EXEC_MODE:RC,skip=1]
+
+#set the exec mode [Local]
+RewriteCond %{HTTP_HOST} [^.]+\.[^.]+\.tss$ [nocase]
+RewriteRule (.*) - [env=ECASH_EXEC_MODE:Local]
+
+#set the host (this will grab the last dotted pair in HTTP_HOST)
+RewriteCond %{HTTP_HOST} ([^.]+\.[^.]+)$ [nocase]
+RewriteRule (.*) - [env=ECASH_HOST:%1]
+
+
+## Set the environment variables for the customer so redirected
+## requests to the main ecash module can determine which
+## configuration file to load and for which customer.  Custom
+## overrides such as the ECASH_EXEC_MODE can be defined here.
+##
+SetEnv ECASH_CUSTOMER AALM
+SetEnv ECASH_CUSTOMER_DIR /virtualhosts/aalm/ecash3.0/ecash_aalm/
+SetEnv ECASH_WWW_DIR /virtualhosts/ecash_cfe/www/
+SetEnv ECASH_COMMON_DIR /virtualhosts/ecash_common.cfe/
+
+## This is how you can override the mode for your local machine
+#SetEnv ECASH_EXEC_MODE RC
+
+#proxy URLs that aren't index.php
+# if we're not requesting / (index.php)
+RewriteCond %{REQUEST_URI} !^/$
+# and the file doesn't exist (is not index.php)
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+
+# ecash_root/ is a symlink to /virtualhosts/ecash_new_queues and anything not 
+# matching index.php will get passed through to it's www directory.
+# This is better than the proxy because it's fewer requests and it lets us
+# preserve the environment variables
+#RewriteRule ^ecash_root - [L,NC]
+RewriteRule ^(.*)$  /ecash_root/www/$1 [last]

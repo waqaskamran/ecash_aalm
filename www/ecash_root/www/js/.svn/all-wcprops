@@ -1,0 +1,227 @@
+K 25
+svn:wc:ra_dav:version-url
+V 73
+/svn/aalm_current/!svn/ver/5094/ecash/branches/sql_merge/ecash_cfe/www/js
+END
+prototype-1.5.1.1.js
+K 25
+svn:wc:ra_dav:version-url
+V 94
+/svn/aalm_current/!svn/ver/1979/ecash/branches/sql_merge/ecash_cfe/www/js/prototype-1.5.1.1.js
+END
+menu.js
+K 25
+svn:wc:ra_dav:version-url
+V 81
+/svn/aalm_current/!svn/ver/1979/ecash/branches/sql_merge/ecash_cfe/www/js/menu.js
+END
+admin_agent.js
+K 25
+svn:wc:ra_dav:version-url
+V 88
+/svn/aalm_current/!svn/ver/1979/ecash/branches/sql_merge/ecash_cfe/www/js/admin_agent.js
+END
+login.js
+K 25
+svn:wc:ra_dav:version-url
+V 82
+/svn/aalm_current/!svn/ver/1979/ecash/branches/sql_merge/ecash_cfe/www/js/login.js
+END
+transactions.js
+K 25
+svn:wc:ra_dav:version-url
+V 89
+/svn/aalm_current/!svn/ver/2741/ecash/branches/sql_merge/ecash_cfe/www/js/transactions.js
+END
+document_management.js
+K 25
+svn:wc:ra_dav:version-url
+V 96
+/svn/aalm_current/!svn/ver/1979/ecash/branches/sql_merge/ecash_cfe/www/js/document_management.js
+END
+transaction_type_config.js
+K 25
+svn:wc:ra_dav:version-url
+V 100
+/svn/aalm_current/!svn/ver/1979/ecash/branches/sql_merge/ecash_cfe/www/js/transaction_type_config.js
+END
+token_management.js
+K 25
+svn:wc:ra_dav:version-url
+V 93
+/svn/aalm_current/!svn/ver/1979/ecash/branches/sql_merge/ecash_cfe/www/js/token_management.js
+END
+reporting_hotkeys.js
+K 25
+svn:wc:ra_dav:version-url
+V 94
+/svn/aalm_current/!svn/ver/1979/ecash/branches/sql_merge/ecash_cfe/www/js/reporting_hotkeys.js
+END
+disable_link.js
+K 25
+svn:wc:ra_dav:version-url
+V 89
+/svn/aalm_current/!svn/ver/1979/ecash/branches/sql_merge/ecash_cfe/www/js/disable_link.js
+END
+admin_groups.js
+K 25
+svn:wc:ra_dav:version-url
+V 89
+/svn/aalm_current/!svn/ver/1979/ecash/branches/sql_merge/ecash_cfe/www/js/admin_groups.js
+END
+date_validation.js
+K 25
+svn:wc:ra_dav:version-url
+V 92
+/svn/aalm_current/!svn/ver/1979/ecash/branches/sql_merge/ecash_cfe/www/js/date_validation.js
+END
+rules.js
+K 25
+svn:wc:ra_dav:version-url
+V 82
+/svn/aalm_current/!svn/ver/1979/ecash/branches/sql_merge/ecash_cfe/www/js/rules.js
+END
+flag_type_config.js
+K 25
+svn:wc:ra_dav:version-url
+V 93
+/svn/aalm_current/!svn/ver/1979/ecash/branches/sql_merge/ecash_cfe/www/js/flag_type_config.js
+END
+funding_hotkeys.js
+K 25
+svn:wc:ra_dav:version-url
+V 92
+/svn/aalm_current/!svn/ver/1979/ecash/branches/sql_merge/ecash_cfe/www/js/funding_hotkeys.js
+END
+nada.js
+K 25
+svn:wc:ra_dav:version-url
+V 81
+/svn/aalm_current/!svn/ver/1979/ecash/branches/sql_merge/ecash_cfe/www/js/nada.js
+END
+flux_capacitor.js
+K 25
+svn:wc:ra_dav:version-url
+V 91
+/svn/aalm_current/!svn/ver/1979/ecash/branches/sql_merge/ecash_cfe/www/js/flux_capacitor.js
+END
+suppression_rules.js
+K 25
+svn:wc:ra_dav:version-url
+V 94
+/svn/aalm_current/!svn/ver/2741/ecash/branches/sql_merge/ecash_cfe/www/js/suppression_rules.js
+END
+fraud_hotkeys.js
+K 25
+svn:wc:ra_dav:version-url
+V 90
+/svn/aalm_current/!svn/ver/1979/ecash/branches/sql_merge/ecash_cfe/www/js/fraud_hotkeys.js
+END
+json.js
+K 25
+svn:wc:ra_dav:version-url
+V 81
+/svn/aalm_current/!svn/ver/1979/ecash/branches/sql_merge/ecash_cfe/www/js/json.js
+END
+manual_payment.js
+K 25
+svn:wc:ra_dav:version-url
+V 91
+/svn/aalm_current/!svn/ver/1979/ecash/branches/sql_merge/ecash_cfe/www/js/manual_payment.js
+END
+admin_privs.js
+K 25
+svn:wc:ra_dav:version-url
+V 88
+/svn/aalm_current/!svn/ver/1979/ecash/branches/sql_merge/ecash_cfe/www/js/admin_privs.js
+END
+watch_hotkeys.js
+K 25
+svn:wc:ra_dav:version-url
+V 90
+/svn/aalm_current/!svn/ver/1979/ecash/branches/sql_merge/ecash_cfe/www/js/watch_hotkeys.js
+END
+layout.js
+K 25
+svn:wc:ra_dav:version-url
+V 83
+/svn/aalm_current/!svn/ver/5091/ecash/branches/sql_merge/ecash_cfe/www/js/layout.js
+END
+transactions_conversion.js
+K 25
+svn:wc:ra_dav:version-url
+V 100
+/svn/aalm_current/!svn/ver/1979/ecash/branches/sql_merge/ecash_cfe/www/js/transactions_conversion.js
+END
+it_settlement.js
+K 25
+svn:wc:ra_dav:version-url
+V 90
+/svn/aalm_current/!svn/ver/1979/ecash/branches/sql_merge/ecash_cfe/www/js/it_settlement.js
+END
+no_module_hotkeys.js
+K 25
+svn:wc:ra_dav:version-url
+V 94
+/svn/aalm_current/!svn/ver/1979/ecash/branches/sql_merge/ecash_cfe/www/js/no_module_hotkeys.js
+END
+customer_centric_interface.js
+K 25
+svn:wc:ra_dav:version-url
+V 103
+/svn/aalm_current/!svn/ver/1979/ecash/branches/sql_merge/ecash_cfe/www/js/customer_centric_interface.js
+END
+underwriting_rules.js
+K 25
+svn:wc:ra_dav:version-url
+V 95
+/svn/aalm_current/!svn/ver/2741/ecash/branches/sql_merge/ecash_cfe/www/js/underwriting_rules.js
+END
+admin_profiles.js
+K 25
+svn:wc:ra_dav:version-url
+V 91
+/svn/aalm_current/!svn/ver/1979/ecash/branches/sql_merge/ecash_cfe/www/js/admin_profiles.js
+END
+admin_queue.js
+K 25
+svn:wc:ra_dav:version-url
+V 88
+/svn/aalm_current/!svn/ver/1979/ecash/branches/sql_merge/ecash_cfe/www/js/admin_queue.js
+END
+admin_hotkeys.js
+K 25
+svn:wc:ra_dav:version-url
+V 90
+/svn/aalm_current/!svn/ver/1979/ecash/branches/sql_merge/ecash_cfe/www/js/admin_hotkeys.js
+END
+tags.js
+K 25
+svn:wc:ra_dav:version-url
+V 81
+/svn/aalm_current/!svn/ver/1979/ecash/branches/sql_merge/ecash_cfe/www/js/tags.js
+END
+rules_hotkeys.js
+K 25
+svn:wc:ra_dav:version-url
+V 90
+/svn/aalm_current/!svn/ver/1979/ecash/branches/sql_merge/ecash_cfe/www/js/rules_hotkeys.js
+END
+payment_types.js
+K 25
+svn:wc:ra_dav:version-url
+V 90
+/svn/aalm_current/!svn/ver/1979/ecash/branches/sql_merge/ecash_cfe/www/js/payment_types.js
+END
+documents.js
+K 25
+svn:wc:ra_dav:version-url
+V 86
+/svn/aalm_current/!svn/ver/5094/ecash/branches/sql_merge/ecash_cfe/www/js/documents.js
+END
+overlib.js
+K 25
+svn:wc:ra_dav:version-url
+V 84
+/svn/aalm_current/!svn/ver/1979/ecash/branches/sql_merge/ecash_cfe/www/js/overlib.js
+END

@@ -1,0 +1,19 @@
+<table width="100%" class="quick_checks" height="500">
+<form name="receive_quick_checks" id="receive_quick_checks_form" action='' method="post" enctype="multipart/form-data">
+	<input name="company_id" id='company_id' type="hidden" value='%%%company_id%%%'>
+	<input type="hidden" name="action" value="receive_quick_checks">
+	<tr>
+		<td>
+			%%%display_upload_status%%% 
+			<br>
+			Upload File:
+			<input type=file name="quick_checks_file">
+			<br><br>
+			<input type=submit name=upload value="upload">
+		</td>
+	</tr>
+	<tr>
+		<td>&nbsp;</td>
+	</tr>
+	</form>
+</table>

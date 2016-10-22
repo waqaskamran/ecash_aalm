@@ -1,0 +1,307 @@
+<script type="text/javascript">
+
+var app_status = '%%%status%%%';
+var level1 = '%%%level1%%%';
+//var dob_old = '%%%dob%%%';
+//var name_first_old = '%%%name_first%%%';
+//var name_last_old = '%%%name_last%%%';
+
+function validate_personal()
+{
+	var focusobj = null;
+	var isvalid = validate_fields(personal_validation_array,'std_text','error_text');
+        /*
+        var dob_new = document.getElementById("EditAppPersonalInfoCustDobmonth").value.trim()
+                        +"-"+document.getElementById("EditAppPersonalInfoCustDobday").value.trim()
+                        +"-"+document.getElementById("EditAppPersonalInfoCustDobyear").value.trim();
+
+	var name_first_new = document.getElementById("EditAppPersonalInfoCustFirstName").value.trim();
+	var name_last_new = document.getElementById("EditAppPersonalInfoCustLastName").value.trim();
+	*/
+	
+	if (document.getElementById('EditAppPersonalInfoCustFirstName').value.trim().length < 2 || document.getElementById('EditAppPersonalInfoCustLastName').value.trim().length < 2)
+	{
+		document.getElementById('name_span').className = 'error_text';	
+		isvalid = false;
+		
+		if (focusobj)
+		{
+			
+		}
+		else
+		{
+			if (document.getElementById('EditAppPersonalInfoCustFirstName').value.trim().length < 2)
+				focusobj = document.getElementById("EditAppPersonalInfoCustFirstName");
+			else
+				focusobj = document.getElementById("EditAppPersonalInfoCustLastName");
+		}	
+		
+	}
+	
+
+	if ((document.getElementById('EditAppPersonalInfoCustLegalIdNum').value.trim().length < 3) || 
+	    (document.getElementById('EditAppPersonalInfoCustLegalIdState').value.trim().length < 2)) 
+	{
+		document.getElementById('legal_id_span').className = 'error_text';	
+		isvalid = false;
+		
+		if (focusobj)
+		{
+			
+		}
+		else
+		{
+			if (document.getElementById('EditAppPersonalInfoCustLegalIdNum').value.trim().length < 3)
+				focusobj = document.getElementById("EditAppPersonalInfoCustLegalIdNum");
+			else focusobj = document.getElementById("EditAppPersonalInfoCustLegalIdState");
+		}	
+		
+	}	
+	
+ 
+	if(focusobj)
+	{
+		focusobj.focus();
+	}
+	
+	if (isvalid
+                &&
+                (
+                        app_status == 'approved'
+                        || level1 == 'underwriting'
+                        || level1 == 'verification'
+                )
+                /*
+                &&
+                (
+                        dob_new != dob_old
+			|| name_first_new != name_first_old
+			|| name_last_new != name_last_old
+                )
+                */
+        )
+        {
+                return WarnESig();
+        }
+	else
+        {
+                return isvalid;
+        }
+	
+}
+
+ 
+var personal_validation_array = {
+'name' : /^[a-zA-Z '\'']{2,30}$/,
+'ssn' : /^[0-9X]{3,3}-[0-9X]{2,2}-[0-9]{4,4}$/,
+'legal_id' : /^[0-9a-zA-Z-]{3,30}$/,
+'street': /^[0-9a-zA-Z .-]+$/,
+'city':  /^[a-zA-Z ]+$/,
+'county':  /^[a-zA-Z ]*$/,
+'zip':  /^[0-9]{5,5}-{0,1}([0-9]{4,4}){0,1}$/,
+'customer_email':  /^([a-zA-Z0-9_\.\-])+\@(([a-zA-Z0-9\-])+\.)+([a-zA-Z0-9]{2,4})+$/,
+'state':  /^\S+$/,
+'residence_start_date':  /^(\d\d[/]\d\d[/]\d\d\d\d){0,1}$/
+
+};
+
+</script>
+
+
+<div id="layout0group0layer0view" %%%personal_view_layer%%%>
+<table cellpadding="0" cellspacing="0" width="100%">
+	<tr>
+		<td class="border" align="left" valign="top">
+			<table cellpadding="0" cellspacing="0" width="100%" class="%%%mode_class%%%">
+				<tr class="height">
+					<th colspan="3" class="%%%mode_class%%%">&nbsp;<nobr>Personal Details</nobr></th>
+				</tr>
+				<tr class="height">
+					<td class="align_left_alt_bold" width="25%">&nbsp;Name:&nbsp;
+						<!--
+						<a href="#" onClick="javascript:Toggle_Menu('personal_contact_name_float_menu');">&nbsp;Name:&nbsp;</a>
+						<div class="submenu_layer %%%mode_class%%%" id="personal_contact_name_float_menu" style="left:4px; width:100px; height:33px; top:37px; visibility:hidden; border:medium solid black;">
+							<a href="#" onClick="javascript:Set_Contact('name', 'do_not_loan');">Do Not Loan</a> <br/>
+							<a href="#" onClick="javascript:Set_Contact('name', 'remove');">Remove</a>
+						</div>
+						-->
+					</td>
+					<td class="align_left_alt" width="8%">%%%contact_name%%%&nbsp;</td>
+					<td class="align_left_alt" width="70%"><span id="AppPersonalInfoCustFirstName">%%%name_first_trim%%%</span> <span id="AppPersonalInfoCustLastName">%%%name_last_trim%%%</span></td>
+				</tr>
+				<tr class="height">
+					<td class="align_left_bold" width="25%">&nbsp;SSN:&nbsp;
+					<!--
+						<a href="#" onClick="javascript:Toggle_Menu('personal_contact_ssn_float_menu');">&nbsp;SSN:&nbsp;</a>
+						<div class="submenu_layer %%%mode_class%%%" id="personal_contact_ssn_float_menu" style="left:4px; width:100px; height:33px; top:57px; visibility:hidden; border:medium solid black;">
+							<a href="#" onClick="javascript:Set_Contact('name', 'do_not_loan');">Do Not Loan</a> <br/>
+							<a href="#" onClick="javascript:Set_Contact('name', 'remove');">Remove</a>
+						</div>
+					-->
+					</td>
+					<td class="align_left" width="5%">%%%contact_ssn%%%&nbsp;</td> <!-- mantis:4648 -->
+					<td class="align_left" width="70%" id="AppPersonalInfoCustSsn">%%%ssn_trim%%%</td>
+				</tr>
+				<tr class="height">
+					<td class="align_left_alt_bold" width="25%">&nbsp;Legal ID:</td>
+					<td class="align_left_alt" width="5%">&nbsp;</td>
+					<td class="align_left_alt" width="70%" id="AppPersonalInfoCustLegalIdNum">%%%legal_id_number_trim%%% %%%legal_id_state_trim%%%</td>
+				</tr>
+				<tr class="height">
+					<td class="align_left_bold" width="25%">&nbsp;Date Of &nbsp;Birth:</td>
+					<td class="align_left" width="5%">&nbsp;</td>
+					<td class="align_left" width="70%" id="AppPersonalInfoCustDob">%%%dob_trim%%%</td>
+				</tr>
+				<tr class="height">
+					<td class="align_left_alt_bold" width="25%">&nbsp;Address:&nbsp;
+					<!--
+						<a href="#" onClick="javascript:Toggle_Menu('personal_contact_street_float_menu');">&nbsp;Address:&nbsp;</a>
+						<div class="submenu_layer %%%mode_class%%%" id="personal_contact_street_float_menu" style="left:4px; width:115px; height:105px; top:115px; visibility:hidden; border:medium solid black;">
+							<a href="#" onClick="javascript:Set_Contact('street', 'bad_info');">Bad Info</a><br>
+							<a href="#" onClick="javascript:Set_Contact('street', 'do_not_contact');">Do Not Contact</a><br>
+							<a href="#" onClick="javascript:Set_Contact('street', 'best_contact');">Best Contact</a><br/>
+							<a href="#" onClick="javascript:Set_Contact('street', 'do_not_market');">Do Not Market</a><br/>
+							<a href="#" onClick="javascript:Set_Contact('all', 'do_not_market');">Do Not Market All</a><br/>
+							<a href="#" onClick="javascript:Set_Contact('street', 'remove');">Remove</a>
+						</div>
+					-->
+					</td>
+					<td class="align_left_alt" width="5%">%%%contact_street%%%</td>
+					<td class="align_left_alt" width="70%" id="AppPersonalInfoCustAddress">%%%street_trim%%%</td>
+				</tr>
+				<tr class="height">
+					<td class="align_left_bold" width="25%">&nbsp;Unit:</td>
+					<td class="align_left" width="5%">&nbsp;</td>
+					<td class="align_left" width="70%" id="AppPersonalInfoCustUnit">%%%unit_trim%%%</td>
+				</tr>
+				<tr class="height">
+					<td class="align_left_alt_bold" width="25%">&nbsp;City/State:</td>
+					<td class="align_left_alt" width="5%">%%%contact_city%%%</td>
+					<td class="align_left_alt" width="75%"><span id="AppPersonalInfoCustCity">%%%city_trim%%%</span>, <span id="AppPersonalInfoState">%%%state_trim%%%</span></td>
+				</tr>
+				<tr class="height">
+					<td class="align_left_bold" width="25%">&nbsp;County:</td>
+					<td class="align_left" width="5%">&nbsp;</td>
+					<td class="align_left" width="75%" id="AppPersonalInfoCustCounty">%%%county_trim%%%</td>
+				</tr>
+				<tr class="height">
+					<td class="align_left_alt_bold" width="25%">&nbsp;Zip:</td>
+					<td class="align_left_alt" width="5%">%%%contact_zip_code%%%</td>
+					<td class="align_left_alt" width="70%" id="AppPersonalInfoCustZip">%%%zip_trim%%%</td>
+				</tr>
+				<tr class="height">
+					<td class="align_left_bold" width="25%">&nbsp;Residing &nbsp;Since:</td>
+					<td class="align_left" width="5%">&nbsp;</td>
+					<td class="align_left" width="75%"><span id="AppPersonalInfoCustResidingSince">%%%residence_start_date%%%</span><span class="subtext">(%%%residence_duration%%%)</span></td>
+				</tr>
+				<tr class="height">
+					<td class="align_left_alt_bold" width="25%">&nbsp;Email:&nbsp;
+					<!--
+						<a href="#" onClick="javascript:Toggle_Menu('personal_contact_email_float_menu');">&nbsp;Email:&nbsp;</a>
+						<div class="submenu_layer %%%mode_class%%%" id="personal_contact_email_float_menu" style="left:4px; width:115px; height:105px; top:210px; visibility:hidden; border:medium solid black;">
+							<a href="#" onClick="javascript:Set_Contact('customer_email', 'bad_info');">Bad Info</a><br>
+							<a href="#" onClick="javascript:Set_Contact('customer_email', 'do_not_contact');">Do Not Contact</a><br>
+							<a href="#" onClick="javascript:Set_Contact('customer_email', 'best_contact');">Best Contact</a><br/>
+							<a href="#" onClick="javascript:Set_Contact('customer_email', 'do_not_market');">Do Not Market</a><br/>
+							<a href="#" onClick="javascript:Set_Contact('all', 'do_not_market');">Do Not Market All</a><br/>
+							<a href="#" onClick="javascript:Set_Contact('customer_email', 'remove');">Remove</a>
+						</div>
+					-->
+					</td>
+					<td class="align_left_alt" width="5%">%%%contact_customer_email%%%</td>
+					<td class="align_left_alt" width="70%" id="AppPersonalInfoCustEmail">%%%customer_email_trim%%%</td>
+				</tr>
+				<tr class="height">
+					<td colspan="3" class="align_right_alt">
+						%%%edit_personal_details_link%%%
+					</td>
+				</tr>
+				<tr class="height">
+					<td colspan="3" class="align_right_alt">
+						%%%payment_card_information_link%%%
+					</td>
+				</tr>				
+			</table>
+		</td>
+	</tr>
+</table>
+</div>
+
+<div id="layout0group0layer0edit" %%%personal_edit_layer%%%>
+<form method="post" action="/" name="Personal" class="no_padding">
+<input type="hidden" name="application_id" value="%%%application_id%%%">
+<table cellpadding=0 cellspacing=0 width="100%">
+	<tr>
+		<td class="border" align="left" valign="top">
+			<table cellpadding=0 cellspacing=0 width="100%" class="%%%mode_class%%%">
+				<tr class="height">
+					<th colspan="3" class="%%%mode_class%%%">&nbsp;<nobr>Personal Details</nobr></th>
+				</tr>
+				<tr class="height">
+					<td class="align_left_alt_bold" width="25%"><span id="name_span" class="%%%name_color%%%">%%%name_overlink%%% &nbsp;Name%%%name_endlink%%%</span>:&nbsp;</td>
+					<td class="align_left" width="5%">%%%contact_name%%%&nbsp;</td>
+					<td class="align_left_alt" width="70%"><input type="text" id="EditAppPersonalInfoCustFirstName" name="name_first" value="%%%name_first_edit%%%" class="text" maxlength="50" onblur = "return strip_all_but(this,keybAlpha,((window.event)?window.event:event));" onkeypress="return editKeyBoard(this,keybAlpha,((window.event)?window.event:event));"> <input type="text" id="EditAppPersonalInfoCustLastName" name="name_last" value="%%%name_last_edit%%%" maxlength="50" onblur = "return strip_all_but(this,keybAlpha,((window.event)?window.event:event));" onkeypress="return editKeyBoard(this,keybAlpha,((window.event)?window.event:event));"></td>
+				</tr>
+				<tr class="height">
+					<td class="align_left_bold" width="25%"><span id="ssn_span" class="%%%ssn_color%%%">%%%ssn_overlink%%%&nbsp;SSN:%%%ssn_endlink%%%</span>&nbsp;</td>
+					<td class="align_left" width="5%">%%%contact_ssn%%%&nbsp;</td>
+					<td class="align_left" width="70%">%%%ssn_edit_field%%%</td>
+				</tr>
+				<tr class="height">
+					<td class="align_left_alt_bold" width="25%"><span id="legal_id_span" class="%%%legal_id_number_color%%%">%%%legal_id_number_overlink%%%&nbsp;Legal ID%%%legal_id_number_endlink%%%</span>:&nbsp;</td>
+					<td class="align_left_alt" width="5%">&nbsp;</td>
+					<td class="align_left_alt" width="70%"><input type="text" id="EditAppPersonalInfoCustLegalIdNum" name="legal_id_number" value="%%%legal_id_number_edit%%%" maxlength="21" onblur = "return strip_all_but(this,keybAlphaNumeric,((window.event)?window.event:event));" onkeypress="return editKeyBoard(this,keybAlphaNumeric,((window.event)?window.event:event));">%%%legal_id_state_drop%%%</td>
+				</tr>
+				<tr class="height">
+					<td class="align_left_bold" width="25%"><span id="dob_span" class="%%%dob_color%%%">%%%dob_overlink%%%&nbsp;Date Of &nbsp;Birth%%%dob_endlink%%%</span>:&nbsp;</td>
+					<td class="align_left" width="5%">&nbsp;</td>
+					<td class="align_left" width="70%">%%%dob_drop_personal_details%%%</td>
+				</tr>
+				<tr class="height">
+					<td class="align_left_alt_bold" width="25%"><span id="street_span" class="%%%street_color%%%">%%%street_overlink%%%&nbsp;Address%%%street_endlink%%%</span>:&nbsp;</td>
+					<td class="align_left_alt" width="5%">%%%contact_street%%%</td>
+					<td class="align_left_alt" width="70%"><input type="text" id="EditAppPersonalInfoCustAddress" name="street" value="%%%street_edit%%%" maxlength="50" size="30" onblur="return strip_all_but(this,keybAlphaNumeric,((window.event)?window.event:event),'() -)');" onkeypress="return editKeyBoard(this,keybAlphaNumeric,((window.event)?window.event:event));"></td>
+				</tr>
+				<tr class="height">
+					<td class="align_left_bold" width="25%"><span class="%%%unit_color%%%">%%%unit_overlink%%%&nbsp;Unit%%%unit_endlink%%%</span>:&nbsp;</td>
+					<td class="align_left" width="5%">&nbsp;</td>
+					<td class="align_left" width="70%"><input type="text" id="EditAppPersonalInfoCustUnit" name="unit" value="%%%unit_edit%%%" maxlength="30" onblur = "return strip_all_but(this,keyblegalunit,((window.event)?window.event:event));" onkeypress="return editKeyBoard(this,keyblegalunit,((window.event)?window.event:event));"></td>
+				</tr>
+				<tr class="height">
+					<td class="align_left_alt_bold" width="25%"><span id="city_span" class="%%%city_color%%%">%%%city_overlink%%%&nbsp;City%%%city_endlink%%%</span>/<span id="state_span" class="%%%state_color%%%">%%%state_overlink%%%State%%%state_endlink%%%</span>:&nbsp;</td>
+					<td class="align_left_alt" width="5%">%%%contact_city%%%</td>
+					<td class="align_left_alt" width="70%"><input type="text" id="EditAppPersonalInfoCustCity" name="city" value="%%%city_edit%%%" maxlength="30" onblur = "return strip_all_but(this,keybAlpha,((window.event)?window.event:event),'() -)');" onkeypress="return editKeyBoard(this,keybAlpha,((window.event)?window.event:event));"> %%%state_drop_personal_info%%%</td>
+				</tr>
+				<tr class="height">
+					<td class="align_left_bold" width="25%"><span id="county_span" class="%%%county_color%%%">&nbsp;County</span>:&nbsp;</td>
+					<td class="align_left" width="5%">&nbsp;</td>
+					<td class="align_left" width="70%"><input type="text" id="EditAppPersonalInfoCustCounty" name="county" value="%%%county_edit%%%" maxlength="30" onblur = "return strip_all_but(this,keybAlpha,((window.event)?window.event:event),'() -)');" onkeypress="return editKeyBoard(this,keybAlpha,((window.event)?window.event:event));"> </td>
+				</tr>
+				<tr class="height">
+					<td class="align_left_alt_bold" width="25%"><span id="zip_span" class="%%%zip_color%%%">%%%zip_overlink%%%&nbsp;Zip%%%zip_endlink%%%</span>:&nbsp;</td>
+					<td class="align_left_alt" width="5%">%%%contact_zip_code%%%</td>
+					<td class="align_left_alt" width="70%"><input type="text" id="EditAppPersonalInfoCustZip" name="zip" value="%%%zip_edit%%%" maxlength="10" onblur = "return strip_all_but(this,keybNumeric,((window.event)?window.event:event),'-');" onkeypress="return editKeyBoard(this,keybNumeric,((window.event)?window.event:event));" onkeyup="mask(this.value,this,'5',Array('-'),((window.event)?window.event:event));"></td>
+				</tr>
+				<tr class="height">
+				<td class="align_left_bold" width="25%"><span id="residence_start_date_span" class="%%%Residing_since_color%%%">%%%residence_start_date_overlink%%%&nbsp;Residing &nbsp;Since%%%residence_start_date_endlink%%%</span>:&nbsp;</td>
+					<td class="align_left" width="5%">&nbsp;</td>
+					<!-- changed the current payment to manual so that it doesn't validate against the holidays. It's a stupid hack, but that's the way to get it working. [jeffd][#13518] -->
+					<td class="align_left" width="70%"><a href="#" onclick="PopCalendar4('EditAppPersonalInfoCustResidingSince', event, '', true);CurrentPayment = 'Manual';">select</a>&nbsp;<input type="text" id="EditAppPersonalInfoCustResidingSince" size = "10" name="residence_start_date" value="%%%residence_start_date%%%" maxlength="10" onblur = "return strip_all_but(this,keybDate,((window.event)?window.event:event));" onkeypress="return editKeyBoard(this,keybDate,((window.event)?window.event:event));" onkeyup="mask(this.value,this,'2,5',Array('/','/'),((window.event)?window.event:event));" readonly> MM/DD/YYYY</td>
+				</tr>
+				<tr class="height">
+					<td class="align_left_alt_bold" width="25%"><span id="customer_email_span" class="%%%customer_email_color%%%">%%%customer_email_overlink%%%&nbsp;Email%%%customer_email_endlink%%%</span>:&nbsp;</td>
+					<td class="align_alt_left" width="5%">%%%contact_customer_email%%%</td>
+					<td class="align_alt_left" width="70%"><input type="text" id="EditAppPersonalInfoCustEmail" name="customer_email" value="%%%customer_email_edit%%%" maxlength="100" size=30 onblur = "return strip_all_but(this,keybEmail,((window.event)?window.event:event));" onkeypress="return editKeyBoard(this,keybEmail,((window.event)?window.event:event));"></td>
+				</tr>
+				<tr class="height">
+					<td colspan="3" class="align_right">
+						<input type="hidden" name="action" value="save_personal">
+						<nobr><input type="submit" id="EditAppPersonalInfoSave" value="Save Changes" class="button" onclick="return validate_personal();"> <input type="reset" id="EditAppPersonalInfoCancel" value="Cancel" class="button" onClick="reset_fields(personal_validation_array,'std_text');SetDisplay(0,0,0,'view', '%%%mode_class%%%_buttons');"></nobr>
+					</td>
+				</tr>
+			</table>
+		</td>
+	</tr>
+</table>
+</form>
+</div>

@@ -1,0 +1,63 @@
+<!-- Begin search -->
+<table cellpadding=0 cellspacing=0 width="100%" height="500" class="%%%mode_class%%%">
+	<tr>
+		<td class="align_left" colspan="2">
+			<form method="post" action="/">
+			<table cellpadding=0 cellspacing=1 width="100%" class="%%%mode_class%%%" border=0>
+				<tr>
+					<td class="align_left">Criteria Type:</td>
+					<td></td>
+					<td class="align_left">Search Criteria:</td>
+					<td width="20" rowspan="4">&nbsp;</td>
+					<td class="align_left" valign="top" rowspan="4" width="30%" style="padding: 6px;">%%%search_message%%%</td>
+					<td class="align_left" valign="top" rowspan="4" width="44%">%%%view_history%%%</td>
+				</tr>
+				<tr>
+					<td>%%%criteria_type_1_drop%%%</td>
+					<td>%%%search_deliminator_1_drop%%%</td>
+					<td class="align_left"><input id="AppSearchAllCriteria1" type="text" name="search_criteria_1" value="%%%search_criteria_1%%%"></td>
+				</tr>
+				<tr>
+					<td>%%%criteria_type_2_drop%%%</td>
+					<td>%%%search_deliminator_2_drop%%%</td>
+					<td class="align_left"><input id="AppSearchAllCriteria2" type="text" name="search_criteria_2" value="%%%search_criteria_2%%%"></td>
+				</tr>
+				<tr>
+					<td colspan=2><input type="checkbox" name="search_option" id="AppSearchAllOption" %%%search_option_checked%%% >Balance only accounts</td>
+					<td><nobr><input type="submit" id="AppSearchAllSearch" name="search" value="Search" onClick="return verifySearchCriteriaFormat()"><input type="button" onClick="Clear_Search()" value="Clear Search"></nobr>
+						<input id="AppSearchAllAction" type="hidden" name="action" value="search">
+						<input id="AppSearchAllModule" type="hidden" name="module" value="%%%module%%%">
+						<input id="AppSearchAllMode" type="hidden" name="mode" value="%%%mode%%%">
+					</td>
+				</tr>
+			</table>
+			</form>
+		</td>
+	</tr>
+	<tr height="100%">
+		<td width="10">&nbsp;</td>
+		<td>
+			<table class="search_%%%mode_class%%%" width="756" align="left">
+			<tr>
+				<th class="app_id"><a href='/?mode=%%%mode_class%%%&action=show_search&sort=application_id'>ID</a></th>
+				<th class="first_name"><a href='/?mode=%%%mode_class%%%&action=show_search&sort=name_first'>First Name</a></th>
+				<th class="last_name"><a href='/?mode=%%%mode_class%%%&action=show_search&sort=name_last'>Last Name</a></th>
+				<th class="ssn"><a href='/?mode=%%%mode_class%%%&action=show_search&sort=social'>SSN</a></th>
+				<th class="street"><a href='/?mode=%%%mode_class%%%&action=show_search&sort=street'>Street</a></th>
+				<th class="city"><a href='/?mode=%%%mode_class%%%&action=show_search&sort=city'>City</a></th>
+				<th class="state"><a href='/?mode=%%%mode_class%%%&action=show_search&sort=state'>St.</a></th>
+				<th class="status"><a href='/?mode=%%%mode_class%%%&action=show_search&sort=status'>Status</a></th>
+				<th class="amount"><a href='/?mode=%%%mode_class%%%&action=show_search&sort=amount'>Balance</a></th>
+				<td class="clear" width="19"></td>
+			</tr>
+			<tr>
+				<td colspan="10">
+				<div style="height:350px; width:750px; overflow:auto" class="%%%mode_class%%%">
+				%%%search_results%%%
+				</div>
+				</td>
+			</tr>
+		</td>
+	</tr>
+</table>
+<!-- End search -->

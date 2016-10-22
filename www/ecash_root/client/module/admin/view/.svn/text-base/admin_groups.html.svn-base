@@ -1,0 +1,191 @@
+<table width="100%" class="groups" height="500">
+	<tr><th>Groups</th></tr>
+<form name="group_info" action='/' method="post"><input name="action" type="hidden" value="save">
+<!-- Start Radio Buttons -->
+	<tr>
+		<td class="tiny_space">&nbsp;</td>
+	</tr>
+	<tr>
+		<td>
+			<table width="100%">
+				<tr>
+					<td><input id="add_groups_radio_btn" name="agent_action" type="radio" onClick="javascript:radio_btn_actions('add_groups');"><nobr><b>Add Group</b></nobr></td>
+					<td><table align=center><tr><td><input id="mod_groups_radio_btn" name="agent_action" type="radio" onClick="javascript:radio_btn_actions('modify_groups');"><nobr><b>Modify Group</b></nobr>
+						<tr><td><input id="copy_groups_radio_btn" name="agent_action" type="radio" onClick="javascript:radio_btn_actions('copy_groups');"><nobr><b>Copy Group</b></nobr></table>
+					<td><input id="remove_groups_radio_btn" name="agent_action" type="radio" onClick="javascript:radio_btn_actions('remove_groups');"><nobr><b>Remove Group</b></nobr></td>
+				</tr>
+			</table>
+		</td>
+	</tr>
+<!-- Stop Radio Buttons -->
+	<tr>
+		<td>
+			<table width="100%">
+				<tr>
+					<td>
+						<table height="380px" width="180px">
+							<tr>
+								<td class="align_left">&nbsp;<b>Existing Groups</b></td>
+							</tr>
+							<tr>
+								<td class="border_one">
+									<select name="groups" size="28" style="width:165px" disabled="false" onChange="javascript:display_group();" >
+										%%%group_select_list%%%
+									</select>
+								</td>
+							</tr>
+						</table>
+					</td>
+					<td>
+						<table width="582px" height="400px">
+							<tr>
+								<td class="align_left">&nbsp;<b>Group Details</b></td>
+							</tr>
+							<tr>
+								<td class="border_one" colspan='2'>
+									<table width="100%">
+										<tr><td class="tiny_space">&nbsp;</td></tr>
+										<tr>
+											<td><nobr><span id="group_name_span" class="std_text">Group Name:</span></nobr></td>
+											<td class="align_left"> <input id="group_company_name" type='text' size='5' name="group_company_name"></td>
+											<td class="align_left"> <input id="group_name" type='text' name="group_name"> </td>
+											<td><nobr>Company Name:</nobr></td>
+											<td class="align_left"> <select name="company" onChange="javascript:set_the_company();"> %%%all_companies_list%%% </select></td>
+										</tr>
+										<tr><td class="tiny_space">&nbsp;</td></tr>
+									</table>
+								</td>
+								<td>
+							<tr>
+								<td>
+<!-- Start Group Structure  -->
+
+									<table width="65%">
+										<tr>
+											<td class="align_left">&nbsp;<b>Group Structure</b></td>
+										</tr>
+										<tr>
+											<td class="border_one" colspan="2">
+<!--											<td class="align_left"> -->
+												<table size="12" width="280px" height="240px;" border="0" >
+													<tr>
+														<td class="border_two">
+															<div style="width:280px; height:240px; overflow:auto; white-space: nowrap;"> 
+																%%%master_tree%%%
+															</div> 
+														</td>
+													</tr>
+													<tr>
+														<td class='align_center'>
+															<br/>
+															<input value='Select All' name="select_all" type="button" onclick="javascript:select_entire_tree(master_tree);">
+															&nbsp;&nbsp;
+															<input value='Deselect All' name="unselect_all" type="button" onclick="javascript:deselect_entire_tree(master_tree);">
+														</td>
+													</tr>
+												</table>
+											</td>
+											<td class="tiny_space">&nbsp;</td>
+										</tr>
+									</table>
+								</td>
+								<td class='align_left'>
+
+<!-- Stop Group Structure  -->
+
+<!-- Start Control Features -->
+									<table width="35%">
+										<tr>
+											<td class="tiny_space">&nbsp;</td>
+											<td class="align_left">&nbsp;<b>Control Features</b></td>
+										</tr>
+										<tr>
+											<td class="tiny_space">&nbsp;</td>
+											<td class="border_one">
+												<table width="100%">
+													<tr>
+														<td width="30%">
+															<table border="0" >
+																<tr> <td class="align_left"><nobr>Unused Options</nobr></td> </tr>
+																<tr>
+																	<td>
+																		%%%unused_options%%%
+																	</td>
+																</tr>
+															</table>
+														</td>
+													<tr>
+													</tr>
+														<td width="30%">
+															<table border="0" >
+																<tr> <td class="align_left"><nobr>Used Options</nobr></td> </tr>
+																<tr>
+																	<td class="align_left">
+																		%%%used_options%%%
+																	</td>
+																</tr>
+															</table>
+														</td>
+														<tr>
+														</tr>
+														<td width="30%">
+															<table border="0">
+																<tr> <td class="align_left"><nobr>Option Description<nobr></td> </tr>
+																<tr>
+																	<td>
+																		%%%option_description%%%
+																	</td>
+																</tr>
+															</table>
+														</td>
+													</tr>
+													<tr>
+														<td class="align_center" >
+															<br/>
+															<input name="add_it" type="button" value="Add Option" onclick="javascript:add_feature();" />
+															&nbsp; &nbsp;
+															<input name="remove_it" type="button" value="Remove Option" onclick="javascript:remove_feature();">
+														</td>
+													</tr>
+												</table>
+											</td>
+											<td class="tiny_space">&nbsp;</td>
+										</tr>
+									</table>
+								</td>
+							</tr>
+							<tr>
+								<td colspan="2">
+
+
+<!-- Stop Control Features -->
+
+									<input type=hidden name="group_dest_company_name" id="group_dest_company_name">
+									<table width="100%">
+										<tr><td class="tiny_space">&nbsp;</td></tr>
+										<tr>
+											<td class="align_right">
+											<table align="right"><tr><td>
+												<input name="commit" style="visibility:hidden" type="button" onclick="if(validate_group_info()) javascript:save();">&nbsp;&nbsp;
+											<tr><td><select name="dest_company" style="visibility:hidden" onChange="javascript:set_the_company_dest();"> %%%all_companies_list%%% </select>
+											</table>
+											</td>
+										</tr>
+									</table>
+								</td>
+							</tr>
+						</table>
+					</td>						
+				</tr>						
+			</table>
+		</td>
+	</tr>
+	</form>
+</table>
+<script>
+var message = "%%%message%%%";
+if(message != "" && message != '%%%mess' + 'age%%%')
+{
+	alert(message);
+}
+</script>

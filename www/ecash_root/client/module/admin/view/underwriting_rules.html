@@ -1,0 +1,637 @@
+<table width="100%" class="rules" height="500">
+	<tr><th width="100%" style="background: #B4DCAF">Underwriting Rules</th></tr>
+	<tr>
+		<td class="align_left" >
+			%%%rule_error%%%
+		</td>
+	</tr>
+	<tr>
+		<td >
+		</td>
+	</tr>
+	<tr height="100%">
+		<td width="100%" valign="top" align="left">
+			
+			<table >
+				
+				<tr>
+					<th >
+						<b>Campaign to Inquiry Percentages</b>
+					</th>
+				</tr>
+				<tr>
+					<td class="align_left" valign="top">
+						<table>
+							<tr>
+								<th class="ci_campaign_col" >
+									Campaign
+								</th>
+								<th class="ci_publisher_col" >
+									Publisher
+								</th>
+								<th class="ci_group_col" >
+									Group
+								</th>
+								<th class="ci_risk_col" >
+									Group Risk
+								</th>
+								<th class="ci_source_col" >
+									Income Source
+								</th>
+								<th class="ci_frequency_col" >
+									Income Frequency
+								</th>
+								<th class="ci_provider_col" >
+									Underwriter
+								</th>
+								<th class="ci_inquiry_col" >
+									Inquiry
+								</th>
+								<th class="ci_percent_col" >
+									Percentage
+								</th>
+								<th class="ci_countt_col" >
+									(Count)
+								</th>
+								<th class="ci_edit_col" >
+									<button onclick="javascript:edit_campaign_inquiry(0,-1,-1,0)">ADD</button>
+								</th>
+							</tr>
+							%%%uw_rule_set%%%
+						</table>
+					</td>
+				</tr>
+				<tr>
+					<td >
+					</td>
+				</tr>
+			</table>
+			
+		</td>
+	</tr>
+	<tr>
+		<td width="100%" align="left">
+			
+			<table >
+				
+				
+				<tr>
+					<td class="align_left" valign="top" width="100%">
+						<table >
+							<tr >
+								<th class="align_left">
+									<b>Publishers</b>
+								</th>
+								<th class="align_left">
+									<b>Groups</b>
+								</th>
+								<th class="align_left">
+									<b>Campaigns</b>
+								</th>
+								<th class="align_left">
+									<b>Underwriters</b>
+								</th>
+								<th class="align_left">
+									<b>Stores/Accounts</b>
+								</th>
+								<th class="align_left">
+									<b>Inqueries</b>
+								</th>
+							</tr>
+							<tr height="100%">
+								<td height="100%">
+									<select name="UwPublishers" id="AdminUwPublishers" onchange="javascript:edit_uw_publisher()">
+									%%%campaign_pubs%%%
+									</select>
+								</td>
+								<td height="100%">
+									<select name="UwGroups" id="AdminUwGroups" onchange="javascript:edit_campaign_group()">
+									%%%campaign_groups%%%
+									</select>
+								</td>
+								<td height="100%">
+									<select name="UwCampaigns" id="AdminUwCampaigns" onchange="javascript:edit_uw_campaign()">
+									%%%campaigns%%%
+									</select>
+								</td>
+								<td height="100%">
+									<select name="UwProviders" id="AdminUwProviders" onchange="javascript:edit_uw_provider()">
+									%%%providers%%%
+									</select>
+								</td>
+								<td height="100%">
+									<select name="UwStores" id="AdminUwStores" onchange="javascript:edit_uw_store()">
+									%%%stores%%%
+									</select>
+								</td>
+								<td height="100%">
+									<select name="UwInquiries" id="AdminUwInquiries" onchange="javascript:edit_uw_inquiry()">
+									%%%inquiries%%%
+									</select>
+								</td>
+							</tr>
+							<tr>
+								<td>
+									<button onclick="javascript:edit_uw_publisher()">EDIT</button>
+								</td>
+								<td>
+									<button onclick="javascript:edit_campaign_group()">EDIT</button>
+								</td>
+								<td>
+									<button onclick="javascript:edit_uw_campaign()">EDIT</button>
+								</td>
+								<td>
+									<button onclick="javascript:edit_uw_provider()">EDIT</button>
+								</td>
+								<td>
+									<button onclick="javascript:edit_uw_store()">EDIT</button>
+								</td>
+								<td>
+									<button onclick="javascript:edit_uw_inquiry()">EDIT</button>
+								</td>
+							</tr>
+						</table>
+					</td>
+				</tr>
+			</table>
+			
+		</td>
+	</tr>
+</table>
+<br/>
+<div id="publisher_dialog" style="display: none">
+	<div class='edit_dialog'>
+		<div ><strong>Publisher Details</strong></div>
+		<div >
+			<form name="publisher_detail" method="post" action=""><input id="publisher_detail_action" name="action" type="hidden" value="display_underwriting_rules">
+				<table id="publisher_detail_right" align="center" border="0px" cellpadding="0px" cellspacing="0px" width="100%">
+					<tr>
+						<td class="input_label">ID:</td>
+						<td><input class="text" id="publisher_id" name="publisher_id" type="input" readonly /></td>
+					</tr>
+					<tr>
+						<td class="input_label">Publisher</td>
+						<td ><input class="text" id="publisher_name" name="publisher_name" type="text" value="" /></td>
+					</tr>
+				</table>
+				<div>
+					<td><button type='submit' name='update' action='update_publisher' id='update_publisher' onclick="document.getElementById('publisher_detail_action').value='update_publisher';">Update</button></td>
+					<td><button type='submit' name='insert' action='insert_publisher' id='insert_publisher' onclick="document.getElementById('publisher_detail_action').value='insert_publisher';">Insert</button></td>
+					<td><button type='submit' name='delete' action='delete_publisher' id='delete_publisher' onclick="if(confirm('Permanently delete!')){document.getElementById('publisher_detail_action').value='delete_publisher'}">Delete</button></td>
+					<td><button type='' onclick="javascript:Hide_Div('publisher_dialog');document.getElementById('publisher_detail_action').value='display_underwriting_rules';">Cancel</button></td>
+				</div>
+			</form>
+		</div>
+	</div>
+</div>
+
+<div id="campaign_group_dialog" style="display: none">
+	<div class='edit_dialog'>
+		<div ><strong>Campaign Group Details</strong></div>
+		<div >
+			<form name="campaign_group_detail" method="post" action=""><input id="campaign_group_detail_action" name="action" type="hidden" value="display_underwriting_rules">
+				<table id="campaign_group_detail_right" align="center" border="0px" cellpadding="0px" cellspacing="0px" width="100%">
+					<tr>
+						<td class="input_label">ID:</td>
+						<td><input class="text" id="campaign_group_id" name="campaign_group_id" type="input" readonly /></td>
+					</tr>
+					<tr>
+						<td class="input_label">Campaign Group</td>
+						<td colspan=2><input class="text" id="campaign_group_name" name="campaign_group_name" type="text" value="" /></td>
+					</tr>
+					<tr>
+						<td class="input_label">Risk</td>
+						<td>
+							<select id="campaign_group_risk" name="campaign_group_risk">
+								<option value="Low">Low</option>
+								<option value="Medium">Medium</option>
+								<option value="High">High</option>
+							</select>
+						</td>
+					</tr>
+				</table>
+				<div>
+					<td><button type='submit' name='update' action='update_campaign_group' id='update_campaign_group' onclick="document.getElementById('campaign_group_detail_action').value='update_campaign_group';">Update</button></td>
+					<td><button type='submit' name='insert' action='insert_campaign_group' id='insert_campaign_group' onclick="document.getElementById('campaign_group_detail_action').value='insert_campaign_group';">Insert</button></td>
+					<td><button type='submit' name='delete' action='delete_campaign_group' id='delete_campaign_group' onclick="if(confirm('Permanently delete!')){document.getElementById('campaign_group_detail_action').value='delete_campaign_group'}">Delete</button></td>
+					<td><button type='' onclick='javascript:Hide_Div("campaign_group_dialog")' onclick="document.getElementById('campaign_group_detail_action').value='display_underwriting_rules';">Cancel</button></td>
+				</div>
+			</form>
+		</div>
+	</div>
+</div>
+
+<div id="campaign_dialog" style="display: none">
+	<div class='edit_dialog'>
+		<div ><strong>Campaign Details</strong></div>
+		<div >
+			<form name="campaign_detail" method="post" action=""><input id="campaign_detail_action" name="action" type="hidden" value="display_underwriting_rules">
+				<table id="campaign_detail_right" align="center" border="0px" cellpadding="0px" cellspacing="0px" width="100%">
+					<tr>
+						<td class="input_label">ID:</td>
+						<td><input class="text" id="campaign_id" name="campaign_id" type="input" readonly /></td>
+					</tr>
+					<tr>
+						<td class="input_label">Campaign</td>
+						<td ><input class="text" id="campaign_name" name="campaign_name" type="text" value="" /></td>
+					</tr>
+					<tr>
+						<td class="input_label">Publisher</td>
+						<td>
+							<select id="campaign_publisher" name="campaign_publisher">
+								%%%campaign_pub_ids%%%
+							</select>
+						</td>
+					</tr>
+					<tr>
+						<td class="input_label">Group</td>
+						<td>
+							<select id="campaign_group" name="campaign_group">
+								%%%campaign_group_ids%%%
+							</select>
+						</td>
+					</tr>
+					<tr>
+						<td class="input_label">Income Source</td>
+						<td>
+							<select id="income_source" name="income_source">
+								<option value="Mix">Mix</option>
+								<option value="Employed">Employed</option>
+								<option value="Benefits">Benefits</option>
+							</select>
+						</td>
+					</tr>
+					<tr>
+						<td class="input_label">Income Frequency</td>
+						<td>
+							<select id="income_frequency" name="income_frequency">
+								<option value="Mix">Mix</option>
+								<option value="Monthly">Monthly</option>
+								<option value="Bi-Weekly/Semi-Monthly">Bi-Weekly/Semi-Monthly</option>
+								<option value="Weekly">Weekly</option>
+							</select>
+						</td>
+
+					</tr>
+				</table>
+				<div>
+					<td><button type='submit' name='update' action='update_campaign' id='update_campaign' onclick="document.getElementById('campaign_detail_action').value='update_campaign';">Update</button></td>
+					<td><button type='submit' name='insert' action='insert_campaign' id='insert_campaign' onclick="document.getElementById('campaign_detail_action').value='insert_campaign';">Insert</button></td>
+					<td><button type='submit' name='delete' action='delete_campaign' id='delete_campaign' onclick="if(confirm('Permanently delete!')){document.getElementById('campaign_detail_action').value='delete_campaign'}">Delete</button></td>
+					<td><button type='' onclick='javascript:Hide_Div("campaign_dialog")' onclick="document.getElementById('campaign_detail_action').value='display_underwriting_rules';">Cancel</button></td>
+				</div>
+			</form>
+		</div>
+	</div>
+</div>
+
+<div id="provider_dialog" style="display: none">
+	<div class='edit_dialog'>
+		<div ><strong>Underwriter Details</strong></div>
+		<div >
+			<form name="provider_detail" method="post" action=""><input id="provider_detail_action" name="action" type="hidden" value="display_underwriting_rules">
+				<table id="provider_detail_right" align="center" border="0px" cellpadding="0px" cellspacing="0px" width="100%">
+					<tr>
+						<td class="input_label">ID:</td>
+						<td><input class="text" id="provider_id" name="provider_id" type="input" readonly /></td>
+					</tr>
+					<tr>
+						<td class="input_label">Provider</td>
+						<td><input class="text" id="provider_name" name="provider_name" type="text" value="" /></td>
+					</tr>
+					<tr>
+						<td class="input_label">Short Name</td>
+						<td ><input class="text" id="provider_name_short" name="provider_name_short" type="text" value="" /></td>
+					</tr>
+				</table>
+				<div>
+					<td><button type='submit' name='update' action='update_provider' id='update_provider' onclick="document.getElementById('provider_detail_action').value='update_provider';">Update</button></td>
+					<td><button type='submit' name='insert' action='insert_provider' id='insert_provider' onclick="document.getElementById('provider_detail_action').value='insert_provider';">Insert</button></td>
+					<td><button type='submit' name='delete' action='delete_provider' id='delete_provider' onclick="if(confirm('Permanently delete!')){document.getElementById('provider_detail_action').value='delete_provider'}">Delete</button></td>
+					<td><button type='' onclick='javascript:Hide_Div("provider_dialog")' onclick="document.getElementById('provider_detail_action').value='display_underwriting_rules';">Cancel</button></td>
+				</div>
+			</form>
+		</div>
+	</div>
+</div>
+
+<div id="store_dialog" style="display: none">
+	<div class='edit_dialog'>
+		<div ><strong>Account/Store Details</strong></div>
+		<div >
+			<form name="store_detail" method="post" action=""><input id="store_detail_action" name="action" type="hidden" value="display_underwriting_rules">
+				<table id="store_detail_right" align="center" border="0px" cellpadding="0px" cellspacing="0px" width="100%">
+					<tr>
+						<td class="input_label">ID:</td>
+						<td><input class="text" id="uw_store_id" name="uw_store_id" type="input" readonly /></td>
+					</tr>
+					<tr>
+						<td class="input_label">Underwriting Provider</td>
+						<td>
+							<select id="store_provider" name="store_provider">
+								%%%provider_ids%%%
+							</select>
+						</td>
+					</tr>
+					<tr>
+						<td class="input_label">Store Name/ID</td>
+						<td><input class="text" id="store_id_name" name="store_id_name" type="text" value="" /></td>
+					</tr>
+					<tr>
+						<td class="input_label">Group ID</td>
+						<td><input class="text" id="store_group_id" name="store_group_id" type="text" value="" /></td>
+					</tr>
+					<tr>
+						<td class="input_label">Merchant ID</td>
+						<td><input class="text" id="merchant_id" name="merchant_id" type="text" value="" /></td>
+					</tr>
+					<tr>
+						<td class="input_label">Username</td>
+						<td><input class="text" id="username" name="username" type="text" value="" /></td>
+					</tr>
+					<tr>
+						<td class="input_label">Password</td>
+						<td><input class="text" id="password" name="password" type="text" value="" /></td>
+
+
+					</tr>
+				</table>
+				<div>
+					<td><button type='submit' name='update' action='update_store' id='update_store' onclick="document.getElementById('store_detail_action').value='update_uw_store';">Update</button></td>
+					<td><button type='submit' name='insert' action='insert_store' id='insert_store' onclick="document.getElementById('store_detail_action').value='insert_uw_store';">Insert</button></td>
+					<td><button type='submit' name='delete' action='delete_store' id='delete_store' onclick="if(confirm('Permanently delete!')){document.getElementById('store_detail_action').value='delete_uw_store'}">Delete</button></td>
+					<td><button type='' onclick='javascript:Hide_Div("store_dialog")' onclick="document.getElementById('store_detail_action').value='display_underwriting_rules';">Cancel</button></td>
+				</div>
+			</form>
+		</div>
+	</div>
+</div>
+
+<div id="inquiry_dialog" style="display: none">
+	<div class='edit_dialog'>
+		<div ><strong>Inquiry Details</strong></div>
+		<div >
+			<form name="inquiry_detail" method="post" action=""><input id="inquiry_detail_action" name="action" type="hidden" value="display_underwriting_rules">
+				<table id="inquiry_detail_right" align="center" border="0px" cellpadding="0px" cellspacing="0px" width="100%">
+					<tr>
+						<td class="input_label">ID:</td>
+						<td><input class="text" id="uw_inquiry_id" name="uw_inquiry_id" type="input" /></td>
+					</tr>
+					<tr>
+						<td class="input_label">Name:</td>
+						<td><input class="text" id="uw_inquiry_name" name="uw_inquiry_name" type="input" /></td>
+					</tr>
+					<tr>
+						<td class="input_label">Underwriting Provider</td>
+						<td>
+							<select id="uw_provider" name="uw_provider">
+								%%%provider_ids%%%
+							</select>
+						</td>
+					<tr>
+						<td class="input_label">Underwriters Store/Account</td>
+						<td>
+							<select id="uw_store" name="uw_store">
+								<option value=''>n/a</option>
+								%%%store_ids%%%
+							</select>
+						</td>
+					</tr>
+
+				</table>
+				<div>
+					<td><button type='submit' name='update' action='update_inquiry' id='update_inquiry' onclick="document.getElementById('inquiry_detail_action').value='update_inquiry';">Update</button></td>
+					<td><button type='submit' name='insert' action='insert_inquiry' id='insert_inquiry' onclick="document.getElementById('inquiry_detail_action').value='insert_inquiry';">Insert</button></td>
+					<td><button type='submit' name='delete' action='delete_inquiry' id='delete_inquiry' onclick="if(confirm('Permanently delete!')){document.getElementById('inquiry_detail_action').value='delete_inquiry'}">Delete</button></td>
+					<td><button type='' onclick='javascript:Hide_Div("inquiry_dialog")' onclick="document.getElementById('inquiry_detail_action').value='display_underwriting_rules';">Cancel</button></td>
+				</div>
+			</form>
+		</div>
+	</div>
+</div>
+
+<div id="campaign_inquiry_dialog" style="display: none">
+	<div class='edit_dialog'>
+		<div ><strong>Campaign to Inquiry Details</strong></div>
+		<div >
+			<form name="campaign_inquiry_detail" method="post" action=""><input id="campaign_inquiry_detail_action" name="action" type="hidden" value="display_underwriting_rules">
+				<table id="campaign_inquiry_detail_right" align="center" border="0px" cellpadding="0px" cellspacing="0px" width="100%">
+					<tr>
+						<td class="input_label">ID:</td>
+						<td><input class="text" id="campaign_inquiry_id" name="campaign_inquiry_id" type="input" readonly /></td>
+					</tr>
+					<tr>
+						<td class="input_label">Campaign:</td>
+						<td>
+							<select id="ci_campaign" name="ci_campaign">
+								<option value=''>Select</option>
+								%%%campaign_ids%%%
+							</select>
+						</td>
+					</tr>
+					<tr>
+						<td class="input_label">Inquiry:</td>
+						<td>
+							<select id="ci_inquiry" name="ci_inquiry">
+								<option value=''>Select</option>
+								%%%inquiry_ids%%%
+							</select>
+						</td>
+					<tr>
+						<td class="input_label">Count:</td>
+						<td><input class="text" id="ci_count" name="ci_count" type="input" /></td>
+					</tr>
+
+				</table>
+				<div>
+					<td><button type='submit' id='update_campaign_inquiry' name='update' action='update_campaign_inquiry' onclick="document.getElementById('campaign_inquiry_detail_action').value='update_campaign_inquiry';" >Update</button></td>
+					<td><button type='submit' id='insert_campaign_inquiry' name='insert' action='insert_campaign_inquiry' onclick="document.getElementById('campaign_inquiry_detail_action').value='insert_campaign_inquiry';" >Insert</button></td>
+					<td><button type='submit' id='delete_campaign_inquiry' name='delete' action='delete_campaign_inquiry' onclick="if(confirm('Permanently delete!')){document.getElementById('campaign_inquiry_detail_action').value='delete_campaign_inquiry'}" >Delete</button></td>
+					<td><button type='' onclick='javascript:Hide_Div("inquiry_dialog")' onclick="document.getElementById('campaign_inquiry_detail_action').value='display_underwriting_rules';">Cancel</button></td>
+				</div>
+			</form>
+		</div>
+	</div>
+</div>
+<a href="#" id="bottom"></a>
+
+<script type='text/javascript'>
+
+var uw_rule_set = %%%uw_rule_set_ary%%%;
+var campaign_groups = %%%campaign_groups_ary%%%;
+var campaign_pubs = %%%campaign_pubs_ary%%%;
+var campaigns= %%%campaigns_ary%%%;
+var inquiries= %%%inquiries_ary%%%;
+var providers = %%%providers_ary%%%;
+var stores = %%%stores_ary%%%;
+
+function Hide_Div(target){
+	document.getElementById(target).style.display = 'none';
+}
+
+function Hide_All(){
+	Hide_Div('publisher_dialog');
+	Hide_Div('campaign_group_dialog');
+	Hide_Div('campaign_dialog');
+	Hide_Div('provider_dialog');
+	Hide_Div('store_dialog');
+	Hide_Div('inquiry_dialog');
+	Hide_Div('campaign_inquiry_dialog');
+}
+
+function Show_Div(target){
+	Hide_All();
+	document.getElementById(target).style.display = 'block';
+	location.hash = "bottom";
+}
+
+var publisher_element = document.getElementById('AdminUwPublishers');
+var group_element = document.getElementById('AdminUwGroups');
+var campaign_element = document.getElementById('AdminUwCampaigns');
+var provider_element = document.getElementById('AdminUwProviders');
+var store_element = document.getElementById('AdminUwStores');
+var inquiry_element = document.getElementById('AdminUwInquiries');
+
+%%%rules_javascript%%%
+
+function edit_uw_publisher()
+{
+	var selection = publisher_element.options[publisher_element.selectedIndex].value;
+
+	var publisher_id_elem = document.getElementById('publisher_id');
+	var publisher_name_elem = document.getElementById('publisher_name');
+
+	publisher_id_elem.value = campaign_pubs[selection].id;
+	publisher_name_elem.value = campaign_pubs[selection].name;
+	
+	Show_Div('publisher_dialog');
+}
+
+function edit_campaign_group()
+{
+	var selection = group_element.options[group_element.selectedIndex].value;
+
+	var campaign_group_id_elem = document.getElementById('campaign_group_id');
+	var campaign_group_name_elem = document.getElementById('campaign_group_name');
+	var campaign_group_risk_elem = document.getElementById('campaign_group_risk');
+
+	campaign_group_id_elem.value = campaign_groups[selection].id;
+	campaign_group_name_elem.value = campaign_groups[selection].name;
+	campaign_group_risk_elem.value = campaign_groups[selection].risk;
+	
+	Show_Div('campaign_group_dialog');
+}
+
+function edit_uw_campaign()
+{
+	var selection = campaign_element.options[campaign_element.selectedIndex].value;
+
+	var campaign_id_elem = document.getElementById('campaign_id');
+	var campaign_name_elem = document.getElementById('campaign_name');
+	var campaign_pubs_elem = document.getElementById('campaign_publisher');
+	var campaign_group_elem = document.getElementById('campaign_group');
+	var campaign_source_elem = document.getElementById('income_source');
+	var campaign_freq_elem = document.getElementById('income_frequency');
+
+	campaign_id_elem.value = campaigns[selection].id;
+	campaign_name_elem.value = campaigns[selection].name;
+	campaign_pubs_elem.selectedIndex = campaigns[selection].publisher_lookup_id;
+	campaign_group_elem.selectedIndex = campaigns[selection].group_lookup_id;
+	campaign_source_elem.value = campaigns[selection].source;
+	campaign_freq_elem.value = campaigns[selection].frequency;
+	
+	Show_Div('campaign_dialog');
+}
+
+function edit_uw_provider()
+{
+	var selection = provider_element.options[provider_element.selectedIndex].value;
+
+	var provider_id_elem = document.getElementById('provider_id');
+	var provider_name_elem = document.getElementById('provider_name');
+	var provider_short_elem = document.getElementById('provider_name_short');
+
+	provider_id_elem.value = providers[selection].id;
+	provider_name_elem.value = providers[selection].name;
+	provider_short_elem.value = providers[selection].name_short
+	
+	Show_Div('provider_dialog');
+}
+
+function edit_uw_store()
+{
+	var selection = store_element.options[store_element.selectedIndex].value;
+
+	var store_id_elem = document.getElementById('uw_store_id');
+	var store_prov_elem = document.getElementById('store_provider');
+	var store_name_elem = document.getElementById('store_id_name');
+	var store_group_elem = document.getElementById('store_group_id');
+	var store_merchant_elem = document.getElementById('merchant_id');
+	var store_username_elem = document.getElementById('username');
+
+	store_id_elem.value = stores[selection].id;
+	store_prov_elem.selectedIndex = stores[selection].provider_lookup_id;
+	store_name_elem.value = stores[selection].store_id;
+	store_group_elem.value = stores[selection].group_id;
+	store_merchant_elem.value = stores[selection].merchant;
+	store_username_elem.value = stores[selection].username;
+	
+	Show_Div('store_dialog');
+}
+
+function edit_uw_inquiry()
+{
+	var selection =inquiry_element.options[inquiry_element.selectedIndex].value;
+
+	var inquiry_id_elem = document.getElementById('uw_inquiry_id');
+	var inquiry_name_elem = document.getElementById('uw_inquiry_name');
+	var inquiry_prov_elem = document.getElementById('uw_provider');
+	var inquiry_store_elem = document.getElementById('uw_store');
+
+	inquiry_id_elem.value = inquiries[selection].id;
+	inquiry_name_elem.value = inquiries[selection].name;
+	inquiry_prov_elem.selectedIndex = inquiries[selection].provider_lookup_id;
+	var tmp = inquiries[selection].store_lookup_id+1;
+	inquiry_store_elem.selectedIndex = tmp;
+	
+	Show_Div('inquiry_dialog');
+}
+
+function edit_campaign_inquiry(campaign_inquiry_id,campaign_id,inquiry_id,count)
+{
+	var campaign_inquiry_id_elem = document.getElementById('campaign_inquiry_id');
+	var ci_campaign_elem = document.getElementById('ci_campaign');
+	var ci_inquiry_elem = document.getElementById('ci_inquiry');
+	var ci_count_elem = document.getElementById('ci_count');
+	
+	var insert_campaign_inquiry_button_elem = document.getElementById('insert_campaign_inquiry');
+	var update_campaign_inquiry_button_elem = document.getElementById('update_campaign_inquiry');
+	var delete_campaign_inquiry_button_elem = document.getElementById('delete_campaign_inquiry');
+
+	campaign_inquiry_id_elem.value = campaign_inquiry_id;
+	ci_campaign_elem.selectedIndex = campaign_id+1;
+	ci_inquiry_elem.selectedIndex =  inquiry_id+1;
+	ci_count_elem.value = count;
+	
+
+	if (campaign_inquiry_id == 0){
+		ci_campaign_elem.readOnly = false;
+		ci_inquiry_elem.readOnly = false;
+		
+		insert_campaign_inquiry_button_elem.disabled = false;
+		update_campaign_inquiry_button_elem.disabled = true;
+		delete_campaign_inquiry_button_elem.disabled = true;
+	}else{
+		ci_campaign_elem.readOnly = true;
+		ci_inquiry_elem.readOnly = true;
+		
+		insert_campaign_inquiry_button_elem.disabled = true;
+		update_campaign_inquiry_button_elem.disabled = false;
+		delete_campaign_inquiry_button_elem.disabled = false;
+	}
+	
+	Show_Div('campaign_inquiry_dialog');
+}
+
+
+</script>

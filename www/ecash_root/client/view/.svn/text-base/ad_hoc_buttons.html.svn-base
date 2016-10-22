@@ -1,0 +1,10 @@
+<div id="ad_hoc_buttons" style="display: none;">
+<table width="95%" align="right" border="0">
+<tr>
+<td><input type="button" name="submit_button" value="Clear" class="button2"
+           onClick="javascript:ClearPayments('ad_hoc');"></td>
+<td><input type="button" name="submit_button" value="Save" class="button2"
+           onClick="javascript:SavePayments('ad_hoc', this);"></td>
+</tr>
+</table>
+</div>

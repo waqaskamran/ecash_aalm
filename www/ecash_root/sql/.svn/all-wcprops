@@ -1,0 +1,17 @@
+K 25
+svn:wc:ra_dav:version-url
+V 70
+/svn/aalm_current/!svn/ver/4832/ecash/branches/sql_merge/ecash_cfe/sql
+END
+loopback_schema.sql
+K 25
+svn:wc:ra_dav:version-url
+V 90
+/svn/aalm_current/!svn/ver/1979/ecash/branches/sql_merge/ecash_cfe/sql/loopback_schema.sql
+END
+compare_loan_posting_to_credit_batch.sql
+K 25
+svn:wc:ra_dav:version-url
+V 111
+/svn/aalm_current/!svn/ver/1979/ecash/branches/sql_merge/ecash_cfe/sql/compare_loan_posting_to_credit_batch.sql
+END

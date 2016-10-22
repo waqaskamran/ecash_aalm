@@ -1,0 +1,56 @@
+From MySQL Reference Manual 5.0
+H.1. Limits of Joins
+The maximum number of tables that can be referenced in a single join is 61. This also applies to the number of tables that can be referenced in the definition of a view.
+
+--------------------------------------------------------------------------------
+
+ViM regex that is especially handy for finding columns which we forgot to
+assign a table.  Causes ViM to highlight all lines which are PROPERLY
+formatted, or end in AS `...`
+
+/`[^`]\+`\.`[^`]\+`\|AS `[^`]\+`
+
+--------------------------------------------------------------------------------
+
+DROP TABLE IF EXISTS `%%%table_name%%%`;
+CREATE TABLE `%%%table_name%%%`
+    ( `internal_value` %%%foreign_key%%%
+    , `external_value` %%%text_field%%%
+    , PRIMARY KEY (`internal_value`)
+    , KEY (`external_value`)
+    ) ENGINE=InnoDB COMMENT="Stores static human-readable names"
+    ;
+    REPLACE INTO `%%%table_name%%%` VALUES
+        ("%%%foreign_key%%%","%%%human_readable%%%"),
+        ("%%%foreign_key%%%","%%%human_readable%%%");
+
+--------------------------------------------------------------------------------
+
+DROP VIEW IF EXISTS `report_%%%`;
+CREATE
+    ALGORITHM=MERGE
+    DEFINER=CURRENT_USER
+    SQL SECURITY DEFINER
+    VIEW
+        `report_%%%`
+    AS
+        %%%
+    ;
+    REPLACE INTO reports_columns VALUES
+        ("%%%table_name%%%","%%%column_name%%%","%%%human_readable%%%","%%%default_view_no_yes%%","%%%drop_down_distinct_no_yes%%"),
+        ("%%%table_name%%%","%%%column_name%%%","%%%human_readable%%%","%%%default_view_no_yes%%","%%%drop_down_distinct_no_yes%%");
+    INSERT IGNORE INTO
+        `section`
+        SET
+            `date_modified`     = NOW()    , -- Duh
+            `date_created`      = NOW()    , -- Duh
+            `active_status`     = "active" , -- Duh
+            `system_id`         = 3        , -- Magic   eCash 3.0
+            `section_id`        = 0        , -- Magic   Auto Increment
+            `name`              = "%%%"    , -- Info    TABLE_NAME
+            `description`       = "%%%"    , -- Info    HUMAN_READABLE
+            `section_parent_id` = 88       , -- Magic   Reporting
+            `sequence_no`       = 0        , -- Magic   None
+            `level`             = 3        , -- Duh
+            `read_only_option`  = 0          -- Duh
+            ;

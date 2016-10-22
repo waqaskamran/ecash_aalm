@@ -1,0 +1,153 @@
+<table width="100%" class="profiles" height="500">
+	<tr><th>Profiles</th></tr>
+		<form name="agent_profile" action='/' method="post"><input name="action" type="hidden" value="save">
+		<!-- Start Radio Buttons -->
+			<tr>
+				<td class="tiny_space">&nbsp;</td>
+			</tr>
+			<tr>
+				<td>
+					<table width="100%">
+						<tr>
+							<td><input id="add_profile_radio_btn" name="agent_action" type="radio" checked onClick="javascript:radio_btn_actions('add_profile');"><nobr><b>Add Profile</b></nobr></td>
+							<td><input id="mod_profile_radio_btn" name="agent_action" type="radio" onClick="javascript:radio_btn_actions('modify_profile');"><nobr><b>Modify Profile</b></nobr></td>
+						</tr>
+					</table>
+				</td>
+			</tr>
+		<!-- Stop Radio Buttons -->
+			<tr>
+				<td>
+					<table>
+						<tr>
+							<td>
+		<div id="all_user_list" style="visibility: hidden;position:absolute;top:0px;left:0px;width:10px; height:10px; overflow:hidden;">
+		<select name="user_list_all" size="31" style="width:165px" onChange="javascript:display_user(this.options[this.selectedIndex].value);" >%%%user_select_list%%%</select>
+		</div>
+		<div id="active_user_list" style="visibility: hidden;position:absolute;top:0px;left:0px;width:10px; height:10px; overflow:hidden;">
+		<select name="user_list_active" size="31" style="width:165px" onChange="javascript:display_user(this.options[this.selectedIndex].value);" >%%%user_select_list_active%%%</select>
+		</div>
+								<table height="380px" width="180px">
+									<tr>
+										<td class="align_left">&nbsp;<b>Existing Profiles</b> <br><input type="checkbox" id="users_toggle" onchange="javascript:toggle_user_list();" checked>active only</td>
+									</tr>
+									<tr>
+										<td class="border_one">
+											<table>
+												<tr>
+													<td>
+													<div id="user_list_wrapper">
+														<select tabindex='3' name="agent_list" size="28" style="width:165px" disabled="false" onChange="javascript:display_user(this.options[this.selectedIndex].value);" >
+															%%%user_select_list_active%%%
+														</select>
+													</div>
+													</td>
+												</tr>
+											</table>
+										</td>
+									</tr>
+								</table>
+							</td>
+							<td>
+								<table width="100%" >
+									<tr>
+										<td class="align_left" colspan="3">&nbsp;<b>Agent Profile</b></td>
+									</tr>
+									<tr>
+										<td class="border_one">
+											<table height="405px" width="575px">
+													<td>
+														<table width="100%">
+															<tr>
+														<td width="26%">&nbsp;</td>
+														<td class="align_left"><span id="name_first_span" class="std_text">First Name:</span></td>
+														<td class="align_left">
+															<input id="name_first" tabindex="1" name="name_first" type="text" size="25">
+														</td>
+														<td width="26%">&nbsp;</td>
+													</tr>
+													<tr>
+														<td width="26%">&nbsp;</td>
+														<td class="align_left"><span id="name_last_span" class="std_text">Last Name:</span></td>
+														<td class="align_left">
+															<input id="name_last" tabindex="2" name="name_last" type="text" size="25" >
+														</td>
+														<td width="26%">&nbsp;</td>
+													</tr>
+													<tr>
+														<td width="26%">&nbsp;</td>
+														<td class="align_left"><span id="agent_login_span" class="std_text">Login:</span></td>
+														<td class="align_left">
+															<input id="agent_login" name="agent_login" tabindex="3" type="text" size="25" >
+														</td>
+														<td width="26%">&nbsp;</td>
+													</tr>
+													<tr>
+														<td width="26%">&nbsp;</td>
+														<td class="align_left"><span id="password_span" class="std_text">New Password:</span></td>
+														<td class="align_left">
+															<input id="password" tabindex="4" name="password1" type="password" size="25" >
+														</td>
+														<td width="26%">&nbsp;</td>
+													</tr>
+													<tr>
+														<td width="26%">&nbsp;</td>
+														<td class="align_left"><span id="password_span" class="std_text">Conf. Password:</span></td>
+														<td class="align_left">
+															<input id="password" tabindex="5" name="password2" type="password" size="25" >
+														</td>
+														<td width="26%">&nbsp;</td>
+													</tr>
+													<tr>
+														<td width="26%">&nbsp;</td>
+														<td class="align_left">Is Active:</td>
+														<td class="align_left">
+															<input tabindex="6" name="is_active" type="checkbox" value="active" >
+														</td>
+														<td width="26%">&nbsp;</td>
+													</tr>
+													<tr>
+														<td width="26%">&nbsp;</td>
+														<td class="align_left">Last Login:</td>
+														<td class="align_left" id="date_last_login"></td>
+														<td width="26%">&nbsp;</td>
+													</tr>
+													%%%cross_company_admin_tr%%%
+													<tr>
+														<td width="26%">&nbsp;</td>
+														<td>&nbsp;</td>
+														<td class="align_right">
+															<br />
+															<input type=hidden name='num_active_affiliations'>
+															<input type=hidden name='selected_agent'>
+															<input tabindex='7' name="commit" type="button" onclick="if (!this.form.is_active.checked && parseInt(this.form.num_active_affiliations.value) > 1) alert('Warning: There are applications assigned to this agent.  They should be reassigned to an active agent.'); if (validate_profile_info()) javascript:save();" value="Save" >
+														</td>
+														<td width="26%">&nbsp;</td>
+													</tr>
+												</table>
+											</td>
+										</tr>
+										<tr>
+											<td>
+												<table height="100px">
+													<tr>
+														<td>&nbsp;</td>
+													</tr>
+												</table>
+											</td>
+										</tr>
+									</table>
+								</td>
+							</tr>
+						</table>
+					</td>						
+				</tr>						
+			</table>
+		</td>
+	</tr>
+	</form>
+</table>
+<script>
+	// Set the default screen to Modify a profile
+	radio_btn_actions(ADD_PROFILE)
+</script>

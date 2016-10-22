@@ -1,0 +1,104 @@
+<div id="layout0group0layer5view" %%%conversion_info_view_layer%%%>
+<table cellpadding=0 cellspacing=0 width="100%"><tr><td class="border" align="left" valign="top">
+<table cellpadding=0 cellspacing=0 width="100%" class="%%%mode_class%%%">
+	<tr class="height">
+		<th colspan="2" class="%%%mode_class%%%">&nbsp;<nobr>Conversion Details</nobr></th><th></th>
+	</tr>
+	<tr>
+	<td>
+	</td>
+	</tr>
+	<tr class="height">
+		<td class="align_left_alt_bold">&nbsp;
+		
+			Conversion Status:
+			
+		&nbsp;</td>
+		<td class="align_left_alt">
+		
+			%%%conversion_status%%%
+			
+		</td>
+	</tr>
+	
+	<tr class="height">
+		<td class="align_left_bold">&nbsp;
+		
+			Cashline ID:
+			
+		&nbsp;</td>
+		
+		<td class="align_left">
+			
+			%%%archive_cashline_id%%%
+				
+		</td>
+	</tr>
+	
+	
+	
+	<tr class="height">
+		<td class="align_left_alt_bold">&nbsp;
+		
+			Cashline Status:
+			
+		&nbsp;</td>
+		<td class="align_left_alt">
+			
+			%%%cashline_status%%%
+			
+		</td>
+	</tr>
+	
+	
+	
+	
+	
+	<tr class="height">
+		<td class="align_left_bold">&nbsp;
+
+			Transactions:
+			
+		&nbsp;</td>
+		
+		<td class="align_left">
+			
+			%%%converted_transaction_count%%% <a href="#" onClick="javascript:window.open('/?action=get_cashline_view&application_id=%%%application_id%%%&viewmode=transactions', 'application_history', 'toolbar=no,location=no,directories=no,status=no,menubar=no,scrollbars=yes,resizable=no,copyhistory=no,width=750,height=500,left=50,top=50,screenX=50,screenY=50');">(View)</a>
+			
+		</td>
+	</tr>
+	<tr class="height">
+		<td class="align_left_alt_bold">&nbsp;
+
+			Notes:
+			
+		&nbsp;</td>
+		<td class="align_left_alt">
+			
+			%%%converted_notes_count%%% <a href="#" onClick="javascript:window.open('/?action=get_cashline_view&application_id=%%%application_id%%%&viewmode=notes', 'application_history', 'toolbar=no,location=no,directories=no,status=no,menubar=no,scrollbars=yes,resizable=no,copyhistory=no,width=750,height=500,left=50,top=50,screenX=50,screenY=50');">(View)</a>
+			
+		</td>
+	</tr>
+	<!--<tr class="height">
+		<td class="align_left_bold">&nbsp;&nbsp;</td>
+		<td class="align_left"></td>
+	</tr>
+	<tr class="height">
+		<td class="align_left_alt_bold">&nbsp;&nbsp;</td>
+		<td class="align_left_alt"></td>
+	</tr>-->
+	
+	<tr class="height">
+		<th colspan="2" class="%%%mode_class%%%">&nbsp;<nobr>Queue Reasons</nobr></th><th></th>
+	</tr>
+	<tr><td colspan="2">
+	<div style="height: 100px; overflow:auto">
+		<table cellpadding=0 cellspacing=0 width="100%" class="%%%mode_class%%%">
+		%%%queue_reasons%%%
+		</table>
+	</div>
+	</td>
+	</tr>
+</table>
+</td></tr></table>
+</div>

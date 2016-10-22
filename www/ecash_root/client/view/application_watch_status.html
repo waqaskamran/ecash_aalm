@@ -1,0 +1,59 @@
+<html>
+<head>
+<script type='text/javascript'>
+	function checkEmptyWatchCommentZing()
+	{
+		var myField = document.getElementById('comment');
+	
+		if (myField.value.length == 0)
+		{
+			alert('Please enter a comment first.');
+			return false;
+		}
+
+		return true;
+	}
+</script>
+<style>
+body { font-family:arial, sans-serif; }
+form.no_padding { padding: 0px; }
+td { text-align: center; }
+.left { text-align: left; }
+.right { text-align: right; }
+</style>
+</head>
+<body>
+<form id="%%%form_name%%%_form" name="%%%action_name%%%" method="post" action="/" class="no_padding">
+<input type="hidden" name="application_id" id="application_id" value="%%%application_id%%%">
+<input type="hidden" name="action" value="%%%form_name%%%">
+<input type="hidden" name="action_type" id="action_type" value="save">
+<input type="hidden" name="agent_id" id="agent_id" value="%%%agent_id%%%">
+<input type="hidden" name="previous_module" id="previous_module" value="%%%previous_module%%%">
+
+<table width="100%" cellpadding="0" cellspacing="0" border="0" style="height: 180px;" align="center">
+<tbody>
+	<tr style="height: 30px;">
+		<td colspan="2">
+			<b>%%%action_name%%%</b>
+		</td>
+	</tr>
+	<tr>
+		<td colspan="2">
+			<table width="100%" border="0" align="center" cellspacing="2">
+				<tr>
+  					<td class="right">Comment:</td>
+  					<td class="left"><input name="comment" id="comment" type="text" size="30" maxlength="200" value=""></td>
+					<script>document.getElementById("comment").focus();</script>
+				</tr>
+			</table>
+		</td>
+	</tr>
+	<tr>
+  		<td><input type="button" value="Cancel" onClick="window.close();"></td>
+  		<td><input type="submit" value="Save" onClick="return checkEmptyWatchCommentZing();"></td>
+	</tr>
+</tbody>
+</table>
+</form>
+</body>
+</html>

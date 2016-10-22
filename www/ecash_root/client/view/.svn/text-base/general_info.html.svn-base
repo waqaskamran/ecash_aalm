@@ -1,0 +1,300 @@
+<!-- client/view/general_info.html -->
+<script type="text/javascript">
+// This is so javascript can do checks similar to the SaveGeneralInfo
+var income_direct_deposit = '%%%income_direct_deposit%%%';
+// This signifies whether any direct deposit change requires resigning of the docs (whether to display the message)
+var dd_requires_resign    = %%%dd_requires_resign%%%;
+var status = '%%%status%%%';
+var level1 = '%%%level1%%%';
+//var bank_aba_old = '%%%bank_aba%%%';
+//var bank_account_old = '%%%bank_account%%%';
+//var bank_account_type_old = '%%%bank_account_type%%%';
+
+function confirm_direct_deposit_change()
+{
+	var gen_info_form         = document.getElementsByName('gen_info');
+	
+	//var bank_aba_new = gen_info_form[0].bank_aba.value;
+	//var bank_account_new = gen_info_form[0].bank_account.value;
+	//var bank_account_type_new = gen_info_form[0].bank_account_type[gen_info_form[0].bank_account_type.selectedIndex].value;
+	//alert(bank_account_type_old + bank_account_type_new);	
+	if (status != 'in_process'
+		&&
+		(app_status == 'approved'
+			|| level1 == 'underwriting'
+			|| level1 == 'verification'
+		)
+		/*
+        	&& dd_requires_resign == true
+		&& 
+		(
+			income_direct_deposit.toLowerCase() != new_income_direct_deposit
+			|| bank_aba_old != bank_aba_new
+			|| bank_account_old != bank_account_new
+			//|| toLowerCase(bank_account_type_old) != toLowerCase(bank_account_type_new)
+		)
+		*/
+	)
+	{
+        	return WarnESig();
+	}
+
+	return true;
+}
+
+function validate_general_info()
+{
+	
+	var focusobj = null;
+	var isvalid = validate_fields(personal_general_array,'std_text','error_text');
+	
+	if (document.getElementById('EditAppInfoCustFirstName').value.trim().length < 2 || document.getElementById('EditAppInfoCustLastName').value.trim().length < 2)
+	{
+		document.getElementById('gen_name_span').className = 'error_text';	
+		isvalid = false;
+		
+		if (focusobj)
+		{
+			
+		}
+		else
+		{
+			if (document.getElementById('EditAppInfoCustFirstName').value.trim().length < 2)
+				focusobj = document.getElementById("EditAppInfoCustFirstName");
+			else
+				focusobj = document.getElementById("EditAppInfoCustLastName");
+		}	
+		
+	}
+		
+	if(focusobj)
+	{
+		focusobj.focus();
+	}
+	return isvalid;	
+	
+}
+
+var personal_general_array = {
+'AppInfoCustName' : /^[a-zA-Z '\'']{2,30}$/,
+'EditAppInfoCustHomePhone' : /^\([0-9]{3,3}\) [0-9]{3,3}-[0-9]{4,4}$/,
+'EditAppInfoCustCellPhone' : /^(\([0-9]{3,3}\) [0-9]{3,3}-[0-9]{4,4}){0,1}$/,
+'EditAppInfoCustWorkPhone': /^\([0-9]{3,3}\) [0-9]{3,3}-[0-9]{4,4}$/,
+'EditAppInfoCustEmail':  /^([a-zA-Z0-9_\.\-])+\@(([a-zA-Z0-9\-])+\.)+([a-zA-Z0-9]{2,4})+$/,
+'EditAppInfoCustNetIncome':  /^\d\d\d+(\.00){0,1}$/,
+};
+
+
+</script>
+
+<div id="layout0group1layer0view" %%%general_info_view_layer%%%>
+	<table cellpadding=0 cellspacing=0 width="100%">
+		<tr>
+			<td class="border" align="left" valign="top">
+				<table cellpadding=0 cellspacing=0 width="100%" class="%%%mode_class%%%">
+					<tr class="height">
+						<th class="%%%status_class%%%" style="background: %%%status_background_color%%%;" colspan="3">
+							<span style="float:left;">
+								<nobr>General Info</nobr>
+							</span>
+							<span style="float:right;">
+								<nobr><a id="AppInfoAppId" href="#" onClick="javascript:window.open('/?module=%%%module_name%%%&mode=%%%mode_class%%%&action=get_application_history&application_id=%%%application_id%%%', 'application_history', 'toolbar=no,location=no,directories=no,status=no,menubar=no,scrollbars=yes,resizable=yes,copyhistory=no,width=530,height=420,left=150,top=150,screenX=150,screenY=150');">App. ID %%%application_id%%% %%%status_long%%%</a>&nbsp;%%%ach_ind%%% %%%card_ind%%% %%%followup_ind%%% %%%react_ind%%% %%%watch_ind%%% %%%fraud_ind%%% %%%cust_no_ach_ind%%% %%%cust_has_fatal_ach_ind%%% %%%login_lock_flag%%% </nobr>
+							</span>
+						</th>
+					</tr>	
+					<tr class="height">
+						<th class="%%%status_class%%%" colspan="3" style="background: %%%status_background_color%%%;">
+							<span style="float:left;" id="AppInfoLoanType">
+								%%%loan_type_abbreviation%%%
+							</span>
+							<span style="float:left; padding-left: 6px;" id="AppInfoCampaign">
+								Campaign: &nbsp;%%%campaign_name%%%
+							</span>
+							<span style="float:right;" id="AppInfoCustId">
+								Customer ID: %%%customer_id%%%
+							</span>
+						</th>
+					</tr>
+				</table>
+				<table cellpadding=0 cellspacing=0 width="100%" class="%%%mode_class%%%" border=0>
+					<tr class="height">
+						<td class="align_left_alt_bold" width="30%">&nbsp;Name:&nbsp;</td>
+						<td class="align_left_alt" width="10%">%%%contact_name%%%&nbsp;</td>
+						<td class="align_left_alt" width="60%" id="AppInfoCustName">%%%name_first_trim%%% %%%name_last_trim%%%</td>
+					</tr>
+					<tr class="height">
+						<td class="align_left_bold" width="30%">&nbsp;Home Phone:&nbsp;</td>
+						<td class="align_left" width="10%">%%%contact_phone_home%%%</td>
+						<td class="align_left" width="60%" id="AppInfoCustHomePhone">%%%phone_home_trim%%% %%%phone_home_link%%%</td>
+					</tr>
+					<tr class="height">
+						<td class="align_left_alt_bold" width="30%">&nbsp;Cell Phone:&nbsp;</td>
+						<td class="align_left_alt" width="10%">%%%contact_phone_cell%%%</td>
+						<td class="align_left_alt" width="60%" id="AppInfoCustCellPhone">%%%phone_cell_trim%%% %%%phone_cell_link%%%</td>
+					</tr>
+					<tr class="height">
+						<td class="align_left_bold" width="30%">&nbsp;Work Phone:&nbsp;</td>
+						<td class="align_left" width="10%">%%%contact_phone_work%%%</td>
+						<td class="align_left" width="60%"><span id="AppInfoCustWorkPhone">%%%phone_work_trim%%%</span> %%%phone_work_link%%% <span id="AppInfoCustWorkPhoneExt">%%%phone_work_ext_trim%%%</span> %%%contact_phone_work_ext%%%</td>
+					</tr>
+					<tr class="height">
+						<td class="align_left_alt_bold" width="30%">&nbsp;Email:&nbsp;</td>
+						<td class="align_left_alt" width="10%">%%%contact_customer_email%%%</td>
+						<td class="align_left_alt" width="60%" id="AppInfoCustEmail">%%%customer_email_trim%%%</td>
+					</tr>
+				</table>
+			</td>
+		</tr>
+		<tr>
+			<td class="border" align="left" valign="top" style="border-top: none;">
+				<table cellpadding=0 cellspacing=0 width="100%" class="%%%mode_class%%%" border=0>
+					<tr class="height">
+						<th class="%%%mode_class%%%" width="35%" style="text-align:left;"><nobr>&nbsp;General/Income Info</nobr></th>
+						<th class="%%%mode_class%%%" width="5%"><nobr>&nbsp;</nobr></th>
+						<th class="%%%mode_class%%%" width="65%" colspan="2" style="text-align:right;">%%%edit_paydate_wizard_link%%%</th>
+					</tr>	
+
+					<tr class="height">
+						<td class="align_left_alt_bold" width="35%">&nbsp;Net Income:&nbsp;</td>
+						<td class="align_left_alt" width="5%">&nbsp;</td>
+						<td class="align_left_alt" width="65%" colspan="2" id="AppInfoCustNetIncome">$ %%%income_monthly_trim%%%</td>
+					</tr>
+					<tr class="height">
+						<td class="align_left_bold" width="35%">&nbsp;Pay Frequency:&nbsp;</td>
+						<td class="align_left" width="5%">&nbsp;</td>
+						<td class="align_left" width="65%" colspan="2"><span class="subtext" id="AppInfoCustPayFreq">%%%income_frequency_trim%%%</span></td>
+					</tr>
+					<tr class="height">
+						<td class="align_left_alt_bold" width="35%">&nbsp;Paydate #1:&nbsp;</td>
+						<td class="align_left_alt" width="5%">&nbsp;</td>
+						<td class="align_left_alt" width="65%" colspan="2"><span id="AppInfoCustPayDate1">%%%paydate_0_trim%%%</span> <span id="AppInfoCustPayDay1">%%%payday_0_trim%%%</span></td>
+					</tr>
+					<tr class="height">
+						<td class="align_left_bold" width="35%">&nbsp;Paydate #2:&nbsp;</td>
+						<td class="align_left" width="5%">&nbsp;</td>
+						<td class="align_left" width="65%" colspan="2"><span id="AppInfoCustPayDate2">%%%paydate_1_trim%%%</span> <span id="AppInfoCustPayDay2">%%%payday_1_trim%%%</span></td>
+					</tr>
+					<tr class="height">
+						<td class="align_left_alt_bold" width="35%">&nbsp;Paydate #3:&nbsp;</td>
+						<td class="align_left_alt" width="5%">&nbsp;</td>
+						<td class="align_left_alt" width="65%" colspan="2"><span id="AppInfoCustPayDate3">%%%paydate_2_trim%%%</span> <span id="AppInfoCustPayDay3">%%%payday_2_trim%%%</span></td>
+					</tr>
+					<tr class="height">
+						<td class="align_left_bold" width="35%">&nbsp;Paydate #4:&nbsp;</td>
+						<td class="align_left" width="5%">&nbsp;</td>
+						<td class="align_left" width="65%" colspan="2"><span id="AppInfoCustPayDate4">%%%paydate_3_trim%%%</span> <span id="AppInfoCustPayDay4">%%%payday_3_trim%%%</span></td>
+					</tr>
+					<tr class="height">
+						<td colspan="4" class="align_right">
+							%%%edit_general_info_link%%%
+						</td>
+					</tr>
+				</table>
+			</td>
+		</tr>
+	</table>
+
+</div>
+
+<div id="layout0group1layer0edit" %%%general_info_edit_layer%%%>
+	<form method="post" action="/" name="gen_info" class="no_padding" id="EditAppInfoForm">
+	<input type="hidden" name="application_id" value="%%%application_id%%%" />
+		<table cellpadding=0 cellspacing=0 width="100%">
+			<tr>
+				<td class="border" align="left" valign="top">
+					<div style="height: 300px; overflow:auto">
+					<table cellpadding=0 cellspacing=0 width="100%" class="%%%mode_class%%%">
+						<tr class="height">
+							<th class="%%%status_class%%%" style="background: %%%status_background_color%%%;" colspan="3">
+								<span style="float:left;">
+									<nobr>General Info</nobr>
+								</span>
+								<span style="float:right;">
+									<nobr><a id="EditAppInfoAppId" href="#" onClick="javascript:window.open('/?module=%%%current_module%%%&action=get_application_history&application_id=%%%application_id%%%', 'application_history', 'toolbar=no,location=no,directories=no,status=no,menubar=no,scrollbars=yes,resizable=no,copyhistory=no,width=515,height=420,left=150,top=150,screenX=150,screenY=150');">App. ID %%%application_id%%% %%%status_long%%%</a>&nbsp;%%%react_ind%%%&nbsp;%%%watch_ind%%%&nbsp;%%%fraud_ind%%%&nbsp;</nobr>
+								</span>
+							</th>
+						</tr>
+						<tr class="height">
+							<td class="align_left_alt_bold" width="30%"><span id="gen_name_span" class="%%%name_color%%%">%%%name_overlink%%%&nbsp;Name%%%name_endlink%%%</span>:&nbsp;</td>
+							<td class="align_left_alt" width="5%">&nbsp;</td>
+							<td class="align_left_alt" width="65%"><input type="text"  id="EditAppInfoCustFirstName" name="name_first" value="%%%name_first_edit%%%" maxlength="50" class="input_text"  onblur = "return strip_all_but(this,keybAlpha,((window.event)?window.event:event));" onkeypress="return editKeyBoard(this,keybAlpha,((window.event)?window.event:event));"> <input type="text" id="EditAppInfoCustLastName" name="name_last" value="%%%name_last_edit%%%" maxlength="50" class="input_text" onblur = "return strip_all_but(this,keybAlpha,((window.event)?window.event:event));" onkeypress="return editKeyBoard(this,keybAlpha,((window.event)?window.event:event));"></td>
+						</tr>
+						<tr class="height">
+							<td class="align_left_bold" width="30%"><span id="gen_home_phone_span" class="%%%phone_home_color%%%">%%%phone_home_overlink%%%&nbsp;Home Phone%%%phone_home_endlink%%%</span>:&nbsp;</td>
+							<td class="align_left" width="5%">%%%contact_phone_home%%%</td>
+							<td class="align_left" width="65%"><input type="text" id="EditAppInfoCustHomePhone" name="phone_home" value="%%%phone_home_edit%%%" maxlength="14" class="input_text" onblur = "return strip_all_but(this,keybNumeric,((window.event)?window.event:event),'() -)');" onkeypress="return editKeyBoard(this,keybNumeric,((window.event)?window.event:event));" onkeyup="mask(this.value,this,'0,4,5,9',Array('(',')',' ','-'),((window.event)?window.event:event));"></td>
+						</tr>
+						<tr class="height">
+							<td class="align_left_alt_bold" width="30%"><span id="gen_cell_phone_span" class="%%%phone_cell_color%%%">%%%phone_cell_overlink%%%&nbsp;Cell Phone%%%phone_cell_endlink%%%</span>:&nbsp;</td>
+							<td class="align_left_alt" width="5%">%%%contact_phone_cell%%%</td>
+							<td class="align_left_alt" width="65%"><input type="text" id="EditAppInfoCustCellPhone" name="phone_cell" value="%%%phone_cell_edit%%%" maxlength="14" class="input_text" onblur = "return strip_all_but(this,keybNumeric,((window.event)?window.event:event),'() -)');" onkeypress="return editKeyBoard(this,keybNumeric,((window.event)?window.event:event));" onkeyup="mask(this.value,this,'0,4,5,9',Array('(',')',' ','-'),((window.event)?window.event:event));"></td>
+						</tr>
+						<tr class="height">
+							<td class="align_left_bold" width="30%"><span id="gen_work_phone_span" class="%%%phone_work_color%%%">%%%phone_work_overlink%%%&nbsp;Work Phone%%%phone_work_endlink%%%</span>:&nbsp;</td>
+							<td class="align_left" width="5%">%%%contact_phone_work%%%</td>
+							<td class="align_left" width="65%"><input type="text" id="EditAppInfoCustWorkPhone" name="phone_work" value="%%%phone_work_edit%%%" maxlength="14" class="input_text" onblur = "return strip_all_but(this,keybNumeric,((window.event)?window.event:event),'() -)');" onkeypress="return editKeyBoard(this,keybNumeric,((window.event)?window.event:event));" onkeyup="mask(this.value,this,'0,4,5,9',Array('(',')',' ','-'),((window.event)?window.event:event));"></td>
+						</tr>
+						<tr class="height">
+							<td class="align_left_alt_bold" width="30%"><span class="%%%phone_work_ext_color%%%">%%%phone_work_ext_overlink%%%&nbsp;Work Extension%%%phone_work_ext_endlink%%%</span>:&nbsp;</td>
+							<td class="align_left_alt" width="5%">&nbsp;</td>
+							<td class="align_left_alt" width="65%"><input type="text" id="EditAppInfoCustWorkPhoneExt" name="phone_work_ext" value="%%%phone_work_ext_edit%%%" maxlength="30" class="input_text" onblur = "return strip_all_but(this,keybNumeric,((window.event)?window.event:event));" onkeypress="return editKeyBoard(this,keybNumeric,((window.event)?window.event:event));"></td>
+						</tr>
+						<tr class="height">
+							<td class="align_left_bold" width="30%"><span id="general_customer_email_span" class="%%%customer_email_color%%%">%%%customer_email_overlink%%%&nbsp;Email%%%customer_email_endlink%%%</span>:&nbsp;</td>
+							<td class="align_left" width="5%">%%%contact_customer_email%%%</td>
+							<td class="align_left" width="65%"><input type="text" id="EditAppInfoCustEmail" name="customer_email" value="%%%customer_email_edit%%%" class="input_text"></td>
+						</tr>
+						<tr><td class="border" align="left" valign="top" colspan=3 style="border-bottom: none;border-left: none;border-right: none;">
+							<table cellpadding=0 cellspacing=0 width="100%" class="%%%mode_class%%%">							
+							<tr class="height"><th colspan="3" class="%%%mode_class%%%">&nbsp;Loan Info</th></tr>
+							</table>
+						</td></tr>
+						<tr class="height">
+							<td class="align_left_alt_bold" width="30%"><span id="gen_income_monthly_span" class="%%%income_monthly_color%%%">%%%income_monthly_overlink%%%&nbsp;Net Income%%%income_monthly_endlink%%%</span>:&nbsp;</td>
+							<td class="align_left_alt" width="5%">&nbsp;</td>
+							<td class="align_left_alt" width="65%"><input type="text" id="EditAppInfoCustNetIncome" name="income_monthly" value="%%%income_monthly_edit%%%" size="30" class="input_text" onkeypress="return editKeyBoard(this,keybDecimal,((window.event)?window.event:event));"></td>
+						</tr>
+						<tr class="height">
+							<td class="align_left_bold" width="30%">&nbsp;Pay Frequency&nbsp;</td>
+							<td class="align_left" width="5%"> &nbsp; </td>
+							<td class="align_left" width="65%"><span class="subtext" id="EditAppInfoCustPayFreq">%%%income_frequency%%%</span></td>
+						</tr>
+						<tr class="height">
+							<td class="align_left_alt_bold" width="30%">&nbsp;Paydate #1:&nbsp;</td>
+							<td class="align_left_alt" width="5%">&nbsp;</td>
+							<td class="align_left_alt" width="65%" id="EditAppInfoCustPayDay1">%%%paydate_0%%%</td>
+						</tr>
+						<tr class="height">
+							<td class="align_left_bold" width="30%">&nbsp;Paydate #2:&nbsp;</td>
+							<td class="align_left" width="5%">&nbsp;</td>
+							<td class="align_left" width="65%" id="EditAppInfoCustPayDay2">%%%paydate_1%%%</td>
+						</tr>
+						<tr class="height">
+							<td class="align_left_alt_bold" width="30%">&nbsp;Paydate #3:&nbsp;</td>
+							<td class="align_left_alt" width="5%">&nbsp;</td>
+							<td class="align_left_alt" width="65%" id="EditAppInfoCustPayDay3">%%%paydate_2%%%</td>
+						</tr>
+						<tr class="height">
+							<td class="align_left_bold" width="30%">&nbsp;Paydate #4:&nbsp;</td>
+							<td class="align_left" width="5%">&nbsp;</td>
+							<td class="align_left" width="65%" id="EditAppInfoCustPayDay4">%%%paydate_3%%%</td>
+						</tr>
+						<tr class="height">
+							<td colspan="3" class="align_right_alt">
+								<input type="hidden" name="action" value="save_general_info" id="EditAppInfoAction"/>
+								<nobr><input type="submit" value="Save Changes" id="EditAppInfoSave" class="button" onClick="return validate_general_info();"/>
+								<input type="reset" value="Cancel" id="EditAppInfoCancel" class="button" onClick="reset_fields(personal_general_array,'std_text');SetDisplay(0,1,0,'view', '%%%mode_class%%%_buttons');"></nobr>
+							</td>
+						</tr>	
+					</div>
+					</table>
+				</td>
+			</tr>
+		</table>
+	</form>
+	<form id="ssn_change_review" method="post" action="/" class="no_padding">
+		<input type="hidden" name="application_id" value="%%%application_id%%%">
+		<input type="hidden" id="reason_comment" name="reason_comment" value="">
+		<input type="hidden" name="action" value="to_action_queue">
+	</form>
+</div>

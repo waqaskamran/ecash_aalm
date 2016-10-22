@@ -1,0 +1,41 @@
+K 25
+svn:wc:ra_dav:version-url
+V 98
+/svn/aalm_current/!svn/ver/5172/ecash/branches/sql_merge/ecash_cfe/code/ECashCra/Driver/Commercial
+END
+PaymentQueryBuilder.php
+K 25
+svn:wc:ra_dav:version-url
+V 122
+/svn/aalm_current/!svn/ver/1979/ecash/branches/sql_merge/ecash_cfe/code/ECashCra/Driver/Commercial/PaymentQueryBuilder.php
+END
+Driver.php
+K 25
+svn:wc:ra_dav:version-url
+V 109
+/svn/aalm_current/!svn/ver/5145/ecash/branches/sql_merge/ecash_cfe/code/ECashCra/Driver/Commercial/Driver.php
+END
+DataDecorator.php
+K 25
+svn:wc:ra_dav:version-url
+V 116
+/svn/aalm_current/!svn/ver/1979/ecash/branches/sql_merge/ecash_cfe/code/ECashCra/Driver/Commercial/DataDecorator.php
+END
+ApplicationQueryBuilder.php
+K 25
+svn:wc:ra_dav:version-url
+V 126
+/svn/aalm_current/!svn/ver/5172/ecash/branches/sql_merge/ecash_cfe/code/ECashCra/Driver/Commercial/ApplicationQueryBuilder.php
+END
+DataBuilder.php
+K 25
+svn:wc:ra_dav:version-url
+V 114
+/svn/aalm_current/!svn/ver/1979/ecash/branches/sql_merge/ecash_cfe/code/ECashCra/Driver/Commercial/DataBuilder.php
+END
+Config.php
+K 25
+svn:wc:ra_dav:version-url
+V 109
+/svn/aalm_current/!svn/ver/5145/ecash/branches/sql_merge/ecash_cfe/code/ECashCra/Driver/Commercial/Config.php
+END

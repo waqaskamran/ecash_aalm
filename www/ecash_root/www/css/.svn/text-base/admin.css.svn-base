@@ -1,0 +1,152 @@
+/* Admin Section */
+#main_contents {
+	margin-top: 5px;
+	background: #EFEFEF;
+	position: static;
+	height: 500px;
+	width: 100%;
+	border: 0px;
+	overflow: auto;
+}
+
+#main_contents .main_head {
+	font-weight: bold;
+	padding: 3px;
+	/*vertical-align: auto;*/
+	text-align: center;
+	clear: both;
+	margin-bottom: 3px;
+}
+
+#main_contents td, #main_contents {
+	vertical-align: top;
+}
+
+/* Users / Groups */
+.admin_users_groups .main_head {
+	background: lightsteelblue;
+}
+
+#main_contents.admin_users_groups {
+	border: 2px solid lightsteelblue;
+}
+
+/* Company Data */
+.admin_company_data .main_head {
+	background: #B4DCAF;
+}
+
+#main_contents.admin_company_data {
+	border: 2px solid #B4DCAF;
+}
+
+/* DDA */
+.admin_dda .main_head {
+	background: #FBCD57;
+}
+
+#main_contents.admin_dda {
+	border: 2px solid #FBCD57;
+}
+
+/* Queue Config */
+.admin_queue_config .main_head {
+	background: #CCCCCC;
+}
+
+#main_contents.admin_queue_config {
+	border: 2px solid #CCCCCC;
+}
+
+/* Document Manager */
+.admin_document_manager .main_head {
+	background: #EBAEAE;
+}
+
+#main_contents.admin_document_manager {
+	border: 2px solid #EBAEAE;
+}
+
+form {
+	margin: 0px;
+	padding: 0px;
+}
+
+fieldset {
+	border: 1px solid gray;
+	text-align: left;
+}
+
+p {
+	margin: 0px;
+	padding: 0px;
+}
+
+p + p {
+	margin: 6px 0px 0px 0px;
+}
+
+fieldset + fieldset {
+	margin: 6px 0px 0px 0px;
+}
+
+input[type="text"], input[type="password"], textarea {
+	width: 97%;
+}
+
+input[type="radio"] + label {
+	font-weight: bold;
+}
+
+select {
+	width: 100%;
+}
+
+.default_size input, .default_size select, .default_size textarea {
+	width: auto;
+}
+
+/* Pseudo two column layout */
+.group_left {
+	width: 49%;
+	float: left;
+}
+
+.group_right {
+	width: 50%;
+	float: right;
+}
+
+.group_none {
+	clear: both;
+}
+
+.rule_group_left {
+	width: 64%;
+	float: left;
+}
+
+.rule_group_right {
+	width: 35%;
+	float: right;
+}
+
+/* Group labels on the left and input on the right */
+.form_group_label div {
+	clear: left;
+	padding: 3px;
+	padding-left: 155px; /*width of left column containing the label elements*/
+}
+
+.form_group_label div label {
+	float: left;
+	margin-left: -155px; /*width of left column*/
+	width: 150px; /*width of labels. Should be smaller than left column to create some right margin*/
+}
+
+.form_buttons {
+	clear: both;
+	text-align: center;
+	vertical-align: middle;
+	padding-top: 6px;
+}

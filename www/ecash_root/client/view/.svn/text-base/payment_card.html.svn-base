@@ -1,0 +1,687 @@
+<script type="text/javascript">
+
+var application_id = %%%application_id%%%;
+var d = new Date();
+var curr_year = d.getFullYear();
+
+function validate_card()
+{
+	var ret = false;
+	var card_month  = document.getElementById('card_exp1').value;
+	var card_year   = document.getElementById('card_exp2').value;
+	var cardholder_name = document.getElementById('card_name').value;
+	var card_zip = document.getElementById('card_zip').value;
+	var card_street = document.getElementById('card_street').value;
+
+	if (!IsNumeric(card_month) || card_month > 12 || card_month < 1)
+	{
+		alert('The card month must be numeric and between 1 and 12');
+		ret = false;
+	}
+
+	if (card_year.length == 4)
+	{
+		if (!IsNumeric(card_year) || card_year > 2037 || card_year < curr_year)
+		{
+			alert('Expiration year must not have passed, and it must be less than 2038');
+			ret = false;
+		}
+	}
+	else if (card_year.length == 2)
+	{
+		if (!IsNumeric(card_year) || card_year > 37 || card_year < (curr_year % 100))
+		{
+			alert('Expiration year must not have passed, and it must be less than 2038');
+			ret = false;
+		}
+	}
+	else
+	{
+		alert('Unrecognized expiration month/year');
+		ret = false;
+	}
+
+	if(cardholder_name.length < 1)
+	{
+		alert('CardHolder Name Required');
+		ret = false;
+	}
+
+	if(card_street.length < 1)
+	{
+		alert('Card Adress Required');
+		ret = false;
+	}
+
+	if(card_zip.length < 1)
+	{
+		alert('Card ZIP Required');
+		ret = false;
+	}
+
+	var card_number = document.getElementById('card_num').value;
+
+	card_number = card_number.replace(/[^0-9]/g, '');
+	
+	// Visa 
+	if (card_number.substring(0, 1) == '4')
+	{
+		if ((card_number.length == 16) || (card_number.length == 13))
+		{
+			document.getElementById('card_num').value = card_number;
+			ret = true;
+		}
+
+		if (card_number.length > 16)
+		{
+			alert('Card Number is too long for Card Type.');
+			ret = false;
+		}
+
+		if (card_number.length < 13)
+		{
+			alert('Card Number is too short for Card Type.');
+			ret = false;
+		}
+	}
+
+	// Mastercard
+	if (card_number.substring(0, 2) >= 51 && card_number.substring(0, 2) <= 55)
+	{
+		if (card_number.length == 16)
+		{
+			document.getElementById('card_num').value = card_number;
+			ret = true;
+		}
+
+		if (card_number.length > 16)
+		{
+			alert('Card Number is too long for Card Type.');
+			ret = false;
+		}
+
+		if (card_number.length < 16)
+		{
+			alert('Card Number is too short for Card Type.');
+			ret = false;
+		}
+	}
+
+	// Discover
+	if (card_number.substring(0, 4) == '6011')
+	{
+		if (card_number.length == 16)
+		{
+			document.getElementById('card_num').value = card_number;
+			ret = true;
+		}
+
+		if (card_number.length > 16)
+		{
+			alert('Card Number is too long for Card Type.');
+			ret = false;
+		}
+
+		if (card_number.length < 16)
+		{
+			alert('Card Number is too short for Card Type.');
+			ret = false;
+		}
+	}	
+
+	// Amex
+	if (card_number.substring(0, 2) == '34' || card_number.substring(0, 2) == '37')
+	{
+		if (card_number.length == 15)
+		{
+			document.getElementById('card_num').value = card_number;
+			ret = true;
+		}
+
+		if (card_number.length > 15)
+		{
+			alert('Card Number is too long for Card Type.');
+			ret = false;
+		}
+
+		if (card_number.length < 15)
+		{
+			alert('Card Number is too short for Card Type.');
+			ret = false;
+		}
+	}
+
+	// Diner's Club
+	if (card_number.substring(0, 2) >= '36' && card_number.substring(0, 2) <= 38)
+	{
+		if (card_number.length == 14)
+		{
+			document.getElementById('card_num').value = card_number;
+			ret = true;
+		}
+
+		if (card_number.length > 14)
+		{
+			alert('Card Number is too long for Card Type.');
+			ret = false;
+		}
+
+		if (card_number.length < 14)
+		{
+			alert('Card Number is too short for Card Type.');
+			ret = false;
+		}
+
+	}
+
+	// Diner's Club 2
+	if (card_number.substring(0, 3) >= '300' && card_number.substring(0, 3) <= 305)
+	{
+		if (card_number.length == 14)
+		{
+			document.getElementById('card_num').value = card_number;
+			ret = true;
+		}
+
+		if (card_number.length > 14)
+		{
+			alert('Card Number is too long for Card Type.');
+			ret = false;
+		}
+
+		if (card_number.length < 14)
+		{
+			alert('Card Number is too short for Card Type.');
+			ret = false;
+		}
+
+	}
+	if (! ret) {
+		alert('Invalid Card Number');
+	}
+		
+	return ret;
+}
+
+function add_card()
+{
+	// Set the view layer as not visible
+	var viewlayer = document.getElementById('layout0group0layer11view');
+	viewlayer.style.display = 'none';
+
+	var viewlayer = document.getElementById('layout0group0layer11view2');
+	viewlayer.style.display = 'none';
+
+	// Set the edit layer as visible
+	var editlayer = document.getElementById('layout0group0layer11edit');
+	editlayer.style.display = 'block';
+
+	var exp_month = document.getElementById('card_exp1');
+	exp_month.value = '';
+	
+	var exp_year = document.getElementById('card_exp2');
+	exp_year.value = '';
+
+	var cname = document.getElementById('card_name');
+	cname.value = '';
+
+	var card_num = document.getElementById('card_num');
+	card_num.value = '';
+
+	var card_id = document.getElementById('payment_card_id');
+	card_id.value = '';
+
+	var card_type = document.getElementById('card_type');
+	card_type.innerHTML = '&nbsp;';
+}
+
+
+function ajax_verify_card(request) {
+	if (validate_card()) {
+		var card_id = document.getElementById('payment_card_id').value;
+		var card_name = document.getElementById('card_name').value;
+		var card_zip = document.getElementById('card_zip').value;
+		var card_street = document.getElementById('card_street').value;
+		var card_month  = document.getElementById('card_exp1').value;
+		var card_year   = document.getElementById('card_exp2').value;
+		var card_num = document.getElementById('card_num').value;
+	
+		card_num = card_num.replace(/[^0-9]/g, '');
+		
+		var num = card_zip+card_month+card_year+card_num;
+
+		request.method = 'view_card';
+		request.card_id = card_id;
+		request.params[0].card_id = card_id
+		request.params[0].num = num
+		request.params[0].name = card_name;
+		request.params[0].street = card_street;
+		request.params[0].application_id = application_id;
+		request.url = '/?api=json-rpc';
+
+		var ret = JSON_RPC(request);
+		return ret;
+	}
+}
+
+
+// following the 0, 1, infinity rule
+// We're going to want to populate this dynamically
+// based on the edit link that they click
+function edit_card(card_id)
+{
+	var req = ajax_view_card({
+		id: card_id, 
+			params:[{
+				action:'view_card',
+				function:'View_Card',
+					card_id:card_id,
+					application_id:application_id
+			}],
+			onSuccess: function (transport) {
+                var result = transport.responseText.parseJSON();
+
+                if (result) {
+                    if (result.result)
+                    {
+						if (result.result.parseJSON()['error'] != '')
+						{
+							alert('An Error occurred retrieving the card information. Any changes made will NOT be saved');
+						}
+						else
+						{
+	                        populate_payment_card_edit_fields(result.result.parseJSON());
+						}
+                    }
+                    if (result.error)
+                    {
+                        error_overlay(result.error);
+                    }
+                } else {
+                    error_overlay(transport.responseText);
+                }
+			}
+
+	});
+
+	// Set the view layer as not visible
+	var viewlayer = document.getElementById('layout0group0layer11view');
+	viewlayer.style.display = 'none';
+
+	// Set the edit layer as visible
+	var editlayer = document.getElementById('layout0group0layer11edit');
+	editlayer.style.display = 'block';
+
+	// If card_id == -1, we're adding a card
+	if (card_id == -1)
+		return true;
+
+	var exp_month = document.getElementById('card_exp1');
+	exp_month.value = '';
+	
+	var exp_year = document.getElementById('card_exp2');
+	exp_year.value = '';
+
+	var cname = document.getElementById('card_name');
+	cname.value = '';
+
+	var card_num = document.getElementById('card_num');
+	card_num.value = '';
+
+	// Put the card identifier somewhere in the form
+	var payment_card_id = document.getElementById('payment_card_id');
+	payment_card_id.value = '';
+
+	var card_type = document.getElementById('card_type');
+	card_type.innerHTML = '';
+
+	var inactive_card = document.getElementById('inactivate_card');
+	inactive_card.checked = false;
+
+}
+
+function view_card(card_id)
+{
+	var req = ajax_view_card({
+		id: card_id, 
+			params:[{
+				action:'view_card',
+				function:'View_Card',
+					card_id:card_id,
+					application_id:application_id
+			}],
+			onSuccess: function (transport) {
+                var result = transport.responseText.parseJSON();
+
+                if (result) {
+
+                    if (result.result)
+                    {
+						if (result.result.parseJSON()['error'] != '')
+						{
+							alert('An Error occurred retrieving the card information. Any changes made will NOT be saved');
+						}
+						else
+						{
+				res = result.result.parseJSON();
+	                        populate_payment_card_view_fields(res);
+				populate_payment_card_edit_fields(res);
+						}
+                    }
+                    if (result.error)
+                    {
+                        error_overlay(result.error);
+                    }
+                } else {
+                    error_overlay(transport.responseText);
+                }
+			}
+            
+	});
+
+	// Set the view layer as not visible
+	var viewlayer = document.getElementById('layout0group0layer11view');
+	viewlayer.style.display = 'none';
+
+	// Set the edit layer as not visible
+	var editlayer = document.getElementById('layout0group0layer11edit');
+	editlayer.style.display = 'none';
+
+	// Set the 2nd view layer as visible
+	var viewlayer = document.getElementById('layout0group0layer11view2');
+	viewlayer.style.display = 'block';
+
+	// Blank out any possible old information that may have been in there
+	var cname = document.getElementById('disp_card_name');
+	cname.innerHTML = '';
+
+	var card_num = document.getElementById('disp_card_num');
+	card_num.innerHTML = '';
+
+	var card_type = document.getElementById('disp_card_type');
+	card_type.innerHTML = '';
+
+	var exp_month = document.getElementById('disp_card_exp1');
+	exp_month.innerHTML = '';
+	
+	var exp_year = document.getElementById('disp_card_exp2');
+	exp_year.innerHTML = '';
+
+}	
+
+function verify_payment_card(card_id) {
+	var req = ajax_verify_card({
+		card_id: card_id, 
+			params:[{
+				action:'verify_card',
+				function:'Verify_Card',
+				card_id:card_id,
+				application_id:application_id,
+				name:'',
+				street:'',
+				num:''
+			}],
+		onSuccess: function (transport) {
+			var result = transport.responseText.parseJSON();
+		
+			if (result) {
+				if (result.result) {
+					if (result.result.parseJSON()['error'] != '') {
+						alert('An Error occurred retrieving the card verification information. Any changes made will NOT be saved');
+					}
+					else {
+						var res = result.result.parseJSON()['result'];
+						alert(res);
+					}
+				}
+				if (result.error) {
+				    error_overlay(result.error);
+				}
+			} else {
+				error_overlay(transport.responseText);
+alert(transport.responseText);
+			}
+		}
+            
+	});
+}	
+
+function populate_payment_card_view_fields(Card)
+{
+	var cname = document.getElementById('disp_card_name');
+	cname.innerHTML = Card['cardholder_name'];
+
+	var cname = document.getElementById('disp_card_zip');
+	cname.innerHTML = Card['card_zip'];
+
+	var cname = document.getElementById('disp_card_street');
+	cname.innerHTML = Card['card_street'];
+
+	var card_num = document.getElementById('disp_card_num');
+	card_num.innerHTML = Card['formatted_number'];
+
+	var card_type = document.getElementById('disp_card_type');
+	card_type.innerHTML = Card['card_type_name_short'];
+
+	var exp_month = document.getElementById('disp_card_exp1');
+	exp_month.innerHTML = Card['expiration_month'];
+	
+	var exp_year = document.getElementById('disp_card_exp2');
+	exp_year.innerHTML = Card['expiration_year'];
+}
+
+function populate_payment_card_edit_fields(Card)
+{
+	var exp_month = document.getElementById('card_exp1');
+	exp_month.value = Card['expiration_month'];
+	
+	var exp_year = document.getElementById('card_exp2');
+	exp_year.value = Card['expiration_year'];
+
+	var cname = document.getElementById('card_name');
+	cname.value = Card['cardholder_name'];
+
+	var cname = document.getElementById('card_street');
+	cname.value = Card['card_street'];
+
+	var cname = document.getElementById('card_zip');
+	cname.value = Card['card_zip'];
+
+	var card_num = document.getElementById('card_num');
+	card_num.value = Card['formatted_number'];
+
+	// Put the card identifier somewhere in the form
+	var payment_card_id = document.getElementById('payment_card_id');
+	payment_card_id.value = Card['card_info_id'];
+
+	var card_type = document.getElementById('card_type');
+	card_type.innerHTML = Card['card_type_name_short'];
+
+	var inactive_card = document.getElementById('inactivate_card');
+	inactive_card.checked = false;
+}
+
+function swap_payment_card_layers()
+{
+	// Set the view layer as not visible
+	var viewlayer = document.getElementById('layout0group0layer11view');
+	viewlayer.style.display = 'block';
+
+	// Set the edit layer as visible
+	var editlayer = document.getElementById('layout0group0layer11edit');
+	editlayer.style.display = 'none';
+
+	var viewlayer = document.getElementById('layout0group0layer11view2');
+	viewlayer.style.display = 'none';
+
+}
+
+
+
+// AJAX
+function ajax_view_card(request) {
+	request.method = 'view_card';
+	return ecash_JSON_RPC(request)
+}
+</script>
+
+
+<div id="layout0group0layer11view" %%%payment_card_view_layer%%%>
+<table cellpadding="0" cellspacing="0" width="100%">
+	<tr>
+		<td class="border" align="left" valign="top">
+			<table cellpadding="0" cellspacing="0" width="100%" class="%%%mode_class%%%">
+				<thead>
+					<tr class="height">
+						<th colspan="2" class="%%%mode_class%%%">&nbsp;<nobr>Payment Card Information</nobr></th>
+						<th colspan="2" class="%%%mode_class%%%" style="text-align: right;">%%%add_card_button%%%</th>
+					</tr>
+					<tr class="height" style='overflow: auto;'>
+						<th class="%%%mode_class%%%">Card Number</th>
+						<th class="%%%mode_class%%%">Card Type</th>
+						<th class="%%%mode_class%%%">View</th>
+						<th class="%%%mode_class%%%">Edit</th>
+					</tr>
+				</thead>
+				<tbody>
+				%%%card_rows%%%
+				</tbody>
+			</table>
+		</td>
+	</tr>
+</table>
+</div>
+
+<div id="layout0group0layer11edit" %%%payment_card_edit_layer%%%>
+<form method="post" action="/" name="Payment_Card" class="no_padding">
+<input type="hidden" name="application_id" value="%%%application_id%%%">
+<input type="hidden" name="action" value="save_card_info">
+<input type="hidden" id="payment_card_id" name="payment_card_id" value="not_set">
+<table cellpadding=0 cellspacing=0 width="100%">
+	<tr>
+		<td class="border" align="left" valign="top">
+			<table cellpadding="0" cellspacing="0" width="100%" class="%%%mode_class%%%">
+				<thead>
+					<tr class="height">
+						<th colspan="2" class="%%%mode_class%%%">&nbsp;<nobr>Edit Payment Card Information</nobr></th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr class="height">
+						<td class="align_left_alt_bold">Card Number:</td>
+						<td class="align_left_alt"><input type="text" name="card_number" size=25 id="card_num"></td>
+					</tr>
+					<tr>
+						<td class="align_left_bold">Expiration Date:</td>
+						<td class="align_left"><input type="text" size=5 name="card_exp1" id="card_exp1">/<input type="text" size=7 name="card_exp2" id="card_exp2"><span id='card_type' style='font-style: bold; margin: 10px;'>&nbsp;</span></td>
+					</tr>
+					<tr>
+						<td class="align_left_alt_bold">Cardholder Name:</td>
+						<td class="align_left_alt"><input type="text" name="cardholder_name" id="card_name" maxlength=30 size=25></td>
+					</tr>
+					<tr>
+						<td class="align_left_alt_bold">Card Street Address:</td>
+						<td class="align_left_alt"><input type="text" name="card_street" id="card_street" maxlength=30 size=25></td>
+					</tr>
+					<tr>
+						<td class="align_left_alt_bold">Card ZIP Code:</td>
+						<td class="align_left_alt"><input type="text" name="card_zip" id="card_zip" maxlength=30 size=25></td>
+					</tr>
+					<!--- Blank rows ---!>
+					<tr>
+						<td class="align_left">&nbsp;</td>
+						<td class="align_left">&nbsp;</td>
+					</tr>
+					<tr>
+						<td class="align_left_alt">&nbsp;</td>
+						<td class="align_left_alt">&nbsp;</td>
+					</tr>
+					<tr>
+						<td class="align_left">&nbsp;</td>
+						<td class="align_left">&nbsp;</td>
+					</tr>
+					<tr>
+						<td class="align_left_alt">&nbsp;</td>
+						<td class="align_left_alt">&nbsp;</td>
+					</tr>
+				</tbody>
+				<tfoot>
+					<tr>
+						<td class="align_left"><input type="checkbox" name="inactivate_card" id="inactivate_card">Inactivate Payment Card</td>
+						<td class="align_right"><input type="button" onclick="javascript:verify_payment_card();" value="Verify"><input type="submit" value="Save Changes" onclick="javascript:return validate_card()"><input type="button" onclick="javascript:swap_payment_card_layers();" value="Cancel"></td>
+					</tr>
+				</tfoot>
+			</table>
+		</td>
+	</tr>
+</table>
+</form>
+</div>
+
+<div id="layout0group0layer11view2" %%%payment_card_view_layer%%%>
+<table cellpadding=0 cellspacing=0 width="100%">
+	<tr>
+		<td class="border" align="left" valign="top">
+			<table cellpadding="0" cellspacing="0" width="100%" class="%%%mode_class%%%">
+				<thead>
+					<tr class="height">
+						<th colspan="2" class="%%%mode_class%%%">&nbsp;<nobr>View Payment Card Information</nobr></th>
+					</tr>
+				</thead>
+			<input type="hidden" name="card_number" id="card_num">
+			<input type="hidden" name="card_exp1" id="card_exp1">
+			<input type="hidden" name="card_exp2" id="card_exp2">
+			<input type="hidden" name="cardholder_name" id="card_name">
+			<input type="hidden" name="card_street" id="card_street">
+			<input type="hidden" name="card_zip" id="card_zip">
+				<tbody>
+					<tr class="height">
+						<td class="align_left_alt_bold">Card Number:</td>
+						<td class="align_left_alt"><span id='disp_card_num'>&nbsp;</span><span id='disp_card_type' style='margin: 10px; font-style: bold;'>&nbsp;</span></td>
+					</tr>
+					<tr>
+						<td class="align_left_bold">Expiration Date:</td>
+						<td class="align_left"><span id="disp_card_exp1">&nbsp;</span>/<span id="disp_card_exp2">&nbsp;</span></td>
+					</tr>
+					<tr>
+						<td class="align_left_alt_bold">Cardholder Name:</td>
+						<td class="align_left_alt"><span id="disp_card_name"></span></td>
+					</tr>
+					<tr>
+						<td class="align_left_alt_bold">Card Address:</td>
+						<td class="align_left_alt"><span id="disp_card_street"></span></td>
+					</tr>
+					<tr>
+						<td class="align_left_alt_bold">Card ZIP Code:</td>
+						<td class="align_left_alt"><span id="disp_card_zip"></span></td>
+					</tr>
+					<!--- Blank rows --!>
+					<tr>
+						<td class="align_left">&nbsp;</td>
+						<td class="align_left">&nbsp;</td>
+					</tr>
+					<tr>
+						<td class="align_left_alt">&nbsp;</td>
+						<td class="align_left_alt">&nbsp;</td>
+					</tr>
+					<tr>
+						<td class="align_left">&nbsp;</td>
+						<td class="align_left">&nbsp;</td>
+					</tr>
+					<tr>
+						<td class="align_left_alt">&nbsp;</td>
+						<td class="align_left_alt">&nbsp;</td>
+					</tr>
+				</tbody>
+				<tfoot>
+					<tr>
+						<td class="align_left">&nbsp;</td>
+						<td class="align_right"><input type="button" onclick="javascript:verify_payment_card();" value="Verify"><input type="button" onclick="javascript:swap_payment_card_layers();" value="Back"></td>
+					</tr>
+				</tfoot>
+			</table>
+		</td>
+	</tr>
+</table>
+</form>
+</div>

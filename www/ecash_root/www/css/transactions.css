@@ -1,0 +1,456 @@
+thead.fixedHeader tr 
+{ 
+  display: block;
+}
+
+tbody.scrollContent 
+{ 
+  display: block;
+  overflow: auto;
+  width: 100%;
+}
+
+div#layout1group1layer0view tbody.scrollContent {  height: 253px; }
+div.payment_template tbody.scrollContent {  height: 125px; }
+
+tbody.scrollContent * tr
+{
+  height: 19px;
+}
+
+thead.fixedHeader * th
+{ 
+  text-align: center;
+}
+
+/* Style for payment arrangements and schedule overview */
+
+table.payment_template thead.fixedHeader th 
+{
+  width: 185px;
+}
+
+table.payment_template thead.fixedHeader th + th
+{
+  width: 185px;
+}
+
+table.payment_template thead.fixedHeader th + th + th
+{
+  width: 185px;
+}
+
+table.payment_template thead.fixedHeader th + th + th + th
+{
+  width: 195px;
+}
+
+table.payment_template tbody.scrollContent td { width: 185px; }
+
+table#schedule_rows_table thead.fixedHeader th
+{
+  width: 90px;
+  border-right: 1px solid gray;
+}
+
+table#schedule_rows_table thead.fixedHeader th + th { width: 221px; }
+table#schedule_rows_table thead.fixedHeader th + th + th { width: 80px; }
+table#schedule_rows_table thead.fixedHeader th + th + th + th { width: 70px; }
+table#schedule_rows_table thead.fixedHeader th + th + th + th + th { width: 70px; }
+table#schedule_rows_table thead.fixedHeader th + th + th + th + th + th { width: 70px; }
+table#schedule_rows_table thead.fixedHeader th + th + th + th + th + th + th { width: 85px; }
+table#schedule_rows_table thead.fixedHeader th + th + th + th + th + th + th + th
+{ 
+  width: 90px; 
+  border-right: 0px;
+}
+
+table#schedule_rows_table tbody.scrollContent
+{ 
+  border-top: 1px solid gray;
+}
+
+table#schedule_rows_table tbody.scrollContent td.date
+{  
+  border-right: 1px solid gray;
+}
+
+table#schedule_rows_table tbody.scrollContent td
+{
+  width: 90px;
+  font-size: 11px;
+  border-bottom: 1px solid gray;
+  vertical-align: middle;
+}
+
+table#schedule_rows_table tbody.scrollContent td + td { width: 247px; text-align: left; }
+table#schedule_rows_table tbody.scrollContent td + td + td { width: 80px; text-align: left; }
+table#schedule_rows_table tbody.scrollContent td + td + td + td { width: 77px; text-align: right; }
+table#schedule_rows_table tbody.scrollContent td + td + td + td + td { width: 77px; text-align: right; }
+table#schedule_rows_table tbody.scrollContent td + td + td + td + td + td { width: 75px; text-align: right; }
+table#schedule_rows_table tbody.scrollContent td + td + td + td + td + td + td { width: 85px; text-align: right; }
+table#schedule_rows_table tbody.scrollContent td + td + td + td + td + td + td + td { width: 90px; text-align: right; }
+
+table#schedule_rows_table_preview thead.fixedHeader th + th { width: 221px; }
+table#schedule_rows_table_preview thead.fixedHeader th + th + th { width: 80px; }
+table#schedule_rows_table_preview thead.fixedHeader th + th + th + th { width: 70px; }
+table#schedule_rows_table_preview thead.fixedHeader th + th + th + th + th { width: 70px; }
+table#schedule_rows_table_preview thead.fixedHeader th + th + th + th + th + th { width: 70px; }
+table#schedule_rows_table_preview thead.fixedHeader th + th + th + th + th + th + th { width: 85px; }
+table#schedule_rows_table_preview thead.fixedHeader th + th + th + th + th + th + th + th
+{ 
+  width: 90px; 
+  border-right: 0px;
+}
+
+table#schedule_rows_table_preview tbody.scrollContent
+{ 
+  border-top: 1px solid gray;
+}
+
+table#schedule_rows_table_preview tbody.scrollContent td.date
+{  
+  border-right: 1px solid gray;
+}
+
+table#schedule_rows_table_preview tbody.scrollContent td
+{
+  width: 90px;
+  font-size: 11px;
+  border-bottom: 1px solid gray;
+  vertical-align: middle;
+}
+
+table#schedule_rows_table_preview tbody.scrollContent td + td { width: 190px; text-align: left; }
+table#schedule_rows_table_preview tbody.scrollContent td + td + td { width: 80px; text-align: left; }
+table#schedule_rows_table_preview tbody.scrollContent td + td + td + td { width: 70px; text-align: right; }
+table#schedule_rows_table_preview tbody.scrollContent td + td + td + td + td { width: 70px; text-align: right; }
+table#schedule_rows_table_preview tbody.scrollContent td + td + td + td + td + td { width: 70px; text-align: right; }
+table#schedule_rows_table_preview tbody.scrollContent td + td + td + td + td + td + td { width: 85px; text-align: right; }
+table#schedule_rows_table_preview tbody.scrollContent td + td + td + td + td + td + td + td { width: 90px; text-align: right; }
+
+
+div.payment_template
+{ 
+  overflow: hidden;
+  border: 2px solid gray;
+}
+
+#layout1group1layer0view
+{ 
+  overflow: hidden;
+  border: 2px solid gray;
+}
+
+
+
+.transactions_complete  { background: #8FBC8F; /* darkseagreen */ }
+
+.transactions_failed    { background: #F08080; /* lightcoral */ }
+
+.transactions_scheduled { background: #B0E0E6; /* powderblue */ }
+
+.transactions_pending   { background: #FAFAD2; /* lightgoldenrodyellow */ }
+
+.transactions_new { background: #FBEC5D; /* corn */ }
+
+
+/* Style for the application history...status...thingie...? by Justin */
+
+/* total width: 672 */
+
+table#application_list_rows_table thead.fixedHeader th
+{
+  width: 126px;
+  /* border-right: 1px solid gray; */
+}
+
+table#application_list_rows_table thead.fixedHeader th + th
+{
+  width: 126px;
+}
+
+table#application_list_rows_table thead.fixedHeader th + th + th
+{
+  width: 126px;
+}
+
+table#application_list_rows_table thead.fixedHeader th + th + th + th
+{
+  width: 126px;
+}
+
+table#application_list_rows_table thead.fixedHeader th + th + th + th + th
+{
+  width: 126px;
+}
+
+table#application_list_rows_table thead.fixedHeader th + th + th + th + th + th
+{
+  width: 126px;
+  border-right: 0px;
+}
+
+table#application_list_rows_table tbody.scrollContent
+{ 
+  border-top: 1px solid gray;
+}
+
+table#application_list_rows_table tbody.scrollContent td
+{
+  width: 126px;
+  font-size: small;
+  /* border-bottom: 1px solid gray; */
+  vertical-align: middle;
+}
+
+table#application_list_rows_table tbody.scrollContent tr
+{
+  width: 126px;
+  border-bottom: 1px solid gray;
+  vertical-align: middle;
+}
+
+
+/* Style for the batch review list */
+
+table#batch_review_table thead.fixedHeader th
+{ 
+  width: 185px;
+}
+
+table#batch_review_table thead.fixedHeader th + th
+{
+  width: 185px;
+}
+
+table#batch_review_table thead.fixedHeader th + th + th
+{
+  width: 185px;
+}
+
+table#batch_review_table thead.fixedHeader th + th + th + th
+{
+  width: 195px;
+}
+
+table#batch_review_table tbody.scrollContent
+{
+  height: 393px;
+  border-bottom: 1px solid gray;
+  border-left: 1px solid gray;
+}
+
+div#batch_review_wrapper
+{
+  height: 450px;
+  overflow: hidden;
+}
+
+table#batch_review_table tbody.scrollContent td 
+{
+  width: 185px;
+  font-size: small;
+}
+
+/* Style for the IT Settlement */
+div.ITSettlementReportContainer {
+	width: 65%;		/* table width will be 99% of this*/
+	height: 295px; 	/* must be greater than tbody*/
+	overflow: auto;
+	margin: 0 auto;
+	}
+
+#ITSettlementReportContainer table {
+	width: 99%;		/*100% of container produces horiz. scroll in Mozilla*/
+	border: none;
+	background-color: #f7f7f7;
+	}
+	
+#ITSettlementReportContainer table>tbody	{  /* child selector syntax which IE6 and older do not support*/
+	overflow: auto; 
+	overflow-x: hidden;
+	}
+	
+#ITSettlementReportContainer .thead .tr	{
+	position:relative; 
+	top: expression(offsetParent.scrollTop); /*IE5+ only*/
+	}
+	
+#ITSettlementReportContainer.thead .td, .thead .th {
+	text-align: center;
+	font-size: 14px; 
+	background-color: oldlace;
+	color: steelblue;
+	font-weight: bold;
+	}	
+	
+#ITSettlementReportContainer .td	{
+	color: #000;
+	padding-right: 2px;
+	font-size: 12px;
+	text-align: right;
+	}
+	
+#ITSettlementReportContainer table tfoot tr { /*idea of Renato Cherullo to help IE*/
+      position: relative; 
+      overflow-x: hidden;
+      top: expression(parentNode.parentNode.offsetHeight >= 
+	  offsetParent.offsetHeight ? 0 - parentNode.parentNode.offsetHeight + offsetParent.offsetHeight + offsetParent.scrollTop : 0);
+      }
+
+
+#ITSettlementReportContainer tfoot td	{
+	text-align: center;
+	font-size: 11px;
+	font-weight: bold;
+	background-color: papayawhip;
+	color: steelblue;
+	}
+
+#ITSettlementReportContainer td:last-child {padding-right: 20px;} /*prevent Mozilla scrollbar from hiding cell content*/
+
+
+div.SecondTierContainer {
+	width: 65%;		/* table width will be 99% of this*/
+	height: 295px; 	/* must be greater than tbody*/
+	overflow: auto;
+	margin: 0 auto;
+	}
+
+#SecondTierContainer table {
+	width: 99%;		/*100% of container produces horiz. scroll in Mozilla*/
+	border: none;
+	background-color: #f7f7f7;
+	}
+	
+#SecondTierContainer table>tbody	{  /* child selector syntax which IE6 and older do not support*/
+	overflow: auto; 
+	overflow-x: hidden;
+	}
+	
+#SecondTierContainer .thead .tr	{
+	position:relative; 
+	top: expression(offsetParent.scrollTop); /*IE5+ only*/
+	}
+	
+#SecondTierContainer.thead .td, .thead .th {
+	text-align: center;
+	font-size: 14px; 
+	background-color: oldlace;
+	color: steelblue;
+	font-weight: bold;
+	}	
+	
+#SecondTierContainer .td	{
+	color: #000;
+	padding-right: 2px;
+	font-size: 12px;
+	text-align: right;
+	}
+	
+#SecondTierContainer table tfoot tr { /*idea of Renato Cherullo to help IE*/
+      position: relative; 
+      overflow-x: hidden;
+      top: expression(parentNode.parentNode.offsetHeight >= 
+	  offsetParent.offsetHeight ? 0 - parentNode.parentNode.offsetHeight + offsetParent.offsetHeight + offsetParent.scrollTop : 0);
+      }
+
+
+#SecondTierContainer tfoot td	{
+	text-align: center;
+	font-size: 11px;
+	font-weight: bold;
+	background-color: papayawhip;
+	color: steelblue;
+	}
+
+#SecondTierContainer td:last-child {padding-right: 20px;} /*prevent Mozilla scrollbar from hiding cell content*/
+
+div.QuickChecksContainer {
+	width: 65%;		/* table width will be 99% of this*/
+	height: 295px; 	/* must be greater than tbody*/
+	overflow: auto;
+	margin: 0 auto;
+	}
+
+#QuickChecksContainer table {
+	width: 99%;		/*100% of container produces horiz. scroll in Mozilla*/
+	border: none;
+	background-color: #f7f7f7;
+	}
+	
+#QuickChecksContainer table>tbody	{  /* child selector syntax which IE6 and older do not support*/
+	overflow: auto; 
+	overflow-x: hidden;
+	}
+	
+#QuickChecksContainer .thead .tr	{
+	position:relative; 
+	top: expression(offsetParent.scrollTop); /*IE5+ only*/
+	}
+	
+#QuickChecksContainer.thead .td, .thead .th {
+	text-align: center;
+	font-size: 14px; 
+	background-color: oldlace;
+	color: steelblue;
+	font-weight: bold;
+	}	
+	
+#QuickChecksContainer .td	{
+	color: #000;
+	padding-right: 2px;
+	font-size: 12px;
+	text-align: right;
+	}
+	
+#QuickChecksContainer table tfoot tr { /*idea of Renato Cherullo to help IE*/
+      position: relative; 
+      overflow-x: hidden;
+      top: expression(parentNode.parentNode.offsetHeight >= 
+	  offsetParent.offsetHeight ? 0 - parentNode.parentNode.offsetHeight + offsetParent.offsetHeight + offsetParent.scrollTop : 0);
+      }
+
+
+#QuickChecksContainer tfoot td	{
+	text-align: center;
+	font-size: 11px;
+	font-weight: bold;
+	background-color: papayawhip;
+	color: steelblue;
+	}
+
+#QuickChecksContainer td:last-child {padding-right: 20px;} /*prevent Mozilla scrollbar from hiding cell content*/
+
+table.batchMessages {
+	border-width: 2px 2px 2px 2px;
+	border-spacing: 2px;
+	
+	border-collapse: collapse;
+	background-color: rgb(255, 255, 240);
+	height:103px;
+}
+table.batchMessages th {
+	border-width: 1px 1px 1px 1px;
+	padding: 1px 1px 1px 1px;
+	border-style: none none none none;
+	border-color: gray gray gray gray;
+	background-color: rgb(236, 200, 130);
+	height:12px;
+	-moz-border-radius: 0px 0px 0px 0px;
+}
+table.batchMessages td {
+	border-width: 1px 1px 1px 1px;
+	padding: 1px 1px 1px 1px;
+	border-style: none none none none;
+	border-color: gray gray gray gray;
+	background-color: rgb(255, 250, 10);
+	-moz-border-radius: 0px 0px 0px 0px;
+}
+table.batchMessages tbody {
+	  overflow-x:hidden;
+      overflow-y:auto;
+	height: 103px;
+	}
+

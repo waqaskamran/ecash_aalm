@@ -1,0 +1,47 @@
+K 25
+svn:wc:ra_dav:version-url
+V 83
+/svn/aalm_current/!svn/ver/1979/ecash/branches/sql_merge/rule_editor/shared/lib/ext
+END
+LICENSE.txt
+K 25
+svn:wc:ra_dav:version-url
+V 95
+/svn/aalm_current/!svn/ver/1979/ecash/branches/sql_merge/rule_editor/shared/lib/ext/LICENSE.txt
+END
+ext-all.js
+K 25
+svn:wc:ra_dav:version-url
+V 94
+/svn/aalm_current/!svn/ver/1979/ecash/branches/sql_merge/rule_editor/shared/lib/ext/ext-all.js
+END
+ext-core.js
+K 25
+svn:wc:ra_dav:version-url
+V 95
+/svn/aalm_current/!svn/ver/1979/ecash/branches/sql_merge/rule_editor/shared/lib/ext/ext-core.js
+END
+ext-all-debug.js
+K 25
+svn:wc:ra_dav:version-url
+V 100
+/svn/aalm_current/!svn/ver/1979/ecash/branches/sql_merge/rule_editor/shared/lib/ext/ext-all-debug.js
+END
+ext-core-debug.js
+K 25
+svn:wc:ra_dav:version-url
+V 101
+/svn/aalm_current/!svn/ver/1979/ecash/branches/sql_merge/rule_editor/shared/lib/ext/ext-core-debug.js
+END
+ext-back-compat.js
+K 25
+svn:wc:ra_dav:version-url
+V 102
+/svn/aalm_current/!svn/ver/1979/ecash/branches/sql_merge/rule_editor/shared/lib/ext/ext-back-compat.js
+END
+INCLUDE_ORDER.txt
+K 25
+svn:wc:ra_dav:version-url
+V 101
+/svn/aalm_current/!svn/ver/1979/ecash/branches/sql_merge/rule_editor/shared/lib/ext/INCLUDE_ORDER.txt
+END

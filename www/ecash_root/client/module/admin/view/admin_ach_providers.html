@@ -1,0 +1,643 @@
+<html>
+<head>
+
+<link rel="stylesheet" href='css/transactions.css'>
+<link rel="stylesheet" href='js/calendar/calendar-dp.css'>
+<script type="text/javascript" src='js/transactions.js'></script>
+<script type="text/javascript" src='js/calendar/calendar.js'></script>
+<script type="text/javascript" src='js/calendar/lang/calendar-en.js'></script>
+</head>
+
+<body>
+<div class='rules' style="overflow:auto;">
+        <table cellspacing='1' cellpadding='4' border='0' width="100%">
+                <tr>
+                        <th colspan="18"  style="background: #B4DCAF">ACH Providers</th>
+                </tr>
+		
+		<tr style="overflow:auto;" valign='top' align='left'>
+			<th style='text-align:left;'>
+				<b>Name</b>
+			</th>
+			<th style='text-align:left;'>
+				<b>Status</b>
+			</th>
+			<th style='text-align:left;'>
+				<b>Batch Type</b>
+			</th>
+			<th style='text-align:left;'>
+				<b>Credit %</b>
+			</th>
+			<th style='text-align:left;'>
+				<b>Debit %</b>
+			</th>
+                        <th style='text-align:left;'>
+				<b>Blocked Fund Dates, Interval (Start)</b>
+			</th>
+			<th style='text-align:left;'>
+				<b>Blocked Fund Dates, Interval (End)</b>
+			</th>
+                        <th style='text-align:left;'>
+				<b>Blocked Event Dates, Weekdays</b>
+			</th>
+                        <th style='text-align:left;'>
+				<b>Blocked Event Dates, Monthdays</b>
+			</th>
+			<th style='text-align:left;'>
+				<b>Blocked Event Dates, Interval (Start)</b>
+			</th>
+			<th style='text-align:left;'>
+				<b>Blocked Event Dates, Interval (End)</b>
+			</th>
+			<th style='text-align:left;'>
+				<b>Blocked States</b>
+			</th>
+                        <th style='text-align:left;'>
+				<b>Blocked Application Statuses</b>
+			</th>
+                        <th style='text-align:left;'>
+				<b>Blocked ABAs</b>
+			</th>
+                        <th style='text-align:left;'>
+                                <b>Blocked New/React</b>
+                        </th>
+                        <th style='text-align:left;'>
+				<b>Blocked Number of ACH Failures</b>
+			</th>
+			<th style='text-align:left;'>
+				<b>Earliest Time to Close ACH Batch</b>
+			</th>
+			<th class="ci_edit_col" >
+				<button onclick="javascript:add_ach_provider();">Add</button>
+			</th>
+		</tr>
+                %%%ach_provider_list%%%
+        </table>
+</div>
+
+<!-- Add, Edit -->
+<div id="ach_provider_dialog" style="display: none">
+	<!--
+	<div class='edit_dialog' style="overflow:auto;">
+	-->
+	<div style="overflow:auto;">
+	<form name="ach_provider_detail" method="post" action=""><input id="ach_provider_detail_action" name="action" type="hidden" value="display_ach_providers">
+			<table>
+			<tr valign='top' align='left'>
+
+			<th style='text-align:left;'>
+				<b>Name</b>
+			</th>
+			<th style='text-align:left;'>
+				<b>Status</b>
+			</th>
+			<th style='text-align:left;'>
+				<b>Batch Type</b>
+			</th>
+			<th style='text-align:left;'>
+				<b>Credit %</b>
+			</th>
+			<th style='text-align:left;'>
+				<b>Debit %</b>
+			</th>
+                        <th style='text-align:left;'>
+				<b>Block Fund Dates, Interval (Start)</b>
+			</th>
+			<th style='text-align:left;'>
+				<b>Block Fund Dates, Interval (End)</b>
+			</th>
+                        <th style='text-align:left;'>
+				<b>Highlight Weekdays to block Event Dates</b>
+			</th>
+                        <th style='text-align:left;'>
+				<b>Highlight Monthdays to block Event Dates</b>
+			</th>
+			<th style='text-align:left;'>
+				<b>Block Event Dates, Interval (Start)</b>
+			</th>
+			<th style='text-align:left;'>
+				<b>Block Event Dates, Interval (End)</b>
+			</th>
+			<th style='text-align:left;'>
+				<b>Highlight to block States</b>
+			</th>
+                        <th style='text-align:left;'>
+				<b>Highlight to block Application Statuses</b>
+			</th>
+			<th style='text-align:left;'>
+				<b>Block ABA</b>
+			</th>
+                        <th style='text-align:left;'>
+				<b>Highlight to unblock ABA(s)</b>
+			</th>
+                        <th style='text-align:left;'>
+                                <b>Block New/React</b>
+                        </th>
+                        <th style='text-align:left;'>
+				<b>Highlight to block Number of ACH Failures</b>
+			</th>
+			<th style='text-align:left;'>
+				<b>Earliest Time to Close ACH Batch</b>
+			</th>
+			<th style='text-align:left;'>
+			</th>
+
+			</tr>
+
+			<tr valign='top' align='left'>
+
+			<td style='text-align:left;'><input id="ach_provider_name" name="ach_provider_name" type="input" size="10" /></td>
+
+			<td style='text-align:left;' width="70">
+				<select STYLE="width: 70px" id="ach_provider_status" name="ach_provider_status">
+				<option value='active'>active</option>
+				<option value='inactive'>inactive</option>
+				</select>
+			</td>
+
+			<td style='text-align:left;' width="70">
+				<select STYLE="width: 70px" id="ach_provider_batch_type" name="ach_provider_batch_type">
+				<option value='combined'>combined</option>
+				<option value='separated'>separated</option>
+				</select>
+			</td>
+
+			<td style='text-align:left;' width="40">
+				<select STYLE="width: 40px" id="ach_provider_credit" name="ach_provider_credit">
+				<option value='0'>0</option>
+				<option value='10'>10</option>
+				<option value='20'>20</option>
+				<option value='30'>30</option>
+				<option value='40'>40</option>
+				<option value='50'>50</option>
+				<option value='60'>60</option>
+				<option value='70'>70</option>
+				<option value='80'>80</option>
+				<option value='90'>90</option>
+				<option value='100'>100</option>
+				</select>
+			</td>
+
+			<td style='text-align:left;' width="40">
+				<select STYLE="width: 40px" id="ach_provider_debit" name="ach_provider_debit">
+				<option value='0'>0</option>
+				<option value='10'>10</option>
+				<option value='20'>20</option>
+				<option value='30'>30</option>
+				<option value='40'>40</option>
+				<option value='50'>50</option>
+				<option value='60'>60</option>
+				<option value='70'>70</option>
+				<option value='80'>80</option>
+				<option value='90'>90</option>
+				<option value='100'>100</option>
+				</select>
+			</td>
+                        
+                        <td style='text-align:left;'>
+			<span id="date_span" style="display: inline;">
+			<input class="text" id="ach_provider_fund_date_start" name="ach_provider_fund_date_start" type="input" size="10" readonly />&nbsp;
+			<a href="#" onClick="PopCalendar4('ach_provider_fund_date_start', event, '', true);">select</a>&nbsp;
+			<a href="#" onClick="clearCalendar('ach_provider_fund_date_start');">clear</a>
+			</span>
+			</td>
+
+			<td style='text-align:left;'>
+			<span id="date_span" style="display: inline;">
+			<input class="text" id="ach_provider_fund_date_end" name="ach_provider_fund_date_end" type="input" size="10" readonly />&nbsp;
+			<a href="#" onClick="PopCalendar4('ach_provider_fund_date_end', event, '', true);">select</a>&nbsp;
+			<a href="#" onClick="clearCalendar('ach_provider_fund_date_end');">clear</a>
+			</span>
+			</td>
+                        
+                        <td style='text-align:left;'>
+				<select id="ach_provider_event_date_weekdays" name="ach_provider_event_date_weekdays[]" multiple size=7>
+				<option value='Monday'>Monday</option>
+				<option value='Tuesday'>Tuesday</option>
+				<option value='Wednesday'>Wednesday</option>
+				<option value='Thursday'>Thursday</option>
+				<option value='Friday'>Friday</option>
+				<option value='Saturday'>Saturday</option>
+				<option value='Sunday'>Sunday</option>
+				</select>
+			</td>
+                        
+                        <td style='text-align:left;'>
+				<select id="ach_provider_event_date_monthdays" name="ach_provider_event_date_monthdays[]" multiple size=7>
+				<option value='1'>1</option>
+                                <option value='2'>2</option>
+                                <option value='3'>3</option>
+                                <option value='4'>4</option>
+                                <option value='5'>5</option>
+                                <option value='6'>6</option>
+                                <option value='7'>7</option>
+                                <option value='8'>8</option>
+                                <option value='9'>9</option>
+                                <option value='10'>10</option>
+                                <option value='11'>11</option>
+                                <option value='12'>12</option>
+                                <option value='13'>13</option>
+                                <option value='14'>14</option>
+                                <option value='15'>15</option>
+                                <option value='16'>16</option>
+                                <option value='17'>17</option>
+                                <option value='18'>18</option>
+                                <option value='19'>19</option>
+                                <option value='20'>20</option>
+                                <option value='21'>21</option>
+                                <option value='22'>22</option>
+                                <option value='23'>23</option>
+                                <option value='24'>24</option>
+                                <option value='25'>25</option>
+                                <option value='26'>26</option>
+                                <option value='27'>27</option>
+                                <option value='28'>28</option>
+                                <option value='29'>29</option>
+                                <option value='30'>30</option>
+                                <option value='31'>31</option>
+				</select>
+			</td>
+
+			<td style='text-align:left;'>
+			<span id="date_span" style="display: inline;">
+			<input class="text" id="ach_provider_event_date_start" name="ach_provider_event_date_start" type="input" size="10" readonly />&nbsp;
+			<a href="#" onClick="PopCalendar1('ach_provider_event_date_start', event, '', false);">select</a>&nbsp;
+			<a href="#" onClick="clearCalendar('ach_provider_event_date_start');">clear</a>
+			</span>
+			</td>
+
+			<td style='text-align:left;'>
+			<span id="date_span" style="display: inline;">
+			<input class="text" id="ach_provider_event_date_end" name="ach_provider_event_date_end" type="input" size="10" readonly />&nbsp;
+			<a href="#" onClick="PopCalendar1('ach_provider_event_date_end', event, '', false);">select</a>&nbsp;
+			<a href="#" onClick="clearCalendar('ach_provider_event_date_end');">clear</a>
+			</span>
+			</td>
+
+			%%%state_list%%%
+                        
+                        %%%app_status_list%%%
+
+			<td style='text-align:left;'><input class="text" id="ach_provider_add_aba" name="ach_provider_add_aba" type="input" size="9" /></td>
+			
+			<td style='text-align:left;' width="90">
+			<select STYLE="width: 90px" id="ach_provider_delete_abas" name="ach_provider_delete_abas[]" multiple size=10>
+			</select>
+			</td>
+                        
+                        <td style='text-align:left;'>
+                                <select id="ach_batch_new_react" name="ach_batch_new_react">
+                                <option value=''>off</option>
+                                <option value='react'>react</option>
+                                <option value='new'>new</option>
+                                </select>
+			</td>
+                        
+                        <td style='text-align:left;'>
+				<select id="ach_provider_failures" name="ach_provider_failures[]" multiple size=7>
+				<option value='0'>0</option>
+                                <option value='1'>1</option>
+                                <option value='2'>2</option>
+                                <option value='3'>3</option>
+                                <option value='4'>4</option>
+                                <option value='5'>5</option>
+                                <option value='6'>6</option>
+                                <option value='7'>7</option>
+                                <option value='8'>8</option>
+                                <option value='9'>9</option>
+                                <option value='10'>10</option>
+                                <option value='11'>11</option>
+                                <option value='12'>12</option>
+                                <option value='13'>13</option>
+                                <option value='14'>14</option>
+                                <option value='15'>15</option>
+                                <option value='16'>16</option>
+                                <option value='17'>17</option>
+                                <option value='18'>18</option>
+                                <option value='19'>19</option>
+                                <option value='20'>20</option>
+                                </select>
+			</td>
+
+			<td style='text-align:left;'>
+				<select id="ach_batch_time" name="ach_batch_time">
+				<option value='off'>off</option>
+				<option value='07:00'>07:00</option>
+				<option value='07:10'>07:10</option>
+				<option value='07:20'>07:20</option>
+				<option value='07:30'>07:30</option>
+				<option value='07:40'>07:40</option>
+				<option value='07:50'>07:50</option>
+				<option value='08:00'>08:00</option>
+				<option value='08:10'>08:10</option>
+				<option value='08:20'>08:20</option>
+				<option value='08:30'>08:30</option>
+				<option value='08:40'>08:40</option>
+				<option value='08:50'>08:50</option>
+				<option value='09:00'>09:00</option>
+				<option value='09:10'>09:10</option>
+				<option value='09:20'>09:20</option>
+				<option value='09:30'>09:30</option>
+				<option value='09:40'>09:40</option>
+				<option value='09:50'>09:50</option>
+				<option value='10:00'>10:00</option>
+				<option value='10:10'>10:10</option>
+				<option value='10:20'>10:20</option>
+				<option value='10:30'>10:30</option>
+				<option value='10:40'>10:40</option>
+				<option value='10:50'>10:50</option>
+				<option value='11:00'>11:00</option>
+				<option value='11:10'>11:10</option>
+				<option value='11:20'>11:20</option>
+				<option value='11:30'>11:30</option>
+				<option value='11:40'>11:40</option>
+				<option value='11:50'>11:50</option>
+				<option value='12:00'>12:00</option>
+				<option value='12:10'>12:10</option>
+				<option value='12:20'>12:20</option>
+				<option value='12:30'>12:30</option>
+				<option value='12:40'>12:40</option>
+				<option value='12:50'>12:50</option>
+				<option value='13:00'>13:00</option>
+				<option value='13:10'>13:10</option>
+				<option value='13:20'>13:20</option>
+				<option value='13:30'>13:30</option>
+				<option value='13:40'>13:40</option>
+				<option value='13:50'>13:50</option>
+				<option value='14:00'>14:00</option>
+				<option value='14:10'>14:10</option>
+				<option value='14:20'>14:20</option>
+				<option value='14:30'>14:30</option>
+				<option value='14:40'>14:40</option>
+				<option value='14:50'>14:50</option>
+				<option value='15:00'>15:00</option>
+				<option value='15:10'>15:10</option>
+				<option value='15:20'>15:20</option>
+				<option value='15:30'>15:30</option>
+				<option value='15:40'>15:40</option>
+				<option value='15:50'>15:50</option>
+				<option value='16:00'>16:00</option>
+				<option value='16:10'>16:10</option>
+				<option value='16:20'>16:20</option>
+				<option value='16:30'>16:30</option>
+				<option value='16:40'>16:40</option>
+				<option value='16:50'>16:50</option>
+				<option value='17:00'>17:00</option>
+				<option value='17:10'>17:10</option>
+				<option value='17:20'>17:20</option>
+				<option value='17:30'>17:30</option>
+				<option value='17:40'>17:40</option>
+				<option value='17:50'>17:50</option>
+				<option value='18:00'>18:00</option>
+				</select>
+			</td>
+			<td><input class="text" id="ach_provider_id" name="ach_provider_id" type="hidden" /></td>
+			</tr>
+			<tr class="height"></tr>
+			</table>
+			<div>
+			<td><button type='' name='add_edit_ach_provider' id='add_edit_ach_provider' action='' onclick="return Submit_Form();">Submit</button></td>
+			<td><button type='' onclick="javascript:Hide_Div('ach_provider_dialog'); document.getElementById('ach_provider_detail_action').value='display_ach_providers';">Cancel</button></td>
+			</div>
+	</form>
+	</div>
+</div>
+
+<script type='text/javascript'>
+
+function add_ach_provider()
+{
+	document.getElementById('ach_provider_detail_action').value='add_ach_provider';
+
+	Show_Div('ach_provider_dialog');
+}
+
+function setSelectedText(selectObj, valueToSet)
+{
+	for (var i = 0; i < selectObj.options.length; i++)
+	{
+        	if (selectObj.options[i].text == valueToSet)
+		{
+			selectObj.options[i].selected = true;
+			return;
+		}
+	}
+}
+
+function setSelectedValue(selectObj, valueToSet)
+{
+	for (var i = 0; i < selectObj.options.length; i++)
+	{
+		if (selectObj.options[i].value == valueToSet)
+		{
+			selectObj.options[i].selected = true;
+			return;
+		}
+	}
+}
+
+function deselect(selectObj)
+{
+	for (var i = 0; i < selectObj.options.length; i++)
+	{
+		selectObj.options[i].selected = false;
+	}
+}
+
+function edit_ach_provider(ach_provider_id, name, active_status, ach_batch_type, credit_pr, debit_pr, fund_dates_start, fund_dates_end, event_dates_weekdays, event_dates_monthdays, event_dates_start, event_dates_end, states, app_statuses, abas, ach_new_react, failures, ach_batch_time)
+{
+	document.getElementById('ach_provider_id').value = ach_provider_id;
+
+	document.getElementById('ach_provider_name').value = name;
+	document.getElementById('ach_provider_status').value = active_status;
+	document.getElementById('ach_provider_batch_type').value = ach_batch_type;
+	document.getElementById('ach_provider_credit').value = credit_pr;
+	document.getElementById('ach_provider_debit').value = debit_pr;
+        
+        document.getElementById('ach_provider_fund_date_start').value = fund_dates_start;
+	document.getElementById('ach_provider_fund_date_end').value = fund_dates_end;
+
+	document.getElementById('ach_provider_event_date_start').value = event_dates_start;
+	document.getElementById('ach_provider_event_date_end').value = event_dates_end;
+
+        document.getElementById('ach_batch_new_react').value = ach_new_react;
+	document.getElementById('ach_batch_time').value = ach_batch_time;
+        
+        //Event Dates, Weekdays
+	var weekdays_array = event_dates_weekdays.split(",");
+	var objSelect = document.getElementById("ach_provider_event_date_weekdays");
+	deselect(objSelect);
+	var i;
+	for (i = 0; i < weekdays_array.length; i++)
+	{
+		setSelectedValue(objSelect, weekdays_array[i]);
+	}
+        
+        //Event Dates, Monthdays
+	var monthdays_array = event_dates_monthdays.split(",");
+	var objSelect = document.getElementById("ach_provider_event_date_monthdays");
+	deselect(objSelect);
+	var i;
+	for (i = 0; i < monthdays_array.length; i++)
+	{
+		setSelectedValue(objSelect, monthdays_array[i]);
+	}
+
+	//States
+	var state_array = states.split(",");
+	var objSelect = document.getElementById("ach_provider_states");
+	deselect(objSelect);
+	var i;
+	for (i = 0; i < state_array.length; i++)
+	{
+		setSelectedValue(objSelect, state_array[i]);
+	}
+        
+        //App Statuses
+	var app_status_array = app_statuses.split(",");
+	var objSelect = document.getElementById("ach_provider_app_statuses");
+	deselect(objSelect);
+	var i;
+	for (i = 0; i < app_status_array.length; i++)
+	{
+		setSelectedValue(objSelect, app_status_array[i]);
+	}
+
+	//Abas
+	var aba_array = abas.split(",");
+	var select = document.getElementById("ach_provider_delete_abas");
+	select.options.length = 0;
+	for (i = 0; i < aba_array.length; i++)
+	{
+		select.options[select.options.length] = new Option(aba_array[i], aba_array[i]);
+	}
+        
+        //Failures
+	var failure_array = failures.split(",");
+	var objSelect = document.getElementById("ach_provider_failures");
+	deselect(objSelect);
+	var i;
+	for (i = 0; i < failure_array.length; i++)
+	{
+		setSelectedValue(objSelect, failure_array[i]);
+	}
+	///////////////
+	
+	document.getElementById('ach_provider_detail_action').value='edit_ach_provider';
+
+	Show_Div('ach_provider_dialog');
+}
+
+function Show_Div(target)
+{
+	document.getElementById(target).style.display = 'block';
+}
+
+function Hide_Div(target)
+{
+	document.getElementById(target).style.display = 'none';
+}
+
+function clearCalendar(target)
+{
+	document.getElementById(target).value = null;
+}
+
+function Submit_Form()
+{
+	if(!isNotWhiteSpace(document.getElementById('ach_provider_name').value))
+	{
+		alert("The Name field cannot be empty.");
+		return false;
+	}
+
+
+	if(!isAlphaNumericSpace(document.getElementById('ach_provider_name').value))
+	{
+		alert("The Name field can contain only alpha-numerical characters.");
+		return false;
+	}
+
+	if (
+		(isNotWhiteSpace(document.getElementById('ach_provider_add_aba').value))
+		&&
+		(!nineNumerical(document.getElementById('ach_provider_add_aba').value))
+	)
+	{
+		alert("The Block ABA field can contain only 9 digits or be empty.");
+		return false;
+	}
+
+        //Event Dates
+	var event_date_start = document.getElementById('ach_provider_event_date_start').value;
+	var event_date_end = document.getElementById('ach_provider_event_date_end').value;
+	if (
+		(isNotWhiteSpace(event_date_start))
+		&&
+		(isNotWhiteSpace(event_date_start))
+	)
+	{
+		var date_start_event = new Date(event_date_start);
+		var sec_event_start = date_start_event.getTime();
+		var date_end_event = new Date(event_date_end);
+		var sec_event_end = date_end_event.getTime();
+
+		if (sec_event_start > sec_event_end)
+		{
+			alert("End Event Date must not precede Start Date.");
+			return false;
+		}
+	}
+        
+        //Fund Dates
+        var fund_date_start = document.getElementById('ach_provider_fund_date_start').value;
+	var fund_date_end = document.getElementById('ach_provider_fund_date_end').value;
+	if (
+		(isNotWhiteSpace(fund_date_start))
+		&&
+		(isNotWhiteSpace(fund_date_start))
+	)
+	{
+		var date_start_fund = new Date(fund_date_start);
+		var sec_fund_start = date_start_fund.getTime();
+		var date_end_fund = new Date(fund_date_end);
+		var sec_fund_end = date_end_fund.getTime();
+
+		if (sec_fund_start > sec_fund_end)
+		{
+			alert("End Fund Date must not precede Start Date.");
+			return false;
+		}
+	}
+
+	document.forms['ach_provider_detail'].submit();
+}
+
+function nineNumerical(value)
+{
+	var pattern = /^\d\d\d\d\d\d\d\d\d$/;
+	var regex = new RegExp(pattern);
+
+	return value.match(regex);
+}
+
+function isNotWhiteSpace(value)
+{
+	var pattern = /\S/;
+	var regex = new RegExp(pattern);
+
+	return value.match(regex);
+}
+
+function isAlphaNumericSpace(value)
+{
+	var pattern = /^[A-Za-z\d\s]+$/;
+	var regex = new RegExp(pattern);
+
+	return value.match(regex);
+}
+
+</script>
+
+</body>
+</html>

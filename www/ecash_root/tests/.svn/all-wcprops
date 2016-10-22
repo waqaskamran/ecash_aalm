@@ -1,0 +1,29 @@
+K 25
+svn:wc:ra_dav:version-url
+V 72
+/svn/aalm_current/!svn/ver/1979/ecash/branches/sql_merge/ecash_cfe/tests
+END
+bootstrap.php
+K 25
+svn:wc:ra_dav:version-url
+V 86
+/svn/aalm_current/!svn/ver/1979/ecash/branches/sql_merge/ecash_cfe/tests/bootstrap.php
+END
+config.xml
+K 25
+svn:wc:ra_dav:version-url
+V 83
+/svn/aalm_current/!svn/ver/1979/ecash/branches/sql_merge/ecash_cfe/tests/config.xml
+END
+cc-config.xml
+K 25
+svn:wc:ra_dav:version-url
+V 86
+/svn/aalm_current/!svn/ver/1979/ecash/branches/sql_merge/ecash_cfe/tests/cc-config.xml
+END
+test_queues.php
+K 25
+svn:wc:ra_dav:version-url
+V 88
+/svn/aalm_current/!svn/ver/1979/ecash/branches/sql_merge/ecash_cfe/tests/test_queues.php
+END

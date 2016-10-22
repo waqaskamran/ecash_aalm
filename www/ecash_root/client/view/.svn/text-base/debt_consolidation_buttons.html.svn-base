@@ -1,0 +1,12 @@
+<div id="debt_consolidation_buttons" style="display:none;">
+<table width="95%" border="0">
+<tr>
+<td><input type="button" name="submit_button" value="Save" class="button2"
+           onClick="SaveDebitPayments(this);" style="position:relative;top:-60px;"></td>
+<!--
+<td><input type="button" name="submit_button" value="AddDCCompany" class="button2"
+           onClick="AddDCCompany();"></td> 
+-->
+</tr>
+</table>           
+</div>

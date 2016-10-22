@@ -1,0 +1,45 @@
+ <form method="post" action="/" name="%%%layer_form_name%%%" id="%%%layer_form_id%%%" class="no_padding">
+<div class="payment_template" id="%%%layer_id%%%" %%%layer_style%%%>
+ <script type="text/javascript"> bases.push("%%%payment_type%%%"); </script>
+   <input type="hidden" name="has_payment_arrangements" value="%%%has_payment_arrangements%%%" />
+  <input type="hidden" name="application_id" value="%%%application_id%%%" />
+  <input type="hidden" name="action" value="save_payments" />
+  <input type="hidden" name="schedule_effect" value="shorten" />
+  <input type="hidden" name="dispersion" value="normal" />
+  <input type="hidden" name="payment_type" value="%%%payment_type%%%" />
+  <input type="hidden" id="%%%payment_type%%%_principal_balance" name="%%%payment_type%%%_principal_balance" 
+	 value="%%%posted_principal%%%" />
+  <input type="hidden" id="%%%payment_type%%%_principal_balance_with_pending" name="%%%payment_type%%%_principal_balance_with_pending" 
+	 value="%%%posted_and_pending_principal%%%" />
+  <input type="hidden" id="%%%payment_type%%%_last_service_charge_date" name="%%%payment_type%%%_last_service_charge_date" 
+	 value="%%%last_service_charge_date%%%" />
+  <input type="hidden" id="%%%payment_type%%%_last_pending_service_charge_date" name="%%%payment_type%%%_last_pending_service_charge_date" 
+	 value="%%%last_pending_service_charge_date%%%" />
+  <input type="hidden" id="%%%payment_type%%%_svc_charge_percentage" name="%%%payment_type%%%_svc_charge_percentage" 
+	 value="%%%svc_charge_percentage%%%" />
+  <input type="hidden" id="%%%payment_type%%%_interest_accrual_limit" name="%%%payment_type%%%_interest_accrual_limit" 
+     value="%%%interest_accrual_limit%%%" />
+  <input type="hidden" id="%%%payment_type%%%_total_balance" name="%%%payment_type%%%_total_balance" 
+         value="%%%posted_total%%%" />
+  <input type="hidden" id="%%%payment_type%%%_fund_date" name="%%%payment_type%%%_fund_date" 
+         value="%%%fund_date_slashes%%%" />
+  <input type="hidden" id="%%%payment_type%%%_principal_val" 
+         name="%%%payment_type%%%_principal_val" value="0.00" />
+  <input type="hidden" id="%%%payment_type%%%_service_val" 
+         name="%%%payment_type%%%_service_val" value="0.00" />
+  <input type="hidden" id="%%%payment_type%%%_final_interest_charge" 
+         name="%%%payment_type%%%_final_interest_charge" value="0.00" />
+  
+  <table cellspacing="0" cellpadding="0" width="100%" height="100%" border=0>
+  <thead class="fixedHeader">
+    <th colspan="0" class="%%%mode_class%%%">&nbsp;%%%layer_form_name%%% - App. ID: %%%application_id%%%</th>
+   </thead>
+   <tr class="height">
+    <td>
+	     %%%payment_table%%%
+    </td>
+   </tr>
+  </table>
+  
+</div>
+</form>

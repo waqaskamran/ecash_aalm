@@ -1,0 +1,5 @@
+ALTER TABLE `ldb_agean`.`vehicle` MODIFY COLUMN `make` VARCHAR(36)  CHARACTER SET latin1 COLLATE latin1_swedish_ci NOT NULL,
+ MODIFY COLUMN `model` VARCHAR(36)  CHARACTER SET latin1 COLLATE latin1_swedish_ci NOT NULL,
+ MODIFY COLUMN `series` VARCHAR(36)  CHARACTER SET latin1 COLLATE latin1_swedish_ci NOT NULL,
+ MODIFY COLUMN `style` VARCHAR(36)  CHARACTER SET latin1 COLLATE latin1_swedish_ci NOT NULL,
+ MODIFY COLUMN `color` VARCHAR(36)  CHARACTER SET latin1 COLLATE latin1_swedish_ci NOT NULL;

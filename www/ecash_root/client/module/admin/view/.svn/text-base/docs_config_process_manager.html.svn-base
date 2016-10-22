@@ -1,0 +1,208 @@
+<script language="javascript">
+//The json encoded results of everything in the document_process table
+var document_processes = %%%json_processes%%%
+
+/**
+ * This function could stand to be faster, it doesn't optimize nearly at all.
+ * It searches through every document every time.
+ */
+function filterDocuments()
+{
+	//get the search value and the options we're looping through
+	var search = document.getElementById("dpm_search").value;
+	document_options = document.getElementById('dpm_document_list').options;
+	
+	//check all the options
+	for(var i = 0, option; i < document_options.length; ++i) 
+	{
+		option = document_options[i];
+		
+		//make the selection disappear if it doesn't fit the search, otherwise make sure it's appearing
+		if(option.text.toLowerCase().indexOf(search.toLowerCase()) == -1)
+		{
+			option.style.display = 'none';
+		} else {
+			option.style.display = '';
+		}
+	}
+}
+
+/**
+ * This function will grab the statuses that have been selected and
+ * if there were two selected, it will select the documents that correspond to
+ * those statuses.
+ */
+function selectByStatuses()
+{
+	var current_application_status = document.getElementById("dpm_current_application_status_id");
+	var current_application_status_id = current_application_status.options[current_application_status.selectedIndex].value;
+	var application_status = document.getElementById("dpm_application_status_id");
+	var application_status_id = application_status.options[application_status.selectedIndex].value;
+	var document_options = document.getElementById('dpm_document_list').options;
+	var info_box = document.getElementById("dpm_info_box");
+	var info_text = info_box.innerHTML;
+	
+	//if both of the dropdowns are populated, clear any selection among the documents and set the ones corresponding to the two dropdowns
+	if(application_status_id > 0 && current_application_status_id > 0)
+	{
+		//clear the selection
+		for(var i = 0; i < document_options.length; i++)
+		{
+			document_options[i].selected = false;
+		}
+		
+		//if there are any documents linked to these statuses, select them
+		var document_list_ids;
+		if(document_processes[current_application_status_id])
+		{
+			if(document_list_ids = document_processes[current_application_status_id][application_status_id])
+			{
+				for(var i = 0; i < document_options.length; i++)
+				{
+					document_options[i].selected = document_list_ids[document_options[i].value];
+				}
+			}
+		}
+		
+		//clear the info box since there's no real information to put in it
+		info_box.innerHTML = '&nbsp;';
+		
+	//if only the application status is populated, populate the info_box with the information for current application statuses that it links to
+	} else if(application_status_id > 0) {
+		var info_text = '';
+		
+		//get a list of the statuses that link up
+		var hasNoStatus = true;
+		for(var i = 0; i < current_application_status.options.length; i++)
+		{
+			var status_id = current_application_status.options[i].value;
+			if(document_processes[status_id] && document_processes[status_id][application_status_id])
+			{
+				hasNoStatus = false;
+				info_text += "<li>" + current_application_status.options[i].text;
+			}
+		}
+		
+		//now create the info text depending on whether there were any linked statuses
+		if(hasNoStatus)
+		{
+			info_text = "<b>" + application_status.options[application_status.selectedIndex].text + "</b><br><br>";
+			info_text += "There are no processes with this application status";
+		} else {
+			info_text = "<b>" + application_status.options[application_status.selectedIndex].text + "</b> has processes with current application status(es):<ul> " + info_text + "</ul>";
+		}
+		
+		//populate the info box
+		info_box.innerHTML = info_text;
+		
+	//if only the current application status is populated, populate the info_box with information about which application statuses are linked to this status
+	} else if(current_application_status_id > 0) {
+		var info_text = '';
+		
+		//get a list of the linked statuses
+		var hasNoStatus = true;
+		if(document_processes[current_application_status_id])
+		{
+			for(var i in document_processes[current_application_status_id])
+			{
+				for(var j=0; j < application_status.options.length; j++)
+				{
+					if(application_status.options[j].value == i)
+					{
+						hasNoStatus = false;
+						info_text += "<li>" + application_status.options[j].text + "</li>";
+					}
+				}
+			}
+		}
+		
+		//create the info text
+		if(hasNoStatus)
+		{
+			info_text = "<b>" + current_application_status.options[current_application_status.selectedIndex].text + "</b><br><br>There are no processes with this application status";
+		} else {
+			info_text = "<b>" + current_application_status.options[current_application_status.selectedIndex].text + "</b> has processes with the following application status(es):<ul>" + info_text + "</ul>";
+		}
+		
+		//populate the info box
+		info_box.innerHTML = info_text;
+		
+	//if neither are populated, clear the info_box
+	} else {
+		info_box.innerHTML = '&nbsp;';
+	}
+}
+
+/**
+ * validates that the user has selected an application status and a current application status
+ */
+function validateThis()
+{
+	var current_application_status = document.getElementById("dpm_current_application_status_id");
+	var current_application_status_id = current_application_status.options[current_application_status.selectedIndex].value;
+	var application_status = document.getElementById("dpm_application_status_id");
+	var application_status_id = application_status.options[application_status.selectedIndex].value;
+	if(current_application_status_id > 0 && application_status_id > 0)
+	{
+		return true;
+	} else {
+		return false;
+	}
+}
+</script>
+<table width="100%" class="queue_config" height="500">
+	<tr>
+		<th style="background: #ebaeae; height:19px;">Document Process Manager</th>
+	</tr>
+	<tr>
+		<td>
+			<form id="dm_document_manager" name="dm_document_manager" action='/' method="post">
+				<input type="hidden" name="mode" value="docs_config" />
+				<input type="hidden" name="action" value="update_document_process" />
+				<input type="hidden" name="view" value="process" />
+		
+				<table width="100%" border="0" cols="2">
+					<tr>
+						<th>Current Status</th>
+						<th>Ending Status</th>
+						<th>Document Received</th>
+					</tr>
+					<tr>
+						<td width="30%" valign="top" align="left">
+							<select id="dpm_current_application_status_id" name="current_application_status_id" onchange="selectByStatuses()">
+								%%%application_status_list%%%
+							</select>
+						</td>
+						<td width="30%" valign="top" align="left">
+							<select id="dpm_application_status_id" name="application_status_id" onchange="selectByStatuses()">
+								%%%application_status_list%%%
+							</select>
+						</td>
+						<td width="40%" align="left" valign="top">
+							<p style="text-align:left">
+								<input type="text" id="dpm_search" onkeyup="filterDocuments()" style="width:98%">
+							</p>
+							<p></p>
+							<select size="30" id="dpm_document_list" name="document_list[]" style="width: 100%;" onChange="GetDocumentData(this.options[this.selectedIndex].value);" multiple>
+							%%%document_list%%%
+							</select>
+						</td>
+					</tr>
+					<tr height="15%">
+						<td colspan="3" height="15%" style="border:1px solid #aaaaaa;">
+							<div id="dpm_info_box" style="overflow:scroll; height:100%; text-align:left" align="left">&nbsp;</div>
+						</td>
+					</tr>
+				</table>
+				<div align="center">
+					<input type="submit" id="dm_ac_save" value=" Save " onclick="return validateThis()" />
+					<input type="reset" value=" Reset ">	
+				</div>
+			</form>
+		</td>
+	</tr>
+</table>
+<script>
+selectByStatuses();
+filterDocuments();
+</script>

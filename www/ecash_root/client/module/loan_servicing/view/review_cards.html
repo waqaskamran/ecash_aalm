@@ -1,0 +1,39 @@
+<!-- BEGIN REVIEW CARDS SCREEN -->
+
+<table cellpadding="0" cellspacing="0" width="100%" height="480" class="%%%mode_class%%%">
+  <tr>
+    <td class="align_left">
+	%%%batchmessages%%%	
+    <tr><td>
+    <div id="batch_review_wrapper">
+
+     <form method="post" action"/">
+	
+
+
+       <table cellpadding="0" cellspacing="0" width="100%" class="%%%mode_class%%%" id="batch_review_table">
+
+<tr><th width=100%>Processing Payment Cards Review        
+<table class="fixedHeader" width=100%>
+	  <tr>
+	   <th class="%%%mode_class%%%" style="text-align: center;"><a href="/?mode=%%%mode_class%%%&action=review_cards&sort=application_id">Application ID</a></th>
+	   <th class="%%%mode_class%%%" style="text-align: center;"><a href="/?mode=%%%mode_class%%%&action=review_cards&sort=name">Name</a></th>
+	   <th class="%%%mode_class%%%" style="text-align: center;"><a href="/?mode=%%%mode_class%%%&action=review_cards&sort=ach_type">Process Type</a></th>
+	   <th class="%%%mode_class%%%" style="text-align: right;">Amount</th>
+	  </tr>
+        </table>
+  	  <tbody class="scrollContent">
+           %%%batchlist%%%
+	  </tbody>
+       </table>
+     </form>
+    </td>
+  </tr>
+  <tr>
+   </div>
+    <td>
+      <input class="button2" type="button" value="Process Cards" onClick="this.disabled=true;javascript:ProcessCards('%%%master_domain%%%');"><BR>
+    </td>
+  </tr>
+</table>
+<!-- END REVIEW CARDS SCREEN -->

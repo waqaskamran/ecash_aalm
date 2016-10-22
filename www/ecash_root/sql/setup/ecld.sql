@@ -1,0 +1,23 @@
+CREATE TABLE IF NOT EXISTS `ecld` (
+  `date_modified` timestamp NOT NULL default CURRENT_TIMESTAMP COMMENT "Convenience",
+  `date_created` timestamp NOT NULL default '0000-00-00 00:00:00' COMMENT "Convenience",
+  `company_id` int(10) unsigned NOT NULL default '0' COMMENT "Foreign key, Convenience",
+  `application_id` int(10) unsigned NOT NULL default '0' COMMENT "Foreign key, Convenience",
+  `ecld_id` int(10) unsigned NOT NULL COMMENT "Primary Key",
+  `ecld_file_id` int(10) unsigned NOT NULL default '0' COMMENT "Foreign key, Primary Join",
+  `ecld_return_id` int(10) unsigned default NULL COMMENT "Foreign key, Optional primary join",
+  `event_id` int(10) unsigned NOT NULL default '0' COMMENT "Foreign key, Source join",
+  `return_reason_code` char(3) default NULL COMMENT "Foreign key, important data",
+  `business_date` date NOT NULL default '0000-00-00' COMMENT "Official date for check as provided by QuickCheck authorizing system",
+  `amount` decimal(7,2) NOT NULL default '0.00' COMMENT "Dollar value of quickcheck",
+  `bank_aba` varchar(9) NOT NULL default '' COMMENT "What bank was the check written against",
+  `bank_account` varchar(17) NOT NULL default '' COMMENT "What bank account was the check written against",
+  `bank_account_type` enum('checking','savings') NOT NULL default 'checking' COMMENT "What account type was the check written against",
+  `ecld_status` enum('created','batched','returned','processed') NOT NULL default 'created' COMMENT "What stage has this check reached",
+  `trans_ref_no` varchar(22) NOT NULL default '' COMMENT "External transaction identifier",
+  PRIMARY KEY  (`ecld_id`),
+  UNIQUE KEY `idx_app_es_id` (`application_id`,`event_id`),
+  KEY `idx_ecld_fileid_sched` (`ecld_file_id`,`event_id`),
+  KEY `idx_ecld_aba_account_co_dt` (`bank_aba`,`bank_account`,`company_id`,`business_date`),
+  KEY `idx_ecld_app_dt` (`application_id`,`business_date`,`ecld_id`)
+) ENGINE=InnoDB COMMENT="This table represents individual quick-checks" ;

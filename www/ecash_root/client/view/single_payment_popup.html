@@ -1,0 +1,73 @@
+<html>
+<head>
+<link rel="stylesheet" href="css/transactions.css">
+<link rel="stylesheet" href="js/calendar/calendar-dp.css">
+<script type="text/javascript" src="js/transactions.js"></script>
+<script type="text/javascript" src="js/date_validation.js"></script>
+<script type="text/javascript" src="js/calendar/calendar.js"></script>
+<script type="text/javascript" src="js/calendar/lang/calendar-en.js"></script>
+<style>
+body { font-family:arial, sans-serif; }
+form.no_padding { padding: 0px; }
+td { text-align: center; }
+.left { text-align: left; }
+.right { text-align: right; }
+</style>
+</head>
+<body>
+<form id="%%%action_type%%%_form" name="%%%action_name%%%" method="post" action="/" class="no_padding">
+<input type="hidden" name="posted_fees" id="posted_fees" value="%%%posted_fees%%%">
+<input type="hidden" name="posted_principal" id="posted_principal" value="%%%posted_principal%%%">
+<input type="hidden" name="posted_total" id="posted_total" value="%%%posted_total%%%">
+<input type="hidden" name="action" id="action" value="%%%action_type%%%">
+<input type="hidden" name="schedule_effect" id="schedule_effect" value="shorten">
+<input type="hidden" name="adjustment_target" value="fees">
+<input type="hidden" name="payment_type" value="payment_arranged">
+<input type="hidden" name="action_type" id="action_type" value="save">
+<table width="100%" cellpadding="0" cellspacing="0" border="0" style="height: 283px;" align="center" class="%%%mode_class%%%">
+<tbody>
+<tr style="height: 35px;">
+<td colspan="2">
+<p>Action: <b>%%%action_name%%% </b></p>
+<p>Please enter the amount of the transaction.</p>
+</td>
+</tr>
+<tr><td colspan="2">
+<table width="100%" border="0" align="center" cellspacing="2">
+<tr>
+   <td class="right">Principal Balance:</td>
+   <td class="left">$&nbsp;%%%posted_principal%%%</td>
+</tr>
+<tr>
+   <td class="right">Fees Balance:</td>
+   <td class="left">$&nbsp;%%%posted_fees%%%</td>
+</tr>
+<tr>
+   <td class="right">Interest Balance:</td>
+   <td class="left">$&nbsp;%%%posted_service_charge%%%</td>
+</tr>
+<tr>
+   <td class="right">Total Outstanding Amount:</td>
+   <td class="left">$&nbsp;%%%posted_total%%%</td>
+</tr>
+<tr>
+  <td class="right">Amount %%%inline_text%%%:</td>
+  <td class="left"><input id="amount" name="amount" size="10" type="text" value="%%%amount%%%"></td>
+</tr>
+%%%optional_tr%%%
+<tr>
+  <td class="right">Description:</td>
+  <td class="left"><input name="payment_description" id="payment_description" type="text" size="30" maxlength="200" value=""></td>
+</tr>
+</table>
+</td>
+</tr>
+<tr>
+  <td><input type="button" value="Cancel" onClick="window.close();"></td>
+  <td><input type="button" value="Save %%%save_text%%%" onClick="SaveSinglePayment('%%%action_type%%%', this);"></td>
+</tr>
+</tbody>
+</table>
+</form>
+</body>
+</html>

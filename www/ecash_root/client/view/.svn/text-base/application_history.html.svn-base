@@ -1,0 +1,15 @@
+<html>
+<head>
+<title>Application History</title>
+<link rel='stylesheet' href='css/style.css'>
+</head>
+<body onload="self.focus();">
+
+%%%application_history%%%
+
+%%%queue_history%%%
+
+%%%call_history%%%
+
+</body>
+</html>

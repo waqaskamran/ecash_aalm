@@ -1,0 +1,23 @@
+K 25
+svn:wc:ra_dav:version-url
+V 97
+/svn/aalm_current/!svn/ver/1979/ecash/branches/sql_merge/ecash_cfe/cronjobs/deprecated/fbod_batch
+END
+BatchRecord.php
+K 25
+svn:wc:ra_dav:version-url
+V 113
+/svn/aalm_current/!svn/ver/1979/ecash/branches/sql_merge/ecash_cfe/cronjobs/deprecated/fbod_batch/BatchRecord.php
+END
+ClassicRecord.php
+K 25
+svn:wc:ra_dav:version-url
+V 115
+/svn/aalm_current/!svn/ver/1979/ecash/branches/sql_merge/ecash_cfe/cronjobs/deprecated/fbod_batch/ClassicRecord.php
+END
+GoldRecord.php
+K 25
+svn:wc:ra_dav:version-url
+V 112
+/svn/aalm_current/!svn/ver/1979/ecash/branches/sql_merge/ecash_cfe/cronjobs/deprecated/fbod_batch/GoldRecord.php
+END

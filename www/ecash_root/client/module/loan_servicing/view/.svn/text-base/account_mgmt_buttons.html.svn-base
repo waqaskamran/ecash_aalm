@@ -1,0 +1,36 @@
+<div id="account_mgmt_buttons" style="display: none;">
+	<div id="app_attributes">
+		%%%app_attribute_buttons%%%
+	</div>
+	<div id="app_actions">
+		<div class="app_attribute_title">
+			App Actions
+		</div>
+		<div style="float: left;">
+			<div class="app_button">
+					<input id="AppActionWithdrawApp" type="button" name="submit_button" value="Withdraw App" class="button2%%%cs_withdraw_disabled%%%" onClick="javascript:OpenDialogTall('/?action=loan_action&type=Withdraw&loan_section=CS&application_id=%%%application_id%%%&customer_email=%%%customer_email%%%');"%%%cs_withdraw_disabled%%%>
+			</div>
+			<div class="app_button">
+		   			<input id="AppActionBankruptcyNotification" type="button" %%%bankruptcy_notification_disabled%%% name="submit_button" value="Bankruptcy Notification" class="button2%%%bankruptcy_notification_disabled%%%" onClick="javascript:Update_Status_Direct('Bankruptcy_Notification', 'Bankruptcy Notified');">
+				</div>
+			<div class="app_button">
+					<input id="AppActionBankruptcyVerified" type="button" %%%bankruptcy_verified_disabled%%% name="submit_button" value="Bankruptcy Verified" class="button2%%%bankruptcy_verified_disabled%%%" onClick="Update_Status_Direct('Bankruptcy_Verified', 'Bankruptcy Verified');">
+				</div>
+				</div>
+			<div style="float: left;">
+			<div class="app_button">
+					%%%watch_button%%%
+				</div>
+			<div class="app_button">
+					<input id="AppActionHold" type="button" %%%place_in_hold_disabled%%% name="submit_button" class="button2%%%place_in_hold_disabled%%%" value="%%%hold_button_label%%%" onClick="javascript:OpenDialog('/?action=%%%hold_button_action%%%&action_type=fetch&mode=account_mgmt&application_id=%%%application_id%%%');" >
+			</div>
+			<div class="app_button">
+					<input id="AppActionAmortization" type="button" name="submit_button" class="button2%%%amortization_disabled%%%" value="%%%amortization_button_label%%%" onClick="javascript:Confirm_Amortization_Toggle('/?action=%%%amortization_button_action%%%&mode=account_mgmt&application_id=%%%application_id%%%')">
+			</div>
+		</div>
+	</div>
+</div>
+<div style="clear: both;">
+	<span style="text-align: left; float: left;">%%%back_button_link%%%</span>
+	<span style="text-align: center; float: right; width: 755px;">Controlling Agent: &nbsp; <b>%%%controlling_agent_name%%% </b></span>
+</div>
